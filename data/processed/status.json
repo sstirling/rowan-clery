@@ -1,0 +1,14 @@
+{
+  "last_run": "2026-10-01",
+  "last_successful_run": "2026-10-01",
+  "staleness_days": 0,
+  "alarms": [],
+  "warnings": [],
+  "counts": {
+    "total_archived": 186,
+    "currently_published": 186,
+    "no_longer_published": 0,
+    "withdrawn": 0,
+    "source_removed": 0
+  }
+}

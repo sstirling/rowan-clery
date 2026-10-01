@@ -1,0 +1,136 @@
+name: Daily archive
+
+# Twice a day on odd minutes. Scheduled workflows on shared runners are best-effort —
+# delays of an hour are routine and runs are sometimes skipped entirely under load — so
+# the second run is cheap insurance rather than redundancy. The content-hash gate means
+# an unchanged source costs nothing.
+on:
+  schedule:
+    - cron: "17 9 * * *"
+    - cron: "17 21 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# Never let a manual run race the cron and produce conflicting commits.
+concurrency:
+  group: archive
+  cancel-in-progress: false
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      # Drive's listing renders localized, year-less timestamps. Pinning the zone keeps
+      # them comparable between runs.
+      TZ: America/New_York
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # The pipeline is deliberately stdlib-only: no install step, nothing to pin, and
+      # no supply-chain surface in a pipeline whose output is meant to be evidence.
+
+      - name: Fetch and archive
+        id: run
+        run: |
+          set -o pipefail
+          python run.py all 2>&1 | tee run.log
+          echo "exit=$?" >> "$GITHUB_OUTPUT"
+
+      - name: Summarise
+        if: always()
+        run: |
+          {
+            echo "## Rowan Clery archive — $(date -u +%Y-%m-%d)"
+            echo '```'
+            cat run.log || echo "no output"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Verify raw snapshots were not modified or deleted
+        run: |
+          # The raw store is append-only. Anything other than an addition under
+          # data/raw/ means the evidence layer was rewritten, which must never happen.
+          changed=$(git diff --diff-filter=MD --name-only -- data/raw/ || true)
+          if [ -n "$changed" ]; then
+            echo "::error::Raw snapshots were modified or deleted:"
+            echo "$changed"
+            exit 1
+          fi
+
+      - name: Commit
+        run: |
+          git config user.name  "rowan-clery-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A data docs
+          if git diff --cached --quiet; then
+            echo "nothing to commit"
+            exit 0
+          fi
+          summary=$(python -c "
+import json,pathlib,sys
+runs=sorted(pathlib.Path('data/raw/_runs').glob('*.json'))
+print(json.loads(runs[-1].read_text()).get('summary','updated') if runs else 'updated')
+")
+          # A commit per run, change or not, serves two purposes: git log becomes a
+          # human-readable audit trail, and the repository stays active. GitHub disables
+          # scheduled workflows after 60 days without commits, and because snapshots are
+          # written only on change, a quiet stretch would otherwise switch the scraper
+          # off silently — exactly when nobody would notice.
+          git commit -m "data: ${summary} — $(date -u +%Y-%m-%d)"
+          for attempt in 1 2 3; do
+            git push && break
+            echo "push failed, rebasing (attempt $attempt)"
+            git pull --rebase
+          done
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+      - name: Open an issue if the run failed
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = "Scrape failure";
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo, state: "open", labels: "scrape-failure",
+            });
+            const body = `The daily archive run failed on ${new Date().toISOString().slice(0,10)}.\n\n` +
+              `[View the run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})\n\n` +
+              `The archive was not modified. Nothing has been lost, but no new data is being captured until this is fixed.`;
+            if (existing.data.some(i => i.title.startsWith(title))) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: existing.data.find(i => i.title.startsWith(title)).number, body,
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner, repo: context.repo.repo,
+                title: `${title} — ${new Date().toISOString().slice(0,10)}`,
+                labels: ["scrape-failure"], body,
+              });
+            }
+
+  deploy:
+    # Pages is deployed from the SAME workflow run. Commits made with GITHUB_TOKEN do
+    # not trigger other workflows, so a separate `on: push` Pages job would never fire
+    # and the page would silently freeze while the data kept updating.
+    needs: archive
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

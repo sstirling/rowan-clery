@@ -1,0 +1,55 @@
+raw_token,role,flags,notes
+# Maps every distinct token in the source's `Disposition` column to outcome flags.
+# Tokens are matched after lowercasing, collapsing whitespace and stripping trailing
+# periods. An unmapped token FAILS the build.
+#
+# Disposition is modelled as a SET of flags rather than one class, because rows
+# routinely carry several outcomes at once ("Closed; Subject arrested; Trespass notice
+# issued"). Forcing a single label would throw real outcomes away.
+#
+# role:
+#   outcome       an outcome; contributes its flags
+#   audit_marker  the university noting that it revised this row. Flags from tokens
+#                 BEFORE the marker are superseded. "Open/Active; Disposition updated;
+#                 Closed" means the case is CLOSED, not simultaneously open and closed.
+closed,outcome,closed,
+open/active,outcome,open_active,
+subject arrested,outcome,arrested,
+subjects arrested,outcome,arrested,
+3 subjects arrested,outcome,arrested,
+subject issued summons,outcome,summons_issued,
+subjects issued summons,outcome,summons_issued,
+subject issued summons and trespass notice,outcome,summons_issued|trespass_notice,
+subjects issued summons and trespassing warnings,outcome,summons_issued|trespass_notice,
+three students charged,outcome,charged,
+two juveniles charged,outcome,charged|juvenile_involved,
+trespass notice issued,outcome,trespass_notice,
+trespass warning issued,outcome,trespass_notice,
+trespass warnings issued,outcome,trespass_notice,
+trespassing notice/warning issued,outcome,trespass_notice,
+subject issued trespass warning,outcome,trespass_notice,
+subjects issued trespass warnings,outcome,trespass_notice,
+building trespass warning issued,outcome,trespass_notice,
+building ban was issued,outcome,building_ban,
+subject warned,outcome,warned,
+tro issued,outcome,tro_issued,TRO = temporary restraining order
+glassboro police case,outcome,glassboro_pd,"Handled by the municipal force, not campus police"
+glassboro police jurisdiction,outcome,glassboro_pd,
+referred to gc prosecutor,outcome,referred_prosecutor,GC = Gloucester County
+referred to dean of students,outcome,referred_university,
+addressed by university department,outcome,referred_university,
+incident not reported to rupd,outcome,not_reported_to_rupd,Reported to a Campus Security Authority only
+reporting party declined police involvement,outcome,rp_declined,
+reporting parties declined police involvement,outcome,rp_declined,
+reporting party provided citizen's complaint info,outcome,rp_referred_to_complaint,
+reporting party provided resources,outcome,rp_provided_resources,
+individual left prior to rupd arrival,outcome,no_contact,
+property recovered,outcome,property_recovered,
+investigation completed,outcome,investigation_completed,
+no further action,outcome,no_further_action,
+unsolved,outcome,unsolved,
+juvenile involved,outcome,juvenile_involved,
+disposition updated,audit_marker,,Tokens after this supersede those before it
+disposition updated/inactive,audit_marker,inactive,
+disposition updated- closed,audit_marker,closed,
+updated - property recovered,audit_marker,property_recovered,

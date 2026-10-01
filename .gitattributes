@@ -1,2 +1,16 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Raw snapshots are byte-exact archival copies of what the source served. Google
+# serves them with CRLF line endings, and `* text=auto` above would rewrite those
+# to LF on checkout — changing the bytes and breaking sha256 verification against
+# the manifest.
+#
+# `-text` only: it stops the line-ending rewrite while keeping these files diffable
+# as text. Do NOT add `-diff` here — it would mark them binary, and a readable diff
+# showing exactly which row disappeared is the point of storing CSV in the first place.
+data/raw/** -text
+
+# Test fixtures are byte-exact copies of the four real sheets. They are evidence of
+# what the source looked like on the capture date, so they get the same protection.
+tests/fixtures/** -text

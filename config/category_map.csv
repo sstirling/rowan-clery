@@ -1,0 +1,81 @@
+raw_token,role,categories,notes
+# Maps every distinct token found in the source's `Nature` column to canonical
+# categories. Hand-reviewed; edit freely. An unmapped token FAILS the build rather than
+# falling into a silent "Other" bucket, because a silent bucket is how undercounting
+# starts.
+#
+# role:
+#   offense       a real offense; contributes its categories to the incident
+#   audit_marker  a note the university embedded in the data, not an offense. Tokens
+#                 BEFORE a marker are superseded by the tokens after it. Without this,
+#                 "Theft; Nature updated; Motor Vehicle Theft" would be counted as a
+#                 theft (the classification RUPD withdrew) and would mint a phantom
+#                 category literally named "Nature updated".
+#
+# categories: one or more canonical names, separated by "|". Mapping is token -> list,
+# never a string split, because several tokens legitimately contain commas
+# ("Alcohol Violations (Open Container in Vehicle, DWI)").
+Nature updated,audit_marker,,RUPD reclassified this incident; tokens after this supersede those before
+Possession of open container of alcohol,offense,Alcohol violation,
+Alcohol Violation (Open container),offense,Alcohol violation,
+Alcohol Violation (Possessing Open Container),offense,Alcohol violation,
+Possession of open container of alcohol in vehicle,offense,Alcohol violation,
+Possession of open container of alcohol in a vehicle,offense,Alcohol violation,
+Possession of open container of Alcohol in a vehicle,offense,Alcohol violation,
+"Alcohol Violations (Open Container in Vehicle, DWI)",offense,Alcohol violation|DWI,Single token naming two offenses
+Alcohol Violation (DWI),offense,DWI,
+DWI,offense,DWI,
+"Alcohol Violation (DWI), Possession of CDS (Illegal Drug)",offense,DWI|Drug offense,Single token naming two offenses
+Theft,offense,Theft,
+Attempted theft of property,offense,Theft,Attempted
+Theft (Bicycle),offense,Theft,
+Theft- Workstation,offense,Theft,
+Theft- iPhone,offense,Theft,
+Motor Vehicle Theft,offense,Motor vehicle theft,
+Motor Vehicle Theft (Electric Scooter),offense,Motor vehicle theft,NJ classes e-scooters as motor vehicles
+Motor Vehicle Theft (Electric Scooter) - Attempted,offense,Motor vehicle theft,Attempted
+Motor Vehicle Theft (Electric bike),offense,Motor vehicle theft,
+Criminal Mischief,offense,Criminal mischief,
+Criminal mischief,offense,Criminal mischief,Case variant of the above
+Criminal Mischief (Lock),offense,Criminal mischief,
+Criminal Mischief- Graffiti,offense,Criminal mischief,
+Simple Assault,offense,Simple assault,
+Assault (Simple),offense,Simple assault,
+Aggravated Assault-Strangulation,offense,Aggravated assault,
+Harassment,offense,Harassment,
+Stalking,offense,Stalking,
+Sextortion,offense,Sextortion,Kept separate from sex offenses; it is an extortion pattern
+Sexual Assault/Sex Offense,offense,Sex offense,
+Sexual Assault-Rape,offense,Sex offense,
+Sex Offense-Rape,offense,Sex offense,
+Sexual Assault-Fondling,offense,Sex offense,
+Domestic Violence,offense,Domestic violence,
+Domestic Violence (Roommates),offense,Domestic violence,
+Domestic Violence (Harassment),offense,Domestic violence|Harassment,
+False Imprisonment,offense,False imprisonment,
+Terroristic Threats,offense,Terroristic threats,
+Trespassing,offense,Trespassing,
+Defiant Trespassing,offense,Trespassing,
+Trespassing (Defiant),offense,Trespassing,Word-order variant of the above
+Disorderly Conduct,offense,Disorderly conduct,
+Disorderly conduct,offense,Disorderly conduct,Case variant of the above
+Obstruction,offense,Obstruction,
+Resisting Arrest,offense,Resisting arrest,
+Providing False Identification,offense,Providing false identification,
+Fugitive from Justice,offense,Fugitive from justice,
+Possession of CDS (Illegal Drugs),offense,Drug offense,CDS = controlled dangerous substance (NJ term)
+Possession of CDS (Illegal Drug) Paraphernalia,offense,Drug offense,
+Possession of CDS (Prohibited Drug/Paraphernalia),offense,Drug offense,
+Possession of open container of CDS (Illegal Drug) in a vehicle,offense,Drug offense,
+Possession of open container of CDS (Prohibited Drug) in a vehicle,offense,Drug offense,
+Weapons Law Violation,offense,Weapons offense,
+Weapons Law Violation (Spring-loaded knife),offense,Weapons offense,
+Fraud,offense,Fraud,
+Creating False Public Alarm,offense,Creating false public alarm,
+Littering,offense,Littering,
+Public Urination,offense,Public urination,
+Public urination,offense,Public urination,Case variant of the above
+Failing to Supervise Minor,offense,Failure to supervise a minor,
+Failure to Supervise a Minor,offense,Failure to supervise a minor,Wording variant of the above
+"Curfew, Failing to Supervise Minors",offense,Curfew violation|Failure to supervise a minor,Single token naming two offenses
+Improper Behavior,offense,Improper behavior,Source's own catch-all; left as its own category rather than merged

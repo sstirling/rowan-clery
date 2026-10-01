@@ -1,0 +1,10 @@
+{
+  "_comment": "Pinned floor of known source files. The folder scrape may ADD ids to the archive's known set, but a scrape can never REMOVE these. Every id here is fetched directly by id each run, even if the folder listing stops mentioning it. This is what keeps a broken scrape from looking like 'the university deleted everything'.",
+  "folder_id": "1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
+  "files": {
+    "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE": "June 2026 Daily Crime Log",
+    "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o": "July 2026 Daily Crime Log",
+    "1Ms5gjJX_-vnA4wUaTW-z60Hd98guINjRU5R-e5n58Ts": "August 2026 Daily Crime Log",
+    "1HULCgv9mk7XMkfC2DKkBaOUm5rA00aVfO83lU9489p0": "September 2026 Daily Crime Log"
+  }
+}

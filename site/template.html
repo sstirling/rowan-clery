@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- This page republishes incident narratives verbatim, including reports of sexual
+     assault and domestic violence. Keep it out of search indexes. -->
+<meta name="robots" content="noindex, nofollow">
+<title>Rowan Clery Archive</title>
+<style>
+  :root {
+    color-scheme: light;
+    --surface-0: #f4f4f2;
+    --surface-1: #fcfcfb;
+    --surface-2: #eeeeec;
+    --border:    #d8d8d4;
+    --text-1:    #0b0b0b;
+    --text-2:    #52514e;
+    --text-3:    #7a7975;
+    --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100;
+    --s5: #e87ba4; --s6: #008300; --s7: #4a3aa7; --s8: #e34948;
+    --seq-100:#cde2fb; --seq-250:#86b6ef; --seq-400:#3987e5;
+    --seq-550:#1c5cab; --seq-700:#0d366b;
+    --alarm:  #c0392b;
+    --warn:   #b06a00;
+    --ok:     #1baf7a;
+    --grid:   #e4e4e0;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --surface-0: #121211; --surface-1: #1a1a19; --surface-2: #232322;
+      --border: #35352f; --text-1: #ffffff; --text-2: #c3c2b7; --text-3: #8d8c83;
+      --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500;
+      --s5:#d55181; --s6:#008300; --s7:#9085e9; --s8:#e66767;
+      --seq-100:#0d366b; --seq-250:#184f95; --seq-400:#256abf;
+      --seq-550:#5598e7; --seq-700:#9ec5f4;
+      --alarm:#ef6f61; --warn:#e0a33c; --grid:#2c2c29;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface-0: #121211; --surface-1: #1a1a19; --surface-2: #232322;
+    --border: #35352f; --text-1: #ffffff; --text-2: #c3c2b7; --text-3: #8d8c83;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500;
+    --s5:#d55181; --s6:#008300; --s7:#9085e9; --s8:#e66767;
+    --seq-100:#0d366b; --seq-250:#184f95; --seq-400:#256abf;
+    --seq-550:#5598e7; --seq-700:#9ec5f4;
+    --alarm:#ef6f61; --warn:#e0a33c; --grid:#2c2c29;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--surface-0); color: var(--text-1);
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 16px 80px; }
+  h1 { font-size: 24px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  h2 { font-size: 16px; margin: 0 0 2px; letter-spacing: -0.005em; }
+  h3 { font-size: 13px; margin: 0 0 10px; color: var(--text-2); font-weight: 600; }
+  p  { margin: 0 0 10px; color: var(--text-2); }
+  a  { color: var(--s1); }
+  .sub { color: var(--text-3); font-size: 13px; }
+
+  header { border-bottom: 1px solid var(--border); background: var(--surface-1); padding: 18px 0 14px; margin-bottom: 18px; }
+  .headrow { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+  button.ghost {
+    background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border);
+    border-radius: 7px; padding: 6px 11px; font-size: 12px; cursor: pointer; font-family: inherit;
+  }
+  button.ghost:hover { color: var(--text-1); }
+
+  .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 14px; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 10px; margin-bottom: 14px; }
+  .stat { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 13px 15px; }
+  .stat .n { font-size: 27px; font-weight: 650; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .stat .l { font-size: 11.5px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
+  .stat.flag .n { color: var(--alarm); }
+
+  .banner { border-radius: 10px; padding: 12px 15px; margin-bottom: 14px; font-size: 13.5px; border: 1px solid; }
+  .banner.alarm { background: color-mix(in srgb, var(--alarm) 11%, var(--surface-1)); border-color: var(--alarm); color: var(--text-1); }
+  .banner.warn  { background: color-mix(in srgb, var(--warn) 12%, var(--surface-1)); border-color: var(--warn); color: var(--text-1); }
+  .banner.note  { background: var(--surface-2); border-color: var(--border); color: var(--text-2); }
+  .banner strong { color: var(--text-1); }
+  .banner ul { margin: 6px 0 0; padding-left: 18px; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 820px) { .grid2 { grid-template-columns: 1fr; } }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 10px 14px; margin: 10px 0 0; font-size: 12px; color: var(--text-2); }
+  .legend span { display: inline-flex; align-items: center; gap: 5px; }
+  .swatch { width: 10px; height: 10px; border-radius: 2px; flex: none; }
+
+  svg { display: block; width: 100%; overflow: visible; }
+  .axis { font-size: 11px; fill: var(--text-3); }
+  .vlabel { font-size: 11px; fill: var(--text-2); font-variant-numeric: tabular-nums; }
+  .gridline { stroke: var(--grid); stroke-width: 1; }
+
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+  select, input[type=search] {
+    background: var(--surface-1); color: var(--text-1); border: 1px solid var(--border);
+    border-radius: 7px; padding: 7px 9px; font-size: 13px; font-family: inherit; min-width: 0;
+  }
+  input[type=search] { flex: 1 1 230px; }
+  .count { font-size: 12.5px; color: var(--text-3); margin-left: auto; font-variant-numeric: tabular-nums; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;
+       color: var(--text-3); font-weight: 600; padding: 7px 9px; border-bottom: 1px solid var(--border);
+       position: sticky; top: 0; background: var(--surface-1); cursor: pointer; white-space: nowrap; }
+  td { padding: 8px 9px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text-2); }
+  td.case { font-family: var(--mono); font-size: 11.5px; white-space: nowrap; color: var(--text-3); }
+  td.narr { color: var(--text-1); min-width: 260px; }
+  tr.gone td { opacity: 0.62; }
+  tr.gone td.narr { text-decoration: line-through; }
+  .tablewrap { max-height: 640px; overflow: auto; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-1); }
+
+  .tag { display: inline-block; font-size: 10.5px; padding: 1.5px 6px; border-radius: 4px;
+         background: var(--surface-2); color: var(--text-2); margin: 1px 3px 1px 0; white-space: nowrap; border: 1px solid var(--border); }
+  .tag.cat { border-color: color-mix(in srgb, var(--s1) 45%, var(--border)); color: var(--text-1); }
+  .tag.bad { border-color: var(--alarm); color: var(--alarm); }
+  .tag.amend { border-color: var(--warn); color: var(--warn); }
+
+  .feed { display: flex; flex-direction: column; gap: 8px; max-height: 420px; overflow: auto; }
+  .ev { border-left: 3px solid var(--border); padding: 7px 0 7px 11px; font-size: 13px; }
+  .ev.added { border-color: var(--s3); }
+  .ev.amended { border-color: var(--warn); }
+  .ev.withdrawn, .ev.source_removed { border-color: var(--alarm); }
+  .ev.reappeared, .ev.relocated { border-color: var(--s1); }
+  .ev .meta { font-size: 11px; color: var(--text-3); font-family: var(--mono); }
+  .ev .diff { font-size: 12px; margin-top: 3px; }
+  .ev .old { color: var(--alarm); text-decoration: line-through; }
+  .ev .new { color: var(--ok); }
+  .empty { color: var(--text-3); font-size: 13px; font-style: italic; padding: 10px 0; }
+
+  details.q { border-top: 1px solid var(--border); padding: 9px 0 0; margin-top: 9px; }
+  details.q summary { cursor: pointer; font-size: 13px; color: var(--text-2); }
+  details.q ul { font-size: 12.5px; color: var(--text-3); margin: 7px 0 0; padding-left: 18px; }
+  code { font-family: var(--mono); font-size: 12px; background: var(--surface-2); padding: 1px 4px; border-radius: 3px; }
+  footer { margin-top: 26px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-3); }
+  .tip { position: fixed; pointer-events: none; background: var(--surface-1); border: 1px solid var(--border);
+         border-radius: 7px; padding: 7px 9px; font-size: 12px; color: var(--text-1); opacity: 0;
+         transition: opacity .1s; box-shadow: 0 4px 14px rgba(0,0,0,.14); z-index: 50; max-width: 260px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="headrow">
+      <div>
+        <h1>Rowan Clery crime log archive</h1>
+        <p class="sub" id="strap"></p>
+      </div>
+      <button class="ghost" id="theme">Toggle theme</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div id="banners"></div>
+  <div class="stats" id="stats"></div>
+
+  <div class="card">
+    <h2>What changed</h2>
+    <h3>Additions, amendments and removals observed by this archive</h3>
+    <div class="feed" id="feed"></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2>Incidents logged per month</h2>
+      <h3 id="monthsub"></h3>
+      <div id="chart-month"></div>
+      <div class="legend" id="legend-month"></div>
+    </div>
+    <div class="card">
+      <h2>Most common offenses</h2>
+      <h3>Incidents may carry more than one offense, so the total exceeds the incident count</h3>
+      <div id="chart-cat"></div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2>Where incidents are logged</h2>
+      <h3>Top 15 locations, as written in the source</h3>
+      <div id="chart-loc"></div>
+    </div>
+    <div class="card">
+      <h2>How incidents end</h2>
+      <h3>One incident can carry several outcomes</h3>
+      <div id="chart-disp"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>When incidents are reported</h2>
+    <h3>By day of week and hour of the report, not of the incident</h3>
+    <div id="chart-heat"></div>
+  </div>
+
+  <div class="card">
+    <h2>Data quality</h2>
+    <h3>Problems in the source worth knowing about before publishing anything</h3>
+    <div id="quality"></div>
+  </div>
+
+  <div class="card">
+    <h2>Every incident</h2>
+    <h3>Including records the source no longer publishes, shown struck through</h3>
+    <div class="filters">
+      <input type="search" id="q" placeholder="Search narratives, case numbers, locations…">
+      <select id="f-month"></select>
+      <select id="f-cat"></select>
+      <select id="f-campus"></select>
+      <select id="f-agency"></select>
+      <select id="f-status"></select>
+      <span class="count" id="tcount"></span>
+    </div>
+    <div class="tablewrap">
+      <table id="tbl">
+        <thead><tr>
+          <th data-k="reported">Reported</th>
+          <th data-k="case_number">Case</th>
+          <th data-k="nature_raw">Nature</th>
+          <th data-k="narrative">Narrative</th>
+          <th data-k="campus">Campus</th>
+          <th data-k="location">Location</th>
+          <th data-k="disposition_raw">Disposition</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer id="foot"></footer>
+</div>
+
+<div class="tip" id="tip"></div>
+<script id="payload" type="application/json">__DATA__</script>
+<script>
+"use strict";
+const D = JSON.parse(document.getElementById("payload").textContent);
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const SERIES = ["--s1","--s2","--s3","--s4","--s5","--s6","--s7","--s8"];
+const cssvar = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const LIVE = new Set(["active","missing"]);
+
+/* ---- theme ---- */
+$("#theme").onclick = () => {
+  const dark = document.documentElement.getAttribute("data-theme") === "dark"
+    || (!document.documentElement.hasAttribute("data-theme") && matchMedia("(prefers-color-scheme: dark)").matches);
+  document.documentElement.setAttribute("data-theme", dark ? "light" : "dark");
+  try { localStorage.setItem("theme", dark ? "light" : "dark"); } catch {}
+  drawAll();
+};
+try { const t = localStorage.getItem("theme"); if (t) document.documentElement.setAttribute("data-theme", t); } catch {}
+
+/* ---- tooltip ---- */
+const tip = $("#tip");
+function showTip(e, html) {
+  tip.innerHTML = html; tip.style.opacity = 1;
+  const r = tip.getBoundingClientRect();
+  let x = e.clientX + 13, y = e.clientY + 13;
+  if (x + r.width > innerWidth - 8) x = e.clientX - r.width - 13;
+  if (y + r.height > innerHeight - 8) y = e.clientY - r.height - 13;
+  tip.style.left = x + "px"; tip.style.top = y + "px";
+}
+const hideTip = () => { tip.style.opacity = 0; };
+
+/* ---- header, banners, stats ---- */
+const c = D.counts;
+$("#strap").textContent =
+  `${c.total_archived} incidents preserved · archive began ${D.archive_started} · built ${D.generated_utc.replace("T"," ").replace("+00:00"," UTC")}`;
+
+const banners = [];
+const stale = D.status.staleness_days;
+if (stale !== null && stale > 2) {
+  banners.push(`<div class="banner alarm"><strong>This page is ${stale} days stale.</strong>
+    The last successful run was ${esc(D.status.last_successful_run)}. The scraper may be broken — check the workflow.</div>`);
+}
+if (D.status.alarms?.length) {
+  banners.push(`<div class="banner alarm"><strong>Alarms from the last run</strong>
+    <ul>${D.status.alarms.map(a => `<li>${esc(a)}</li>`).join("")}</ul></div>`);
+}
+if (c.no_longer_published > 0) {
+  banners.push(`<div class="banner warn"><strong>${c.no_longer_published} record${c.no_longer_published===1?"":"s"}
+    no longer appear in the source</strong> but are preserved here in full. Federal guidance tells institutions to
+    update a crime log entry rather than delete it, so a disappearance is worth asking Rowan about.</div>`);
+}
+banners.push(`<div class="banner note">
+  <strong>Read these counts carefully.</strong> They are counts of <em>logged incidents</em>, not of crime.
+  Reporting rates, Campus Security Authority referrals and the academic calendar all move them independently of
+  underlying crime. The series is short — June holds ${monthCount("June 2026")} incidents and September
+  ${monthCount("September 2026")}, which is a campus filling up for the semester, not a crime wave. Of
+  ${c.total_archived} incidents, ${agencyCount("RUPD")} carry a Rowan University police reference,
+  ${agencyCount("GPD")} a Glassboro municipal police reference and ${agencyCount("CSA")} a Campus Security
+  Authority reference, so "campus police handled ${c.total_archived} incidents" would be wrong.
+  This archive can only attest to what it has seen since ${D.archive_started}.</div>`);
+$("#banners").innerHTML = banners.join("");
+
+function monthCount(m) { return D.incidents.filter(i => i.month === m).length; }
+function agencyCount(a) { return D.incidents.filter(i => i.agencies.includes(a)).length; }
+
+$("#stats").innerHTML = [
+  ["Incidents preserved", c.total_archived, false],
+  ["Still published", c.currently_published, false],
+  ["No longer published", c.no_longer_published, c.no_longer_published > 0],
+  ["Amended since first seen", D.incidents.filter(i => i.revision > 1).length, false],
+  ["Changes recorded", D.changelog.filter(e => e.change_type !== "added").length, false],
+].map(([l, n, flag]) =>
+  `<div class="stat${flag ? " flag" : ""}"><div class="n">${n}</div><div class="l">${l}</div></div>`).join("");
+
+/* ---- change feed ---- */
+const LABEL = { added:"Added", amended:"Amended", withdrawn:"Removed from source",
+  source_removed:"Whole monthly sheet removed", reappeared:"Reappeared", missing:"Missing", relocated:"Moved file" };
+const feed = D.changelog.filter(e => e.change_type !== "added").slice().reverse().slice(0, 120);
+$("#feed").innerHTML = feed.length ? feed.map(e => `
+  <div class="ev ${esc(e.change_type)}">
+    <div><strong>${esc(LABEL[e.change_type] || e.change_type)}</strong>
+      — ${esc(e.case_number || e.incident_uid)}</div>
+    <div class="meta">${esc(e.observed_date)}${e.field ? " · " + esc(e.field) : ""}</div>
+    ${e.field ? `<div class="diff"><span class="old">${esc(e.old) || "(blank)"}</span>
+       → <span class="new">${esc(e.new) || "(blank)"}</span></div>` : ""}
+    ${e.last_known_disposition ? `<div class="diff">Last known disposition: ${esc(e.last_known_disposition)}</div>` : ""}
+  </div>`).join("")
+  : `<div class="empty">No additions, amendments or removals observed yet. The archive started on ${esc(D.archive_started)};
+     everything recorded so far is the initial capture.</div>`;
+
+/* ---- chart helpers ---- */
+function svg(h) { return `<svg viewBox="0 0 600 ${h}" preserveAspectRatio="xMinYMin meet" role="img">`; }
+function hbars(sel, rows, color, fmt) {
+  if (!rows.length) { $(sel).innerHTML = `<div class="empty">No data.</div>`; return; }
+  const LW = 168, BW = 600 - LW - 46, BH = 19, GAP = 7, max = Math.max(...rows.map(r => r[1])) || 1;
+  const h = rows.length * (BH + GAP) + 6;
+  let s = svg(h);
+  rows.forEach(([label, n], i) => {
+    const y = i * (BH + GAP), w = Math.max(2, (n / max) * BW);
+    s += `<text class="axis" x="${LW - 8}" y="${y + BH / 2 + 4}" text-anchor="end">${esc(clip(label, 30))}</text>`;
+    // 4px rounded data-end, anchored square to the baseline
+    s += `<path d="M${LW} ${y} H${LW + w - 4} a4 4 0 0 1 4 4 v${BH - 8} a4 4 0 0 1 -4 4 H${LW} Z"
+           fill="${color}" data-t="${esc(label)}: ${fmt ? fmt(n) : n}"/>`;
+    s += `<text class="vlabel" x="${LW + w + 7}" y="${y + BH / 2 + 4}">${fmt ? fmt(n) : n}</text>`;
+  });
+  $(sel).innerHTML = s + "</svg>";
+  wireTips(sel);
+}
+function wireTips(sel) {
+  $(sel).querySelectorAll("[data-t]").forEach(el => {
+    el.style.cursor = "crosshair";
+    el.addEventListener("mousemove", e => showTip(e, esc(el.dataset.t)));
+    el.addEventListener("mouseleave", hideTip);
+  });
+}
+const clip = (s, n) => (s.length > n ? s.slice(0, n - 1) + "…" : s);
+
+/* ---- charts ---- */
+// Round an axis maximum up to a readable tick value (10/20/25/50 x a power of ten),
+// so the gridlines read 0/30/60/90/120 rather than 0/27/53/80/107.
+function niceMax(v) {
+  const mag = Math.pow(10, Math.floor(Math.log10(v)));
+  for (const step of [1, 1.2, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10])
+    if (v <= step * mag) return step * mag;
+  return 10 * mag;
+}
+
+function drawMonth() {
+  const months = D.facets.months.map(m => m.value).filter(Boolean)
+    .sort((a, b) => new Date(a + " 1") - new Date(b + " 1"));
+  const top = D.facets.categories.slice(0, 7).map(c => c.value);
+  const keys = top.concat(["Other"]);
+  $("#monthsub").textContent = `Each incident counted once, under its first-listed offense · top ${top.length} types, rest grouped as Other`;
+
+  const data = months.map(m => {
+    const rows = D.incidents.filter(i => i.month === m);
+    const o = { m, total: rows.length };
+    keys.forEach(k => o[k] = 0);
+    rows.forEach(i => {
+      // Each incident counts ONCE, under its first-listed offense, so the stack height
+      // equals the incident count on the label. Counting an incident under every
+      // offense it carries would make the bar taller than the number printed above it.
+      // The ranked chart beside this one is where multi-offense incidents are counted
+      // per offense.
+      const primary = i.categories.find(c => top.includes(c));
+      o[primary || "Other"]++;
+    });
+    return o;
+  });
+
+  const PAD = 34, BOT = 26, H = 230;
+  const raw = Math.max(...data.map(d => keys.reduce((s, k) => s + d[k], 0)), 1);
+  const max = niceMax(raw);
+  const bw = Math.min(74, (600 - PAD - 12) / data.length - 16);
+  let s = svg(H);
+  for (let g = 0; g <= 4; g++) {
+    const y = 10 + (H - BOT - 10) * (g / 4), v = Math.round(max * (1 - g / 4));
+    s += `<line class="gridline" x1="${PAD}" y1="${y}" x2="600" y2="${y}"/>
+          <text class="axis" x="${PAD - 7}" y="${y + 4}" text-anchor="end">${v}</text>`;
+  }
+  data.forEach((d, i) => {
+    const x = PAD + 14 + i * ((600 - PAD - 14) / data.length);
+    let acc = 0;
+    keys.forEach((k, ki) => {
+      if (!d[k]) return;
+      const hgt = (d[k] / max) * (H - BOT - 10);
+      const y = H - BOT - acc - hgt;
+      // 2px surface gap between stacked segments keeps adjacent fills separable.
+      s += `<rect x="${x}" y="${y}" width="${bw}" height="${Math.max(1, hgt - 2)}" rx="2"
+             fill="${cssvar(SERIES[ki])}" data-t="${esc(d.m)} — ${esc(k)}: ${d[k]}"/>`;
+      acc += hgt;
+    });
+    s += `<text class="axis" x="${x + bw / 2}" y="${H - 9}" text-anchor="middle">${esc(d.m.split(" ")[0].slice(0, 3))}</text>`;
+    s += `<text class="vlabel" x="${x + bw / 2}" y="${H - BOT - acc - 6}" text-anchor="middle">${d.total}</text>`;
+  });
+  $("#chart-month").innerHTML = s + "</svg>";
+  $("#legend-month").innerHTML = keys.map((k, i) =>
+    `<span><i class="swatch" style="background:${cssvar(SERIES[i])}"></i>${esc(k)}</span>`).join("");
+  wireTips("#chart-month");
+}
+
+function drawHeat() {
+  const DAYS = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+  const grid = DAYS.map(() => new Array(24).fill(0));
+  let placed = 0;
+  D.incidents.forEach(i => {
+    if (i.reported.precision !== "minute") return;
+    const d = new Date(i.reported.value);
+    grid[(d.getDay() + 6) % 7][d.getHours()]++; placed++;
+  });
+  const max = Math.max(...grid.flat(), 1);
+  const steps = ["--seq-100","--seq-250","--seq-400","--seq-550","--seq-700"];
+  const CW = 22, CH = 19, LW = 34, H = 7 * CH + 30;
+  let s = svg(H);
+  grid.forEach((row, r) => {
+    s += `<text class="axis" x="${LW - 7}" y="${r * CH + 13}" text-anchor="end">${DAYS[r]}</text>`;
+    row.forEach((n, h) => {
+      const idx = n === 0 ? -1 : Math.min(4, Math.floor((n / max) * 4.999));
+      const fill = idx < 0 ? "var(--surface-2)" : cssvar(steps[idx]);
+      s += `<rect x="${LW + h * CW}" y="${r * CH}" width="${CW - 2}" height="${CH - 2}" rx="2"
+             fill="${fill}" data-t="${DAYS[r]} ${String(h).padStart(2,"0")}:00 — ${n} report${n===1?"":"s"}"/>`;
+    });
+  });
+  for (let h = 0; h < 24; h += 3)
+    s += `<text class="axis" x="${LW + h * CW + CW/2}" y="${7 * CH + 14}" text-anchor="middle">${h}</text>`;
+  s += `<text class="axis" x="${LW}" y="${7 * CH + 28}">${placed} of ${D.incidents.length} incidents have a report time precise to the minute</text>`;
+  const lx = LW + 24 * CW - 128;
+  s += `<text class="axis" x="${lx - 24}" y="${7 * CH + 28}">fewer</text>`;
+  steps.forEach((st, i) => {
+    s += `<rect x="${lx + i * 15}" y="${7 * CH + 20}" width="13" height="9" rx="2" fill="${cssvar(st)}"/>`;
+  });
+  s += `<text class="axis" x="${lx + steps.length * 15 + 4}" y="${7 * CH + 28}">more (max ${max})</text>`;
+  $("#chart-heat").innerHTML = s + "</svg>";
+  wireTips("#chart-heat");
+}
+
+const DISP_LABEL = {
+  arrested:"Subject arrested", summons_issued:"Summons issued", trespass_notice:"Trespass notice/warning",
+  open_active:"Open / active", closed:"Closed", referred_university:"Referred to a university department",
+  not_reported_to_rupd:"Not reported to campus police", glassboro_pd:"Glassboro police case",
+  rp_declined:"Reporting party declined", property_recovered:"Property recovered", charged:"Charged",
+  investigation_completed:"Investigation completed", unsolved:"Unsolved", inactive:"Inactive",
+  no_further_action:"No further action", juvenile_involved:"Juvenile involved", warned:"Subject warned",
+  building_ban:"Building ban", tro_issued:"Restraining order issued", no_contact:"Left before police arrived",
+  referred_prosecutor:"Referred to county prosecutor", rp_referred_to_complaint:"Citizen's complaint info given",
+  rp_provided_resources:"Resources provided"
+};
+
+function drawAll() {
+  drawMonth();
+  hbars("#chart-cat", D.facets.categories.slice(0, 14).map(c => [c.value, c.count]), cssvar("--s1"));
+  hbars("#chart-loc", D.facets.locations.slice(0, 15).map(c => [c.value, c.count]), cssvar("--s3"));
+  hbars("#chart-disp", D.facets.disposition_flags.slice(0, 12)
+    .map(c => [DISP_LABEL[c.value] || c.value, c.count]), cssvar("--s7"));
+  drawHeat();
+}
+
+/* ---- quality ---- */
+const q = D.quality;
+$("#quality").innerHTML = [
+  ["Impossible dates in the source", q.invalid_dates,
+   r => `${r.case_number} — <code>${esc(r.raw)}</code>`,
+   "A date that does not exist on the calendar. Worth raising with Rowan."],
+  ["Offenses reclassified after publication", q.reclassified,
+   r => `${r.case_number} — ${r.from.join(", ")} → ${r.to.join(", ") || "(none)"}`,
+   "The source marks these inline with “Nature updated”. This archive counts only the current classification."],
+  ["Incident time not known precisely", q.imprecise_occurred,
+   r => `${r.case_number} — <code>${esc(r.raw)}</code> (${r.precision})`,
+   "Excluded from anything binned on when the incident occurred."],
+  ["Possible duplicate records", q.near_duplicates,
+   r => `${r.case_number}`,
+   "Same case number, identical narrative, disposition and location, different dates. Could be two real incidents or a source copy-paste error. Both are preserved."],
+  ["Reported before it occurred", q.occurred_after_reported,
+   r => `${r.case_number} — ${r.hours}h`,
+   "The occurrence timestamp is later than the report timestamp."],
+  ["Dates outside the expected year window", q.year_warnings,
+   r => `${r.case_number} — ${esc(r.warning)}`,
+   "Usually a much older incident reported late, but check before using."],
+].filter(([, rows]) => rows.length).map(([title, rows, fmt, note]) => `
+  <details class="q"><summary><strong>${rows.length}</strong> ${esc(title)}</summary>
+    <p class="sub" style="margin:6px 0 0">${note}</p>
+    <ul>${rows.slice(0, 40).map(r => `<li>${fmt(r)}</li>`).join("")}</ul>
+  </details>`).join("") || `<div class="empty">No data-quality problems detected.</div>`;
+
+/* ---- table ---- */
+const FILTERS = [
+  ["#f-month", "months", "All months"], ["#f-cat", "categories", "All offenses"],
+  ["#f-campus", "campuses", "All campuses"], ["#f-agency", "agencies", "All agencies"],
+  ["#f-status", "statuses", "All records"],
+];
+const STATUS_LABEL = { active:"Still published", missing:"Missing from source", withdrawn:"Removed from source", source_removed:"Sheet removed" };
+FILTERS.forEach(([sel, facet, all]) => {
+  $(sel).innerHTML = `<option value="">${all}</option>` + D.facets[facet]
+    .map(o => `<option value="${esc(o.value)}">${esc(STATUS_LABEL[o.value] || o.value)} (${o.count})</option>`).join("");
+  $(sel).onchange = render;
+});
+$("#q").oninput = render;
+
+let sortKey = "reported", sortDir = -1;
+document.querySelectorAll("th").forEach(th => th.onclick = () => {
+  const k = th.dataset.k;
+  sortDir = sortKey === k ? -sortDir : 1; sortKey = k; render();
+});
+
+function render() {
+  const term = $("#q").value.trim().toLowerCase();
+  const [m, cat, camp, ag, st] = FILTERS.map(([sel]) => $(sel).value);
+  let rows = D.incidents.filter(i =>
+    (!m || i.month === m) && (!cat || i.categories.includes(cat)) &&
+    (!camp || i.campus === camp) && (!ag || i.agencies.includes(ag)) && (!st || i.status === st) &&
+    (!term || [i.narrative, i.case_number, i.location, i.nature_raw, i.disposition_raw]
+      .join(" ").toLowerCase().includes(term)));
+
+  rows.sort((a, b) => {
+    const get = o => sortKey === "reported" ? (o.reported.value || "") : String(o[sortKey] ?? "");
+    return get(a) < get(b) ? -sortDir : get(a) > get(b) ? sortDir : 0;
+  });
+
+  $("#tcount").textContent = `${rows.length} of ${D.incidents.length}`;
+  $("#tbl tbody").innerHTML = rows.map(i => {
+    const gone = !LIVE.has(i.status);
+    return `<tr class="${gone ? "gone" : ""}">
+      <td style="white-space:nowrap">${esc((i.reported.value || i.reported.raw).replace("T", " ").slice(0, 16))}</td>
+      <td class="case">${esc(i.case_number)}${i.agencies.map(a => `<br><span class="tag">${a}</span>`).join("")}</td>
+      <td>${i.categories.map(c => `<span class="tag cat">${esc(c)}</span>`).join("") || esc(i.nature_raw)}
+          ${i.reclassified_from.length ? `<span class="tag amend">reclassified</span>` : ""}</td>
+      <td class="narr">${esc(i.narrative)}
+          ${gone ? `<br><span class="tag bad">${esc(STATUS_LABEL[i.status] || i.status)}${i.missing_since ? " since " + esc(i.missing_since) : ""}</span>` : ""}
+          ${i.revision > 1 ? `<span class="tag amend">amended ×${i.revision - 1}</span>` : ""}
+          ${i.flags.includes("near_duplicate") ? `<span class="tag bad">possible duplicate</span>` : ""}</td>
+      <td>${esc(i.campus)}</td>
+      <td>${esc(i.location)}</td>
+      <td>${esc(i.disposition_raw)}${i.disposition_amended ? `<br><span class="tag amend">updated by source</span>` : ""}</td>
+    </tr>`;
+  }).join("") || `<tr><td colspan="7" class="empty">No incidents match these filters.</td></tr>`;
+}
+
+$("#foot").innerHTML =
+  `Source: Rowan University daily crime log, published as Google Sheets at
+   <a href="${esc(D.source_folder)}">drive.google.com</a>. Archived independently because the source folder is a
+   rolling window — Rowan's annual security report says the most recent 90 days are posted — so months disappear.
+   Archive began ${esc(D.archive_started)}; it cannot attest to anything before that date.
+   ${c.total_archived} incidents · built ${esc(D.generated_utc)} · see METHODOLOGY.md for keying, caveats and known source errors.`;
+
+drawAll();
+render();
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", drawAll);
+</script>
+</body>
+</html>
