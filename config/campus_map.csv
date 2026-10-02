@@ -1,0 +1,22 @@
+raw_value,campus,notes
+# Campus naming differs between the two eras, so both vocabularies map to one set of
+# canonical names. The pre-2026 log embedded campus as a bold prefix inside the
+# "General Location" cell; the 2026 sheets give it its own column.
+#
+# Note what this reveals: the legacy log records incidents at BOTH Camden sites
+# (CMSRU and the Camden Academic Building), which have zero rows in the 2026 data.
+Glassboro,Glassboro,
+Glassboro Campus,Glassboro,
+West,West,
+West Campus (South Jersey Technology Park),West,
+West Campus (S.J. Tech. Park/Shreiber Veterinary School),West,
+Rowan-Virtua SOM (Stratford),Rowan-Virtua SOM (Stratford),
+Rowan-Virtua School of Osteopathic Medicine (RowanSOM) Stratford Campus,Rowan-Virtua SOM (Stratford),
+Rowan School of Osteopathic Medicine-Stratford Campus,Rowan-Virtua SOM (Stratford),
+Rowan School of Osteopathic Medicine (RowanSOM) Stratford Campus,Rowan-Virtua SOM (Stratford),
+Rowan School of Osteopathic Medicine (RowanSOM) Campus,Rowan-Virtua SOM (unspecified site),"Pre-dates the Stratford/Sewell split in the log's own naming; site not stated"
+Rowan-Virtua School of Osteopathic Medicine (RowanSOM) Sewell Campus,Rowan-Virtua SOM (Sewell),
+Cooper Medical School (CMSRU) Campus,Camden (CMSRU),
+Camden Academic Building (RUCAB) Campus,Camden (RUCAB),
+Not on Rowan University Geographic Area,Off campus,Outside Rowan's Clery geography
+Unknown,Unknown,

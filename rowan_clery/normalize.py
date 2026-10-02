@@ -29,10 +29,11 @@ def _load_map(path: pathlib.Path) -> dict[str, dict[str, str]]:
     """Read a config map, skipping the `#` comment lines that document it."""
     lines = [ln for ln in path.read_text(encoding="utf-8").splitlines() if not ln.lstrip().startswith("#")]
     rows = list(csv.DictReader(io.StringIO("\n".join(lines))))
+    key = "raw_token" if rows and "raw_token" in rows[0] else "raw_value"
     for row in rows:
         if None in row:
             raise MappingError(f"{path.name}: ragged row (unquoted comma?): {row}")
-    return {row["raw_token"]: row for row in rows}
+    return {row[key]: row for row in rows}
 
 
 def _split_flags(value: str) -> list[str]:
@@ -64,42 +65,83 @@ def _apply_supersession(tokens: list[str], lookup, is_marker) -> tuple[list[str]
 # ---- Nature -------------------------------------------------------------------
 
 
-def categorize(nature_raw: str, category_map: dict[str, dict[str, str]]) -> dict:
+#: Roles whose tokens contribute offense categories. `audit_marker` is included because
+#: legacy markers are written as a single combined token ("Nature updated - Assault
+#: (Aggravated)") that carries the replacement classification inline.
+CATEGORY_ROLES = ("offense", "audit_marker")
+
+
+def categorize(
+    nature_raw: str,
+    category_map: dict[str, dict[str, str]],
+    strict: bool = True,
+) -> dict:
     """Resolve a raw `Nature` string into canonical categories.
 
-    Returns categories, plus the categories this incident was reclassified away from
-    (empty unless the row carries an audit marker).
+    `strict=True` (the live 2026 feed) raises on an unrecognised token. The vocabulary
+    there is small and stable, so a new term is both rare and meaningful — it should stop
+    the build and get classified deliberately.
+
+    `strict=False` (the pre-2026 backfill) records unknown tokens as `unclassified`
+    instead. That era has a 622-token vocabulary with a long tail of one-off objects, so
+    failing on each would make the backfill impossible. The tokens are still reported
+    exactly and never folded into an offense category — the integrity rule is "never
+    silently miscount", not "never leave anything unclassified".
+
+    Returns the current categories, the categories the incident was reclassified away
+    from, and the non-offense detail the legacy format bundled into the same cell.
     """
     tokens = [t for t in TOKEN_SPLIT.split((nature_raw or "").strip()) if t]
     unknown = [t for t in tokens if t not in category_map]
-    if unknown:
+    if unknown and strict:
         raise MappingError(
             f"Unmapped Nature token(s): {unknown}. Add them to config/category_map.csv "
             "with a role and categories. Refusing to guess, because a wrong guess "
             "silently undercounts a category."
         )
 
+    known = [t for t in tokens if t in category_map]
+
     def is_marker(cmap, token):
         return cmap[token]["role"] == "audit_marker"
 
-    superseded, current = _apply_supersession(tokens, category_map, is_marker)
+    superseded, current = _apply_supersession(known, category_map, is_marker)
 
-    def cats(token_list):
+    def collect(token_list, roles):
         out = []
         for token in token_list:
-            if category_map[token]["role"] != "offense":
+            if category_map[token]["role"] not in roles:
                 continue
-            for category in _split_flags(category_map[token]["categories"]):
-                if category not in out:
-                    out.append(category)
+            # No fallback to the token itself: an audit marker with no categories
+            # ("Nature updated") must contribute nothing, or it becomes a phantom
+            # category named after the marker.
+            for value in _split_flags(category_map[token]["categories"]):
+                if value not in out:
+                    out.append(value)
         return out
 
-    current_cats = cats(current)
-    prior_cats = [c for c in cats(superseded) if c not in current_cats]
+    def tokens_with_role(token_list, role):
+        """Return the token text itself for descriptive roles.
+
+        Objects, activity and channel carry no canonical category — the token IS the
+        value ("Bicycle", "Dispute"), so these are reported verbatim.
+        """
+        return [t for t in token_list if category_map[t]["role"] == role]
+
+    current_cats = collect(current, CATEGORY_ROLES)
+    prior_cats = [c for c in collect(superseded, CATEGORY_ROLES) if c not in current_cats]
     return {
         "categories": current_cats,
         "reclassified_from": prior_cats,
         "was_reclassified": bool(prior_cats or superseded),
+        # What the offense was committed against ("Bicycle", "Exit sign"). Only the
+        # legacy format carries this; it is how you would count bicycle thefts.
+        "objects": tokens_with_role(current, "object"),
+        # Non-crime police activity ("Dispute", "Motor Vehicle Stop"). Kept out of
+        # categories so it cannot inflate crime counts.
+        "activity": tokens_with_role(current, "activity"),
+        "channels": tokens_with_role(current, "channel"),
+        "unclassified": unknown,
     }
 
 
@@ -110,15 +152,24 @@ def normalize_disposition_token(token: str) -> str:
     return re.sub(r"\s+", " ", token).strip().lower().rstrip(".")
 
 
-def disposition_flags(disposition_raw: str, disposition_map: dict[str, dict[str, str]]) -> dict:
-    """Resolve a raw `Disposition` string into a set of outcome flags."""
+def disposition_flags(
+    disposition_raw: str,
+    disposition_map: dict[str, dict[str, str]],
+    strict: bool = True,
+) -> dict:
+    """Resolve a raw `Disposition` string into a set of outcome flags.
+
+    `strict` behaves as in categorize(): fatal for the live feed, recorded as
+    `unclassified` for the pre-2026 backfill's 340-token vocabulary.
+    """
     tokens = [normalize_disposition_token(t) for t in TOKEN_SPLIT.split((disposition_raw or "").strip())]
     tokens = [t for t in tokens if t]
     unknown = [t for t in tokens if t not in disposition_map]
-    if unknown:
+    if unknown and strict:
         raise MappingError(
             f"Unmapped Disposition token(s): {unknown}. Add them to config/disposition_map.csv."
         )
+    tokens = [t for t in tokens if t in disposition_map]
 
     def is_marker(dmap, token):
         return dmap[token]["role"] == "audit_marker"
@@ -136,6 +187,7 @@ def disposition_flags(disposition_raw: str, disposition_map: dict[str, dict[str,
         "superseded_flags": [
             f for t in superseded for f in _split_flags(disposition_map[t]["flags"]) if f not in flags
         ],
+        "unclassified": unknown,
     }
 
 
@@ -191,6 +243,16 @@ def parse_datetime(raw: str, reference_year: int | None = None) -> dict:
 
     ongoing = bool(re.match(r"^since\b", raw, re.I))
     cleaned = re.sub(r"^since\s+", "", raw, flags=re.I).strip()
+
+    # The pre-2026 log routinely expressed occurrence as a RANGE:
+    #   "8/31/22 22:00 to 9/1/22 9:31"
+    # Treat the start as the value and record that it is a range, rather than failing to
+    # parse it and reporting ~900 perfectly good timestamps as impossible dates.
+    range_match = re.split(r"\s+to\s+", cleaned, maxsplit=1, flags=re.I)
+    range_end = None
+    if len(range_match) == 2:
+        cleaned, range_end = range_match[0].strip(), range_match[1].strip()
+        ongoing = True
     cleaned = re.sub(r"\s*\b(unk\.?|unknown)\s*$", "", cleaned, flags=re.I).strip()
 
     if not cleaned:
@@ -206,6 +268,7 @@ def parse_datetime(raw: str, reference_year: int | None = None) -> dict:
             "precision": "range_start" if ongoing else "minute",
             "raw": raw,
             "ongoing": ongoing,
+            "range_end": range_end,
         }
 
     for fmt in _DATE_FORMATS:
@@ -235,19 +298,24 @@ def parse_datetime(raw: str, reference_year: int | None = None) -> dict:
     return {"value": None, "precision": "unknown", "raw": raw, "ongoing": ongoing}
 
 
-def year_sanity_warning(parsed: dict, current_year: int) -> str | None:
-    """Flag a two-digit year that resolved outside a plausible window.
+def year_sanity_warning(parsed: dict, expected_year: int) -> str | None:
+    """Flag a date that resolved to a year its own monthly log contradicts.
 
-    `%y` will happily turn a stray "/25" into 2025. In a 2027 archive that would quietly
-    file old data into a current bin, so anything more than a year either side of now is
-    reported rather than trusted.
+    `%y` will happily turn a stray "/25" into 2025, so a mis-typed year has to be
+    caught. The check is against the year of the sheet the row appears in, NOT against
+    the current year: this archive spans 2017-2026, and comparing to "now" would flag
+    every historical row as suspect.
+
+    A reported date more than a year off its own log's month is a genuine anomaly. An
+    OCCURRED date legitimately precedes it, sometimes by years, so callers pass only
+    the reported date here.
     """
     value = parsed.get("value")
     if not value or parsed.get("precision") in ("unknown", "invalid"):
         return None
     year = int(str(value)[:4])
-    if not (current_year - 2 <= year <= current_year + 1):
-        return f"{parsed['raw']!r} resolved to year {year}, outside the expected window"
+    if abs(year - expected_year) > 1:
+        return f"{parsed['raw']!r} resolved to {year}, but the log month says {expected_year}"
     return None
 
 
@@ -261,6 +329,12 @@ def reporting_lag_hours(reported: dict, occurred: dict) -> float | None:
         return None
     delta = dt.datetime.fromisoformat(reported["value"]) - dt.datetime.fromisoformat(occurred["value"])
     return delta.total_seconds() / 3600
+
+
+def load_campus_map(config_dir: pathlib.Path) -> dict[str, str]:
+    """Raw campus string -> canonical campus name, across both publication eras."""
+    rows = _load_map(pathlib.Path(config_dir) / "campus_map.csv")
+    return {k: v["campus"] for k, v in rows.items()}
 
 
 def load_maps(config_dir: pathlib.Path) -> tuple[dict, dict]:

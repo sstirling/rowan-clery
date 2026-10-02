@@ -74,6 +74,77 @@ Useful context for reporting, but note carefully which guidance is current.
   renamed the Clery Act the "Jeanne Clery Campus Safety Act." That is why Rowan's 2026
   report uses that title.
 
+## The pre-2026 backfill
+
+Rowan published the log through a PHP app at
+`sites.rowan.edu/publicsafety/clery/crimeandfire/cleryapp/index.php?month=YYYY-MM` until
+roughly March 2026. That app now returns an empty CMS shell for every month, so its last
+decade survives only as Internet Archive captures.
+
+84 captures across 40 months were harvested and cached under `data/raw/_wayback/`, then
+replayed in capture order so the ordinary merge logic treats each as a dated observation.
+That recovers **2,167 incidents and 48 substantive amendments** — 38 disposition changes,
+6 offense reclassifications and 4 occurrence-time corrections — none of which Rowan
+published a record of.
+
+A further **67 edits were cosmetic**: the source reformats dates without changing them
+(`02/13/22` to `02/13/2022`, including inside occurrence ranges). These are recorded in the
+changelog, flagged `cosmetic`, and kept out of the change feed, where they would otherwise
+outnumber and bury the amendments worth reading.
+
+### What the captures prove, and what they do not
+
+- **Rowan does not retroactively delete from closed months.** February 2021 was compared
+  across captures in 2021, 2023 and 2025: 40 incidents, nothing added, nothing removed,
+  nothing amended. Every apparent disappearance investigated turned out to be a corrected
+  case number or a reformatted date. That is a useful documented baseline — it is what
+  would make a future deletion significant rather than ambiguous.
+- **Rowan does amend dispositions after publishing.** In September 2022, four changed
+  between captures, including one that became **"Unfounded; Closed; Referred to Dean of
+  Students"** and one where "Two subjects issued trespass warnings" became "Three".
+- **Changes cannot be dated precisely.** Captures are irregular and often years apart, so
+  the honest claim is usually "changed between capture A and capture B", not a date.
+- **Coverage is uneven.** All of 2018-2020 and 2021-01 are absent. So are **April and May
+  2026** — the handover between the two systems — which no capture covers and which are
+  not recoverable from the web.
+
+### Identity under source edits
+
+The uid assumes the case number and reported date are never revised. That holds for 2026.
+It does not hold throughout the legacy era, and two distinct problems appeared:
+
+1. **Cosmetic reformats.** In February 2022, 34 of 59 rows changed from `02/13/22 2:23` to
+   `02/13/2022 2:23` with no other field touched anywhere in the month. Hashing the raw
+   string forked one incident into two identities, so the uid now hashes a **canonicalized**
+   timestamp. The reformats are still recorded in the changelog, marked `cosmetic` so they
+   do not bury real amendments.
+2. **Genuine identity amendments.** Four incidents were re-published with a fuller
+   identity (`22-030093` to `22-030093/CSA on-line report`; a reported time added). These
+   are linked by a reconciliation pass: the earlier row is kept in full, marked
+   `superseded`, pointing at the row that replaced it.
+
+A wider auto-merge rule — grouping on month, reported minute, nature and location — was
+tested and **rejected**. It collapsed pairs like `GPD 25-034057` and `GPD 25-034052`, two
+distinct Glassboro PD summonses issued in the same minute at the same spot. Merging those
+would destroy records, which is a worse error than leaving a duplicate visible. Six
+suspicious pairs are therefore **flagged for human review, never merged**.
+
+### Legacy vocabulary
+
+The pre-2026 `Nature` field has 622 distinct tokens against the 2026 format's 64, because
+cells bundled the offense with its object and with non-crime police activity. The category
+map gained three roles beyond `offense`:
+
+- `object` — what was taken or damaged ("Bicycle", "Exit sign"). Real data, and how you
+  would count bicycle thefts, but not an offense.
+- `activity` — non-crime police activity ("Dispute" ×200, "Motor Vehicle Stop" ×118).
+  Counting these as crimes would badly inflate the legacy era against the 2026 data.
+- `channel` — the medium ("Cyber", "Texts", "via email").
+
+Unknown tokens in the backfill are recorded as `unclassified` rather than failing the
+build; the live 2026 feed stays strict. Every one of the 2,353 incidents carries an offense
+category or is classed as non-crime activity.
+
 ## How the archive works
 
 Three layers. Each is immutable with respect to the one below it, and the raw layer is
@@ -194,6 +265,54 @@ Dates are never coerced to a single timestamp. Each carries a precision
 (`minute`/`day`/`month`/`year`/`range_start`/`unknown`/`invalid`) and the original string.
 Anything binned on occurrence date must report how many incidents it could not place.
 
+## School years, not calendar years
+
+Incidents are grouped into academic years running **August to July**. Campus crime tracks
+the academic calendar, not the calendar year: a 14-incident June and a 107-incident
+September are the same campus with and without students on it. Grouping Aug-Jul keeps a
+year's population cycle intact so year-over-year comparison means something.
+
+Coverage per year is deeply uneven and **must** be read alongside any count:
+
+| School year | Incidents | Months captured |
+|---|---|---|
+| 2017-18 | 67 | 1 of 12 |
+| 2020-21 | 165 | 6 of 12 |
+| 2021-22 | 539 | **12 of 12** |
+| 2022-23 | 322 | 5 of 12 |
+| 2023-24 | 76 | 1 of 12 |
+| 2024-25 | 370 | 7 of 12 |
+| 2025-26 | 665 | 10 of 12 |
+| 2026-27 | 149 | 2 of 12 (in progress) |
+
+**2021-22 is the only complete year.** 2023-24's 76 incidents are a single captured month,
+not a quiet year.
+
+Because of that, **the pre-2026 record is not charted at all.** It is archived in full,
+searchable in full, and documented here — but putting a 1-month year beside a 12-month
+year on the same axis invites a comparison the coverage cannot support, and no amount of
+annotation reliably stops a reader making it. Charts cover the current publication format
+(June 2026 onward); the school-year table above is the honest way to see the older
+record's shape.
+
+## The two formats are not comparable
+
+| | pre-2026 (`cleryapp`) | 2026- (Drive) |
+|---|---|---|
+| Incident narrative | absent | present |
+| Student / non-student flag | present (~70% of rows) | **absent** |
+| Non-crime police activity | recorded | not recorded |
+| Campus | prefix inside "General Location" | own column |
+| Occurrence time | often a range | single value |
+| Case numbers | `22-026152` | `RUPD 26-026152` |
+
+Case numbers are left exactly as published. Adding an `RUPD` prefix the source never wrote
+would be fabrication, and the eras do not overlap, so nothing depends on reconciling them.
+
+**There is no month present in both formats**, so the schema mapping cannot be validated
+against a known-good overlap. Any cross-era comparison rests on an unverifiable join and
+should be presented as such.
+
 ## Limits on what the data supports
 
 - **This is a count of logged incidents, not of crime.** Reporting rates, Campus Security
@@ -206,9 +325,17 @@ Anything binned on occurrence date must report how many incidents it could not p
   carry an RUPD reference, 33 a Glassboro municipal police reference and 41 a Campus
   Security Authority reference. CSA-only rows had no police response.
 - **The archive cannot attest to the past.** `first_seen_by_archive` is the date this
-  project first saw a row, not the date Rowan published it. For rows captured on day one
-  it says only "present on 2026-10-01." The archive cannot show that a row was unchanged
-  in August.
+  project (or the Internet Archive) first saw a row, not the date Rowan published it. For
+  backfilled rows it is the capture date, which may be months after publication.
+- **Rowan dropped the student/non-student flag in 2026.** It appeared on ~70% of pre-2026
+  rows and zero times in the 2026 sheets. It partly survives as prose inside the new
+  narrative column — "non-student" appears 87 times across the four 2026 sheets — but it
+  stopped being a field you can filter or count. Any trend in student vs non-student
+  involvement stops at the format change.
+- **Camden appears only in the legacy data.** The pre-2026 log records incidents at both
+  Cooper Medical School (CMSRU) and the Camden Academic Building; the 2026 sheets contain
+  none. Whether that reflects reality or a gap in what is published is a question for
+  Rowan, not something to infer from this data.
 - **Campus coverage is uneven.** Of the first 186 incidents, 178 are Glassboro, 5
   Rowan-Virtua SOM (Stratford) and 3 West. Camden has none, although Rowan's annual
   security report documents security offices at CMSRU and the Camden Academic Building.
@@ -220,7 +347,9 @@ Anything binned on occurrence date must report how many incidents it could not p
 ```bash
 python3 -m venv .venv && .venv/bin/pip install pytest
 .venv/bin/python run.py all      # fetch, archive and rebuild the page
-.venv/bin/python -m pytest       # 82 tests
+.venv/bin/python run.py backfill # replay the Internet Archive captures (one-off)
+.venv/bin/python run.py rebuild  # reconstruct the archive from raw snapshots, offline
+.venv/bin/python -m pytest       # 103 tests
 ```
 
 The pipeline uses only the Python standard library. `pytest` is needed for the tests.

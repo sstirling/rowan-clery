@@ -46,6 +46,8 @@ class StubSource:
     def list_folder(self, folder_id):
         if self.listing_fails:
             raise fetch.FetchError("listing markup changed")
+        # Only the four fixture sheets are listed; a pinned-but-unpopulated month is
+        # fetched anyway, because the pinned set is the floor.
         return {
             fid: {"name": label, "modified_hint": "Sep 29"}
             for fid, (label, _) in REAL_SHEETS.items()
@@ -55,7 +57,12 @@ class StubSource:
     def fetch_csv(self, file_id):
         if file_id in self.failing:
             raise fetch.FetchError(f"HTTP 404 for {file_id}")
-        body = (FIXTURE_DIR / f"{file_id}.csv").read_bytes()
+        path = FIXTURE_DIR / f"{file_id}.csv"
+        if not path.exists():
+            # A pinned month Rowan has created but not yet populated — October 2026
+            # appeared this way. There is no fixture because there is no data.
+            raise fetch.FetchError(f"{file_id}: body is only 191 bytes")
+        body = path.read_bytes()
         return fetch.FetchResult(
             body=body, status=200, content_type="text/csv",
             content_disposition="attachment; filename*=UTF-8''X - Crime Log.csv",
@@ -76,6 +83,22 @@ def test_full_run_ingests_everything(project, monkeypatch):
     assert report["archive_rows"] == TOTAL_INCIDENTS
     assert report["merge"]["added"] == TOTAL_INCIDENTS
     assert not report["alarms"]
+
+
+def test_pinned_but_unpopulated_month_is_pending_not_missing(project, monkeypatch):
+    """Rowan creates each month's sheet before any incident is logged in it.
+
+    That must not advance the removal ladder or raise an alarm: nothing is at risk for a
+    file the archive has never held rows for.
+    """
+    data, config = project
+    StubSource().install(monkeypatch)
+    report = pipeline.run(data, config, today="2026-10-01")
+
+    pending = [f for f, info in report["files"].items() if info["status"] == "pending"]
+    assert pending, "the unpopulated month should be reported as pending"
+    assert not report["alarms"]
+    assert any("nothing is at risk" in w for w in report["warnings"])
     assert (data / "archive" / "incidents.csv").exists()
     assert (data / "raw" / "_runs" / "2026-10-01.json").exists()
 

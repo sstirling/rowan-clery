@@ -45,6 +45,7 @@ def run(
 
     store = snapshot.RawStore(data_dir)
     manifest = store.load_manifest()
+    archived_by_file = archive_mod.Archive(data_dir).rows_per_file()
     manifest.setdefault("archive_started", today)
 
     report: dict = {
@@ -99,7 +100,9 @@ def run(
         try:
             result = fetch.fetch_csv(file_id)
         except fetch.FetchError as exc:
-            state = _record_fetch_failure(entry, file_id, exc, today, pinned, report)
+            state = _record_fetch_failure(
+                entry, file_id, exc, today, pinned, report, known_rows=archived_by_file.get(file_id, 0)
+            )
             store.mark_unfetched(manifest, file_id, str(exc), today)
             if state == "removed":
                 removed_files.add(file_id)
@@ -164,9 +167,29 @@ def run(
 
 
 def _record_fetch_failure(
-    entry: dict, file_id: str, exc: Exception, today: str, pinned: dict, report: dict
+    entry: dict,
+    file_id: str,
+    exc: Exception,
+    today: str,
+    pinned: dict,
+    report: dict,
+    known_rows: int = 0,
 ) -> str:
-    """Advance the file-level removal ladder. Returns the file's new state."""
+    """Advance the file-level removal ladder. Returns the file's new state.
+
+    A file the archive has never held rows for cannot be "removed", so the ladder does
+    not apply. Rowan creates each month's sheet before populating it — October 2026
+    appeared as an empty 191-byte file — and treating that as a disappearance would
+    raise an alarm every day until the first incident is logged.
+    """
+    if known_rows == 0:
+        entry["status"] = "pending"
+        report["warnings"].append(
+            f"{file_id} ({pinned.get(file_id, 'unknown')}): present but not yet readable "
+            f"({exc}). No rows archived from it yet, so nothing is at risk."
+        )
+        return "pending"
+
     if entry.get("last_absent_date") != today:
         entry["absent_count"] = int(entry.get("absent_count") or 0) + 1
         entry["last_absent_date"] = today
@@ -214,3 +237,57 @@ def _run_tab_census(file_id: str, entry: dict, today: str, report: dict) -> None
             f"{file_id}: expected exactly one tab named {fetch.EXPECTED_TAB!r}, found {tabs}. "
             "The CSV export only returns the first tab, so other tabs are NOT being archived."
         )
+
+
+def rebuild(data_dir: pathlib.Path, config_dir: pathlib.Path, progress=print) -> dict:
+    """Rebuild the canonical archive from stored raw snapshots, with no network.
+
+    The raw store is the evidence layer; the canonical archive is derived from it. So the
+    archive can always be reconstructed offline, in observation order, from snapshots
+    already on disk.
+
+    This is not a convenience. On 2026-10-01 the June 2026 sheet was captured
+    successfully and then began returning HTTP 401 within the hour — the sharing was
+    changed. A rebuild that re-fetched from Drive would silently drop those 14 incidents;
+    a rebuild from the raw store keeps them, because the bytes Rowan served are still
+    here.
+    """
+    data_dir, config_dir = pathlib.Path(data_dir), pathlib.Path(config_dir)
+    _, pinned = load_known_files(config_dir)
+    store = snapshot.RawStore(data_dir)
+    manifest = store.load_manifest()
+    archived_by_file = archive_mod.Archive(data_dir).rows_per_file()
+    arch = archive_mod.Archive(data_dir)
+
+    # Replay every snapshot in the order it was observed, so amendments land as
+    # amendments rather than as a single flattened end state.
+    timeline = []
+    for file_dir in sorted(store.root.glob("*/")):
+        file_id = file_dir.name
+        if file_id.startswith("_"):
+            continue
+        for snap in sorted(file_dir.glob("*.csv")):
+            timeline.append((snap.stem.split(".")[0], file_id, snap))
+
+    report = {"snapshots": len(timeline), "added": 0, "amended": 0, "files": set()}
+    for observed, file_id, path in sorted(timeline):
+        body = path.read_bytes()
+        incidents = parse.parse_and_key(body, file_id)
+        month = parse.source_month(body)
+        name = manifest.get("files", {}).get(file_id, {}).get("name") or pinned.get(file_id, "")
+        rows, events, merge_report = arch.merge(
+            {file_id: incidents},
+            {file_id},
+            {file_id: {"name": name, "month": month}},
+            today=observed,
+        )
+        arch.write(rows)
+        arch.append_changelog(events)
+        report["added"] += merge_report.added
+        report["amended"] += merge_report.amended
+        report["files"].add(file_id)
+        progress(f"  {observed}  {month or file_id:<18} {len(incidents):>4} rows  +{merge_report.added}")
+
+    report["files"] = sorted(report["files"])
+    report["archive_rows"] = len(arch.load())
+    return report

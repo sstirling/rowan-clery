@@ -1,7 +1,8 @@
 # Rowan Clery crime log archive
 
-An independent, append-only archive of Rowan University's Clery Act daily crime log,
-with a reporting tool for finding stories in it.
+An independent, append-only archive of Rowan University's Clery Act daily crime log —
+**2,353 incidents spanning December 2017 to September 2026** — with a reporting tool for
+finding stories in it.
 
 Rowan publishes the log as monthly Google Sheets in a
 [public Drive folder](https://drive.google.com/drive/folders/1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p).
@@ -9,6 +10,16 @@ That folder is a rolling window — Rowan's annual security report says the most
 90 days are posted — so months disappear, and entries are amended in place with no record
 of what they said before. This project checks the folder daily, preserves every version of
 every record, and keeps a timestamped trail of what was added, amended or removed.
+
+It also reaches backwards. Rowan published the log through a PHP app until early 2026;
+that app is now dead, returning an empty page for every month. Its last decade survives
+only as Internet Archive captures, and this project replays them — recovering **2,167
+incidents and 76 amendments Rowan never published a record of**, including 34 disposition
+changes and 6 offenses reclassified after the fact.
+
+**The risk is not hypothetical.** On the day this archive was first run, the June 2026
+sheet was captured successfully and began returning HTTP 401 within the hour. Those 14
+incidents are no longer public. They are in `data/raw/`, and the page still shows them.
 
 **Nothing it has ever seen is ever deleted.** That is the one property everything else is
 built around.
@@ -34,6 +45,8 @@ or pin. `pytest` is needed only to run the tests.
 | `python run.py fetch` | One daily run: list the folder, fetch each sheet, snapshot changes, merge into the archive |
 | `python run.py build` | Regenerate `data/processed/` and `docs/index.html` from the archive |
 | `python run.py all` | Both, in order |
+| `python run.py backfill` | Replay the Internet Archive's captures of the pre-2026 log (one-off, re-runnable) |
+| `python run.py rebuild` | Reconstruct the archive from stored raw snapshots, offline |
 | `--date YYYY-MM-DD` | Override the run date (for testing) |
 | `--json` | Print the full run report |
 
@@ -44,6 +57,7 @@ proceed safely, **archive not modified** · `1` unexpected error.
 
 ```
 data/raw/<file_id>/<date>.csv      byte-exact snapshots, written only when content changes
+data/raw/_wayback/<month>/<ts>.html  cached Internet Archive captures of the pre-2026 log
 data/raw/<file_id>/<date>.headers.json   HTTP provenance for each snapshot
 data/raw/_runs/<date>.json         one record per run, whether or not anything changed
 data/archive/incidents.csv         the permanent record — append-only, never deleted
@@ -56,17 +70,43 @@ docs/index.html                    self-contained reporting tool (no CDN, works 
 and can be emailed as a single attachment — which matters when the thing being archived
 may stop being public.
 
+## Rebuilding from raw
+
+The raw store is the evidence layer; everything else derives from it.
+
+```bash
+python run.py rebuild     # replays stored snapshots, no network
+python run.py backfill    # replays cached Wayback captures
+python run.py build       # regenerates the page
+```
+
+`rebuild` reads only from disk. That matters: re-fetching from Drive would now silently
+drop the 14 June 2026 incidents, because Drive no longer serves them.
+
 ## The reporting tool
 
 - **What changed** — additions, amendments and removals, with old → new values. This is
   where stories surface, so it sits at the top.
-- **Charts** — incidents per month by offense, offense ranking, location hotspots,
-  outcomes, and a day-by-hour report-time heatmap. Colorblind-safe, light and dark.
+- **Charts cover the current publication format only.** Rowan moved to Google Sheets in
+  June 2026; everything graphed comes from that format. The 2,167 pre-2026 incidents are
+  fully searchable in the table but deliberately **not charted** — that record survives
+  only as irregular Internet Archive snapshots, so some academic years hold twelve months
+  and others hold one, and graphing them side by side invites year-over-year comparisons
+  the coverage cannot support.
+- **Built around the school year in progress.** The page opens on 2026-27. Academic years
+  run August to July, because a Glassboro June and a Glassboro September are different
+  places and a calendar year splits the population cycle in half.
+- **Charts** — incidents per month by offense, offense ranking, location hotspots and
+  outcomes, all scoped to the selected year. Colorblind-safe, light and dark.
+- **Each offense, month by month** — one sparkline per offense, so "is theft moving"
+  is answerable at a glance rather than by reading twelve lines off one axis.
 - **Data quality** — impossible dates, imprecise times, reclassified offenses, possible
   duplicates. Problems in the source are shown, not silently cleaned.
-- **Every incident** — full narratives, filterable by month, offense, campus, agency and
-  status, searchable across narratives. Records the source no longer publishes are
-  included and struck through.
+- **Every incident** — all 2,353, filterable by month, offense, campus, agency, status,
+  publication era and student status, searchable across narratives. Records the source no
+  longer publishes are included and struck through.
+- **The full record stays reachable** — the table covers all 2,353 incidents back to 2017
+  regardless of which window the charts are showing, filterable by publication era.
 
 ## How it protects the archive
 
@@ -91,16 +131,53 @@ The failure that would matter is mistaking a broken fetch for a deletion. The gu
 See [METHODOLOGY.md](METHODOLOGY.md) for the identity key, the Clery regulatory backdrop,
 known source errors, and what the data does **not** support.
 
+## The two eras
+
+| | pre-2026 (`cleryapp` PHP log) | 2026- (Drive sheets) |
+|---|---|---|
+| Incidents | 2,167 | 186 |
+| Source | Internet Archive captures | Live, fetched daily |
+| Incident narrative | no | **yes** |
+| Student / non-student flag | **yes** (~70% of rows) | no |
+| Non-crime police activity | **recorded** (disputes, vehicle stops, assists) | not recorded |
+| Campus | a prefix inside "General Location" | its own column |
+| Occurrence time | often a range | a single value |
+
+Two consequences worth stating before publishing anything:
+
+- **Counts are not comparable across the line.** The old log recorded police activity that
+  is not a crime. The page keeps those out of offense categories, but the underlying
+  collection practice still differed.
+- **Rowan dropped a field.** The student/non-student flag appeared on ~70% of pre-2026
+  rows and appears **zero** times in the 2026 sheets. It partly survives as prose inside
+  the new narrative column, but it stopped being something you can filter or count.
+
+Months missing entirely: all of 2018–2020, 2021-01, and **April–May 2026** — the handover
+between the two systems, which the Internet Archive never captured. Those two months are
+not recoverable from the web and would have to be requested from the Clery Compliance
+Office.
+
 ## Editing the category maps
 
 `config/category_map.csv` and `config/disposition_map.csv` are plain, commented CSVs meant
 to be edited by hand. Each maps a raw token from the source to canonical categories or
 outcome flags.
 
-A token the maps don't recognise **fails the build**, naming the token. That is
-deliberate — silently bucketing an unrecognised offense into "Other" is how a category
-quietly undercounts, and an undercount published as a finding is the worst outcome here.
-When Rowan uses a new term, the build stops and asks you to classify it.
+A token the maps don't recognise **fails the build for the live 2026 feed**, naming the
+token. That is deliberate — silently bucketing an unrecognised offense into "Other" is how
+a category quietly undercounts. When Rowan uses a new term, the build stops and asks you to
+classify it.
+
+The pre-2026 backfill is lenient instead, because its vocabulary is 622 Nature tokens with
+a long tail of one-off objects. Unknown tokens there are recorded as `unclassified`,
+counted exactly, and listed in the data-quality panel — never folded into an offense
+category. Every one of the 2,353 incidents currently carries an offense category or is
+classed as non-crime police activity.
+
+Legacy `Nature` cells bundled an offense with its object and with police activity, so the
+map has extra roles: `object` ("Bicycle", "Exit sign" — how you would count bicycle
+thefts), `activity` ("Dispute", "Motor Vehicle Stop" — kept out of crime counts), and
+`channel` ("Cyber", "Texts").
 
 Both maps mark `Nature updated` and `Disposition updated` as **audit markers**, not values:
 tokens before them are superseded by those after. `"Theft; Nature updated; Motor Vehicle

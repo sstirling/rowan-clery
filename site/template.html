@@ -89,6 +89,13 @@
   .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   @media (max-width: 820px) { .grid2 { grid-template-columns: 1fr; } }
 
+  .scopebar { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+  .scopebar label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-3); font-weight: 600; }
+  .scopebar select { font-size: 14px; padding: 7px 10px; font-weight: 600; }
+  .smallmult { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 12px 14px; }
+  .sm { border: 1px solid var(--border); border-radius: 8px; padding: 9px 10px; }
+  .sm .nm { font-size: 12px; font-weight: 600; color: var(--text-1); display: flex; justify-content: space-between; gap: 6px; }
+  .sm .tot { color: var(--text-3); font-weight: 500; font-variant-numeric: tabular-nums; }
   .legend { display: flex; flex-wrap: wrap; gap: 10px 14px; margin: 10px 0 0; font-size: 12px; color: var(--text-2); }
   .legend span { display: inline-flex; align-items: center; gap: 5px; }
   .swatch { width: 10px; height: 10px; border-radius: 2px; flex: none; }
@@ -160,26 +167,33 @@
 
 <div class="wrap">
   <div id="banners"></div>
-  <div class="stats" id="stats"></div>
 
-  <div class="card">
-    <h2>What changed</h2>
-    <h3>Additions, amendments and removals observed by this archive</h3>
-    <div class="feed" id="feed"></div>
+  <div class="scopebar">
+    <label for="scope">Showing</label>
+    <select id="scope"></select>
+    <span class="sub" id="scopenote"></span>
   </div>
+
+  <div class="stats" id="stats"></div>
 
   <div class="grid2">
     <div class="card">
-      <h2>Incidents logged per month</h2>
+      <h2>Incidents per month</h2>
       <h3 id="monthsub"></h3>
       <div id="chart-month"></div>
       <div class="legend" id="legend-month"></div>
     </div>
     <div class="card">
       <h2>Most common offenses</h2>
-      <h3>Incidents may carry more than one offense, so the total exceeds the incident count</h3>
+      <h3 id="catsub"></h3>
       <div id="chart-cat"></div>
     </div>
+  </div>
+
+  <div class="card">
+    <h2>Each offense, month by month</h2>
+    <h3 id="trendsub"></h3>
+    <div id="chart-trend"></div>
   </div>
 
   <div class="grid2">
@@ -196,9 +210,9 @@
   </div>
 
   <div class="card">
-    <h2>When incidents are reported</h2>
-    <h3>By day of week and hour of the report, not of the incident</h3>
-    <div id="chart-heat"></div>
+    <h2>What changed</h2>
+    <h3 id="feedsub">Amendments and removals observed by this archive</h3>
+    <div class="feed" id="feed"></div>
   </div>
 
   <div class="card">
@@ -217,6 +231,8 @@
       <select id="f-campus"></select>
       <select id="f-agency"></select>
       <select id="f-status"></select>
+      <select id="f-era"></select>
+      <select id="f-student"></select>
       <span class="count" id="tcount"></span>
     </div>
     <div class="tablewrap">
@@ -249,6 +265,29 @@ const SERIES = ["--s1","--s2","--s3","--s4","--s5","--s6","--s7","--s8"];
 const cssvar = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const LIVE = new Set(["active","missing"]);
 
+// Collapse a year's captured months into a readable range in ACADEMIC order (Aug->Jul).
+// "2/12" was the earlier label and read as a date — people see "1/12" and think January.
+const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function coverageLabel(months, chronological) {
+  if (!months.length) return "none";
+  if (months.length === 12 && !chronological) return "all 12 months";
+  // Within one school year, order academically (August is 0, July is 11). A window that
+  // crosses school years is ordered by date instead, or Jun-Sep 2026 reads "Aug-Sep,
+  // Jun-Jul".
+  const pos = chronological
+    ? m => (+m.slice(0, 4)) * 12 + (+m.slice(5))
+    : m => (+m.slice(5) - 8 + 12) % 12;
+  const sorted = months.slice().sort((a, b) => pos(a) - pos(b));
+  const runs = [];
+  sorted.forEach(m => {
+    const last = runs[runs.length - 1];
+    if (last && pos(m) === pos(last[last.length - 1]) + 1) last.push(m);
+    else runs.push([m]);
+  });
+  const name = m => MON[+m.slice(5) - 1];
+  return runs.map(r => r.length === 1 ? name(r[0]) : `${name(r[0])}\u2013${name(r[r.length - 1])}`).join(", ");
+}
+
 /* ---- theme ---- */
 $("#theme").onclick = () => {
   const dark = document.documentElement.getAttribute("data-theme") === "dark"
@@ -277,6 +316,9 @@ $("#strap").textContent =
   `${c.total_archived} incidents preserved · archive began ${D.archive_started} · built ${D.generated_utc.replace("T"," ").replace("+00:00"," UTC")}`;
 
 const banners = [];
+const curYear = D.school_years.find(y => y.year === D.current_school_year);
+const eraMonths = [...new Set(D.incidents.filter(i => i.era === "drive-2026").map(i => i.month_key))];
+
 const stale = D.status.staleness_days;
 if (stale !== null && stale > 2) {
   banners.push(`<div class="banner alarm"><strong>This page is ${stale} days stale.</strong>
@@ -287,51 +329,90 @@ if (D.status.alarms?.length) {
     <ul>${D.status.alarms.map(a => `<li>${esc(a)}</li>`).join("")}</ul></div>`);
 }
 if (c.no_longer_published > 0) {
-  banners.push(`<div class="banner warn"><strong>${c.no_longer_published} record${c.no_longer_published===1?"":"s"}
+  banners.push(`<div class="banner warn"><strong>${c.no_longer_published} record${c.no_longer_published === 1 ? "" : "s"}
     no longer appear in the source</strong> but are preserved here in full. Federal guidance tells institutions to
     update a crime log entry rather than delete it, so a disappearance is worth asking Rowan about.</div>`);
 }
+
+if (curYear) {
+  banners.push(`<div class="banner note">
+    <strong>${esc(D.current_school_year)} school year, in progress.</strong>
+    ${curYear.incidents} incidents across ${esc(coverageLabel(curYear.months))}.
+    The charts cover only what Rowan publishes in its current format — Google Sheets, from
+    June 2026, ${D.eras["drive-2026"].count} incidents. The earlier
+    ${D.eras["cleryapp-php"].count} (2017\u20132026) are recovered from the Internet Archive and
+    <strong>fully searchable in the table below</strong>, but not charted: that record survives
+    only as irregular snapshots, so some academic years hold twelve months and others hold one.
+    Graphing them beside each other would invite comparisons the coverage cannot support.</div>`);
+}
+
 banners.push(`<div class="banner note">
-  <strong>Read these counts carefully.</strong> They are counts of <em>logged incidents</em>, not of crime.
-  Reporting rates, Campus Security Authority referrals and the academic calendar all move them independently of
-  underlying crime. The series is short — June holds ${monthCount("June 2026")} incidents and September
-  ${monthCount("September 2026")}, which is a campus filling up for the semester, not a crime wave. Of
-  ${c.total_archived} incidents, ${agencyCount("RUPD")} carry a Rowan University police reference,
-  ${agencyCount("GPD")} a Glassboro municipal police reference and ${agencyCount("CSA")} a Campus Security
-  Authority reference, so "campus police handled ${c.total_archived} incidents" would be wrong.
-  This archive can only attest to what it has seen since ${D.archive_started}.</div>`);
+  <strong>Read these counts carefully.</strong> They are counts of <em>logged incidents</em>, not of crime,
+  and academic terms move them hard — June 2026 holds ${monthCount("June 2026")} and September
+  ${monthCount("September 2026")}, which is a campus filling up, not a crime wave.
+  Of the ${c.total_archived} incidents in the archive, ${agencyCount("RUPD")} carry a Rowan University
+  police reference, ${agencyCount("GPD")} a Glassboro municipal police reference and ${agencyCount("CSA")}
+  a Campus Security Authority reference, so "campus police handled ${c.total_archived} incidents" would be
+  wrong. The older records in the table also differ in kind: that log counted
+  <strong>non-crime police activity</strong> alongside offenses and carried a
+  <strong>student / non-student flag</strong> the current format dropped, and 2018\u20132020 and
+  April\u2013May 2026 were never captured at all.</div>`);
+
 $("#banners").innerHTML = banners.join("");
 
 function monthCount(m) { return D.incidents.filter(i => i.month === m).length; }
 function agencyCount(a) { return D.incidents.filter(i => i.agencies.includes(a)).length; }
 
-$("#stats").innerHTML = [
-  ["Incidents preserved", c.total_archived, false],
-  ["Still published", c.currently_published, false],
-  ["No longer published", c.no_longer_published, c.no_longer_published > 0],
-  ["Amended since first seen", D.incidents.filter(i => i.revision > 1).length, false],
-  ["Changes recorded", D.changelog.filter(e => e.change_type !== "added").length, false],
-].map(([l, n, flag]) =>
-  `<div class="stat${flag ? " flag" : ""}"><div class="n">${n}</div><div class="l">${l}</div></div>`).join("");
+function renderStats(scoped) {
+  const amended = scoped.filter(i => i.revision > 1).length;
+  const gone = scoped.filter(i => !LIVE.has(i.status) && i.status !== "superseded").length;
+  const arrests = scoped.filter(i => i.disposition_flags.includes("arrested")).length;
+  const open = scoped.filter(i => i.disposition_flags.includes("open_active")).length;
+  $("#stats").innerHTML = [
+    ["Incidents", scoped.length, false],
+    ["Ended in an arrest", arrests, false],
+    ["Still open / active", open, false],
+    ["Amended after publication", amended, false],
+    ["No longer published", gone, gone > 0],
+  ].map(([l, n, flag]) =>
+    `<div class="stat${flag ? " flag" : ""}"><div class="n">${n}</div><div class="l">${l}</div></div>`).join("");
+}
 
 /* ---- change feed ---- */
-const LABEL = { added:"Added", amended:"Amended", withdrawn:"Removed from source",
-  source_removed:"Whole monthly sheet removed", reappeared:"Reappeared", missing:"Missing", relocated:"Moved file" };
-const feed = D.changelog.filter(e => e.change_type !== "added").slice().reverse().slice(0, 120);
+const LABEL = {
+  added: "Added", amended: "Amended", withdrawn: "Removed from source",
+  source_removed: "Whole monthly sheet removed", reappeared: "Reappeared",
+  missing: "Missing", relocated: "Moved to another file",
+  superseded_identity: "Republished under a corrected case number",
+  absent_in_later_capture: "Absent from a later capture — needs review",
+};
+// Cosmetic date reformats are kept in the changelog but out of the feed: in February
+// 2022 alone there are 35, and they would bury the amendments worth reading.
+const cosmeticCount = D.changelog.filter(e => e.cosmetic).length;
+const feed = D.changelog
+  .filter(e => e.change_type !== "added" && !e.cosmetic)
+  .slice().reverse().slice(0, 150);
+$("#feedsub").textContent =
+  `Amendments and removals observed by this archive` +
+  (cosmeticCount ? ` · ${cosmeticCount} cosmetic date reformats recorded but hidden here` : "");
 $("#feed").innerHTML = feed.length ? feed.map(e => `
   <div class="ev ${esc(e.change_type)}">
     <div><strong>${esc(LABEL[e.change_type] || e.change_type)}</strong>
-      — ${esc(e.case_number || e.incident_uid)}</div>
+      — ${esc(e.case_number || e.old_case_number || e.incident_uid)}</div>
     <div class="meta">${esc(e.observed_date)}${e.field ? " · " + esc(e.field) : ""}</div>
     ${e.field ? `<div class="diff"><span class="old">${esc(e.old) || "(blank)"}</span>
        → <span class="new">${esc(e.new) || "(blank)"}</span></div>` : ""}
     ${e.last_known_disposition ? `<div class="diff">Last known disposition: ${esc(e.last_known_disposition)}</div>` : ""}
+    ${e.change_type === "superseded_identity" ? `<div class="diff"><span class="old">${esc(e.old_case_number)} · ${esc(e.old_date_reported)}</span>
+       → <span class="new">${esc(e.new_case_number)} · ${esc(e.new_date_reported)}</span></div>` : ""}
+    ${e.change_type === "absent_in_later_capture" ? `<div class="diff">Last seen in the ${esc(e.source_month)} log. Preserved in full; not treated as a deletion.</div>` : ""}
   </div>`).join("")
-  : `<div class="empty">No additions, amendments or removals observed yet. The archive started on ${esc(D.archive_started)};
+  : `<div class="empty">No substantive amendments or removals observed yet. The archive started on ${esc(D.archive_started)};
      everything recorded so far is the initial capture.</div>`;
 
 /* ---- chart helpers ---- */
-function svg(h) { return `<svg viewBox="0 0 600 ${h}" preserveAspectRatio="xMinYMin meet" role="img">`; }
+function svg(h, w) { return `<svg viewBox="0 0 ${w || 600} ${h}" preserveAspectRatio="xMinYMin meet" role="img">`; }
+
 function hbars(sel, rows, color, fmt) {
   if (!rows.length) { $(sel).innerHTML = `<div class="empty">No data.</div>`; return; }
   const LW = 168, BW = 600 - LW - 46, BH = 19, GAP = 7, max = Math.max(...rows.map(r => r[1])) || 1;
@@ -357,6 +438,44 @@ function wireTips(sel) {
 }
 const clip = (s, n) => (s.length > n ? s.slice(0, n - 1) + "…" : s);
 
+/* ---- scope ----
+   The page is built around the school year in progress. Campus crime tracks the academic
+   calendar, so an August-to-July window keeps a year's population cycle intact; the full
+   archive stays one selection away. */
+// Charts cover the CURRENT publication format only. The pre-2026 record is captured
+// unevenly — some academic years hold twelve months, others hold one — so charting it
+// invites year-over-year comparisons the coverage cannot support. It is all still in the
+// archive and all still searchable in the table below; it is just not graphed.
+const CURRENT_ERA = "drive-2026";
+const ERA_INCIDENTS = D.incidents.filter(i => i.era === CURRENT_ERA);
+// Only school years lying ENTIRELY within the current format. The format changed mid
+// school-year, so 2025-26 has 665 incidents of which just 37 are in this format; offering
+// it as "2025-26 — 37 incidents" would understate that year by a factor of eighteen.
+const ERA_YEARS = D.school_years
+  .filter(y => y.eras.length === 1 && y.eras[0] === CURRENT_ERA)
+  .map(y => y.year)
+  .sort().reverse();
+const CURRENT = D.current_school_year;
+let SCOPE = ERA_YEARS.includes(CURRENT) ? CURRENT : (ERA_YEARS[0] || "era");
+
+$("#scope").innerHTML =
+  ERA_YEARS.map(y => {
+    const n = ERA_INCIDENTS.filter(i => i.school_year === y).length;
+    const ms = [...new Set(ERA_INCIDENTS.filter(i => i.school_year === y).map(i => i.month_key))];
+    return `<option value="${esc(y)}"${y === SCOPE ? " selected" : ""}>`
+      + `${esc(y)} school year — ${n} incidents (${esc(coverageLabel(ms))})</option>`;
+  }).join("")
+  + `<option value="era">Everything in the current format — ${ERA_INCIDENTS.length} incidents`
+  + ` (${esc(coverageLabel([...new Set(ERA_INCIDENTS.map(i => i.month_key))], true))})</option>`;
+
+$("#scope").onchange = () => { SCOPE = $("#scope").value; drawAll(); };
+
+// Nothing outside the current format is ever charted.
+const inScope = (i) => i.era === CURRENT_ERA && (SCOPE === "era" || i.school_year === SCOPE);
+function scopeLabel() {
+  return SCOPE === "era" ? "every month published in the current format" : `the ${SCOPE} school year`;
+}
+
 /* ---- charts ---- */
 // Round an axis maximum up to a readable tick value (10/20/25/50 x a power of ten),
 // so the gridlines read 0/30/60/90/120 rather than 0/27/53/80/107.
@@ -368,92 +487,131 @@ function niceMax(v) {
 }
 
 function drawMonth() {
-  const months = D.facets.months.map(m => m.value).filter(Boolean)
-    .sort((a, b) => new Date(a + " 1") - new Date(b + " 1"));
-  const top = D.facets.categories.slice(0, 7).map(c => c.value);
+  const scoped = D.incidents.filter(inScope);
+  const months = [...new Set(scoped.map(i => i.month))].filter(Boolean).sort(monthKeyCmp);
+  const top = topCategories(scoped, 7);
   const keys = top.concat(["Other"]);
-  $("#monthsub").textContent = `Each incident counted once, under its first-listed offense · top ${top.length} types, rest grouped as Other`;
+  $("#monthsub").textContent =
+    `${scopeLabel()} · ${esc(coverageLabel(months.map(monthKey), SCOPE === "era"))}`
+    + ` · each incident counted once, under its first-listed offense`;
 
   const data = months.map(m => {
-    const rows = D.incidents.filter(i => i.month === m);
-    const o = { m, total: rows.length };
+    const rows = scoped.filter(i => i.month === m);
+    const o = { m, total: rows.length, era: rows.length ? rows[0].era : "" };
     keys.forEach(k => o[k] = 0);
     rows.forEach(i => {
-      // Each incident counts ONCE, under its first-listed offense, so the stack height
-      // equals the incident count on the label. Counting an incident under every
-      // offense it carries would make the bar taller than the number printed above it.
-      // The ranked chart beside this one is where multi-offense incidents are counted
-      // per offense.
       const primary = i.categories.find(c => top.includes(c));
       o[primary || "Other"]++;
     });
     return o;
   });
 
-  const PAD = 34, BOT = 26, H = 230;
-  const raw = Math.max(...data.map(d => keys.reduce((s, k) => s + d[k], 0)), 1);
-  const max = niceMax(raw);
-  const bw = Math.min(74, (600 - PAD - 12) / data.length - 16);
+  const PAD = 34, BOT = 42, H = 250, W = 600;
+  const max = niceMax(Math.max(...data.map(d => d.total), 1));
+  const slot = (W - PAD - 6) / data.length;
+  const bw = Math.max(2, slot - 2);
   let s = svg(H);
   for (let g = 0; g <= 4; g++) {
-    const y = 10 + (H - BOT - 10) * (g / 4), v = Math.round(max * (1 - g / 4));
-    s += `<line class="gridline" x1="${PAD}" y1="${y}" x2="600" y2="${y}"/>
-          <text class="axis" x="${PAD - 7}" y="${y + 4}" text-anchor="end">${v}</text>`;
+    const y = 10 + (H - BOT - 10) * (g / 4);
+    s += `<line class="gridline" x1="${PAD}" y1="${y}" x2="${W}" y2="${y}"/>
+          <text class="axis" x="${PAD - 7}" y="${y + 4}" text-anchor="end">${Math.round(max * (1 - g / 4))}</text>`;
   }
+
   data.forEach((d, i) => {
-    const x = PAD + 14 + i * ((600 - PAD - 14) / data.length);
+    const x = PAD + 4 + i * slot;
     let acc = 0;
     keys.forEach((k, ki) => {
       if (!d[k]) return;
       const hgt = (d[k] / max) * (H - BOT - 10);
-      const y = H - BOT - acc - hgt;
-      // 2px surface gap between stacked segments keeps adjacent fills separable.
-      s += `<rect x="${x}" y="${y}" width="${bw}" height="${Math.max(1, hgt - 2)}" rx="2"
-             fill="${cssvar(SERIES[ki])}" data-t="${esc(d.m)} — ${esc(k)}: ${d[k]}"/>`;
       acc += hgt;
+      s += `<rect x="${x}" y="${H - BOT - acc}" width="${bw}" height="${Math.max(1, hgt - (slot > 8 ? 1 : 0))}"
+             rx="1" fill="${cssvar(SERIES[ki])}" data-t="${esc(d.m)} — ${esc(k)}: ${d[k]} of ${d.total}"/>`;
     });
-    s += `<text class="axis" x="${x + bw / 2}" y="${H - 9}" text-anchor="middle">${esc(d.m.split(" ")[0].slice(0, 3))}</text>`;
-    s += `<text class="vlabel" x="${x + bw / 2}" y="${H - BOT - acc - 6}" text-anchor="middle">${d.total}</text>`;
   });
+
+  data.forEach((d, i) => {
+    s += `<text class="axis" x="${PAD + 4 + i * slot + bw / 2}" y="${H - BOT + 15}"`
+       + ` text-anchor="middle">${esc(shortMonth(d.m))}</text>`;
+  });
+
   $("#chart-month").innerHTML = s + "</svg>";
   $("#legend-month").innerHTML = keys.map((k, i) =>
     `<span><i class="swatch" style="background:${cssvar(SERIES[i])}"></i>${esc(k)}</span>`).join("");
   wireTips("#chart-month");
 }
 
-function drawHeat() {
-  const DAYS = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
-  const grid = DAYS.map(() => new Array(24).fill(0));
-  let placed = 0;
-  D.incidents.forEach(i => {
-    if (i.reported.precision !== "minute") return;
-    const d = new Date(i.reported.value);
-    grid[(d.getDay() + 6) % 7][d.getHours()]++; placed++;
-  });
-  const max = Math.max(...grid.flat(), 1);
-  const steps = ["--seq-100","--seq-250","--seq-400","--seq-550","--seq-700"];
-  const CW = 22, CH = 19, LW = 34, H = 7 * CH + 30;
-  let s = svg(H);
-  grid.forEach((row, r) => {
-    s += `<text class="axis" x="${LW - 7}" y="${r * CH + 13}" text-anchor="end">${DAYS[r]}</text>`;
-    row.forEach((n, h) => {
-      const idx = n === 0 ? -1 : Math.min(4, Math.floor((n / max) * 4.999));
-      const fill = idx < 0 ? "var(--surface-2)" : cssvar(steps[idx]);
-      s += `<rect x="${LW + h * CW}" y="${r * CH}" width="${CW - 2}" height="${CH - 2}" rx="2"
-             fill="${fill}" data-t="${DAYS[r]} ${String(h).padStart(2,"0")}:00 — ${n} report${n===1?"":"s"}"/>`;
+// Rank categories within whatever is in scope, so a year's own chart reflects that year
+// rather than inheriting the whole archive's ordering.
+function topCategories(rows, n) {
+  const c = {};
+  rows.forEach(i => i.categories.forEach(k => c[k] = (c[k] || 0) + 1));
+  return Object.entries(c).sort((a, b) => b[1] - a[1]).slice(0, n).map(e => e[0]);
+}
+function countBy(rows, pick) {
+  const c = {};
+  rows.forEach(i => [].concat(pick(i)).forEach(v => { if (v) c[v] = (c[v] || 0) + 1; }));
+  return Object.entries(c).sort((a, b) => b[1] - a[1]);
+}
+
+// Months arrive in two labellings: "August 2026" (Drive) and "2022-09" (legacy).
+function monthKey(m) {
+  if (/^\d{4}-\d{2}$/.test(m)) return m;
+  const d = new Date(m + " 1");
+  return isNaN(d) ? m : `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+}
+const monthKeyCmp = (a, b) => monthKey(a) < monthKey(b) ? -1 : monthKey(a) > monthKey(b) ? 1 : 0;
+
+// One sparkline per offense, month by month. Small multiples rather than a single
+// multi-series line: twelve lines on one axis is unreadable, and the question here is
+// "is THIS offense moving", which each panel answers on its own.
+function drawTrend() {
+  const scoped = D.incidents.filter(inScope);
+  const months = [...new Set(scoped.map(i => i.month))].filter(Boolean).sort(monthKeyCmp);
+  const cats = topCategories(scoped, 12);
+
+  $("#trendsub").textContent = months.length < 2
+    ? `${scopeLabel()} · only ${months.length} month of data so far — trends appear as the year fills in`
+    : `${scopeLabel()} · ${months.length} months · each panel on its own scale, peak labelled`;
+
+  if (!cats.length) { $("#chart-trend").innerHTML = `<div class="empty">No incidents in scope.</div>`; return; }
+
+  const W = 165, H = 54, PADL = 4, PADB = 13;
+  $("#chart-trend").innerHTML = `<div class="smallmult">` + cats.map(cat => {
+    const series = months.map(m => scoped.filter(i => i.month === m && i.categories.includes(cat)).length);
+    const total = series.reduce((a, b) => a + b, 0);
+    const peak = Math.max(...series, 1);
+    const bw = Math.max(2, (W - PADL * 2) / series.length - 2);
+    let bars = "";
+    series.forEach((n, i) => {
+      const x = PADL + i * ((W - PADL * 2) / series.length);
+      const h = Math.max(n ? 2 : 1, (n / peak) * (H - PADB - 12));
+      // Plain baseline-anchored rects. An earlier version rotated a rounded path to
+      // flip it and mangled the geometry; at these widths a rect with rx reads the same
+      // and cannot go wrong.
+      bars += `<rect x="${x}" y="${H - PADB - h}" width="${bw}" height="${h}" rx="1"
+                fill="${cssvar("--s1")}" opacity="${n ? 1 : 0.15}"
+                data-t="${esc(cat)} — ${esc(months[i])}: ${n}"/>`;
     });
-  });
-  for (let h = 0; h < 24; h += 3)
-    s += `<text class="axis" x="${LW + h * CW + CW/2}" y="${7 * CH + 14}" text-anchor="middle">${h}</text>`;
-  s += `<text class="axis" x="${LW}" y="${7 * CH + 28}">${placed} of ${D.incidents.length} incidents have a report time precise to the minute</text>`;
-  const lx = LW + 24 * CW - 128;
-  s += `<text class="axis" x="${lx - 24}" y="${7 * CH + 28}">fewer</text>`;
-  steps.forEach((st, i) => {
-    s += `<rect x="${lx + i * 15}" y="${7 * CH + 20}" width="13" height="9" rx="2" fill="${cssvar(st)}"/>`;
-  });
-  s += `<text class="axis" x="${lx + steps.length * 15 + 4}" y="${7 * CH + 28}">more (max ${max})</text>`;
-  $("#chart-heat").innerHTML = s + "</svg>";
-  wireTips("#chart-heat");
+    bars += `<line x1="${PADL}" y1="${H - PADB}" x2="${W - PADL}" y2="${H - PADB}" class="gridline"/>`;
+    // Label only the first and last month: a label per bar is noise.
+    const tick = (i, anchor) => months.length > 1
+      ? `<text class="axis" x="${anchor === "start" ? PADL : W - PADL}" y="${H - 2}"
+          text-anchor="${anchor}" font-size="9">${esc(shortMonth(months[i]))}</text>` : "";
+    return `<div class="sm">
+      <div class="nm"><span>${esc(clip(cat, 20))}</span><span class="tot">${total}</span></div>
+      <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMinYMin meet">
+        <text class="axis" x="${PADL}" y="9" font-size="9">peak ${peak}</text>
+        ${bars}${tick(0, "start")}${tick(months.length - 1, "end")}
+      </svg></div>`;
+  }).join("") + `</div>`;
+  wireTips("#chart-trend");
+}
+
+function shortMonth(m) {
+  const k = monthKey(m);
+  if (!/^\d{4}-\d{2}$/.test(k)) return m;
+  return ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][+k.slice(5) - 1]
+    + " " + k.slice(2, 4);
 }
 
 const DISP_LABEL = {
@@ -465,16 +623,27 @@ const DISP_LABEL = {
   no_further_action:"No further action", juvenile_involved:"Juvenile involved", warned:"Subject warned",
   building_ban:"Building ban", tro_issued:"Restraining order issued", no_contact:"Left before police arrived",
   referred_prosecutor:"Referred to county prosecutor", rp_referred_to_complaint:"Citizen's complaint info given",
-  rp_provided_resources:"Resources provided"
+  rp_provided_resources:"Resources provided",
+  barred: "Subject barred from campus",
+  other_agency: "Referred to another agency",
+  station_house_adjustment: "Juvenile station house adjustment",
+  title_ix: "Title IX / equity office",
+  unfounded: "Determined unfounded",
 };
 
 function drawAll() {
+  const scoped = D.incidents.filter(inScope);
+  $("#scopenote").textContent = `${scoped.length} incidents`;
+  $("#catsub").textContent =
+    `${scopeLabel()} · incidents may carry more than one offense, so the total exceeds the incident count`;
+
   drawMonth();
-  hbars("#chart-cat", D.facets.categories.slice(0, 14).map(c => [c.value, c.count]), cssvar("--s1"));
-  hbars("#chart-loc", D.facets.locations.slice(0, 15).map(c => [c.value, c.count]), cssvar("--s3"));
-  hbars("#chart-disp", D.facets.disposition_flags.slice(0, 12)
-    .map(c => [DISP_LABEL[c.value] || c.value, c.count]), cssvar("--s7"));
-  drawHeat();
+  drawTrend();
+  hbars("#chart-cat", countBy(scoped, i => i.categories).slice(0, 14), cssvar("--s1"));
+  hbars("#chart-loc", countBy(scoped, i => i.location).slice(0, 15), cssvar("--s3"));
+  hbars("#chart-disp", countBy(scoped, i => i.disposition_flags).slice(0, 12)
+    .map(([k, n]) => [DISP_LABEL[k] || k, n]), cssvar("--s7"));
+  renderStats(scoped);
 }
 
 /* ---- quality ---- */
@@ -495,9 +664,18 @@ $("#quality").innerHTML = [
   ["Reported before it occurred", q.occurred_after_reported,
    r => `${r.case_number} — ${r.hours}h`,
    "The occurrence timestamp is later than the report timestamp."],
+  ["Offense terms not in the category map", q.unclassified_offenses,
+   r => `${r.case_number} — ${r.tokens.map(esc).join(", ")}`,
+   "Almost all are one-off descriptions of what was taken or damaged. They are counted here rather than folded into a category, so nothing is silently miscounted. Every incident still carries an offense category or is classed as non-crime police activity."],
+  ["Disposition terms not in the map", q.unclassified_dispositions,
+   r => `${r.case_number} — ${r.tokens.map(esc).join(", ")}`,
+   "Long-tail wording from the pre-2026 log. The raw disposition text is still shown in the table."],
+  ["Possible duplicate identities", q.duplicate_candidates,
+   r => `${r.month} — ${r.case_number}`,
+   "Rows that may be the same incident republished under a corrected case number. Flagged, never merged: a wider auto-merge rule was tested and rejected because it collapsed genuinely distinct same-minute police summonses."],
   ["Dates outside the expected year window", q.year_warnings,
    r => `${r.case_number} — ${esc(r.warning)}`,
-   "Usually a much older incident reported late, but check before using."],
+   "Checked against the year of the log the row appears in, not against today."],
 ].filter(([, rows]) => rows.length).map(([title, rows, fmt, note]) => `
   <details class="q"><summary><strong>${rows.length}</strong> ${esc(title)}</summary>
     <p class="sub" style="margin:6px 0 0">${note}</p>
@@ -509,8 +687,14 @@ const FILTERS = [
   ["#f-month", "months", "All months"], ["#f-cat", "categories", "All offenses"],
   ["#f-campus", "campuses", "All campuses"], ["#f-agency", "agencies", "All agencies"],
   ["#f-status", "statuses", "All records"],
+  ["#f-era", "eras", "Both formats"],
+  ["#f-student", "student_flags", "Any student status"],
 ];
-const STATUS_LABEL = { active:"Still published", missing:"Missing from source", withdrawn:"Removed from source", source_removed:"Sheet removed" };
+const STATUS_LABEL = {
+  active:"Still published", missing:"Missing from source", withdrawn:"Removed from source",
+  source_removed:"Sheet removed", superseded:"Replaced by a corrected record",
+  "drive-2026":"Drive sheets (2026\u2013)", "cleryapp-php":"PHP log (2017\u20132026)",
+};
 FILTERS.forEach(([sel, facet, all]) => {
   $(sel).innerHTML = `<option value="">${all}</option>` + D.facets[facet]
     .map(o => `<option value="${esc(o.value)}">${esc(STATUS_LABEL[o.value] || o.value)} (${o.count})</option>`).join("");
@@ -526,10 +710,11 @@ document.querySelectorAll("th").forEach(th => th.onclick = () => {
 
 function render() {
   const term = $("#q").value.trim().toLowerCase();
-  const [m, cat, camp, ag, st] = FILTERS.map(([sel]) => $(sel).value);
+  const [m, cat, camp, ag, st, era, stud] = FILTERS.map(([sel]) => $(sel).value);
   let rows = D.incidents.filter(i =>
     (!m || i.month === m) && (!cat || i.categories.includes(cat)) &&
     (!camp || i.campus === camp) && (!ag || i.agencies.includes(ag)) && (!st || i.status === st) &&
+    (!era || i.era === era) && (!stud || i.student_flag === stud) &&
     (!term || [i.narrative, i.case_number, i.location, i.nature_raw, i.disposition_raw]
       .join(" ").toLowerCase().includes(term)));
 
@@ -549,9 +734,12 @@ function render() {
       <td class="narr">${esc(i.narrative)}
           ${gone ? `<br><span class="tag bad">${esc(STATUS_LABEL[i.status] || i.status)}${i.missing_since ? " since " + esc(i.missing_since) : ""}</span>` : ""}
           ${i.revision > 1 ? `<span class="tag amend">amended ×${i.revision - 1}</span>` : ""}
-          ${i.flags.includes("near_duplicate") ? `<span class="tag bad">possible duplicate</span>` : ""}</td>
-      <td>${esc(i.campus)}</td>
-      <td>${esc(i.location)}</td>
+          ${i.flags.includes("near_duplicate") ? `<span class="tag bad">possible duplicate</span>` : ""}
+          ${i.flags.includes("possible_duplicate_identity") ? `<span class="tag bad">possible duplicate identity</span>` : ""}
+          ${i.activity.length ? `<span class="tag">police activity: ${i.activity.map(esc).join(", ")}</span>` : ""}
+          ${!i.narrative && i.era === "cleryapp-php" ? `<span class="sub">no narrative published in this era</span>` : ""}</td>
+      <td>${esc(i.campus)}${i.student_flag ? `<br><span class="tag">${esc(i.student_flag)}</span>` : ""}</td>
+      <td>${esc(i.location)}${i.objects.length ? `<br><span class="tag">${i.objects.map(esc).join(", ")}</span>` : ""}</td>
       <td>${esc(i.disposition_raw)}${i.disposition_amended ? `<br><span class="tag amend">updated by source</span>` : ""}</td>
     </tr>`;
   }).join("") || `<tr><td colspan="7" class="empty">No incidents match these filters.</td></tr>`;

@@ -8,6 +8,7 @@ distinct incidents collapse into one (losing a record).
 from __future__ import annotations
 
 import csv
+import datetime as dt
 import hashlib
 import io
 import re
@@ -42,6 +43,68 @@ def normalize_case_number(raw: str) -> str:
     references are derived separately, downstream, and never used for identity.
     """
     return re.sub(r"\s+", " ", raw or "").strip().upper()
+
+
+_UID_DATE_FORMATS = ("%m/%d/%y %H:%M", "%m/%d/%Y %H:%M", "%m/%d/%y", "%m/%d/%Y")
+
+
+def canonical_reported(raw: str) -> str:
+    """Canonicalize a reported timestamp for identity purposes.
+
+    The uid hashes this rather than the raw string, because the source reformats dates
+    without changing them. Verified in the February 2022 log: between two captures, 34 of
+    59 rows changed from `02/13/22 2:23` to `02/13/2022 2:23` — a two-digit year became
+    four-digit, with no other field touched anywhere in the month.
+
+    Hashing the raw string there would fork one incident into two identities over a
+    purely cosmetic edit, which is precisely the failure the key exists to avoid.
+
+    A value that cannot be parsed falls back to whitespace-collapsed text, so an
+    unexpected format still produces a stable key rather than an error.
+    """
+    text = re.sub(r"\s+", " ", raw or "").strip()
+    for fmt in _UID_DATE_FORMATS:
+        try:
+            parsed = dt.datetime.strptime(text, fmt)
+        except ValueError:
+            continue
+        # Date-only and date-with-time stay DIFFERENT keys: "06/06/22" and
+        # "06/06/22 0:01" are not the same instant, and the source has been observed
+        # adding a time later. That case is handled by reconciliation, not here.
+        return parsed.strftime("%Y-%m-%dT%H:%M") if "%H" in fmt else parsed.strftime("%Y-%m-%d")
+    return text
+
+
+_RANGE_SPLIT = re.compile(r"\s+to\s+", re.I)
+
+
+def canonical_occurred(raw: str) -> str:
+    """Canonicalize an occurrence value, including ranges, for comparison.
+
+    `Date/Time Occurred` carries ranges ("8/31/22 22:00 to 9/1/22 9:31"), bare dates, and
+    "Unk." suffixes. The source reformats these the same way it reformats reported dates
+    — `2/16/22` becomes `2/16/2022` — and 33 of 37 observed changes to this field were
+    exactly that: the same instant, spelled differently.
+
+    Used only to decide whether an edit is cosmetic. The raw string is always preserved.
+    """
+    text = re.sub(r"\s+", " ", raw or "").strip()
+    prefix = "since " if re.match(r"^since\b", text, re.I) else ""
+    text = re.sub(r"^since\s+", "", text, flags=re.I)
+    parts = []
+    for part in _RANGE_SPLIT.split(text):
+        part = re.sub(r"\s*\b(unk\.?|unknown)\s*$", "", part, flags=re.I).strip()
+        parts.append(canonical_reported(part) if part else "")
+    return prefix + " to ".join(parts)
+
+
+def is_cosmetic_date_change(field: str, old: str, new: str) -> bool:
+    """True when a date field was reformatted without changing what it denotes."""
+    if field == "date_reported_raw":
+        return canonical_reported(old) == canonical_reported(new)
+    if field == "date_occurred_raw":
+        return canonical_occurred(old) == canonical_occurred(new)
+    return False
 
 
 def content_hash(record: dict[str, str]) -> str:
@@ -87,7 +150,7 @@ def incident_uid(case_number: str, date_reported: str) -> str:
     The invariant: a uid, once written to the archive, is immutable for the life of the
     project. Never recompute identity from a later snapshot's shape.
     """
-    basis = f"{normalize_case_number(case_number)}{UNIT_SEP}{re.sub(r'\s+', ' ', date_reported or '').strip()}"
+    basis = f"{normalize_case_number(case_number)}{UNIT_SEP}{canonical_reported(date_reported)}"
     return hashlib.sha1(basis.encode("utf-8")).hexdigest()[:16]
 
 
