@@ -124,8 +124,12 @@ def test_every_live_disposition_string_maps(all_sheets, disposition_map):
             normalize.disposition_flags(record["Disposition"], disposition_map)  # must not raise
 
 
-def test_config_maps_have_no_orphan_entries(all_sheets, category_map, disposition_map):
-    """An entry for a token that no longer exists is a sign the map has drifted."""
+def test_config_maps_cover_every_live_token(all_sheets, category_map, disposition_map):
+    """Every token in the CURRENT feed must be mapped.
+
+    The maps also carry pre-2026 tokens that no 2026 sheet contains, so this checks
+    coverage rather than exact equality: the live vocabulary must be a subset.
+    """
     nature_tokens, disposition_tokens = set(), set()
     for file_id, body in all_sheets.items():
         for record in parse.parse_and_key(body, file_id):
@@ -135,8 +139,8 @@ def test_config_maps_have_no_orphan_entries(all_sheets, category_map, dispositio
                 for t in re.split(r"\s*;\s*", record["Disposition"].strip())
                 if normalize.normalize_disposition_token(t)
             )
-    assert set(category_map) == nature_tokens
-    assert set(disposition_map) == disposition_tokens
+    assert nature_tokens <= set(category_map), f"unmapped: {nature_tokens - set(category_map)}"
+    assert disposition_tokens <= set(disposition_map), f"unmapped: {disposition_tokens - set(disposition_map)}"
 
 
 def test_config_maps_are_well_formed():
@@ -145,7 +149,9 @@ def test_config_maps_are_well_formed():
         lines = [ln for ln in (CONFIG / name).read_text().splitlines() if not ln.lstrip().startswith("#")]
         for row in csv.DictReader(io.StringIO("\n".join(lines))):
             assert None not in row, f"{name}: ragged row {row}"
-            assert row["role"] in ("offense", "audit_marker", "outcome"), f"{name}: bad role {row['role']!r}"
+            assert row["role"] in (
+                "offense", "audit_marker", "outcome", "activity", "object", "channel"
+            ), f"{name}: bad role {row['role']!r}"
 
 
 # ---- dates ---------------------------------------------------------------------
@@ -188,11 +194,16 @@ def test_impossible_date_is_surfaced_not_silently_dropped(all_sheets):
     assert "9/31/26 11:30" in found
 
 
-def test_two_digit_year_outside_window_is_flagged():
+def test_year_is_checked_against_the_logs_own_month():
+    """`%y` turns a stray "/99" into 1999; that must be caught.
+
+    The comparison is to the year of the log the row appears in, not to today: the
+    archive spans 2017-2026, so comparing to "now" would flag every historical row.
+    """
     parsed = normalize.parse_datetime("3/4/99 10:00")
-    assert normalize.year_sanity_warning(parsed, current_year=2026) is not None
+    assert normalize.year_sanity_warning(parsed, expected_year=2026) is not None
     ok = normalize.parse_datetime("3/4/26 10:00")
-    assert normalize.year_sanity_warning(ok, current_year=2026) is None
+    assert normalize.year_sanity_warning(ok, expected_year=2026) is None
 
 
 def test_reporting_lag_requires_minute_precision_at_both_ends():

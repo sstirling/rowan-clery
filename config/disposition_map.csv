@@ -53,3 +53,66 @@ disposition updated,audit_marker,,Tokens after this supersede those before it
 disposition updated/inactive,audit_marker,inactive,
 disposition updated- closed,audit_marker,closed,
 updated - property recovered,audit_marker,property_recovered,
+#
+# ---------------------------------------------------------------------------
+# PRE-2026 (legacy) disposition tokens, from the archived cleryapp PHP log.
+# `unfounded` and `title_ix` are tracked as their own flags: an unfounded
+# determination is Clery-significant, and Title IX / OSEC referrals mark a parallel
+# university process rather than a police outcome.
+# ---------------------------------------------------------------------------
+addressed by university dept,outcome,referred_university,
+advised on services,outcome,rp_provided_resources,
+advised on services/complaint process,outcome,rp_referred_to_complaint,
+closed investigation completed unsolved,outcome,investigation_completed|unsolved,
+closed items returned,outcome,closed,
+closed no further action,outcome,closed,
+closed off campus incident,outcome,other_agency,
+closed referred to dean of students,outcome,referred_university,
+closed referred to glassboro pd,outcome,glassboro_pd,
+closed referred to outside agency,outcome,other_agency,
+closed subject arrested,outcome,arrested,
+closed subject arrestedyes,outcome,arrested,
+closed subject barred,outcome,barred,
+closed subject issued boro summons,outcome,summons_issued,
+closed subject warned,outcome,warned,
+closed/no further action,outcome,closed,
+harrison twp. police case,outcome,other_agency,
+inactive,outcome,inactive,
+incident not reported to public safety,outcome,not_reported_to_rupd,
+issued summons,outcome,summons_issued,
+juvenile,outcome,juvenile_involved,
+left prior to police/dps arrival,outcome,no_contact,
+n/a,outcome,,
+not reported to dps,outcome,not_reported_to_rupd,
+not reported to public safety,outcome,not_reported_to_rupd,
+not reported to public safety/addressed by university department,outcome,referred_university,
+one subject arrested,outcome,arrested,
+open/active/disposition updated/inactive,audit_marker,inactive,
+osec,outcome,title_ix,
+parties declined police involvement,outcome,rp_declined,
+referred to glassboro pd,outcome,glassboro_pd,
+referred to outside agency,outcome,other_agency,
+referred to university department,outcome,referred_university,
+reporting party declined,outcome,rp_declined,
+reporting party provided w/resources,outcome,rp_provided_resources,
+res. life (rluh),outcome,referred_university,
+stratford borough police case,outcome,other_agency,
+"student, arrest closed subject arrested",outcome,arrested,
+subject barred,outcome,barred,
+summons issued,outcome,summons_issued,
+summons mailed,outcome,summons_issued,
+title ix,outcome,title_ix,
+title ix (osec),outcome,title_ix,
+trespassing notice issued,outcome,trespass_notice,
+trespassing warning issued,outcome,trespass_notice,
+two individuals issued summons (non-students),outcome,summons_issued,
+two subjects issued,outcome,summons_issued,
+unfounded,outcome,unfounded,
+unfounded by officer,outcome,unfounded,
+#
+# Added 2026-10-02, from an amendment the daily run caught: a juvenile bicycle-theft
+# case closed through a Station House Adjustment, New Jersey's police-led juvenile
+# diversion programme. It gets its own flag because a diversion is a materially
+# different outcome from an arrest or a summons.
+closed - juvenile subject issued station house adjustment and trespass notice,outcome,closed|juvenile_involved|station_house_adjustment|trespass_notice,
+station house adjustment,outcome,station_house_adjustment|juvenile_involved,NJ juvenile diversion rather than a charge

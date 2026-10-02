@@ -4,6 +4,10 @@
     python run.py fetch     one daily run: discover, snapshot, merge into the archive
     python run.py build     regenerate the page data from the archive
     python run.py all       both, in order
+    python run.py backfill  replay the Internet Archive's captures of the pre-2026 log
+    python run.py rebuild   reconstruct the archive from stored raw snapshots, offline
+
+`backfill` is a one-off (and re-runnable: captures are immutable and cached on disk).
 
 Exit codes carry meaning so a CI job can react to them:
     0  clean run
@@ -29,12 +33,41 @@ CONFIG = ROOT / "config"
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("command", choices=["fetch", "build", "all"])
+    parser.add_argument("command", choices=["fetch", "build", "all", "backfill", "rebuild"])
     parser.add_argument("--date", help="override the run date (YYYY-MM-DD), for testing")
     parser.add_argument("--json", action="store_true", help="print the full run report as JSON")
     args = parser.parse_args()
 
     report = None
+    if args.command == "rebuild":
+        result = pipeline.rebuild(DATA, CONFIG)
+        print(f"\nreplayed {result['snapshots']} snapshots from {len(result['files'])} files")
+        print(f"  +{result['added']} added, {result['amended']} amended")
+        print(f"  archive holds {result['archive_rows']} incidents")
+        return 0
+
+    if args.command == "backfill":
+        from rowan_clery import backfill
+        result = backfill.run(DATA, progress=print)
+        # Both run after the replay, when every capture has been seen: reconciliation
+        # needs the full picture to tell a corrected identity from a new incident.
+        reconciled = backfill.reconcile_identity_amendments(DATA)
+        flagged = backfill.flag_duplicate_candidates(DATA)
+        print(
+            f"\nreplayed {result['captures_used']} captures across {len(result['months'])} months "
+            f"({result['captures_dead']} dead shells, {result['captures_failed']} failed)"
+        )
+        print(
+            f"  +{result['added']} incidents added, {result['amended']} amended, "
+            f"{result['absent_flagged']} flagged absent"
+        )
+        print(f"  {len(reconciled)} identity amendments reconciled, "
+              f"{len(flagged)} possible duplicates flagged for review")
+        print(f"  archive now holds {result['archive_rows']} incidents")
+        for w in result["warnings"][:15]:
+            print(f"  warning: {w}")
+        return 0
+
     if args.command in ("fetch", "all"):
         try:
             report = pipeline.run(DATA, CONFIG, today=args.date)

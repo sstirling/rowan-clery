@@ -1,0 +1,66 @@
+{
+  "alarms": [],
+  "archive_rows": 2353,
+  "date": "2026-10-02",
+  "files": {
+    "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o": {
+      "month": "July 2026",
+      "name": "July 2026 Daily Crime Log",
+      "rows": 23,
+      "sha256": "44c0e11ce717d32386d1a74c226b1e3f748ed4760fca6714996e1d37304b721f",
+      "snapshot_written": false,
+      "status": "ok"
+    },
+    "1HULCgv9mk7XMkfC2DKkBaOUm5rA00aVfO83lU9489p0": {
+      "month": "September 2026",
+      "name": "September 2026 Daily Crime Log",
+      "rows": 107,
+      "sha256": "0018d17da0b85a83b75fad363199c996c95894b859aa5e878ca6913e82dc67ca",
+      "snapshot_written": false,
+      "status": "ok"
+    },
+    "1Ms5gjJX_-vnA4wUaTW-z60Hd98guINjRU5R-e5n58Ts": {
+      "month": "August 2026",
+      "name": "August 2026 Daily Crime Log",
+      "rows": 42,
+      "sha256": "cb8c3efa714550009be754c4d4ea1965b494602a0e810c975542475aeb8a1711",
+      "snapshot_written": false,
+      "status": "ok"
+    },
+    "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE": {
+      "error": "https://docs.google.com/spreadsheets/d/1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE/export?format=csv failed after 4 attempts: HTTP Error 401: Unauthorized",
+      "name": "June 2026 Daily Crime Log",
+      "status": "unfetched"
+    },
+    "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I": {
+      "error": "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: body is only 191 bytes",
+      "name": "October 2026 Daily Crime Log",
+      "status": "pending"
+    }
+  },
+  "folder_id": "1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
+  "listing": {
+    "count": 4,
+    "status": "ok"
+  },
+  "merge": {
+    "added": 0,
+    "amended": 0,
+    "changed": false,
+    "missing": 0,
+    "quarantined": [],
+    "reappeared": 0,
+    "relocated": 0,
+    "source_removed": 0,
+    "unchanged": 172,
+    "unfetched": [],
+    "warnings": [],
+    "withdrawn": 0
+  },
+  "summary": "+0 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
+  "warnings": [
+    "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']",
+    "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): fetch failed (https://docs.google.com/spreadsheets/d/1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE/export?format=csv failed after 4 attempts: HTTP Error 401: Unauthorized); absence 2 of 3. Rows left untouched.",
+    "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I (October 2026 Daily Crime Log): present but not yet readable (1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: body is only 191 bytes). No rows archived from it yet, so nothing is at risk."
+  ]
+}

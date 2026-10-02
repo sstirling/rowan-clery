@@ -23,7 +23,12 @@ import datetime as dt
 import json
 import pathlib
 
-from .parse import SOURCE_FIELDS, normalize_case_number
+from .parse import (
+    SOURCE_FIELDS,
+    canonical_reported,
+    is_cosmetic_date_change,
+    normalize_case_number,
+)
 
 ARCHIVE_COLUMNS = [
     "incident_uid",
@@ -39,6 +44,12 @@ ARCHIVE_COLUMNS = [
     "source_file_id",
     "source_file_name",
     "source_month",
+    # Which publication era this row came from. The pre-2026 PHP log and the 2026 Drive
+    # sheets are different schemas, and any view that mixes them has to say so.
+    "source_era",
+    # Student / Non Student / Unknown. Published on ~70% of pre-2026 rows and dropped
+    # entirely in the 2026 format. Carried here so the loss is visible, not silent.
+    "student_flag",
     "source_row_index",
     "content_hash",
     "first_seen_by_archive",
@@ -50,6 +61,9 @@ ARCHIVE_COLUMNS = [
     # confirmation window intends.
     "last_absent",
     "status",
+    # Set when an identity-field amendment produced a second uid for one incident;
+    # points at the row that replaced this one. See backfill.reconcile_identity_amendments.
+    "superseded_by",
     "revision",
     "flags",
 ]
@@ -144,6 +158,13 @@ class Archive:
         with self.incidents_path.open(newline="", encoding="utf-8") as fh:
             return {row["incident_uid"]: row for row in csv.DictReader(fh)}
 
+    def rows_per_file(self) -> dict[str, int]:
+        """How many archived rows each source file accounts for."""
+        counts: dict[str, int] = {}
+        for row in self.load().values():
+            counts[row.get("source_file_id", "")] = counts.get(row.get("source_file_id", ""), 0) + 1
+        return counts
+
     def write(self, rows: dict[str, dict[str, str]]) -> None:
         self.dir.mkdir(parents=True, exist_ok=True)
         # Sorted by uid so the file has a stable order and git diffs show only real
@@ -182,6 +203,7 @@ class Archive:
         file_meta: dict[str, dict[str, str]] | None = None,
         removed_files: set[str] | None = None,
         today: str | None = None,
+        confirm_withdrawals: bool = True,
     ) -> tuple[dict[str, dict[str, str]], list[dict], MergeReport]:
         """Merge one run's observations into the archive.
 
@@ -208,11 +230,13 @@ class Archive:
             for record in incidents:
                 observed[record["incident_uid"]] = record
 
-        # Per-file shrink guards. A quarantined file contributes nothing to this run:
-        # its previously archived rows are left exactly as they are.
+        # Per-file shrink guards. Quarantine makes a file ABSENCE-BLIND: its rows can
+        # still be added and amended, but nothing it fails to mention is treated as
+        # missing. Discarding its observations outright would also throw away genuinely
+        # new rows — that cost 9 December 2021 incidents before this was fixed. Additions
+        # are never destructive; only inferred absence is.
         quarantined_files = self._check_shrink(existing, observed_by_file, fetched_ok, report)
         trusted = fetched_ok - quarantined_files
-        observed = {uid: r for uid, r in observed.items() if r["source_file_id"] in trusted}
 
         new_rows: dict[str, dict[str, str]] = {}
 
@@ -224,8 +248,14 @@ class Archive:
             elif row.get("source_file_id") in removed_files:
                 row, row_events = self._apply_source_removed(row, today, report)
                 events.extend(row_events)
-            else:
+            elif confirm_withdrawals:
                 row, row_events = self._apply_absent(row, trusted, today, report)
+                events.extend(row_events)
+            else:
+                # Backfill mode. Wayback captures are irregular and often years apart, so
+                # "absent from the next capture" cannot be laddered into a withdrawal the
+                # way daily observations can. Absences are flagged for review instead.
+                row, row_events = self._flag_absent(row, trusted, today, report)
                 events.extend(row_events)
             new_rows[uid] = row
 
@@ -261,7 +291,9 @@ class Archive:
             "case_number_norm": normalize_case_number(record["Case Number"]),
             "source_file_id": record["source_file_id"],
             "source_file_name": meta.get("name", ""),
-            "source_month": meta.get("month", ""),
+            "source_month": meta.get("month", "") or record.get("source_month", ""),
+            "source_era": record.get("source_era", "drive-2026"),
+            "student_flag": record.get("student_flag", ""),
             "source_row_index": record.get("source_row_index", ""),
             "content_hash": record["content_hash"],
             # Named for what it can actually attest to. The archive cannot say anything
@@ -317,6 +349,11 @@ class Archive:
             for field in SOURCE_FIELDS:
                 old, new = row.get(FIELD_MAP[field], ""), record.get(field, "")
                 if old != new:
+                    # A date the source merely reformatted (02/13/22 -> 02/13/2022) is a
+                    # real edit but not a newsworthy one. Marking it keeps 35 such
+                    # reformats in February 2022 alone from burying genuine amendments
+                    # in the change feed. It is recorded, not discarded.
+                    cosmetic = is_cosmetic_date_change(FIELD_MAP[field], old, new)
                     events.append(
                         {
                             "observed_date": today,
@@ -326,6 +363,7 @@ class Archive:
                             "old": old,
                             "new": new,
                             "case_number": record["Case Number"],
+                            "cosmetic": cosmetic,
                         }
                     )
             row["revision"] = str(int(row.get("revision") or 0) + 1)
@@ -339,7 +377,11 @@ class Archive:
         row["content_hash"] = record["content_hash"]
         row["source_file_id"] = record["source_file_id"]
         row["source_file_name"] = meta.get("name", row.get("source_file_name", ""))
-        row["source_month"] = meta.get("month", row.get("source_month", ""))
+        row["source_month"] = meta.get("month", "") or record.get("source_month", "") or row.get("source_month", "")
+        row["source_era"] = record.get("source_era", row.get("source_era", ""))
+        # Never blank an existing student flag: a later capture that omits it has lost
+        # the value, not learned that it is empty.
+        row["student_flag"] = record.get("student_flag") or row.get("student_flag", "")
         row["source_row_index"] = record.get("source_row_index", "")
         row["last_verified"] = today
         row["missing_since"] = ""
@@ -441,6 +483,32 @@ class Archive:
             }
         ]
 
+    def _flag_absent(
+        self, row: dict[str, str], trusted: set[str], today: str, report: MergeReport
+    ) -> tuple[dict[str, str], list[dict]]:
+        """Note that a row was absent from a capture, without advancing any ladder.
+
+        Verified against February 2021 across captures in 2021, 2023 and 2025: Rowan does
+        not retroactively delete from closed months. So an absence here is rare and
+        deserves a human look rather than an automatic status change.
+        """
+        if row.get("source_file_id") not in trusted or row.get("status") != "active":
+            return row, []
+        flags = set(filter(None, row.get("flags", "").split(";")))
+        flags.add("absent_in_later_capture")
+        row["flags"] = ";".join(sorted(flags))
+        report.warnings.append(
+            f"{row['incident_uid']} ({row.get('case_number_raw','')}) was absent from the "
+            f"{today} capture of {row.get('source_month','')} — flagged for review, not withdrawn"
+        )
+        return row, [{
+            "observed_date": today,
+            "incident_uid": row["incident_uid"],
+            "change_type": "absent_in_later_capture",
+            "source_month": row.get("source_month", ""),
+            "case_number": row.get("case_number_raw", ""),
+        }]
+
     def _check_shrink(
         self,
         existing: dict[str, dict[str, str]],
@@ -507,7 +575,12 @@ class Archive:
                 # written over this one.
                 if was.get("case_number_norm") and was["case_number_norm"] != now.get("case_number_norm"):
                     raise ArchiveIntegrityError(f"{uid}: case number changed under a fixed uid")
-                if was.get("date_reported_raw") and was["date_reported_raw"] != now.get("date_reported_raw"):
+                # Compare the CANONICAL date, not the raw string: the source reformats
+                # dates without changing them (02/13/22 -> 02/13/2022), and a cosmetic
+                # reformat under a stable uid is correct, not a violation.
+                if was.get("date_reported_raw") and canonical_reported(
+                    was["date_reported_raw"]
+                ) != canonical_reported(now.get("date_reported_raw", "")):
                     raise ArchiveIntegrityError(f"{uid}: reported date changed under a fixed uid")
 
         exempt = exempt or set()

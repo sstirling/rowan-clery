@@ -1,6 +1,6 @@
 {
   "alarms": [],
-  "archive_rows": 186,
+  "archive_rows": 172,
   "date": "2026-10-01",
   "files": {
     "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o": {
@@ -28,33 +28,33 @@
       "status": "ok"
     },
     "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE": {
-      "month": "June 2026",
+      "error": "https://docs.google.com/spreadsheets/d/1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE/export?format=csv failed after 4 attempts: HTTP Error 401: Unauthorized",
       "name": "June 2026 Daily Crime Log",
-      "rows": 14,
-      "sha256": "ef2dbf317e1beb2ddbaf3bdb359e71f93c888d808c7982d49ce8446544be9f09",
-      "snapshot_written": false,
-      "status": "ok"
+      "status": "unfetched"
     }
   },
   "folder_id": "1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
   "listing": {
-    "count": 4,
+    "count": 3,
     "status": "ok"
   },
   "merge": {
-    "added": 0,
+    "added": 172,
     "amended": 0,
-    "changed": false,
+    "changed": true,
     "missing": 0,
     "quarantined": [],
     "reappeared": 0,
     "relocated": 0,
     "source_removed": 0,
-    "unchanged": 186,
+    "unchanged": 0,
     "unfetched": [],
     "warnings": [],
     "withdrawn": 0
   },
-  "summary": "+0 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
-  "warnings": []
+  "summary": "+172 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
+  "warnings": [
+    "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']",
+    "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): fetch failed (https://docs.google.com/spreadsheets/d/1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE/export?format=csv failed after 4 attempts: HTTP Error 401: Unauthorized); absence 1 of 3. Rows left untouched."
+  ]
 }
