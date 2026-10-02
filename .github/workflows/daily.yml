@@ -81,11 +81,7 @@ jobs:
             echo "nothing to commit"
             exit 0
           fi
-          summary=$(python -c "
-import json,pathlib,sys
-runs=sorted(pathlib.Path('data/raw/_runs').glob('*.json'))
-print(json.loads(runs[-1].read_text()).get('summary','updated') if runs else 'updated')
-")
+          summary=$(python -c "import json,pathlib; r=sorted(pathlib.Path('data/raw/_runs').glob('*.json')); print(json.loads(r[-1].read_text()).get('summary','updated') if r else 'updated')")
           # A commit per run, change or not, serves two purposes: git log becomes a
           # human-readable audit trail, and the repository stays active. GitHub disables
           # scheduled workflows after 60 days without commits, and because snapshots are
