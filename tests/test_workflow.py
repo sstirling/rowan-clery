@@ -73,3 +73,81 @@ def test_pages_deploy_matches_the_configured_source():
     perms = doc.get("permissions", {})
     for needed in ("pages", "id-token", "contents"):
         assert needed in perms, f"missing permission: {needed}"
+
+
+# ---- raw-evidence integrity check ---------------------------------------------
+
+import json  # noqa: E402
+import subprocess  # noqa: E402
+import sys  # noqa: E402
+
+SCRIPT = pathlib.Path(__file__).parent.parent / "scripts" / "verify_raw_integrity.py"
+
+
+def run_check(cwd):
+    return subprocess.run([sys.executable, str(SCRIPT)], cwd=cwd, capture_output=True, text=True)
+
+
+@pytest.fixture
+def repo(tmp_path):
+    """A tiny git repo shaped like data/raw/, with one commit."""
+    raw = tmp_path / "data" / "raw"
+    (raw / "FILEID").mkdir(parents=True)
+    (raw / "FILEID" / "2026-10-01.csv").write_text("case,date\nA,1\n")
+    (raw / "_runs").mkdir()
+    (raw / "_runs" / "2026-10-01.json").write_text('{"date":"2026-10-01"}')
+    (raw / "manifest.json").write_text(
+        json.dumps({"files": {"FILEID": {"last_verified": "2026-10-01",
+                                        "snapshots": [{"date": "2026-10-01", "sha256": "x"}]}}})
+    )
+    for cmd in (["init", "-q"], ["add", "-A"], ["-c", "user.email=t@t", "-c", "user.name=t",
+                                                "commit", "-qm", "init"]):
+        subprocess.run(["git", *cmd], cwd=tmp_path, capture_output=True)
+    return tmp_path
+
+
+def test_manifest_may_change_every_run(repo):
+    """The regression that broke CI: last_verified advances daily, by design.
+
+    The previous guard watched all of data/raw/ and failed on this. It passed exactly
+    once, on a day when the committed manifest already carried that date.
+    """
+    path = repo / "data" / "raw" / "manifest.json"
+    doc = json.loads(path.read_text())
+    doc["files"]["FILEID"]["last_verified"] = "2026-10-02"
+    path.write_text(json.dumps(doc))
+    assert run_check(repo).returncode == 0
+
+
+def test_new_run_record_is_allowed(repo):
+    (repo / "data" / "raw" / "_runs" / "2026-10-02.json").write_text('{"date":"2026-10-02"}')
+    assert run_check(repo).returncode == 0
+
+
+def test_new_snapshot_is_allowed(repo):
+    (repo / "data" / "raw" / "FILEID" / "2026-10-02.csv").write_text("case,date\nA,1\nB,2\n")
+    assert run_check(repo).returncode == 0
+
+
+def test_rewriting_a_snapshot_fails(repo):
+    (repo / "data" / "raw" / "FILEID" / "2026-10-01.csv").write_text("tampered\n")
+    result = run_check(repo)
+    assert result.returncode == 1
+    assert "modified or deleted" in result.stderr
+
+
+def test_deleting_a_snapshot_fails(repo):
+    (repo / "data" / "raw" / "FILEID" / "2026-10-01.csv").unlink()
+    result = run_check(repo)
+    assert result.returncode == 1
+
+
+def test_manifest_dropping_a_snapshot_fails(repo):
+    """The manifest is not evidence, but it is the index of what evidence exists."""
+    path = repo / "data" / "raw" / "manifest.json"
+    doc = json.loads(path.read_text())
+    doc["files"]["FILEID"]["snapshots"] = []
+    path.write_text(json.dumps(doc))
+    result = run_check(repo)
+    assert result.returncode == 1
+    assert "dropped snapshot entries" in result.stderr
