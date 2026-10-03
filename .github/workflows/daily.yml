@@ -14,6 +14,7 @@ permissions:
   contents: write
   pages: write
   id-token: write
+  issues: write
 
 # Never let a manual run race the cron and produce conflicting commits.
 concurrency:
@@ -42,8 +43,22 @@ jobs:
         id: run
         run: |
           set -o pipefail
+          set +e
           python run.py all 2>&1 | tee run.log
-          echo "exit=$?" >> "$GITHUB_OUTPUT"
+          code=$?
+          set -e
+          echo "exit=${code}" >> "$GITHUB_OUTPUT"
+          # 0 = clean. 2 = completed, with alarms worth reading. BOTH leave a correctly
+          # updated archive that has to be committed — exit 2 is how the archive reports
+          # a source file being withdrawn, which is the whole point of the project.
+          # 1 and 3 mean the archive was NOT updated, and those do stop the run.
+          if [ "${code}" -ne 0 ] && [ "${code}" -ne 2 ]; then
+            echo "::error::run.py exited ${code} — the archive was not updated"
+            exit "${code}"
+          fi
+          if [ "${code}" -eq 2 ]; then
+            echo "::warning::The run raised alarms. The archive is still being committed."
+          fi
 
       - name: Summarise
         if: always()
@@ -99,28 +114,49 @@ jobs:
         with:
           path: docs
 
-      - name: Open an issue if the run failed
-        if: failure()
+      - name: Report alarms or failure as an issue
+        # Runs for a hard failure OR for exit 2 (archive fine, something needs a human).
+        # continue-on-error so a permissions problem here can never mask the real outcome
+        # — which is exactly what happened on 2026-10-03.
+        if: always() && (failure() || steps.run.outputs.exit == '2')
+        continue-on-error: true
         uses: actions/github-script@v7
+        env:
+          RUN_EXIT: ${{ steps.run.outputs.exit }}
         with:
           script: |
-            const title = "Scrape failure";
-            const existing = await github.rest.issues.listForRepo({
-              owner: context.repo.owner, repo: context.repo.repo, state: "open", labels: "scrape-failure",
+            const alarmed = process.env.RUN_EXIT === "2";
+            const today = new Date().toISOString().slice(0, 10);
+            const runUrl =
+              `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+
+            // Separate labels, so an alarm and a real failure never dedupe into each
+            // other and quietly hide one of the two.
+            const label = alarmed ? "source-change" : "scrape-failure";
+            const title = alarmed ? "Source change needs review" : "Scrape failure";
+
+            const body = alarmed
+              ? `The daily archive run on ${today} raised alarms.\n\n[View the run](${runUrl})\n\n` +
+                `**The archive updated normally and has been committed.** An alarm means the source ` +
+                `changed in a way worth a look — most often a file disappearing — not that anything ` +
+                `went wrong in the pipeline. The run log lists which.`
+              : `The daily archive run failed on ${today}.\n\n[View the run](${runUrl})\n\n` +
+                `**The archive was not modified.** Nothing has been lost, but no new data is being ` +
+                `captured until this is fixed.`;
+
+            const open = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo, state: "open", labels: label,
             });
-            const body = `The daily archive run failed on ${new Date().toISOString().slice(0,10)}.\n\n` +
-              `[View the run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})\n\n` +
-              `The archive was not modified. Nothing has been lost, but no new data is being captured until this is fixed.`;
-            if (existing.data.some(i => i.title.startsWith(title))) {
+            const match = open.data.find((i) => i.title.startsWith(title));
+            if (match) {
               await github.rest.issues.createComment({
                 owner: context.repo.owner, repo: context.repo.repo,
-                issue_number: existing.data.find(i => i.title.startsWith(title)).number, body,
+                issue_number: match.number, body,
               });
             } else {
               await github.rest.issues.create({
                 owner: context.repo.owner, repo: context.repo.repo,
-                title: `${title} — ${new Date().toISOString().slice(0,10)}`,
-                labels: ["scrape-failure"], body,
+                title: `${title} — ${today}`, labels: [label], body,
               });
             }
 
