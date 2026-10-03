@@ -424,14 +424,37 @@ if (stale !== null && stale > 2) {
   banners.push(`<div class="banner alarm"><strong>This page is ${stale} days stale.</strong>
     The last successful run was ${esc(D.status.last_successful_run)}. The scraper may be broken — check the workflow.</div>`);
 }
-if (D.status.alarms?.length) {
-  banners.push(`<div class="banner alarm"><strong>Alarms from the last run</strong>
-    <ul>${D.status.alarms.map(a => `<li>${esc(a)}</li>`).join("")}</ul></div>`);
+// A record disappearing from the source is the most newsworthy thing this archive
+// produces, so it is reported as a finding — which months, how many, since when — rather
+// than as the raw run-log line it used to be.
+const gone = D.incidents.filter(i => !LIVE.has(i.status));
+if (gone.length) {
+  const byMonth = {};
+  gone.forEach(i => {
+    const m = byMonth[i.month] || (byMonth[i.month] = { n: 0, since: i.missing_since });
+    m.n++;
+    if (i.missing_since && (!m.since || i.missing_since < m.since)) m.since = i.missing_since;
+  });
+  const months = Object.entries(byMonth)
+    .map(([m, v]) => `<strong>${esc(m)}</strong> (${v.n} incident${v.n === 1 ? "" : "s"}${
+      v.since ? `, confirmed ${esc(v.since)}` : ""})`)
+    .join(", ");
+  const first = gone[0];
+  banners.push(`<div class="banner alarm">
+    <strong>Rowan has stopped publishing ${gone.length} incident${gone.length === 1 ? "" : "s"}.</strong>
+    ${months}. The sheet is no longer readable — it returns an authorisation error rather than data.
+    <strong>Every field is preserved here</strong>, captured before access changed, and those records
+    are still listed in the table below, struck through.
+    Federal guidance tells institutions to update a crime log entry rather than remove it, so this is
+    worth putting to the Clery Compliance Office.
+    <span id="goneScope"></span></div>`);
 }
-if (c.no_longer_published > 0) {
-  banners.push(`<div class="banner warn"><strong>${c.no_longer_published} record${c.no_longer_published === 1 ? "" : "s"}
-    no longer appear in the source</strong> but are preserved here in full. Federal guidance tells institutions to
-    update a crime log entry rather than delete it, so a disappearance is worth asking Rowan about.</div>`);
+
+// Anything else the run flagged, minus the removal it already explains above.
+const otherAlarms = (D.status.alarms || []).filter(a => !/treating the source file as removed/.test(a));
+if (otherAlarms.length) {
+  banners.push(`<div class="banner warn"><strong>From the last run</strong>
+    <ul>${otherAlarms.map(a => `<li>${esc(a)}</li>`).join("")}</ul></div>`);
 }
 
 if (curYear) {
@@ -458,6 +481,16 @@ function monthCount(m) { return D.incidents.filter(i => i.month === m).length; }
 function agencyCount(a) { return D.incidents.filter(i => i.agencies.includes(a)).length; }
 
 function renderStats(scoped) {
+  const goneAll = D.incidents.filter(i => !LIVE.has(i.status));
+  const goneHere = scoped.filter(i => !LIVE.has(i.status)).length;
+  const note = $("#goneScope");
+  if (note) {
+    note.innerHTML = goneAll.length && !goneHere
+      ? ` <em>These fall outside the window selected below, so the counts there show zero —
+          choose “The whole log” to include them.</em>`
+      : "";
+  }
+
   const amended = scoped.filter(i => i.revision > 1).length;
   const gone = scoped.filter(i => !LIVE.has(i.status) && i.status !== "superseded").length;
   const arrests = scoped.filter(i => i.disposition_flags.includes("arrested")).length;
