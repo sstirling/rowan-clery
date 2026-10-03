@@ -10,11 +10,11 @@
     "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I (October 2026 Daily Crime Log): present but not yet readable (1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: body is only 191 bytes). No rows archived from it yet, so nothing is at risk."
   ],
   "counts": {
-    "total_archived": 2353,
-    "currently_published": 2335,
+    "total_archived": 186,
+    "currently_published": 172,
     "no_longer_published": 14,
-    "superseded": 4,
-    "distinct_incidents": 2349,
+    "superseded": 0,
+    "distinct_incidents": 186,
     "withdrawn": 0,
     "source_removed": 14
   }

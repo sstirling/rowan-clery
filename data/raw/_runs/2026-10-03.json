@@ -48,18 +48,18 @@
   "merge": {
     "added": 0,
     "amended": 0,
-    "changed": true,
+    "changed": false,
     "missing": 0,
     "quarantined": [],
     "reappeared": 0,
     "relocated": 0,
-    "source_removed": 14,
+    "source_removed": 0,
     "unchanged": 172,
     "unfetched": [],
     "warnings": [],
     "withdrawn": 0
   },
-  "summary": "+0 added, 0 amended, 0 missing, 0 withdrawn, 14 source-removed, 0 reappeared",
+  "summary": "+0 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
   "warnings": [
     "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']",
     "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I (October 2026 Daily Crime Log): present but not yet readable (1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: body is only 191 bytes). No rows archived from it yet, so nothing is at risk."
