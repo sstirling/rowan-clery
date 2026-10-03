@@ -76,16 +76,8 @@ jobs:
           # empty. Catch it here rather than in the browser.
           node tests/run_page.mjs docs/index.html
 
-      - name: Verify raw snapshots were not modified or deleted
-        run: |
-          # The raw store is append-only. Anything other than an addition under
-          # data/raw/ means the evidence layer was rewritten, which must never happen.
-          changed=$(git diff --diff-filter=MD --name-only -- data/raw/ || true)
-          if [ -n "$changed" ]; then
-            echo "::error::Raw snapshots were modified or deleted:"
-            echo "$changed"
-            exit 1
-          fi
+      - name: Verify raw evidence was only added to
+        run: python scripts/verify_raw_integrity.py
 
       - name: Commit
         run: |
