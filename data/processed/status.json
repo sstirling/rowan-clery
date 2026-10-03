@@ -1,20 +1,21 @@
 {
-  "last_run": "2026-10-02",
-  "last_successful_run": "2026-10-02",
-  "staleness_days": 1,
-  "alarms": [],
+  "last_run": "2026-10-03",
+  "last_successful_run": "2026-10-03",
+  "staleness_days": 0,
+  "alarms": [
+    "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 3 runs \u2014 treating the source file as removed. Its rows are preserved in full."
+  ],
   "warnings": [
     "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']",
-    "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): fetch failed (https://docs.google.com/spreadsheets/d/1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE/export?format=csv failed after 4 attempts: HTTP Error 401: Unauthorized); absence 2 of 3. Rows left untouched.",
     "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I (October 2026 Daily Crime Log): present but not yet readable (1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: body is only 191 bytes). No rows archived from it yet, so nothing is at risk."
   ],
   "counts": {
-    "total_archived": 186,
-    "currently_published": 186,
-    "no_longer_published": 0,
-    "superseded": 0,
-    "distinct_incidents": 186,
+    "total_archived": 2353,
+    "currently_published": 2335,
+    "no_longer_published": 14,
+    "superseded": 4,
+    "distinct_incidents": 2349,
     "withdrawn": 0,
-    "source_removed": 0
+    "source_removed": 14
   }
 }
