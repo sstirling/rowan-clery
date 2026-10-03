@@ -26,6 +26,17 @@
     --ok:     #1baf7a;
     --grid:   #e4e4e0;
     --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    /* The Whit sets headlines in Merriweather and body in Frank Ruhl Libre. Those are
+       webfonts, and this page is deliberately self-contained — no CDN, works offline,
+       emailable as one file — so it uses the nearest ubiquitous newspaper serif instead
+       of trading that property away for an exact match. */
+    --serif: Georgia, "Iowan Old Style", "Times New Roman", times, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    /* Rowan gold. Verified: 1.59:1 on white, so never text or a chart mark on light —
+       but 9.76:1 for #222 ON it, and 10.69:1 against the dark surface. Used the way The
+       Whit uses it: as a fill behind dark text, and as section rules. */
+    --accent: #f9c335;
+    --accent-ink: #1a1a19;
   }
   @media (prefers-color-scheme: dark) {
     :root:where(:not([data-theme="light"])) {
@@ -53,18 +64,33 @@
   * { box-sizing: border-box; }
   body {
     margin: 0; background: var(--surface-0); color: var(--text-1);
-    font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font: 15px/1.5 var(--sans);
     -webkit-font-smoothing: antialiased;
   }
+  /* Serif for display, sans for data. The Whit splits the same way — Merriweather
+     masthead, Noto Sans nav — and a serif at 13px across 2,353 table rows would be
+     harder to scan, not more characterful. */
+  h1, h2, .stat .n { font-family: var(--serif); }
   .wrap { max-width: 1180px; margin: 0 auto; padding: 0 16px 80px; }
-  h1 { font-size: 24px; margin: 0 0 4px; letter-spacing: -0.01em; }
-  h2 { font-size: 16px; margin: 0 0 2px; letter-spacing: -0.005em; }
+  h1 { font-size: 30px; margin: 0 0 4px; letter-spacing: -0.015em; font-weight: 700; }
+  h2 {
+    font-size: 19px; margin: 0 0 3px; letter-spacing: -0.01em; font-weight: 700;
+    padding-top: 9px; position: relative;
+  }
+  /* The Whit's signature: a short gold rule above each section heading. */
+  h2::before {
+    content: ""; position: absolute; top: 0; left: 0;
+    width: 34px; height: 3px; background: var(--accent); border-radius: 2px;
+  }
   h3 { font-size: 13px; margin: 0 0 10px; color: var(--text-2); font-weight: 600; }
   p  { margin: 0 0 10px; color: var(--text-2); }
   a  { color: var(--s1); }
   .sub { color: var(--text-3); font-size: 13px; }
 
-  header { border-bottom: 1px solid var(--border); background: var(--surface-1); padding: 18px 0 14px; margin-bottom: 18px; }
+  header {
+    border-bottom: 3px solid var(--accent); background: var(--surface-1);
+    padding: 20px 0 16px; margin-bottom: 18px;
+  }
   .headrow { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
   button.ghost {
     background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border);
@@ -72,10 +98,36 @@
   }
   button.ghost:hover { color: var(--text-1); }
 
+  .cardhead { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+  button.copy {
+    flex: none; background: transparent; color: var(--text-3); border: 1px solid var(--border);
+    border-radius: 6px; padding: 4px 9px; font-size: 11.5px; font-family: inherit; cursor: pointer;
+    white-space: nowrap; transition: background .12s, color .12s, border-color .12s;
+  }
+  button.copy:hover { border-color: var(--accent); color: var(--text-1); }
+  button.copy.done { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
+
+  .activity {
+    background: var(--surface-1); border: 1px solid var(--border);
+    border-left: 4px solid var(--accent); border-radius: 10px;
+    padding: 14px 16px; margin-bottom: 14px;
+  }
+  .activity .flag {
+    display: inline-block; background: var(--accent); color: var(--accent-ink);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 4px; margin-bottom: 9px;
+  }
+  .activity .row { display: flex; flex-wrap: wrap; gap: 10px 26px; align-items: baseline; }
+  .activity .m { display: flex; align-items: baseline; gap: 7px; }
+  .activity .m b { font-family: var(--serif); font-size: 23px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .activity .m span { font-size: 12.5px; color: var(--text-2); }
+  .activity .when { font-size: 12.5px; color: var(--text-3); margin-top: 8px; }
+  .activity.quiet { border-left-color: var(--border); }
+
   .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 14px; }
   .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 10px; margin-bottom: 14px; }
   .stat { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 13px 15px; }
-  .stat .n { font-size: 27px; font-weight: 650; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .stat .n { font-size: 29px; font-weight: 700; letter-spacing: -0.025em; font-variant-numeric: tabular-nums; }
   .stat .l { font-size: 11.5px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
   .stat.flag .n { color: var(--alarm); }
 
@@ -92,6 +144,7 @@
   .scopebar { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
   .scopebar label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-3); font-weight: 600; }
   .scopebar select { font-size: 14px; padding: 7px 10px; font-weight: 600; }
+  .scopebar select:focus, input[type=search]:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
   .smallmult { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 12px 14px; }
   .sm { border: 1px solid var(--border); border-radius: 8px; padding: 9px 10px; }
   .sm .nm { font-size: 12px; font-weight: 600; color: var(--text-1); display: flex; justify-content: space-between; gap: 6px; }
@@ -127,6 +180,7 @@
   .tag { display: inline-block; font-size: 10.5px; padding: 1.5px 6px; border-radius: 4px;
          background: var(--surface-2); color: var(--text-2); margin: 1px 3px 1px 0; white-space: nowrap; border: 1px solid var(--border); }
   .tag.cat { border-color: color-mix(in srgb, var(--s1) 45%, var(--border)); color: var(--text-1); }
+  .tag.new { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
   .tag.bad { border-color: var(--alarm); color: var(--alarm); }
   .tag.amend { border-color: var(--warn); color: var(--warn); }
 
@@ -166,6 +220,7 @@
 </header>
 
 <div class="wrap">
+  <div class="activity" id="activity"></div>
   <div id="banners"></div>
 
   <div class="scopebar">
@@ -178,32 +233,32 @@
 
   <div class="grid2">
     <div class="card">
-      <h2>Incidents per month</h2>
+      <div class="cardhead"><h2>Incidents per month</h2><button class="copy" data-copy="month">Copy data</button></div>
       <h3 id="monthsub"></h3>
       <div id="chart-month"></div>
       <div class="legend" id="legend-month"></div>
     </div>
     <div class="card">
-      <h2>Most common offenses</h2>
+      <div class="cardhead"><h2>Most common offenses</h2><button class="copy" data-copy="cat">Copy data</button></div>
       <h3 id="catsub"></h3>
       <div id="chart-cat"></div>
     </div>
   </div>
 
   <div class="card">
-    <h2>Each offense, month by month</h2>
+    <div class="cardhead"><h2>Each offense, month by month</h2><button class="copy" data-copy="trend">Copy data</button></div>
     <h3 id="trendsub"></h3>
     <div id="chart-trend"></div>
   </div>
 
   <div class="grid2">
     <div class="card">
-      <h2>Where incidents are logged</h2>
+      <div class="cardhead"><h2>Where incidents are logged</h2><button class="copy" data-copy="loc">Copy data</button></div>
       <h3>Top 15 locations, as written in the source</h3>
       <div id="chart-loc"></div>
     </div>
     <div class="card">
-      <h2>How incidents end</h2>
+      <div class="cardhead"><h2>How incidents end</h2><button class="copy" data-copy="disp">Copy data</button></div>
       <h3>One incident can carry several outcomes</h3>
       <div id="chart-disp"></div>
     </div>
@@ -231,8 +286,6 @@
       <select id="f-campus"></select>
       <select id="f-agency"></select>
       <select id="f-status"></select>
-      <select id="f-era"></select>
-      <select id="f-student"></select>
       <span class="count" id="tcount"></span>
     </div>
     <div class="tablewrap">
@@ -310,6 +363,53 @@ function showTip(e, html) {
 }
 const hideTip = () => { tip.style.opacity = 0; };
 
+/* ---- recent activity ----
+   What this archive has actually seen the source do lately. */
+function renderActivity() {
+  const WINDOW = 30;
+  const today = D.status.last_successful_run || D.generated_utc.slice(0, 10);
+  const cutoff = new Date(today);
+  cutoff.setDate(cutoff.getDate() - WINDOW);
+  const since = cutoff.toISOString().slice(0, 10);
+
+  // Exclude the archive's own first run. Every incident that already existed was logged
+  // as "added" that day, so counting it would report 186 incidents added in a month when
+  // Rowan published none — the initial ingest is this project's activity, not the
+  // source's. It is reported separately below.
+  const live = D.changelog.filter(e =>
+    e.source !== "reconciliation" &&
+    e.observed_date >= since && e.observed_date > D.archive_started && !e.cosmetic);
+
+  const initial = D.changelog.filter(e =>
+    e.observed_date === D.archive_started && e.change_type === "added").length;
+
+  const count = (...types) => new Set(
+    live.filter(e => types.includes(e.change_type)).map(e => e.incident_uid)).size;
+
+  const added = count("added");
+  const amended = count("amended");
+  const removed = count("withdrawn", "source_removed");
+  const total = added + amended + removed;
+
+  const metric = (n, label) => `<span class="m"><b>${n}</b><span>${esc(label)}</span></span>`;
+  const stale = D.status.staleness_days;
+
+  $("#activity").className = "activity" + (total ? "" : " quiet");
+  $("#activity").innerHTML =
+    `<span class="flag">${total ? "Recent activity" : "No recent changes"}</span>` +
+    `<div class="row">` +
+      metric(added, added === 1 ? "incident added" : "incidents added") +
+      metric(amended, amended === 1 ? "record amended" : "records amended") +
+      metric(removed, removed === 1 ? "record removed from the source" : "records removed from the source") +
+    `</div>` +
+    `<div class="when">Since ${esc(D.archive_started)}, when this archive opened with ` +
+      `${initial} incidents already published` +
+      (since > D.archive_started ? `, in the ${WINDOW} days to ${esc(today)}` : "") +
+      ` · checked ${D.runs.length} time${D.runs.length === 1 ? "" : "s"}` +
+      (stale !== null && stale > 0 ? ` · last check ${stale} day${stale === 1 ? "" : "s"} ago` : "") +
+      `. Counts what the source has done since; the opening capture is excluded.</div>`;
+}
+
 /* ---- header, banners, stats ---- */
 const c = D.counts;
 $("#strap").textContent =
@@ -338,25 +438,19 @@ if (curYear) {
   banners.push(`<div class="banner note">
     <strong>${esc(D.current_school_year)} school year, in progress.</strong>
     ${curYear.incidents} incidents across ${esc(coverageLabel(curYear.months))}.
-    The charts cover only what Rowan publishes in its current format — Google Sheets, from
-    June 2026, ${D.eras["drive-2026"].count} incidents. The earlier
-    ${D.eras["cleryapp-php"].count} (2017\u20132026) are recovered from the Internet Archive and
-    <strong>fully searchable in the table below</strong>, but not charted: that record survives
-    only as irregular snapshots, so some academic years hold twelve months and others hold one.
-    Graphing them beside each other would invite comparisons the coverage cannot support.</div>`);
+    This page covers the daily crime log as Rowan publishes it now \u2014 Google Sheets,
+    from ${esc(D.published_era.since)}, ${D.published_era.count} incidents in total.</div>`);
 }
 
 banners.push(`<div class="banner note">
-  <strong>Read these counts carefully.</strong> They are counts of <em>logged incidents</em>, not of crime,
-  and academic terms move them hard — June 2026 holds ${monthCount("June 2026")} and September
-  ${monthCount("September 2026")}, which is a campus filling up, not a crime wave.
-  Of the ${c.total_archived} incidents in the archive, ${agencyCount("RUPD")} carry a Rowan University
-  police reference, ${agencyCount("GPD")} a Glassboro municipal police reference and ${agencyCount("CSA")}
-  a Campus Security Authority reference, so "campus police handled ${c.total_archived} incidents" would be
-  wrong. The older records in the table also differ in kind: that log counted
-  <strong>non-crime police activity</strong> alongside offenses and carried a
-  <strong>student / non-student flag</strong> the current format dropped, and 2018\u20132020 and
-  April\u2013May 2026 were never captured at all.</div>`);
+  <strong>Read these counts carefully.</strong> They are counts of <em>logged incidents</em>, not of
+  crime, and academic terms move them hard \u2014 June 2026 holds ${monthCount("June 2026")} and
+  September ${monthCount("September 2026")}, which is a campus filling up, not a crime wave.
+  Of the ${c.total_archived} incidents, ${agencyCount("RUPD")} carry a Rowan University police
+  reference, ${agencyCount("GPD")} a Glassboro municipal police reference and ${agencyCount("CSA")}
+  a Campus Security Authority reference, so "campus police handled ${c.total_archived} incidents"
+  would be wrong. This archive can attest only to what it has <em>observed</em> since
+  ${esc(D.archive_started)}.</div>`);
 
 $("#banners").innerHTML = banners.join("");
 
@@ -413,7 +507,8 @@ $("#feed").innerHTML = feed.length ? feed.map(e => `
 /* ---- chart helpers ---- */
 function svg(h, w) { return `<svg viewBox="0 0 ${w || 600} ${h}" preserveAspectRatio="xMinYMin meet" role="img">`; }
 
-function hbars(sel, rows, color, fmt) {
+function hbars(sel, rows, color, fmt, id, header) {
+  if (id) register(id, header || ["Label", "Incidents"], rows.map(r => [r[0], r[1]]));
   if (!rows.length) { $(sel).innerHTML = `<div class="empty">No data.</div>`; return; }
   const LW = 168, BW = 600 - LW - 46, BH = 19, GAP = 7, max = Math.max(...rows.map(r => r[1])) || 1;
   const h = rows.length * (BH + GAP) + 6;
@@ -438,22 +533,59 @@ function wireTips(sel) {
 }
 const clip = (s, n) => (s.length > n ? s.slice(0, n - 1) + "…" : s);
 
+/* ---- copyable chart data ----
+   Every chart registers the rows it drew. The copy buttons emit TSV, which Datawrapper,
+   Sheets and Excel all accept on paste — so a chart here can become a published graphic
+   without anyone re-typing numbers or re-deriving a filter. */
+const CHART_DATA = {};
+function register(id, header, rows) { CHART_DATA[id] = { header, rows }; }
+
+function toTSV(d) {
+  return [d.header.join("\t")]
+    .concat(d.rows.map(r => r.map(v => String(v ?? "").replace(/[\t\r\n]+/g, " ")).join("\t")))
+    .join("\n");
+}
+
+async function copyData(id, button) {
+  const d = id === "table" ? tableTSV() : CHART_DATA[id];
+  if (!d) return;
+  const text = id === "table" ? d : toTSV(d);
+  const label = button.textContent;
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    // Clipboard API needs a secure context; file:// and plain http fail. Fall back to a
+    // selectable textarea so the data is never actually unreachable.
+    const ta = document.createElement("textarea");
+    ta.value = text; ta.style.cssText = "position:fixed;top:0;left:0;opacity:0";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); } catch {}
+    ta.remove();
+  }
+  const rows = id === "table" ? text.split("\n").length - 1 : d.rows.length;
+  button.textContent = `Copied ${rows} rows`;
+  button.classList.add("done");
+  setTimeout(() => { button.textContent = label; button.classList.remove("done"); }, 2000);
+}
+
+document.addEventListener("click", (e) => {
+  const button = e.target.closest("button.copy");
+  if (button) copyData(button.dataset.copy, button);
+});
+
 /* ---- scope ----
    The page is built around the school year in progress. Campus crime tracks the academic
    calendar, so an August-to-July window keeps a year's population cycle intact; the full
    archive stays one selection away. */
-// Charts cover the CURRENT publication format only. The pre-2026 record is captured
-// unevenly — some academic years hold twelve months, others hold one — so charting it
-// invites year-over-year comparisons the coverage cannot support. It is all still in the
-// archive and all still searchable in the table below; it is just not graphed.
-const CURRENT_ERA = "drive-2026";
-const ERA_INCIDENTS = D.incidents.filter(i => i.era === CURRENT_ERA);
-// Only school years lying ENTIRELY within the current format. The format changed mid
-// school-year, so 2025-26 has 665 incidents of which just 37 are in this format; offering
-// it as "2025-26 — 37 incidents" would understate that year by a factor of eighteen.
+const ERA_INCIDENTS = D.incidents;
+// Offer only school years that BEGAN inside the published window. The log starts partway
+// through 2025-26, so this page holds just that year's June-July tail; listing it as
+// "2025-26 — 37 incidents" would describe a school year as if it were two months long.
+// Those incidents are still counted under "The whole log".
+const FIRST_MONTH = D.facets.months.map(m => monthKey(m.value)).filter(Boolean).sort()[0];
 const ERA_YEARS = D.school_years
-  .filter(y => y.eras.length === 1 && y.eras[0] === CURRENT_ERA)
   .map(y => y.year)
+  .filter(y => `${y.slice(0, 4)}-08` >= FIRST_MONTH)
   .sort().reverse();
 const CURRENT = D.current_school_year;
 let SCOPE = ERA_YEARS.includes(CURRENT) ? CURRENT : (ERA_YEARS[0] || "era");
@@ -465,15 +597,15 @@ $("#scope").innerHTML =
     return `<option value="${esc(y)}"${y === SCOPE ? " selected" : ""}>`
       + `${esc(y)} school year — ${n} incidents (${esc(coverageLabel(ms))})</option>`;
   }).join("")
-  + `<option value="era">Everything in the current format — ${ERA_INCIDENTS.length} incidents`
+  + `<option value="era">The whole log — ${ERA_INCIDENTS.length} incidents`
   + ` (${esc(coverageLabel([...new Set(ERA_INCIDENTS.map(i => i.month_key))], true))})</option>`;
 
 $("#scope").onchange = () => { SCOPE = $("#scope").value; drawAll(); };
 
 // Nothing outside the current format is ever charted.
-const inScope = (i) => i.era === CURRENT_ERA && (SCOPE === "era" || i.school_year === SCOPE);
+const inScope = (i) => SCOPE === "era" || i.school_year === SCOPE;
 function scopeLabel() {
-  return SCOPE === "era" ? "every month published in the current format" : `the ${SCOPE} school year`;
+  return SCOPE === "era" ? "every month in the log" : `the ${SCOPE} school year`;
 }
 
 /* ---- charts ---- */
@@ -534,6 +666,8 @@ function drawMonth() {
        + ` text-anchor="middle">${esc(shortMonth(d.m))}</text>`;
   });
 
+  register("month", ["Month", ...keys, "Total"],
+    data.map(d => [d.m, ...keys.map(k => d[k]), d.total]));
   $("#chart-month").innerHTML = s + "</svg>";
   $("#legend-month").innerHTML = keys.map((k, i) =>
     `<span><i class="swatch" style="background:${cssvar(SERIES[i])}"></i>${esc(k)}</span>`).join("");
@@ -576,6 +710,11 @@ function drawTrend() {
   if (!cats.length) { $("#chart-trend").innerHTML = `<div class="empty">No incidents in scope.</div>`; return; }
 
   const W = 165, H = 54, PADL = 4, PADB = 13;
+  // One row per offense, one column per month — the shape Datawrapper wants for a
+  // multi-line or small-multiple chart.
+  register("trend", ["Offense", ...months],
+    cats.map(cat => [cat, ...months.map(m =>
+      scoped.filter(i => i.month === m && i.categories.includes(cat)).length)]));
   $("#chart-trend").innerHTML = `<div class="smallmult">` + cats.map(cat => {
     const series = months.map(m => scoped.filter(i => i.month === m && i.categories.includes(cat)).length);
     const total = series.reduce((a, b) => a + b, 0);
@@ -639,10 +778,13 @@ function drawAll() {
 
   drawMonth();
   drawTrend();
-  hbars("#chart-cat", countBy(scoped, i => i.categories).slice(0, 14), cssvar("--s1"));
-  hbars("#chart-loc", countBy(scoped, i => i.location).slice(0, 15), cssvar("--s3"));
+  hbars("#chart-cat", countBy(scoped, i => i.categories).slice(0, 14), cssvar("--s1"),
+        null, "cat", ["Offense", "Incidents"]);
+  hbars("#chart-loc", countBy(scoped, i => i.location).slice(0, 15), cssvar("--s3"),
+        null, "loc", ["Location", "Incidents"]);
   hbars("#chart-disp", countBy(scoped, i => i.disposition_flags).slice(0, 12)
-    .map(([k, n]) => [DISP_LABEL[k] || k, n]), cssvar("--s7"));
+    .map(([k, n]) => [DISP_LABEL[k] || k, n]), cssvar("--s7"),
+        null, "disp", ["Outcome", "Incidents"]);
   renderStats(scoped);
 }
 
@@ -666,13 +808,13 @@ $("#quality").innerHTML = [
    "The occurrence timestamp is later than the report timestamp."],
   ["Offense terms not in the category map", q.unclassified_offenses,
    r => `${r.case_number} — ${r.tokens.map(esc).join(", ")}`,
-   "Almost all are one-off descriptions of what was taken or damaged. They are counted here rather than folded into a category, so nothing is silently miscounted. Every incident still carries an offense category or is classed as non-crime police activity."],
+   "Counted here rather than folded into a category, so nothing is silently miscounted."],
   ["Disposition terms not in the map", q.unclassified_dispositions,
    r => `${r.case_number} — ${r.tokens.map(esc).join(", ")}`,
-   "Long-tail wording from the pre-2026 log. The raw disposition text is still shown in the table."],
+   "Wording the disposition map does not recognise. The raw text is still shown in the table."],
   ["Possible duplicate identities", q.duplicate_candidates,
    r => `${r.month} — ${r.case_number}`,
-   "Rows that may be the same incident republished under a corrected case number. Flagged, never merged: a wider auto-merge rule was tested and rejected because it collapsed genuinely distinct same-minute police summonses."],
+   "Rows that may be the same incident republished under a corrected case number. Flagged, never merged \u2014 a wider rule was tested and rejected because it collapsed genuinely distinct same-minute police summonses."],
   ["Dates outside the expected year window", q.year_warnings,
    r => `${r.case_number} — ${esc(r.warning)}`,
    "Checked against the year of the log the row appears in, not against today."],
@@ -687,13 +829,10 @@ const FILTERS = [
   ["#f-month", "months", "All months"], ["#f-cat", "categories", "All offenses"],
   ["#f-campus", "campuses", "All campuses"], ["#f-agency", "agencies", "All agencies"],
   ["#f-status", "statuses", "All records"],
-  ["#f-era", "eras", "Both formats"],
-  ["#f-student", "student_flags", "Any student status"],
 ];
 const STATUS_LABEL = {
-  active:"Still published", missing:"Missing from source", withdrawn:"Removed from source",
-  source_removed:"Sheet removed", superseded:"Replaced by a corrected record",
-  "drive-2026":"Drive sheets (2026\u2013)", "cleryapp-php":"PHP log (2017\u20132026)",
+  active: "Still published", missing: "Missing from source", withdrawn: "Removed from source",
+  source_removed: "Sheet removed", superseded: "Replaced by a corrected record",
 };
 FILTERS.forEach(([sel, facet, all]) => {
   $(sel).innerHTML = `<option value="">${all}</option>` + D.facets[facet]
@@ -708,13 +847,27 @@ document.querySelectorAll("th").forEach(th => th.onclick = () => {
   sortDir = sortKey === k ? -sortDir : 1; sortKey = k; render();
 });
 
+let TABLE_ROWS = [];
+
+function tableTSV() {
+  const header = ["Reported", "Case number", "Agencies", "Offenses", "Nature (raw)", "Narrative",
+                  "Campus", "Location", "Disposition (raw)", "Outcomes", "Status", "Month",
+                  "School year", "First seen by archive", "Revision"];
+  const clean = (v) => String(v ?? "").replace(/[\t\r\n]+/g, " ");
+  return [header.join("\t")].concat(TABLE_ROWS.map(i => [
+    i.reported.value || i.reported.raw, i.case_number, i.agencies.join("; "),
+    i.categories.join("; "), i.nature_raw, i.narrative, i.campus, i.location,
+    i.disposition_raw, i.disposition_flags.map(f => DISP_LABEL[f] || f).join("; "),
+    i.status, i.month, i.school_year, i.first_seen_by_archive, i.revision,
+  ].map(clean).join("\t"))).join("\n");
+}
+
 function render() {
   const term = $("#q").value.trim().toLowerCase();
-  const [m, cat, camp, ag, st, era, stud] = FILTERS.map(([sel]) => $(sel).value);
+  const [m, cat, camp, ag, st] = FILTERS.map(([sel]) => $(sel).value);
   let rows = D.incidents.filter(i =>
     (!m || i.month === m) && (!cat || i.categories.includes(cat)) &&
     (!camp || i.campus === camp) && (!ag || i.agencies.includes(ag)) && (!st || i.status === st) &&
-    (!era || i.era === era) && (!stud || i.student_flag === stud) &&
     (!term || [i.narrative, i.case_number, i.location, i.nature_raw, i.disposition_raw]
       .join(" ").toLowerCase().includes(term)));
 
@@ -723,6 +876,7 @@ function render() {
     return get(a) < get(b) ? -sortDir : get(a) > get(b) ? sortDir : 0;
   });
 
+  TABLE_ROWS = rows;
   $("#tcount").textContent = `${rows.length} of ${D.incidents.length}`;
   $("#tbl tbody").innerHTML = rows.map(i => {
     const gone = !LIVE.has(i.status);
@@ -736,10 +890,9 @@ function render() {
           ${i.revision > 1 ? `<span class="tag amend">amended ×${i.revision - 1}</span>` : ""}
           ${i.flags.includes("near_duplicate") ? `<span class="tag bad">possible duplicate</span>` : ""}
           ${i.flags.includes("possible_duplicate_identity") ? `<span class="tag bad">possible duplicate identity</span>` : ""}
-          ${i.activity.length ? `<span class="tag">police activity: ${i.activity.map(esc).join(", ")}</span>` : ""}
-          ${!i.narrative && i.era === "cleryapp-php" ? `<span class="sub">no narrative published in this era</span>` : ""}</td>
-      <td>${esc(i.campus)}${i.student_flag ? `<br><span class="tag">${esc(i.student_flag)}</span>` : ""}</td>
-      <td>${esc(i.location)}${i.objects.length ? `<br><span class="tag">${i.objects.map(esc).join(", ")}</span>` : ""}</td>
+</td>
+      <td>${esc(i.campus)}</td>
+      <td>${esc(i.location)}</td>
       <td>${esc(i.disposition_raw)}${i.disposition_amended ? `<br><span class="tag amend">updated by source</span>` : ""}</td>
     </tr>`;
   }).join("") || `<tr><td colspan="7" class="empty">No incidents match these filters.</td></tr>`;
@@ -750,8 +903,10 @@ $("#foot").innerHTML =
    <a href="${esc(D.source_folder)}">drive.google.com</a>. Archived independently because the source folder is a
    rolling window — Rowan's annual security report says the most recent 90 days are posted — so months disappear.
    Archive began ${esc(D.archive_started)}; it cannot attest to anything before that date.
-   ${c.total_archived} incidents · built ${esc(D.generated_utc)} · see METHODOLOGY.md for keying, caveats and known source errors.`;
+   Covers the log as published since ${esc(D.published_era.since)} — ${c.total_archived} incidents ·
+   built ${esc(D.generated_utc)} · see METHODOLOGY.md for keying, caveats and known source errors.`;
 
+renderActivity();
 drawAll();
 render();
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change", drawAll);

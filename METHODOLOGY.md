@@ -74,7 +74,20 @@ Useful context for reporting, but note carefully which guidance is current.
   renamed the Clery Act the "Jeanne Clery Campus Safety Act." That is why Rowan's 2026
   report uses that title.
 
-## The pre-2026 backfill
+## What this page publishes
+
+The page covers only the log as Rowan publishes it now: Google Sheets, from June 2026.
+
+The pre-2026 record described in the next section is **archived but not shown**. Its
+coverage is too uneven to present: 2021-22 holds twelve captured months, 2023-24 holds
+one, and 2018-2020 and April-May 2026 were never captured. Any chart placing those side by
+side implies a comparison the data cannot support.
+
+The data is retained in full, under version control, because deleting an archive to tidy a
+chart would defeat the point of keeping one. It is documented below so that anyone working
+from it knows exactly what it is and is not.
+
+## The pre-2026 backfill (archived, not published)
 
 Rowan published the log through a PHP app at
 `sites.rowan.edu/publicsafety/clery/crimeandfire/cleryapp/index.php?month=YYYY-MM` until

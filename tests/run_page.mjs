@@ -93,7 +93,9 @@ globalThis.scrollTo = () => {};
 
 try {
   // Indirect eval keeps the script in global scope, as a <script> tag would be.
-  (0, eval)(source);
+  // `const` at top level creates a LEXICAL global, not a property on globalThis, so the
+  // chart registry has to be handed out explicitly from inside the same evaluation.
+  (0, eval)(source + "\n;globalThis.__CHART_DATA = typeof CHART_DATA !== 'undefined' ? CHART_DATA : null;");
 } catch (err) {
   console.error("THREW: " + (err && err.stack ? err.stack.split("\n")[0] : err));
   process.exit(1);
@@ -107,4 +109,22 @@ if (empty.length) {
   process.exit(2);
 }
 
-console.log("OK " + required.map((id) => `${id}:${written[id].length}b`).join(" "));
+// Every chart must register copyable rows. A chart that draws but exports nothing is a
+// silently broken "Copy data" button.
+const charts = ["month", "cat", "trend", "loc", "disp"];
+const data = globalThis.__CHART_DATA || {};
+const missing = charts.filter((id) => !data[id] || !data[id].rows || !data[id].rows.length);
+if (missing.length) {
+  console.error("NO DATA: these charts registered no copyable rows: " + missing.join(", "));
+  process.exit(3);
+}
+const ragged = charts.filter((id) => data[id].rows.some((r) => r.length !== data[id].header.length));
+if (ragged.length) {
+  console.error("RAGGED: rows do not match the header width in: " + ragged.join(", "));
+  process.exit(4);
+}
+
+console.log(
+  "OK " + required.map((id) => `${id}:${written[id].length}b`).join(" ") +
+  " | copy " + charts.map((id) => `${id}:${data[id].rows.length}r`).join(" ")
+);

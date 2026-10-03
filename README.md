@@ -1,8 +1,10 @@
 # Rowan Clery crime log archive
 
-An independent, append-only archive of Rowan University's Clery Act daily crime log —
-**2,353 incidents spanning December 2017 to September 2026** — with a reporting tool for
-finding stories in it.
+An independent, append-only archive of Rowan University's Clery Act daily crime log, with
+a reporting tool for finding stories in it.
+
+The published page covers the log as Rowan publishes it now: Google Sheets, from June
+2026. The archive on disk holds more (see *What is archived but not published* below).
 
 Rowan publishes the log as monthly Google Sheets in a
 [public Drive folder](https://drive.google.com/drive/folders/1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p).
@@ -11,11 +13,8 @@ That folder is a rolling window — Rowan's annual security report says the most
 of what they said before. This project checks the folder daily, preserves every version of
 every record, and keeps a timestamped trail of what was added, amended or removed.
 
-It also reaches backwards. Rowan published the log through a PHP app until early 2026;
-that app is now dead, returning an empty page for every month. Its last decade survives
-only as Internet Archive captures, and this project replays them — recovering **2,167
-incidents and 76 amendments Rowan never published a record of**, including 34 disposition
-changes and 6 offenses reclassified after the fact.
+It also holds a pre-June-2026 record recovered from Internet Archive captures of Rowan's
+old `cleryapp` log. That is **archived but not published** — see below.
 
 **The risk is not hypothetical.** On the day this archive was first run, the June 2026
 sheet was captured successfully and began returning HTTP 401 within the hour. Those 14
@@ -87,12 +86,6 @@ drop the 14 June 2026 incidents, because Drive no longer serves them.
 
 - **What changed** — additions, amendments and removals, with old → new values. This is
   where stories surface, so it sits at the top.
-- **Charts cover the current publication format only.** Rowan moved to Google Sheets in
-  June 2026; everything graphed comes from that format. The 2,167 pre-2026 incidents are
-  fully searchable in the table but deliberately **not charted** — that record survives
-  only as irregular Internet Archive snapshots, so some academic years hold twelve months
-  and others hold one, and graphing them side by side invites year-over-year comparisons
-  the coverage cannot support.
 - **Built around the school year in progress.** The page opens on 2026-27. Academic years
   run August to July, because a Glassboro June and a Glassboro September are different
   places and a calendar year splits the population cycle in half.
@@ -102,11 +95,12 @@ drop the 14 June 2026 incidents, because Drive no longer serves them.
   is answerable at a glance rather than by reading twelve lines off one axis.
 - **Data quality** — impossible dates, imprecise times, reclassified offenses, possible
   duplicates. Problems in the source are shown, not silently cleaned.
-- **Every incident** — all 2,353, filterable by month, offense, campus, agency, status,
+- **Every incident** — the full published log, filterable by month, offense, campus, agency, status,
   publication era and student status, searchable across narratives. Records the source no
   longer publishes are included and struck through.
-- **The full record stays reachable** — the table covers all 2,353 incidents back to 2017
-  regardless of which window the charts are showing, filterable by publication era.
+- **Copy data** on every chart, and **Copy filtered rows** on the table — TSV on the
+  clipboard, ready to paste into Datawrapper, Sheets or Excel. The table export follows
+  whatever filters are applied.
 
 ## How it protects the archive
 
@@ -131,31 +125,26 @@ The failure that would matter is mistaking a broken fetch for a deletion. The gu
 See [METHODOLOGY.md](METHODOLOGY.md) for the identity key, the Clery regulatory backdrop,
 known source errors, and what the data does **not** support.
 
-## The two eras
+## What is archived but not published
 
-| | pre-2026 (`cleryapp` PHP log) | 2026- (Drive sheets) |
-|---|---|---|
-| Incidents | 2,167 | 186 |
-| Source | Internet Archive captures | Live, fetched daily |
-| Incident narrative | no | **yes** |
-| Student / non-student flag | **yes** (~70% of rows) | no |
-| Non-crime police activity | **recorded** (disputes, vehicle stops, assists) | not recorded |
-| Campus | a prefix inside "General Location" | its own column |
-| Occurrence time | often a range | a single value |
+`run.py backfill` replays Internet Archive captures of Rowan's pre-June-2026 `cleryapp`
+log — 2,167 incidents back to December 2017, plus 48 amendments Rowan never published a
+record of. That data is in `data/raw/_wayback/`, in `data/archive/incidents.csv`, and
+under version control.
 
-Two consequences worth stating before publishing anything:
+**It is deliberately kept off the page.** Its coverage is too uneven to put in front of a
+reader: 2021-22 holds twelve captured months, 2023-24 holds one, and 2018-2020 and
+April-May 2026 were never captured at all. A count from a one-month year sitting beside a
+twelve-month year invites a comparison the data cannot support, and no amount of
+annotation reliably prevents it.
 
-- **Counts are not comparable across the line.** The old log recorded police activity that
-  is not a crime. The page keeps those out of offense categories, but the underlying
-  collection practice still differed.
-- **Rowan dropped a field.** The student/non-student flag appeared on ~70% of pre-2026
-  rows and appears **zero** times in the 2026 sheets. It partly survives as prose inside
-  the new narrative column, but it stopped being something you can filter or count.
+It also differs in kind. That log recorded non-crime police activity (disputes, vehicle
+stops, assists) alongside offenses, carried a student/non-student flag the current format
+dropped, and had no incident narrative.
 
-Months missing entirely: all of 2018–2020, 2021-01, and **April–May 2026** — the handover
-between the two systems, which the Internet Archive never captured. Those two months are
-not recoverable from the web and would have to be requested from the Clery Compliance
-Office.
+To publish it anyway, set `PUBLISHED_ERA = None` in `rowan_clery/build.py` and rebuild.
+To stop collecting it, simply never run `backfill` again — nothing in the daily job
+touches it.
 
 ## Editing the category maps
 

@@ -15,6 +15,13 @@ import re
 from . import normalize
 from .archive import Archive
 
+# The page presents only what Rowan publishes in its current format. The pre-2026 record
+# recovered from the Internet Archive stays in the archive, in data/raw/ and in
+# incidents.csv — it is simply not shown, because its coverage is too uneven to put in
+# front of a reader: some academic years hold twelve months, others hold one.
+# Set to None to publish every era again.
+PUBLISHED_ERA = "drive-2026"
+
 # Statuses meaning "the source still publishes this".
 LIVE_STATUSES = {"active", "missing"}
 # Replaced by another row after the source amended an identity field. Not a removal:
@@ -84,17 +91,12 @@ def build(data_dir: pathlib.Path, config_dir: pathlib.Path, today: str | None = 
             "nature_raw": row["nature_raw"],
             "categories": nature["categories"],
             "reclassified_from": nature["reclassified_from"],
-            # Legacy-only: what the offense was against, and non-crime police activity
-            # the old log bundled into the same cell.
-            "objects": nature["objects"],
-            "activity": nature["activity"],
             "unclassified": nature["unclassified"],
             "unclassified_disposition": disposition["unclassified"],
             "narrative": row["narrative_raw"],
             "campus": campus_map.get(row["campus_raw"], row["campus_raw"] or "Unknown"),
             "campus_raw": row["campus_raw"],
             "era": row.get("source_era", "drive-2026"),
-            "student_flag": row.get("student_flag", ""),
             "location": row["location_raw"],
             "disposition_raw": row["disposition_raw"],
             "disposition_flags": disposition["flags"],
@@ -151,6 +153,13 @@ def build(data_dir: pathlib.Path, config_dir: pathlib.Path, today: str | None = 
                 {"uid": uid, "case_number": case, "hours": round(lag, 2)}
             )
 
+    if PUBLISHED_ERA:
+        incidents = [i for i in incidents if i["era"] == PUBLISHED_ERA]
+        shown = {i["uid"] for i in incidents}
+        changelog = [e for e in changelog if e.get("incident_uid") in shown]
+        for key, rows in quality.items():
+            quality[key] = [r for r in rows if r.get("uid") in shown]
+
     live = [i for i in incidents if i["status"] in LIVE_STATUSES]
     by_era = collections.Counter(i["era"] for i in incidents)
     gone = [i for i in incidents if i["status"] not in LIVE_STATUSES | {SUPERSEDED}]
@@ -189,20 +198,11 @@ def build(data_dir: pathlib.Path, config_dir: pathlib.Path, today: str | None = 
         "generated_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
         "archive_started": _archive_started(data_dir, today),
         "source_folder": "https://drive.google.com/drive/folders/1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
-        "eras": {
-            "drive-2026": {
-                "label": "Google Sheets on Drive",
-                "count": by_era.get("drive-2026", 0),
-                "note": "Has an incident narrative. No student/non-student flag.",
-            },
-            "cleryapp-php": {
-                "label": "cleryapp PHP log (via the Internet Archive)",
-                "count": by_era.get("cleryapp-php", 0),
-                "note": (
-                    "Has a student/non-student flag and records non-crime police activity. "
-                    "No incident narrative."
-                ),
-            },
+        "published_era": {
+            "id": PUBLISHED_ERA,
+            "label": "Google Sheets on Drive",
+            "count": by_era.get(PUBLISHED_ERA, 0),
+            "since": "June 2026",
         },
         "counts": {
             "total_archived": len(incidents),
@@ -293,9 +293,8 @@ def _facets(incidents: list[dict]) -> dict:
     ]
     return {
         "categories": counter(c for i in incidents for c in i["categories"]),
-        "eras": counter(i["era"] for i in incidents),
         "school_years": counter(i["school_year"] for i in incidents if i["school_year"]),
-        "student_flags": counter(i["student_flag"] for i in incidents if i["student_flag"]),
+
         "campuses": counter(i["campus"] for i in incidents if i["campus"]),
         "months": counter(i["month"] for i in incidents if i["month"]),
         "locations": counter(i["location"] for i in incidents if i["location"]),
