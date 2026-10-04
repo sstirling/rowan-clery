@@ -1,9 +1,9 @@
 {
-  "last_run": "2026-10-03",
-  "last_successful_run": "2026-10-03",
+  "last_run": "2026-10-04",
+  "last_successful_run": "2026-10-04",
   "staleness_days": 0,
   "alarms": [
-    "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 3 runs \u2014 treating the source file as removed. Its rows are preserved in full."
+    "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 4 runs \u2014 treating the source file as removed. Its rows are preserved in full."
   ],
   "warnings": [
     "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']",
