@@ -116,3 +116,11 @@ unfounded by officer,outcome,unfounded,
 # different outcome from an arrest or a summons.
 closed - juvenile subject issued station house adjustment and trespass notice,outcome,closed|juvenile_involved|station_house_adjustment|trespass_notice,
 station house adjustment,outcome,station_house_adjustment|juvenile_involved,NJ juvenile diversion rather than a charge
+#
+# Added 2026-10-07 from October's data. This is the THIRTEENTH spelling of the same
+# outcome in this file — trespass/trespassing x notice/warning x singular/plural.
+# The vocabulary churns on this one concept more than any other, so expect more.
+trespassing warnings issued,outcome,trespass_notice,
+victim declined to pursue,outcome,rp_declined,Rowan's own published disposition vocabulary
+two subjects issued summons,outcome,summons_issued,
+updated- closed,audit_marker,closed,Variant of "disposition updated- closed"

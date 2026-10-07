@@ -1,0 +1,70 @@
+{
+  "alarms": [
+    "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 4 runs — treating the source file as removed. Its rows are preserved in full."
+  ],
+  "archive_rows": 2368,
+  "date": "2026-10-07",
+  "files": {
+    "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o": {
+      "month": "July 2026",
+      "name": "July 2026 Daily Crime Log",
+      "rows": 23,
+      "sha256": "44c0e11ce717d32386d1a74c226b1e3f748ed4760fca6714996e1d37304b721f",
+      "snapshot_written": false,
+      "status": "ok"
+    },
+    "1HULCgv9mk7XMkfC2DKkBaOUm5rA00aVfO83lU9489p0": {
+      "month": "September 2026",
+      "name": "September 2026 Daily Crime Log",
+      "rows": 109,
+      "sha256": "3cf388fd5b9f9311da6bd9011a5f49296ee75b647877b4ad89256ba41f0bde70",
+      "snapshot_written": true,
+      "status": "ok"
+    },
+    "1Ms5gjJX_-vnA4wUaTW-z60Hd98guINjRU5R-e5n58Ts": {
+      "month": "August 2026",
+      "name": "August 2026 Daily Crime Log",
+      "rows": 42,
+      "sha256": "33a2600fb1515642596b4a69137b236ce19c1dfc5441ab8d579af704a1ca646c",
+      "snapshot_written": true,
+      "status": "ok"
+    },
+    "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE": {
+      "error": "https://docs.google.com/spreadsheets/d/1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE/export?format=csv failed after 4 attempts: HTTP Error 401: Unauthorized",
+      "name": "June 2026 Daily Crime Log",
+      "status": "removed"
+    },
+    "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I": {
+      "month": "October 2026",
+      "name": "October 2026 Daily Crime Log",
+      "rows": 13,
+      "sha256": "e50098cbe0bc38a07100aa18751d20259f9383eefe2fa53b9a4e47612edb52dd",
+      "snapshot_written": true,
+      "status": "ok"
+    }
+  },
+  "folder_id": "1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
+  "listing": {
+    "count": 4,
+    "status": "ok"
+  },
+  "merge": {
+    "added": 15,
+    "amended": 2,
+    "changed": true,
+    "missing": 0,
+    "quarantined": [],
+    "reappeared": 0,
+    "relocated": 0,
+    "source_removed": 0,
+    "unchanged": 170,
+    "unfetched": [],
+    "warnings": [],
+    "withdrawn": 0
+  },
+  "summary": "+15 added, 2 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
+  "warnings": [
+    "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']",
+    "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: file reappeared after being absent"
+  ]
+}
