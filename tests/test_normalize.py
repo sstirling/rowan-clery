@@ -133,7 +133,11 @@ def test_config_maps_cover_every_live_token(all_sheets, category_map, dispositio
     nature_tokens, disposition_tokens = set(), set()
     for file_id, body in all_sheets.items():
         for record in parse.parse_and_key(body, file_id):
-            nature_tokens.update(t for t in re.split(r"\s*;\s*", record["Nature"].strip()) if t)
+            nature_tokens.update(
+                normalize.fold_token(t)
+                for t in re.split(r"\s*;\s*", record["Nature"].strip())
+                if normalize.fold_token(t)
+            )
             disposition_tokens.update(
                 normalize.normalize_disposition_token(t)
                 for t in re.split(r"\s*;\s*", record["Disposition"].strip())
@@ -236,3 +240,75 @@ def test_csa_only_rows_exist_in_the_live_data(all_sheets):
         if normalize.agencies(r["Case Number"]) == ["CSA"]
     ]
     assert len(csa_only) > 5
+
+
+# ---- capitalisation drift in the source ---------------------------------------
+
+
+def test_nature_lookup_ignores_capitalisation(category_map):
+    """'Improper behavior' and 'Improper Behavior' are one offense, not two.
+
+    Rowan retypes these cells by hand and its capitalisation wanders. An exact-string
+    lookup made every new spelling of an already-mapped offense a fatal build error:
+    October 2026 halted the scheduled run on 'Improper behavior' when 'Improper
+    Behavior' had been mapped since June. Disposition tokens were already folded this
+    way; Nature was not, and that asymmetry was the bug.
+    """
+    for spelling in ("Improper Behavior", "Improper behavior", "improper behaviour".replace("ou", "o")):
+        result = normalize.categorize(spelling, category_map)
+        assert result["categories"] == ["Improper behavior"], spelling
+        assert not result["unclassified"], spelling
+
+
+def test_nature_lookup_ignores_surrounding_whitespace(category_map):
+    """A stray double space inside a token is typing, not a new offense."""
+    result = normalize.categorize("Criminal  Mischief", category_map)
+    assert result["categories"] == ["Criminal mischief"]
+
+
+def test_case_variant_rows_that_disagree_are_fatal(tmp_path):
+    """Folding case is only safe if contradictions are caught rather than silently won.
+
+    The map really did carry 'Lewd act' -> Sex offense and 'Lewd Act' -> Lewdness, so
+    the category an incident received depended on how Rowan happened to capitalise it.
+    Last-one-wins would have buried that; it has to stop the build.
+    """
+    path = tmp_path / "category_map.csv"
+    path.write_text(
+        "raw_token,role,categories,notes\n"
+        "Lewd act,offense,Sex offense,\n"
+        "Lewd Act,offense,Lewdness,\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(normalize.MappingError, match="disagree"):
+        normalize._load_map(path)
+
+
+def test_identical_case_variants_are_allowed(tmp_path):
+    """Duplicate spellings that agree are documentation of what the source emits."""
+    path = tmp_path / "category_map.csv"
+    path.write_text(
+        "raw_token,role,categories,notes\n"
+        "Disorderly Conduct,offense,Disorderly conduct,\n"
+        "Disorderly conduct,offense,Disorderly conduct,case variant\n",
+        encoding="utf-8",
+    )
+    assert len(normalize._load_map(path)) == 1
+
+
+def test_the_shipped_category_map_has_no_contradictory_variants():
+    """Guards the real file, not just the loader."""
+    normalize._load_map(CONFIG / "category_map.csv")
+
+
+def test_lewdness_is_not_counted_as_a_clery_sex_offense(category_map):
+    """Public lewdness is not sexual assault.
+
+    Nine legacy incidents carry lewd/immoral tokens. Folding them into 'Sex offense'
+    alongside rape and fondling would overstate sex offenses by nine — a number a
+    reporter would publish.
+    """
+    for token in ("Lewd act", "Lewd Act", "Lewdness", "Lewd behavior", "Immoral conduct"):
+        result = normalize.categorize(token, category_map)
+        assert result["categories"] == ["Lewdness"], token
+        assert "Sex offense" not in result["categories"], token

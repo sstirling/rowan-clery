@@ -251,6 +251,17 @@ identically.
 - **Offenses** are mapped token-by-token via `config/category_map.csv` (64 tokens → 29
   categories). An unmapped token **fails the build** rather than falling into a silent
   "Other" bucket.
+- **Token lookup ignores capitalisation and spacing.** Rowan types these cells by hand,
+  so the same offense arrives as `Improper Behavior` one month and `Improper behavior`
+  the next. Tokens are folded (whitespace collapsed, lowercased, trailing period
+  dropped) before lookup, in both maps. Without this, every new spelling of an
+  already-mapped offense was a fatal build error: the scheduled run died on 8 October
+  2026 for exactly that reason. The archive still stores the source's own spelling —
+  only the lookup folds.
+  Two spellings that fold together but map to **different** categories are themselves a
+  fatal error, since that would make an incident's category depend on how the source
+  happened to capitalise it. This caught a real contradiction in the map
+  (`Lewd act` → Sex offense against `Lewd Act` → Lewdness); see below.
 - **`Nature updated` is an audit marker, not an offense.** Tokens before it are superseded
   by those after. "Theft; Nature updated; Motor Vehicle Theft" is a motor vehicle theft;
   counting it as a theft would report the classification RUPD withdrew. The superseded
@@ -272,7 +283,16 @@ Surfaced in the page's data-quality panel rather than silently cleaned.
 | Imprecise occurrence time | 13 | `Unknown`, `6/30/26 Unk.`, `10/2025 Unk.`, `2021 Unknown`, `Since 5/13/26 Unk.` |
 | Possible duplicate records | 2 | `RUPD 26-026280` — same case number, identical narrative, disposition and location, different dates |
 | Offenses reclassified | 2 | Marked inline with "Nature updated" |
-| Inconsistent capitalisation | — | `Criminal Mischief` / `Criminal mischief`, `Subject Arrested` / `Subject arrested` |
+| Inconsistent capitalisation | — | `Criminal Mischief` / `Criminal mischief`, `Subject Arrested` / `Subject arrested`, `Improper Behavior` / `Improper behavior`. Handled by folding tokens before lookup |
+
+### Lewdness is not counted as a sex offense
+
+Nine legacy incidents carry `Lewdness`, `Lewd act`, `Lewd behavior`, `Lewd photo` or
+`Immoral conduct`. These map to a **Lewdness** category of their own, not to **Sex
+offense**, which is reserved for the Clery sexual-assault classifications (rape,
+fondling, sexual exploitation). Folding public lewdness in with rape and fondling would
+have overstated sex offenses by nine — a figure a reporter would have published. All
+nine are in the pre-2026 era, so no published count changed when this was corrected.
 
 Dates are never coerced to a single timestamp. Each carries a precision
 (`minute`/`day`/`month`/`year`/`range_start`/`unknown`/`invalid`) and the original string.

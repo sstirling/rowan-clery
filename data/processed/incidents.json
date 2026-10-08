@@ -16,7 +16,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 164,
+   "incidents": 171,
    "months_covered": 3,
    "months": [
     "2026-08",
@@ -29,21 +29,21 @@
    ]
   }
  ],
- "generated_utc": "2026-10-08T01:03:50+00:00",
+ "generated_utc": "2026-10-08T18:53:24+00:00",
  "archive_started": "2026-10-01",
  "source_folder": "https://drive.google.com/drive/folders/1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
  "published_era": {
   "id": "drive-2026",
   "label": "Google Sheets on Drive",
-  "count": 201,
+  "count": 208,
   "since": "June 2026"
  },
  "counts": {
-  "total_archived": 201,
-  "currently_published": 187,
+  "total_archived": 208,
+  "currently_published": 194,
   "no_longer_published": 14,
   "superseded": 0,
-  "distinct_incidents": 201,
+  "distinct_incidents": 208,
   "withdrawn": 0,
   "source_removed": 14
  },
@@ -998,6 +998,55 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
+   "last_verified": "2026-10-08",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "189e55bf3c0cc4bc",
+   "case_number": "GPD 26-034485",
+   "agencies": [
+    "GPD"
+   ],
+   "reported": {
+    "value": "2026-10-01T16:20:00",
+    "precision": "minute",
+    "raw": "10/1/26 16:20",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-09-18T23:27:00",
+    "precision": "minute",
+    "raw": "9/18/26 23:27",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 304.88,
+   "nature_raw": "Public urination",
+   "categories": [
+    "Public urination"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "GPD issued a summons to two non-students for public urination.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "N. Main St./ Carpenter St.",
+   "disposition_raw": "Glassboro Police Case; Subjects issued summons",
+   "disposition_flags": [
+    "glassboro_pd",
+    "summons_issued"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-08",
    "last_verified": "2026-10-08",
    "missing_since": "",
    "flags": []
@@ -4565,6 +4614,55 @@
    "flags": []
   },
   {
+   "uid": "789f05a081dda2e3",
+   "case_number": "GPD 26-032670",
+   "agencies": [
+    "GPD"
+   ],
+   "reported": {
+    "value": "2026-10-01T15:50:00",
+    "precision": "minute",
+    "raw": "10/1/26 15:50",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-09-04T23:21:00",
+    "precision": "minute",
+    "raw": "9/4/26 23:21",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 640.48,
+   "nature_raw": "Possession of open container of alcohol",
+   "categories": [
+    "Alcohol violation"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "GPD issued a summons to a student for possession of an open alcohol container.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Rowan Blvd.",
+   "disposition_raw": "Glassboro Police Case; Subject issued summons",
+   "disposition_flags": [
+    "glassboro_pd",
+    "summons_issued"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-08",
+   "last_verified": "2026-10-08",
+   "missing_since": "",
+   "flags": []
+  },
+  {
    "uid": "7c296a9a1cc0eac7",
    "case_number": "RUPD 26-026778",
    "agencies": [
@@ -6942,6 +7040,55 @@
    "flags": []
   },
   {
+   "uid": "af53c4f0de7d972f",
+   "case_number": "GPD 26-034496",
+   "agencies": [
+    "GPD"
+   ],
+   "reported": {
+    "value": "2026-10-01T16:20:00",
+    "precision": "minute",
+    "raw": "10/1/26 16:20",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-09-19T00:37:00",
+    "precision": "minute",
+    "raw": "9/19/26 0:37",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 303.72,
+   "nature_raw": "Possession of open container of alcohol",
+   "categories": [
+    "Alcohol violation"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "GPD issued a summons to a non-student for possession of an open alcohol container.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Rowan Blvd.",
+   "disposition_raw": "Glassboro Police Case; Subject issued summons",
+   "disposition_flags": [
+    "glassboro_pd",
+    "summons_issued"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-08",
+   "last_verified": "2026-10-08",
+   "missing_since": "",
+   "flags": []
+  },
+  {
    "uid": "b046ab4e3ab53e8b",
    "case_number": "RUPD 26-022586",
    "agencies": [
@@ -7037,6 +7184,55 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
+   "last_verified": "2026-10-08",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "b228726f0fd94861",
+   "case_number": "GPD 26-034508",
+   "agencies": [
+    "GPD"
+   ],
+   "reported": {
+    "value": "2026-10-01T16:20:00",
+    "precision": "minute",
+    "raw": "10/1/26 16:20",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-09-19T01:33:00",
+    "precision": "minute",
+    "raw": "9/19/26 1:33",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 302.78,
+   "nature_raw": "Possession of open container of alcohol",
+   "categories": [
+    "Alcohol violation"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "GPD issued a summons to a non-student for possession of an open alcohol container.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Mullica Hill Rd./ N. Main St.",
+   "disposition_raw": "Glassboro Police Case; Subject issued summons",
+   "disposition_flags": [
+    "glassboro_pd",
+    "summons_issued"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-08",
    "last_verified": "2026-10-08",
    "missing_since": "",
    "flags": []
@@ -8474,6 +8670,55 @@
    "flags": []
   },
   {
+   "uid": "d6b27adb08ef05d7",
+   "case_number": "GPD 26-034636",
+   "agencies": [
+    "GPD"
+   ],
+   "reported": {
+    "value": "2026-10-01T16:20:00",
+    "precision": "minute",
+    "raw": "10/1/26 16:20",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-09-20T00:47:00",
+    "precision": "minute",
+    "raw": "9/20/26 0:47",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 279.55,
+   "nature_raw": "Obstruction",
+   "categories": [
+    "Obstruction"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "GPD arrested a student for not complying and providing ID.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Carpenter St.",
+   "disposition_raw": "Glassboro Police Case; Subject arrested",
+   "disposition_flags": [
+    "glassboro_pd",
+    "arrested"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-08",
+   "last_verified": "2026-10-08",
+   "missing_since": "",
+   "flags": []
+  },
+  {
    "uid": "d779ccaf80d831ef",
    "case_number": "CSA 87279",
    "agencies": [
@@ -8622,6 +8867,55 @@
    "flags": []
   },
   {
+   "uid": "df0c2fd6472ae8ee",
+   "case_number": "GPD 26-032864",
+   "agencies": [
+    "GPD"
+   ],
+   "reported": {
+    "value": "2026-10-01T15:50:00",
+    "precision": "minute",
+    "raw": "10/1/26 15:50",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-09-06T03:36:00",
+    "precision": "minute",
+    "raw": "9/6/26 3:36",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 612.23,
+   "nature_raw": "Improper behavior",
+   "categories": [
+    "Improper behavior"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "GPD issued a summons to a non-student for improper behavior.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Carpenter St./ Silver Ave.",
+   "disposition_raw": "Glassboro Police Case; Subject issued summons",
+   "disposition_flags": [
+    "glassboro_pd",
+    "summons_issued"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-08",
+   "last_verified": "2026-10-08",
+   "missing_since": "",
+   "flags": []
+  },
+  {
    "uid": "df4e572a2598ae98",
    "case_number": "RUPD 26-030137",
    "agencies": [
@@ -8665,6 +8959,55 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
+   "last_verified": "2026-10-08",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "dfcd1345527d27a1",
+   "case_number": "GPD 26-034479",
+   "agencies": [
+    "GPD"
+   ],
+   "reported": {
+    "value": "2026-10-01T16:20:00",
+    "precision": "minute",
+    "raw": "10/1/26 16:20",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-09-18T22:46:00",
+    "precision": "minute",
+    "raw": "9/18/26 22:46",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 305.57,
+   "nature_raw": "Possession of open container of alcohol",
+   "categories": [
+    "Alcohol violation"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "GPD issued a summons to a student and a non-student for possession of an open alcohol container.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Rowan Blvd.",
+   "disposition_raw": "Glassboro Police Case; Subjects issued summons",
+   "disposition_flags": [
+    "glassboro_pd",
+    "summons_issued"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-08",
    "last_verified": "2026-10-08",
    "missing_since": "",
    "flags": []
@@ -9817,13 +10160,13 @@
     "range_end": null
    },
    "occurred": {
-    "value": "2026-08-28T06:00:00",
+    "value": "2026-08-28T07:05:00",
     "precision": "minute",
-    "raw": "8/28/26 6:00",
+    "raw": "8/28/26 7:05",
     "ongoing": false,
     "range_end": null
    },
-   "reporting_lag_hours": 204.75,
+   "reporting_lag_hours": 203.67,
    "nature_raw": "Theft",
    "categories": [
     "Theft"
@@ -9845,7 +10188,7 @@
    "month_key": "2026-09",
    "school_year": "2026-27",
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-10-08",
    "missing_since": "",
@@ -11988,6 +12331,72 @@
    "incident_uid": "28a5bb830987c336",
    "nature": "Sexual Assault-Fondling",
    "observed_date": "2026-10-07"
+  },
+  {
+   "case_number": "RUPD 26-028719",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "date_occurred_raw",
+   "incident_uid": "fb14b52ee661cf05",
+   "new": "8/28/26 7:05",
+   "observed_date": "2026-10-08",
+   "old": "8/28/26 6:00"
+  },
+  {
+   "case_number": "GPD 26-032864",
+   "change_type": "added",
+   "date_reported": "10/1/26 15:50",
+   "incident_uid": "df0c2fd6472ae8ee",
+   "nature": "Improper behavior",
+   "observed_date": "2026-10-08"
+  },
+  {
+   "case_number": "GPD 26-032670",
+   "change_type": "added",
+   "date_reported": "10/1/26 15:50",
+   "incident_uid": "789f05a081dda2e3",
+   "nature": "Possession of open container of alcohol",
+   "observed_date": "2026-10-08"
+  },
+  {
+   "case_number": "GPD 26-034636",
+   "change_type": "added",
+   "date_reported": "10/1/26 16:20",
+   "incident_uid": "d6b27adb08ef05d7",
+   "nature": "Obstruction",
+   "observed_date": "2026-10-08"
+  },
+  {
+   "case_number": "GPD 26-034508",
+   "change_type": "added",
+   "date_reported": "10/1/26 16:20",
+   "incident_uid": "b228726f0fd94861",
+   "nature": "Possession of open container of alcohol",
+   "observed_date": "2026-10-08"
+  },
+  {
+   "case_number": "GPD 26-034496",
+   "change_type": "added",
+   "date_reported": "10/1/26 16:20",
+   "incident_uid": "af53c4f0de7d972f",
+   "nature": "Possession of open container of alcohol",
+   "observed_date": "2026-10-08"
+  },
+  {
+   "case_number": "GPD 26-034485",
+   "change_type": "added",
+   "date_reported": "10/1/26 16:20",
+   "incident_uid": "189e55bf3c0cc4bc",
+   "nature": "Public urination",
+   "observed_date": "2026-10-08"
+  },
+  {
+   "case_number": "GPD 26-034479",
+   "change_type": "added",
+   "date_reported": "10/1/26 16:20",
+   "incident_uid": "dfcd1345527d27a1",
+   "nature": "Possession of open container of alcohol",
+   "observed_date": "2026-10-08"
   }
  ],
  "quality": {
@@ -12134,7 +12543,7 @@
   "categories": [
    {
     "value": "Alcohol violation",
-    "count": 48
+    "count": 52
    },
    {
     "value": "Theft",
@@ -12165,11 +12574,11 @@
     "count": 12
    },
    {
-    "value": "Domestic violence",
-    "count": 11
+    "value": "Obstruction",
+    "count": 12
    },
    {
-    "value": "Obstruction",
+    "value": "Domestic violence",
     "count": 11
    },
    {
@@ -12190,7 +12599,7 @@
    },
    {
     "value": "Public urination",
-    "count": 5
+    "count": 6
    },
    {
     "value": "Failure to supervise a minor",
@@ -12202,6 +12611,10 @@
    },
    {
     "value": "Fraud",
+    "count": 3
+   },
+   {
+    "value": "Improper behavior",
     "count": 3
    },
    {
@@ -12218,10 +12631,6 @@
    },
    {
     "value": "Stalking",
-    "count": 2
-   },
-   {
-    "value": "Improper behavior",
     "count": 2
    },
    {
@@ -12248,7 +12657,7 @@
   "school_years": [
    {
     "value": "2026-27",
-    "count": 164
+    "count": 171
    },
    {
     "value": "2025-26",
@@ -12258,7 +12667,7 @@
   "campuses": [
    {
     "value": "Glassboro",
-    "count": 193
+    "count": 200
    },
    {
     "value": "Rowan-Virtua SOM (Stratford)",
@@ -12283,18 +12692,18 @@
     "count": 23
    },
    {
-    "value": "June 2026",
-    "count": 14
+    "value": "October 2026",
+    "count": 20
    },
    {
-    "value": "October 2026",
-    "count": 13
+    "value": "June 2026",
+    "count": 14
    }
   ],
   "locations": [
    {
     "value": "Carpenter St.",
-    "count": 13
+    "count": 14
    },
    {
     "value": "Holly Pointe Commons",
@@ -12313,6 +12722,10 @@
     "count": 7
    },
    {
+    "value": "Rowan Blvd.",
+    "count": 6
+   },
+   {
     "value": "Rt. 322",
     "count": 6
    },
@@ -12325,7 +12738,7 @@
     "count": 4
    },
    {
-    "value": "Rowan Blvd.",
+    "value": "N. Main St./ Carpenter St.",
     "count": 3
    },
    {
@@ -12378,10 +12791,6 @@
    },
    {
     "value": "Outside of Edgewood Park Apts.",
-    "count": 2
-   },
-   {
-    "value": "N. Main St./ Carpenter St.",
     "count": 2
    },
    {
@@ -12673,6 +13082,10 @@
     "count": 1
    },
    {
+    "value": "Mullica Hill Rd./ N. Main St.",
+    "count": 1
+   },
+   {
     "value": "Carpenter St./ Campus Ter.",
     "count": 1
    },
@@ -12733,6 +13146,10 @@
     "count": 1
    },
    {
+    "value": "Carpenter St./ Silver Ave.",
+    "count": 1
+   },
+   {
     "value": "Chamberlain Student Center; Campus",
     "count": 1
    },
@@ -12768,15 +13185,15 @@
    },
    {
     "value": "summons_issued",
-    "count": 76
-   },
-   {
-    "value": "arrested",
-    "count": 41
+    "count": 82
    },
    {
     "value": "glassboro_pd",
-    "count": 40
+    "count": 47
+   },
+   {
+    "value": "arrested",
+    "count": 42
    },
    {
     "value": "referred_university",
@@ -12866,7 +13283,7 @@
    },
    {
     "value": "GPD",
-    "count": 44
+    "count": 51
    },
    {
     "value": "CSA",
@@ -12880,7 +13297,7 @@
   "statuses": [
    {
     "value": "active",
-    "count": 187
+    "count": 194
    },
    {
     "value": "source_removed",
@@ -12921,7 +13338,7 @@
   },
   {
    "date": "2026-10-08",
-   "summary": "+0 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
+   "summary": "+7 added, 1 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
    "alarms": 1
   }
  ]

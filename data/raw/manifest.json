@@ -23,7 +23,7 @@
     "1HULCgv9mk7XMkfC2DKkBaOUm5rA00aVfO83lU9489p0": {
       "absent_count": 0,
       "first_seen": "2026-10-01",
-      "last_tab_census": "2026-10-07",
+      "last_tab_census": "2026-10-08",
       "last_verified": "2026-10-08",
       "month": "September 2026",
       "name": "September 2026 Daily Crime Log",
@@ -42,6 +42,11 @@
           "bytes": 25715,
           "date": "2026-10-07.2",
           "sha256": "3cf388fd5b9f9311da6bd9011a5f49296ee75b647877b4ad89256ba41f0bde70"
+        },
+        {
+          "bytes": 25715,
+          "date": "2026-10-08",
+          "sha256": "182c832d3d842c3690caebda7f9d0417f6e986aaeedad0900883c4165a7c001f"
         }
       ],
       "status": "present",
@@ -111,7 +116,7 @@
         "date": "2026-10-05",
         "reason": "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: body is only 191 bytes"
       },
-      "last_tab_census": "2026-10-07",
+      "last_tab_census": "2026-10-08",
       "last_verified": "2026-10-08",
       "month": "October 2026",
       "name": "October 2026 Daily Crime Log",
@@ -120,6 +125,11 @@
           "bytes": 3190,
           "date": "2026-10-07.2",
           "sha256": "e50098cbe0bc38a07100aa18751d20259f9383eefe2fa53b9a4e47612edb52dd"
+        },
+        {
+          "bytes": 4749,
+          "date": "2026-10-08",
+          "sha256": "7495c94726dd6a3751e97272ccfd1f94febd434609e02af376d97a32734078e3"
         }
       ],
       "status": "present",

@@ -94,7 +94,11 @@ def build(data_dir: pathlib.Path, config_dir: pathlib.Path, today: str | None = 
             "unclassified": nature["unclassified"],
             "unclassified_disposition": disposition["unclassified"],
             "narrative": row["narrative_raw"],
-            "campus": campus_map.get(row["campus_raw"], row["campus_raw"] or "Unknown"),
+            # Folded lookup: the map is keyed by normalize.fold_token, so a raw
+            # "GLASSBORO" still resolves instead of falling through to itself.
+            "campus": campus_map.get(
+                normalize.fold_token(row["campus_raw"]), row["campus_raw"] or "Unknown"
+            ),
             "campus_raw": row["campus_raw"],
             "era": row.get("source_era", "drive-2026"),
             "location": row["location_raw"],

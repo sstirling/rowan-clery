@@ -2532,3 +2532,11 @@
 {"case_number": "RUPD 26-032231", "change_type": "added", "date_reported": "10/1/26 23:38", "incident_uid": "8fff7f54af72b424", "nature": "Obstruction; Resisting Arrest; Terroristic Threats", "observed_date": "2026-10-07"}
 {"case_number": "CSA 87455", "change_type": "added", "date_reported": "10/2/26 14:14", "incident_uid": "ed1407baaf1c100d", "nature": "Harassment", "observed_date": "2026-10-07"}
 {"case_number": "RUPD 26-032445/ CSA 87613", "change_type": "added", "date_reported": "10/3/26 15:38", "incident_uid": "28a5bb830987c336", "nature": "Sexual Assault-Fondling", "observed_date": "2026-10-07"}
+{"case_number": "RUPD 26-028719", "change_type": "amended", "cosmetic": false, "field": "date_occurred_raw", "incident_uid": "fb14b52ee661cf05", "new": "8/28/26 7:05", "observed_date": "2026-10-08", "old": "8/28/26 6:00"}
+{"case_number": "GPD 26-032864", "change_type": "added", "date_reported": "10/1/26 15:50", "incident_uid": "df0c2fd6472ae8ee", "nature": "Improper behavior", "observed_date": "2026-10-08"}
+{"case_number": "GPD 26-032670", "change_type": "added", "date_reported": "10/1/26 15:50", "incident_uid": "789f05a081dda2e3", "nature": "Possession of open container of alcohol", "observed_date": "2026-10-08"}
+{"case_number": "GPD 26-034636", "change_type": "added", "date_reported": "10/1/26 16:20", "incident_uid": "d6b27adb08ef05d7", "nature": "Obstruction", "observed_date": "2026-10-08"}
+{"case_number": "GPD 26-034508", "change_type": "added", "date_reported": "10/1/26 16:20", "incident_uid": "b228726f0fd94861", "nature": "Possession of open container of alcohol", "observed_date": "2026-10-08"}
+{"case_number": "GPD 26-034496", "change_type": "added", "date_reported": "10/1/26 16:20", "incident_uid": "af53c4f0de7d972f", "nature": "Possession of open container of alcohol", "observed_date": "2026-10-08"}
+{"case_number": "GPD 26-034485", "change_type": "added", "date_reported": "10/1/26 16:20", "incident_uid": "189e55bf3c0cc4bc", "nature": "Public urination", "observed_date": "2026-10-08"}
+{"case_number": "GPD 26-034479", "change_type": "added", "date_reported": "10/1/26 16:20", "incident_uid": "dfcd1345527d27a1", "nature": "Possession of open container of alcohol", "observed_date": "2026-10-08"}

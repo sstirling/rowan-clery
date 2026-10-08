@@ -193,9 +193,9 @@ Jacket,object,,
 Keys,object,,
 Knife,object,,
 Laptop,object,,
-Lewd act,offense,Sex offense,
-Lewd photo,offense,Sex offense,
-Lewdness,offense,Sex offense,
+Lewd act,offense,Lewdness,Its own category and NOT a Clery sex offense -- folding lewdness in with rape and fondling would overstate sex offenses
+Lewd photo,offense,Lewdness,Unsolicited lewd image; not a Clery sexual assault
+Lewdness,offense,Lewdness,
 License plate,object,,
 MV Accident,activity,,
 MacBook,object,,

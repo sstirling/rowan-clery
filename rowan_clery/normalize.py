@@ -16,6 +16,21 @@ import re
 TOKEN_SPLIT = re.compile(r"\s*;\s*")
 
 
+def fold_token(token: str) -> str:
+    """The form a token is looked up by: whitespace collapsed, lowercased, no trailing dot.
+
+    Rowan retypes these cells by hand, so the same offense arrives as "Improper
+    Behavior" one month and "Improper behavior" the next. Capitalisation and spacing
+    carry no meaning here, and treating them as meaningful made every new spelling of an
+    already-known offense a fatal build error — which is exactly how the scheduled run
+    died on October 2026 data.
+
+    Disposition lookups were folded from the start; Nature lookups were not. That
+    asymmetry was the bug, so both now share this one function.
+    """
+    return re.sub(r"\s+", " ", token or "").strip().lower().rstrip(".")
+
+
 class MappingError(RuntimeError):
     """A token in the source has no entry in the config map.
 
@@ -26,14 +41,38 @@ class MappingError(RuntimeError):
 
 
 def _load_map(path: pathlib.Path) -> dict[str, dict[str, str]]:
-    """Read a config map, skipping the `#` comment lines that document it."""
+    """Read a config map, keyed by `fold_token`, skipping its `#` comment lines.
+
+    Keying on the folded token means a map may list several real spellings of the same
+    token — they are useful documentation of what the source actually emits. But two
+    spellings that fold together and then DISAGREE are a different thing entirely: the
+    map carried `Lewd act -> Sex offense` and `Lewd Act -> Lewdness`, so the category an
+    incident received depended on how Rowan happened to capitalise it. Last-one-wins
+    would bury that, so it raises instead.
+    """
     lines = [ln for ln in path.read_text(encoding="utf-8").splitlines() if not ln.lstrip().startswith("#")]
     rows = list(csv.DictReader(io.StringIO("\n".join(lines))))
     key = "raw_token" if rows and "raw_token" in rows[0] else "raw_value"
     for row in rows:
         if None in row:
             raise MappingError(f"{path.name}: ragged row (unquoted comma?): {row}")
-    return {row[key]: row for row in rows}
+
+    # Everything but the key and the free-text notes has to agree between variants.
+    meaningful = [f for f in (rows[0] if rows else {}) if f not in (key, "notes")]
+    out: dict[str, dict[str, str]] = {}
+    for row in rows:
+        folded = fold_token(row[key])
+        seen = out.get(folded)
+        if seen is not None and any(seen[f] != row[f] for f in meaningful):
+            raise MappingError(
+                f"{path.name}: the spellings {seen[key]!r} and {row[key]!r} differ only in "
+                f"case or spacing but disagree on "
+                + ", ".join(f"{f} ({seen[f]!r} vs {row[f]!r})" for f in meaningful if seen[f] != row[f])
+                + ". Pick one; otherwise the category depends on how the source "
+                "capitalised the token."
+            )
+        out[folded] = row
+    return out
 
 
 def _split_flags(value: str) -> list[str]:
@@ -92,7 +131,10 @@ def categorize(
     from, and the non-offense detail the legacy format bundled into the same cell.
     """
     tokens = [t for t in TOKEN_SPLIT.split((nature_raw or "").strip()) if t]
-    unknown = [t for t in tokens if t not in category_map]
+    # Folded only for the lookup. Every token reported back out — unclassified ones,
+    # and the descriptive roles where the token IS the value ("Bicycle") — stays in the
+    # source's own spelling, because that is the evidence.
+    unknown = [t for t in tokens if fold_token(t) not in category_map]
     if unknown and strict:
         raise MappingError(
             f"Unmapped Nature token(s): {unknown}. Add them to config/category_map.csv "
@@ -100,22 +142,25 @@ def categorize(
             "silently undercounts a category."
         )
 
-    known = [t for t in tokens if t in category_map]
+    known = [t for t in tokens if fold_token(t) in category_map]
+
+    def entry(token):
+        return category_map[fold_token(token)]
 
     def is_marker(cmap, token):
-        return cmap[token]["role"] == "audit_marker"
+        return entry(token)["role"] == "audit_marker"
 
     superseded, current = _apply_supersession(known, category_map, is_marker)
 
     def collect(token_list, roles):
         out = []
         for token in token_list:
-            if category_map[token]["role"] not in roles:
+            if entry(token)["role"] not in roles:
                 continue
             # No fallback to the token itself: an audit marker with no categories
             # ("Nature updated") must contribute nothing, or it becomes a phantom
             # category named after the marker.
-            for value in _split_flags(category_map[token]["categories"]):
+            for value in _split_flags(entry(token)["categories"]):
                 if value not in out:
                     out.append(value)
         return out
@@ -126,7 +171,7 @@ def categorize(
         Objects, activity and channel carry no canonical category — the token IS the
         value ("Bicycle", "Dispute"), so these are reported verbatim.
         """
-        return [t for t in token_list if category_map[t]["role"] == role]
+        return [t for t in token_list if entry(t)["role"] == role]
 
     current_cats = collect(current, CATEGORY_ROLES)
     prior_cats = [c for c in collect(superseded, CATEGORY_ROLES) if c not in current_cats]
@@ -149,7 +194,8 @@ def categorize(
 
 
 def normalize_disposition_token(token: str) -> str:
-    return re.sub(r"\s+", " ", token).strip().lower().rstrip(".")
+    """Kept as a named step because the disposition flow folds tokens before splitting."""
+    return fold_token(token)
 
 
 def disposition_flags(
