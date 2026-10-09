@@ -124,3 +124,11 @@ trespassing warnings issued,outcome,trespass_notice,
 victim declined to pursue,outcome,rp_declined,Rowan's own published disposition vocabulary
 two subjects issued summons,outcome,summons_issued,
 updated- closed,audit_marker,closed,Variant of "disposition updated- closed"
+#
+# Added 2026-10-09 from October's data (GPD 26-035380). One token covering two
+# different outcomes for two different people: GPD arrested a juvenile and issued a
+# summons to an adult in the same incident. Mapped to both flags, following
+# "subject issued summons and trespass notice". No juvenile_involved flag -- this
+# token does not say so, and only the narrative does; flags follow the token, not the
+# narrative, or the counts stop being reproducible from the Disposition column.
+subjects arrested/issued summons,outcome,arrested|summons_issued,

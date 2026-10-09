@@ -248,9 +248,12 @@ The archive's integrity rests on never mistaking a fetch failure for a deletion.
 Regenerated from the archive every run; delete `data/processed/` and it rebuilds
 identically.
 
-- **Offenses** are mapped token-by-token via `config/category_map.csv` (64 tokens → 29
-  categories). An unmapped token **fails the build** rather than falling into a silent
-  "Other" bucket.
+- **Offenses** are mapped token-by-token via `config/category_map.csv` — 257 distinct
+  tokens across both publication eras, resolving to 42 canonical categories as of
+  2026-10-09. Expect both figures to climb: Rowan types these cells by hand, so new
+  wordings arrive about monthly. An unmapped token **fails the build** rather than
+  falling into a silent "Other" bucket. Dispositions work the same way through
+  `config/disposition_map.csv` (97 tokens → 28 outcome flags).
 - **Token lookup ignores capitalisation and spacing.** Rowan types these cells by hand,
   so the same offense arrives as `Improper Behavior` one month and `Improper behavior`
   the next. Tokens are folded (whitespace collapsed, lowercased, trailing period
@@ -387,6 +390,16 @@ python3 -m venv .venv && .venv/bin/pip install pytest
 
 The pipeline uses only the Python standard library. `pytest` is needed for the tests.
 
-Tests run against byte-exact copies of the four real sheets in `tests/fixtures/`, so they
-exercise the actual mess rather than tidy synthetic data, plus hostile fixtures for HTML
-error pages served as 200, truncated bodies, drifted listing markup and wrong-tab exports.
+Tests run against byte-exact copies of the real monthly sheets in `tests/fixtures/`, so
+they exercise the actual mess rather than tidy synthetic data, plus hostile fixtures for
+HTML error pages served as 200, truncated bodies, drifted listing markup and wrong-tab
+exports.
+
+Those copies come in two sets, and the split matters. `REAL_SHEETS` holds the **closed**
+months, whose row counts are final and so can be asserted exactly as golden totals.
+`CURRENT_SHEETS` holds the **month in progress**, with no pinned count because it grows
+daily. The vocabulary-coverage tests run against both, via the `live_sheets` fixture:
+Rowan only appends to the open month, so that is the one sheet where a new wording can
+first appear. While the fixtures stopped at the last closed month, the suite passed
+locally and the scheduled run was left to discover new tokens in production — which is
+how the 2026-10-09 run died on "Offensive Language".

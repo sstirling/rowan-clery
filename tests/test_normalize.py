@@ -112,26 +112,30 @@ def test_unmapped_disposition_token_fails_loudly(disposition_map):
 # ---- every real token is covered ----------------------------------------------
 
 
-def test_every_live_nature_string_maps(all_sheets, category_map):
-    for file_id, body in all_sheets.items():
+def test_every_live_nature_string_maps(live_sheets, category_map):
+    for file_id, body in live_sheets.items():
         for record in parse.parse_and_key(body, file_id):
             normalize.categorize(record["Nature"], category_map)  # must not raise
 
 
-def test_every_live_disposition_string_maps(all_sheets, disposition_map):
-    for file_id, body in all_sheets.items():
+def test_every_live_disposition_string_maps(live_sheets, disposition_map):
+    for file_id, body in live_sheets.items():
         for record in parse.parse_and_key(body, file_id):
             normalize.disposition_flags(record["Disposition"], disposition_map)  # must not raise
 
 
-def test_config_maps_cover_every_live_token(all_sheets, category_map, disposition_map):
+def test_config_maps_cover_every_live_token(live_sheets, category_map, disposition_map):
     """Every token in the CURRENT feed must be mapped.
 
     The maps also carry pre-2026 tokens that no 2026 sheet contains, so this checks
     coverage rather than exact equality: the live vocabulary must be a subset.
+
+    Runs against `live_sheets`, which includes the month in progress. That matters: this
+    is the test that stands in for the scheduled run, and a new wording only ever lands
+    in the open month, so pointing it at closed months alone would make it decorative.
     """
     nature_tokens, disposition_tokens = set(), set()
-    for file_id, body in all_sheets.items():
+    for file_id, body in live_sheets.items():
         for record in parse.parse_and_key(body, file_id):
             nature_tokens.update(
                 normalize.fold_token(t)

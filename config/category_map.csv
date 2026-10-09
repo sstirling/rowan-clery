@@ -303,3 +303,12 @@ Theft of services,offense,Theft,
 Well being check,activity,,
 also Stalking,offense,Stalking,
 Possession of open containers of alcohol,offense,Alcohol violation,Plural variant
+#
+# Added 2026-10-09 from October's data (GPD 26-035380, logged as "Resisting Arrest;
+# Offensive Language; Terroristic Threats; Obstruction; Failing to Supervise Minor").
+# Statutorily this is NJ 2C:33-2(b), a subsection of disorderly conduct. It is kept as
+# its own category anyway: every Disorderly conduct count in the archive so far comes
+# from rows where Rowan wrote that token outright, so folding this one in would make
+# the category mean something different from October onward and break month-over-month
+# comparison. Same reasoning as "Improper Behavior" and "Lewdness" above.
+Offensive Language,offense,Offensive language,NJ 2C:33-2(b); kept separate so Disorderly conduct stays comparable across months

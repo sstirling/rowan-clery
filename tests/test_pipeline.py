@@ -14,7 +14,7 @@ import pytest
 
 from rowan_clery import fetch, pipeline
 from rowan_clery.archive import Archive
-from tests.conftest import FIXTURE_DIR, REAL_SHEETS, TOTAL_INCIDENTS
+from tests.conftest import CURRENT_SHEETS, FIXTURE_DIR, REAL_SHEETS, TOTAL_INCIDENTS
 
 AUGUST = "1Ms5gjJX_-vnA4wUaTW-z60Hd98guINjRU5R-e5n58Ts"
 
@@ -32,9 +32,21 @@ def project(tmp_path):
 class StubSource:
     """Serves the fixture sheets, with chosen file ids made to fail."""
 
-    def __init__(self, failing: set[str] | None = None, listing_fails: bool = False):
+    #: Pinned months the stub serves as created-but-empty. Named explicitly rather than
+    #: inferred from "no fixture on disk": the month in progress now HAS a fixture, for
+    #: the vocabulary-coverage tests, and the unpopulated-month case must keep working
+    #: regardless of which fixtures happen to exist.
+    UNPOPULATED = frozenset(CURRENT_SHEETS)
+
+    def __init__(
+        self,
+        failing: set[str] | None = None,
+        listing_fails: bool = False,
+        unpopulated: set[str] | None = None,
+    ):
         self.failing = failing or set()
         self.listing_fails = listing_fails
+        self.unpopulated = frozenset(self.UNPOPULATED if unpopulated is None else unpopulated)
         self.tab_calls = 0
 
     def install(self, monkeypatch):
@@ -58,9 +70,9 @@ class StubSource:
         if file_id in self.failing:
             raise fetch.FetchError(f"HTTP 404 for {file_id}")
         path = FIXTURE_DIR / f"{file_id}.csv"
-        if not path.exists():
+        if file_id in self.unpopulated or not path.exists():
             # A pinned month Rowan has created but not yet populated — October 2026
-            # appeared this way. There is no fixture because there is no data.
+            # appeared this way, as a 191-byte file that fetch_csv rejects as too small.
             raise fetch.FetchError(f"{file_id}: body is only 191 bytes")
         body = path.read_bytes()
         return fetch.FetchResult(

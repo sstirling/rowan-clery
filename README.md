@@ -215,6 +215,20 @@ token. That is deliberate — silently bucketing an unrecognised offense into "O
 a category quietly undercounts. When Rowan uses a new term, the build stops and asks you to
 classify it.
 
+Two habits make that quick to clear:
+
+- **Check both maps before rebuilding.** The build reports only the first unmapped token
+  it hits, but one new incident often introduces a Nature token *and* a Disposition token
+  at once. Run `python -m pytest tests/test_normalize.py -k live` to list every unmapped
+  token in both maps in one pass.
+- **Keep the source's own label.** Where a new offense token overlaps an existing
+  category, give it its own category rather than merging it in. Folding it in redefines
+  that category from this month onward and breaks month-over-month comparison — the
+  reasoning recorded on `Improper Behavior`, `Lewdness` and `Offensive Language`.
+
+When a month closes, refresh the current-month fixture (see `tests/conftest.py`); the
+coverage test can only catch an unmapped token in a sheet it actually holds.
+
 The pre-2026 backfill is lenient instead, because its vocabulary is 622 Nature tokens with
 a long tail of one-off objects. Unknown tokens there are recorded as `unclassified`,
 counted exactly, and listed on the Data & changes page — never folded into an offense
