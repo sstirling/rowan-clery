@@ -16,7 +16,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 204,
+   "incidents": 207,
    "months_covered": 3,
    "months": [
     "2026-08",
@@ -45,7 +45,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 196,
+   "incidents": 199,
    "months_covered": 3,
    "months": [
     "2026-08",
@@ -62,8 +62,8 @@
   "default": "occurred",
   "window_start": "2026-06",
   "window_start_label": "June 2026",
-  "total": 241,
-  "shown": 230,
+  "total": 244,
+  "shown": 233,
   "excluded_no_date": 4,
   "excluded_before_window": 7,
   "lag_median_days": {
@@ -72,21 +72,21 @@
    "RUPD": 0.0
   }
  },
- "generated_utc": "2026-10-09T20:51:32+00:00",
+ "generated_utc": "2026-10-09T20:55:30+00:00",
  "archive_started": "2026-10-01",
  "source_folder": "https://drive.google.com/drive/folders/1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
  "published_era": {
   "id": "drive-2026",
   "label": "Google Sheets on Drive",
-  "count": 241,
+  "count": 244,
   "since": "June 2026"
  },
  "counts": {
-  "total_archived": 241,
-  "currently_published": 227,
+  "total_archived": 244,
+  "currently_published": 230,
   "no_longer_published": 14,
   "superseded": 0,
-  "distinct_incidents": 241,
+  "distinct_incidents": 244,
   "withdrawn": 0,
   "source_removed": 14
  },
@@ -105,7 +105,7 @@
   "window_days": 7,
   "since": "2026-10-02",
   "until": "2026-10-09",
-  "added": 55,
+  "added": 58,
   "amended": 6,
   "withdrawn": 0,
   "aged_out": 14,
@@ -649,6 +649,58 @@
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-10-01",
    "missing_since": "2026-10-03",
+   "flags": []
+  },
+  {
+   "uid": "0b1eaf65910f79c8",
+   "case_number": "CSA 87745",
+   "agencies": [
+    "CSA"
+   ],
+   "reported": {
+    "value": "2026-10-08T15:29:00",
+    "precision": "minute",
+    "raw": "10/8/26 15:29",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-09-30",
+    "precision": "day",
+    "raw": "9/30/26 Unk.",
+    "ongoing": false
+   },
+   "reporting_lag_hours": null,
+   "nature_raw": "Sexual Assault-Rape",
+   "categories": [
+    "Sex offense"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to a campus official being sexually assaulted in an on-campus residence.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "On-Campus Residential Housing",
+   "disposition_raw": "Incident not reported to RUPD; Addressed by University Department",
+   "disposition_flags": [
+    "not_reported_to_rupd",
+    "referred_university"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "September 2026",
+   "occurred_month_key": "2026-09",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-09",
+   "last_verified": "2026-10-09",
+   "missing_since": "",
    "flags": []
   },
   {
@@ -10006,6 +10058,59 @@
    "flags": []
   },
   {
+   "uid": "c414f2cf58ae83a1",
+   "case_number": "GEN 87573",
+   "agencies": [
+    "GEN"
+   ],
+   "reported": {
+    "value": "2026-10-08T13:19:00",
+    "precision": "minute",
+    "raw": "10/8/26 13:19",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-02T02:00:00",
+    "precision": "minute",
+    "raw": "10/2/26 2:00",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 155.32,
+   "nature_raw": "Sexual Assault-Rape",
+   "categories": [
+    "Sex offense"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to a campus official being sexually assaulted in an on-campus residence.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "On-Campus Residential Housing",
+   "disposition_raw": "Incident not reported to RUPD; Addressed by University Department",
+   "disposition_flags": [
+    "not_reported_to_rupd",
+    "referred_university"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-09",
+   "last_verified": "2026-10-09",
+   "missing_since": "",
+   "flags": []
+  },
+  {
    "uid": "c5e587b75cf4936d",
    "case_number": "GPD 26-035369",
    "agencies": [
@@ -11651,6 +11756,58 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
+   "last_verified": "2026-10-09",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "e758804659b46f4e",
+   "case_number": "CSA 87461",
+   "agencies": [
+    "CSA"
+   ],
+   "reported": {
+    "value": "2026-10-02T15:24:00",
+    "precision": "minute",
+    "raw": "10/2/26 15:24",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-02T02:00:00",
+    "precision": "minute",
+    "raw": "10/2/26 2:00",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 13.4,
+   "nature_raw": "Theft",
+   "categories": [
+    "Theft"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "A student reported to RLUH staff that their laundry basket was stolen.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "114 Victoria St. Apts.",
+   "disposition_raw": "Incident not reported to RUPD",
+   "disposition_flags": [
+    "not_reported_to_rupd"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-09",
    "last_verified": "2026-10-09",
    "missing_since": "",
    "flags": []
@@ -15163,6 +15320,30 @@
    "incident_uid": "ba9db93198875afc",
    "nature": "Possession of open container of alcohol",
    "observed_date": "2026-10-09"
+  },
+  {
+   "case_number": "CSA 87461",
+   "change_type": "added",
+   "date_reported": "10/2/26 15:24",
+   "incident_uid": "e758804659b46f4e",
+   "nature": "Theft",
+   "observed_date": "2026-10-09"
+  },
+  {
+   "case_number": "GEN 87573",
+   "change_type": "added",
+   "date_reported": "10/8/26 13:19",
+   "incident_uid": "c414f2cf58ae83a1",
+   "nature": "Sexual Assault-Rape",
+   "observed_date": "2026-10-09"
+  },
+  {
+   "case_number": "CSA 87745",
+   "change_type": "added",
+   "date_reported": "10/8/26 15:29",
+   "incident_uid": "0b1eaf65910f79c8",
+   "nature": "Sexual Assault-Rape",
+   "observed_date": "2026-10-09"
   }
  ],
  "quality": {
@@ -15174,6 +15355,12 @@
    }
   ],
   "imprecise_occurred": [
+   {
+    "uid": "0b1eaf65910f79c8",
+    "case_number": "CSA 87745",
+    "raw": "9/30/26 Unk.",
+    "precision": "day"
+   },
    {
     "uid": "267760e3991d52b5",
     "case_number": "RUPD 26-023038",
@@ -15313,7 +15500,7 @@
    },
    {
     "value": "Theft",
-    "count": 24
+    "count": 25
    },
    {
     "value": "Trespassing",
@@ -15344,16 +15531,16 @@
     "count": 13
    },
    {
+    "value": "Sex offense",
+    "count": 12
+   },
+   {
     "value": "Domestic violence",
     "count": 11
    },
    {
     "value": "Littering",
     "count": 11
-   },
-   {
-    "value": "Sex offense",
-    "count": 10
    },
    {
     "value": "Motor vehicle theft",
@@ -15427,7 +15614,7 @@
   "school_years": [
    {
     "value": "2026-27",
-    "count": 204
+    "count": 207
    },
    {
     "value": "2025-26",
@@ -15437,7 +15624,7 @@
   "campuses": [
    {
     "value": "Glassboro",
-    "count": 233
+    "count": 236
    },
    {
     "value": "Rowan-Virtua SOM (Stratford)",
@@ -15455,7 +15642,7 @@
    },
    {
     "value": "October 2026",
-    "count": 53
+    "count": 56
    },
    {
     "value": "August 2026",
@@ -15480,15 +15667,15 @@
     "count": 13
    },
    {
+    "value": "On-Campus Residential Housing",
+    "count": 10
+   },
+   {
     "value": "Campus",
     "count": 10
    },
    {
     "value": "Rowan Blvd.",
-    "count": 8
-   },
-   {
-    "value": "On-Campus Residential Housing",
     "count": 8
    },
    {
@@ -15537,6 +15724,10 @@
    },
    {
     "value": "Chestnut Hall",
+    "count": 3
+   },
+   {
+    "value": "114 Victoria St. Apts.",
     "count": 3
    },
    {
@@ -15589,10 +15780,6 @@
    },
    {
     "value": "Rowan Blvd./Redmond Ave.",
-    "count": 2
-   },
-   {
-    "value": "114 Victoria St. Apts.",
     "count": 2
    },
    {
@@ -16019,7 +16206,7 @@
    },
    {
     "value": "referred_university",
-    "count": 24
+    "count": 26
    },
    {
     "value": "trespass_notice",
@@ -16030,12 +16217,12 @@
     "count": 21
    },
    {
-    "value": "rp_declined",
-    "count": 15
+    "value": "not_reported_to_rupd",
+    "count": 17
    },
    {
-    "value": "not_reported_to_rupd",
-    "count": 14
+    "value": "rp_declined",
+    "count": 15
    },
    {
     "value": "inactive",
@@ -16109,17 +16296,17 @@
    },
    {
     "value": "CSA",
-    "count": 43
+    "count": 45
    },
    {
     "value": "GEN",
-    "count": 3
+    "count": 4
    }
   ],
   "statuses": [
    {
     "value": "active",
-    "count": 227
+    "count": 230
    },
    {
     "value": "source_removed",
@@ -16165,7 +16352,7 @@
   },
   {
    "date": "2026-10-09",
-   "summary": "+31 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
+   "summary": "+0 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
    "alarms": 1
   }
  ]
