@@ -42,7 +42,7 @@ or pin. `pytest` is needed only to run the tests.
 | Command | What it does |
 |---|---|
 | `python run.py fetch` | One daily run: list the folder, fetch each sheet, snapshot changes, merge into the archive |
-| `python run.py build` | Regenerate `data/processed/` and all three pages in `docs/` from the archive |
+| `python run.py build` | Regenerate `data/processed/` and every page in `docs/` from the archive |
 | `python run.py all` | Both, in order |
 | `python run.py backfill` | Replay the Internet Archive's captures of the pre-2026 log (one-off, re-runnable) |
 | `python run.py rebuild` | Reconstruct the archive from stored raw snapshots, offline |
@@ -64,13 +64,12 @@ data/archive/changelog.jsonl       one event per added / amended / withdrawn / r
 data/processed/incidents.json      derived view that feeds the pages
 docs/index.html                    overview: recent activity, charts, searchable incident table
 docs/changes.html                  audit trail: every observed amendment, plus data quality
-docs/about.html                    what this is, how it works, how to use it responsibly
 ```
 
 ### How the pages are built
 
-The site is three pages composed at build time from shared parts, so the masthead, theme
-and footer are written once:
+The site is composed at build time from shared parts, so the masthead, theme and footer
+are written once:
 
 ```
 site/base.html            page skeleton: <head>, masthead, nav, footer
@@ -84,9 +83,19 @@ site/assets/              artwork, base64-inlined at build time
 
 `rowan_clery/build.py` holds the page table (`PAGES`), which also decides **which slice of
 the payload each page is given**. No page ships data it cannot use: the overview carries
-the incidents, the changes page carries the changelog and the quality audit, and the about
-page carries neither. A page that reads a key it was not given is a test failure, not a
-blank section.
+the incidents and the changes page carries the changelog and the quality audit. A page
+that reads a key it was not given is a test failure, not a blank section.
+
+#### Adding or removing a page
+
+`PAGES` is the single switch. Everything else follows from it — the build writes one file
+per entry, the masthead links one per entry, and the parametrised page tests cover one per
+entry. Removing an entry also deletes that page's last build from `docs/`, so a page
+pulled for being unfinished stops being served rather than lingering at its old URL.
+
+**The about page is currently commented out of `PAGES` while its copy is written.** Its
+template is still at `site/pages/about.html` (a TK skeleton) and its render expectations
+are still in `tests/run_page.mjs`, so restoring it means uncommenting that one entry.
 
 Every page inlines all its data and its logo, so each one works from `file://`, works with
 no network, and can be emailed as a single attachment — which matters when the thing being

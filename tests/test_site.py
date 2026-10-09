@@ -205,6 +205,38 @@ def test_built_page_has_the_mounts_its_scripts_write_to(name):
         assert f'id="{mount}"' in html, f"{name}: missing mount point: {mount}"
 
 
+def test_unpublishing_a_page_removes_the_page_it_already_published(tmp_path):
+    """Dropping a page from PAGES has to stop it being SERVED, not just stop linking it.
+
+    The masthead is generated from PAGES, so removing an entry delinks the page
+    immediately — but the previous build of it stays in docs/ and GitHub Pages goes on
+    serving it at its old URL. For a page pulled because its copy is not finished, that
+    is the whole problem rather than a cosmetic one.
+
+    Guarded because the cleanup deletes files: it must take the orphan and nothing else.
+    """
+    payload = build.build(ROOT / "data", ROOT / "config", today="2026-10-09")
+
+    orphan = tmp_path / "about.html"
+    orphan.write_text("<html>a page that is no longer built</html>", encoding="utf-8")
+    keep_dir = tmp_path / "assets"
+    keep_dir.mkdir()
+    keep_asset = keep_dir / "nested.html"
+    keep_asset.write_text("<html>not a top-level page</html>", encoding="utf-8")
+    keep_other = tmp_path / "CNAME"
+    keep_other.write_text("example.org\n", encoding="utf-8")
+
+    written = build.render_pages(SITE, tmp_path, payload)
+
+    assert not orphan.exists(), "the unpublished page is still being served"
+    assert {p.name for p in written} == set(build.PAGES)
+    for page in written:
+        assert page.exists()
+    # Scoped to top-level .html: everything else in the output directory is untouched.
+    assert keep_other.read_text() == "example.org\n"
+    assert keep_asset.exists(), "cleanup reached outside the pages it writes"
+
+
 @pytest.mark.parametrize("name", PAGE_NAMES)
 def test_built_page_is_self_contained(name):
     """No CDN, no external stylesheet, no remote image.

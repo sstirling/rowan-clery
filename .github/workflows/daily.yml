@@ -75,7 +75,18 @@ jobs:
           # A JavaScript error produces a page that serves HTTP 200 with every chart
           # empty. Catch it here rather than in the browser. Every page is checked:
           # verifying only the overview let the other two ship unexamined.
-          for page in docs/index.html docs/changes.html docs/about.html; do
+          #
+          # Globbed rather than listed by name. A hardcoded list silently checks a page
+          # that is no longer built (hard-failing on a missing file) or, worse, misses a
+          # newly added one. The guard against a page escaping this loop entirely is
+          # test_every_page_is_covered_by_the_render_harness.
+          shopt -s nullglob
+          pages=(docs/*.html)
+          if [ ${#pages[@]} -eq 0 ]; then
+            echo "::error::no built pages found in docs/"
+            exit 1
+          fi
+          for page in "${pages[@]}"; do
             node tests/run_page.mjs "$page"
           done
 

@@ -483,8 +483,8 @@ def _facets(incidents: list[dict]) -> dict:
     }
 
 
-#: Payload keys every page needs: the masthead strap, the footer provenance line and
-#: the about page's source link all read from these.
+#: Payload keys every page needs: the masthead strap and the footer provenance line
+#: read from these, as does the about page's source link when that page is built.
 CHROME_KEYS = (
     "generated_utc", "archive_started", "source_folder", "published_era",
     "counts", "current_school_year",
@@ -510,13 +510,19 @@ PAGES = {
         "js": ("lib.js", "changes.js"),
         "keys": CHROME_KEYS + ("status", "changelog", "quality"),
     },
-    "about.html": {
-        "nav": "About",
-        "title": "About — Rowan University Clery Act Data Hub",
-        "css": ("chrome.css",),
-        "js": ("lib.js",),
-        "keys": CHROME_KEYS,
-    },
+    # Unpublished until its copy is written. Everything that builds, navigates to and
+    # tests a page is driven off this dict, so commenting the entry out is the whole
+    # switch: the page stops being written, the masthead stops linking it, and the
+    # parametrised page tests stop expecting it. The source template stays at
+    # site/pages/about.html and its expectations stay in tests/run_page.mjs, so
+    # restoring it is this entry and nothing else.
+    # "about.html": {
+    #     "nav": "About",
+    #     "title": "About — Rowan University Clery Act Data Hub",
+    #     "css": ("chrome.css",),
+    #     "js": ("lib.js",),
+    #     "keys": CHROME_KEYS,
+    # },
 }
 
 
@@ -598,4 +604,15 @@ def render_pages(site_dir: pathlib.Path, out_dir: pathlib.Path, payload: dict) -
         target = out_dir / filename
         target.write_text(page, encoding="utf-8")
         written.append(target)
+
+    # Remove a page that used to be built and is not any more. Without this, dropping a
+    # page from PAGES stops linking it in the masthead but leaves the last build of it
+    # sitting in docs/, still served by Pages at its old URL — so an unfinished page
+    # would go on being published to anyone holding the link. Scoped to .html, which is
+    # the only thing this function writes, and the removal is logged rather than silent.
+    for stale in sorted(out_dir.glob("*.html")):
+        if stale.name in PAGES:
+            continue
+        stale.unlink()
+        print(f"removed {stale.name} — no longer in PAGES")
     return written
