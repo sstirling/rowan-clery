@@ -116,7 +116,7 @@
         "date": "2026-10-05",
         "reason": "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: body is only 191 bytes"
       },
-      "last_tab_census": "2026-10-08",
+      "last_tab_census": "2026-10-09",
       "last_verified": "2026-10-09",
       "month": "October 2026",
       "name": "October 2026 Daily Crime Log",
@@ -135,6 +135,11 @@
           "bytes": 5186,
           "date": "2026-10-08.2",
           "sha256": "b738c34568dba1414d82c47594f7886e248be59cb694bc40e786d175c751de99"
+        },
+        {
+          "bytes": 12621,
+          "date": "2026-10-09",
+          "sha256": "b157b95588c07afd1dc795b94b48d3526e607c9a1f82456ab7f9f80ae853a221"
         }
       ],
       "status": "present",
