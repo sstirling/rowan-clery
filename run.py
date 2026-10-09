@@ -79,14 +79,15 @@ def main() -> int:
 
     if args.command in ("build", "all"):
         payload = build_mod.build(DATA, CONFIG, today=args.date)
-        page = build_mod.render_site(DATA, ROOT / "site", ROOT / "docs", payload)
+        pages = build_mod.render_pages(ROOT / "site", ROOT / "docs", payload)
         counts = payload["counts"]
         print(
             f"built page data: {counts['total_archived']} archived, "
             f"{counts['currently_published']} currently published, "
             f"{counts['no_longer_published']} no longer published"
         )
-        print(f"wrote {page.relative_to(ROOT)} ({page.stat().st_size / 1024:.0f} KB, self-contained)")
+        for page in pages:
+            print(f"wrote {page.relative_to(ROOT)} ({page.stat().st_size / 1024:.0f} KB, self-contained)")
 
     if args.json and report:
         print(json.dumps(report, indent=2))

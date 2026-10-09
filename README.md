@@ -29,9 +29,9 @@ built around.
 git clone <this repo> && cd rowan-clery
 python3 -m venv .venv && .venv/bin/pip install pytest
 
-.venv/bin/python run.py all          # fetch, archive, rebuild the page
+.venv/bin/python run.py all          # fetch, archive, rebuild the pages
 open docs/index.html                 # the reporting tool
-.venv/bin/python -m pytest           # 82 tests
+.venv/bin/python -m pytest           # 152 tests
 ```
 
 The pipeline itself uses **only the Python standard library** — no dependencies to install
@@ -42,7 +42,7 @@ or pin. `pytest` is needed only to run the tests.
 | Command | What it does |
 |---|---|
 | `python run.py fetch` | One daily run: list the folder, fetch each sheet, snapshot changes, merge into the archive |
-| `python run.py build` | Regenerate `data/processed/` and `docs/index.html` from the archive |
+| `python run.py build` | Regenerate `data/processed/` and all three pages in `docs/` from the archive |
 | `python run.py all` | Both, in order |
 | `python run.py backfill` | Replay the Internet Archive's captures of the pre-2026 log (one-off, re-runnable) |
 | `python run.py rebuild` | Reconstruct the archive from stored raw snapshots, offline |
@@ -61,13 +61,71 @@ data/raw/<file_id>/<date>.headers.json   HTTP provenance for each snapshot
 data/raw/_runs/<date>.json         one record per run, whether or not anything changed
 data/archive/incidents.csv         the permanent record — append-only, never deleted
 data/archive/changelog.jsonl       one event per added / amended / withdrawn / removed row
-data/processed/incidents.json      derived view that feeds the page
-docs/index.html                    self-contained reporting tool (no CDN, works offline)
+data/processed/incidents.json      derived view that feeds the pages
+docs/index.html                    overview: recent activity, charts, searchable incident table
+docs/changes.html                  audit trail: every observed amendment, plus data quality
+docs/about.html                    what this is, how it works, how to use it responsibly
 ```
 
-`docs/index.html` inlines all its data, so it works from `file://`, works with no network,
-and can be emailed as a single attachment — which matters when the thing being archived
-may stop being public.
+### How the pages are built
+
+The site is three pages composed at build time from shared parts, so the masthead, theme
+and footer are written once:
+
+```
+site/base.html            page skeleton: <head>, masthead, nav, footer
+site/css/chrome.css       tokens, layout, masthead — emitted on every page
+site/css/{charts,table,audit}.css   only on the pages that need them
+site/js/lib.js            payload, theme, tooltip, copy/download — every page
+site/js/{index,changes}.js          page-specific rendering
+site/pages/<name>.html    the body of each page
+site/assets/              artwork, base64-inlined at build time
+```
+
+`rowan_clery/build.py` holds the page table (`PAGES`), which also decides **which slice of
+the payload each page is given**. No page ships data it cannot use: the overview carries
+the incidents, the changes page carries the changelog and the quality audit, and the about
+page carries neither. A page that reads a key it was not given is a test failure, not a
+blank section.
+
+Every page inlines all its data and its logo, so each one works from `file://`, works with
+no network, and can be emailed as a single attachment — which matters when the thing being
+archived may stop being public.
+
+### Artwork
+
+Source art lives in `assets/` (plus `RUclery.png` at the root). The small assets the pages
+actually inline are generated once, by hand, and committed:
+
+```bash
+python scripts/make_assets.py          # all of them
+python scripts/make_assets.py logo     # or one, by name
+```
+
+| Built | From | Used for |
+|---|---|---|
+| `logo.png` 144px | `RUclery.png` | masthead wordmark, shown 34px tall |
+| `favicon.png` 64px | the owl emblem | tab icon — trimmed and squared, since a wide logo is unreadable at 16px |
+| `emblem.png` 120px | the owl emblem | the owl overhanging a `.callout` |
+| `divider-dots.png` 1000px | `assets/divider-dots.png` | section rule |
+| `divider-dots-center.png` 420px | `assets/divider-dots-center.png` | ornamental break before the footer |
+
+The script decodes, resamples and re-encodes PNG with the standard library alone — no
+Pillow, no `sips`, because the daily job runs on an Ubuntu runner. Two details matter:
+
+- Sources with no alpha are keyed by **flood-filling inward from the border**, not by
+  making white transparent. `RUclery.png` contains its own near-white — the clipboard and
+  the owl's eyes — and a plain white key punches a hole through 51,300 px of the drawing.
+- Resampling happens in **premultiplied alpha**, so edges between artwork and transparency
+  do not pick up a pale halo.
+
+`assets/owl-callout.png` is deliberately **not** built. It is a flattened mockup with the
+transparency checkerboard and a paper texture baked into its pixels, and a raster frame
+cannot stretch to fit a paragraph or adapt to dark mode. Its design is reproduced as the
+`.callout` component in `site/css/chrome.css`, using colours sampled from the file —
+cream `#fcf3e3`, gold `#fdb00d`, brown `#4a1b03` — with the owl emblem as the artwork.
+That callout keeps its cream fill in both themes, like a printed sidebar, so its ink is
+fixed rather than tokenised and gets its own contrast test.
 
 ## Rebuilding from raw
 
@@ -159,7 +217,7 @@ classify it.
 
 The pre-2026 backfill is lenient instead, because its vocabulary is 622 Nature tokens with
 a long tail of one-off objects. Unknown tokens there are recorded as `unclassified`,
-counted exactly, and listed in the data-quality panel — never folded into an offense
+counted exactly, and listed on the Data & changes page — never folded into an offense
 category. Every one of the 2,353 incidents currently carries an offense category or is
 classed as non-crime police activity.
 

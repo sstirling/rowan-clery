@@ -7,9 +7,12 @@ is an attempt to break exactly those two properties.
 
 from __future__ import annotations
 
+import json
+
 import pytest
 
 from rowan_clery import archive as arch
+from rowan_clery.archive import Archive
 from rowan_clery import parse
 from tests.conftest import REAL_SHEETS
 
@@ -344,3 +347,42 @@ def test_restored_file_reactivates_its_rows(archive, parsed, all_sheets):
     august_uids = {r["incident_uid"] for r in parsed[AUGUST]}
     assert all(rows[uid]["status"] == "active" for uid in august_uids)
     assert report.reappeared == 0 or all("was_missing" in rows[uid]["flags"] for uid in august_uids)
+
+
+def test_read_changelog_drops_exactly_duplicated_events(tmp_path):
+    """A git merge of two branches that both ran the same day duplicates log lines.
+
+    `changelog.jsonl` is an append-only text file, so when a local run and the scheduled
+    run both record the same day's events and the branches are merged, git concatenates
+    both copies. That really happened: all 17 events from 2026-10-07 (15 added, 2
+    amended) appeared twice, and the page showed every amendment twice.
+
+    `incidents.csv` is immune because it is keyed by uid. The log is not, so it is
+    deduplicated on READ — the file itself is evidence and is never rewritten.
+    """
+    data = tmp_path / "data"
+    (data / "archive").mkdir(parents=True)
+    event = {"observed_date": "2026-10-07", "incident_uid": "abc123",
+             "change_type": "amended", "field": "disposition_raw",
+             "old": "Open/Active", "new": "Closed"}
+    other = dict(event, incident_uid="def456", new="Open/Active; Closed")
+    lines = [json.dumps(event), json.dumps(other), json.dumps(event)]
+    (data / "archive" / "changelog.jsonl").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+    entries = Archive(data).read_changelog()
+    assert len(entries) == 2, "the repeated event should be read once"
+    assert [e["incident_uid"] for e in entries] == ["abc123", "def456"], "order is preserved"
+
+
+def test_read_changelog_keeps_genuinely_different_events(tmp_path):
+    """Two amendments to the same field on the same day are two events, not a duplicate."""
+    data = tmp_path / "data"
+    (data / "archive").mkdir(parents=True)
+    first = {"observed_date": "2026-10-07", "incident_uid": "abc123",
+             "change_type": "amended", "field": "disposition_raw",
+             "old": "Open/Active", "new": "Closed"}
+    second = dict(first, old="Closed", new="Open/Active; Closed; Reopened")
+    (data / "archive" / "changelog.jsonl").write_text(
+        json.dumps(first) + "\n" + json.dumps(second) + "\n", encoding="utf-8")
+
+    assert len(Archive(data).read_changelog()) == 2

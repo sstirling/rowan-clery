@@ -1,0 +1,42 @@
+/* Overview page: the activity strip, stat tiles, scope selector and every chart. */
+
+.activity {
+  background: var(--surface-1); border: 1px solid var(--border);
+  border-left: 4px solid var(--accent); border-radius: 10px;
+  padding: 14px 16px; margin-bottom: 14px;
+}
+.activity .flag {
+  display: inline-block; background: var(--accent); color: var(--accent-ink);
+  font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 4px; margin-bottom: 9px;
+}
+.activity .row { display: flex; flex-wrap: wrap; gap: 10px 26px; align-items: baseline; }
+.activity .m { display: flex; align-items: baseline; gap: 7px; }
+.activity .m b { font-family: var(--serif); font-size: 23px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.activity .m span { font-size: 12.5px; color: var(--text-2); }
+.activity .when { font-size: 12.5px; color: var(--text-3); margin-top: 8px; }
+.activity.quiet { border-left-color: var(--border); }
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 10px; margin-bottom: 14px; }
+.stat { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 13px 15px; }
+.stat .n { font-family: var(--serif); font-size: 29px; font-weight: 700; letter-spacing: -0.025em; font-variant-numeric: tabular-nums; }
+.stat .l { font-size: 11.5px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
+.stat.flag .n { color: var(--alarm); }
+
+.scopebar { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+.scopebar label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-3); font-weight: 600; }
+.scopebar select { font-size: 14px; padding: 7px 10px; font-weight: 600; }
+.smallmult { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 12px 14px; }
+.sm { border: 1px solid var(--border); border-radius: 8px; padding: 9px 10px; }
+.sm .nm { font-size: 12px; font-weight: 600; color: var(--text-1); display: flex; justify-content: space-between; gap: 6px; }
+.sm .tot { color: var(--text-3); font-weight: 500; font-variant-numeric: tabular-nums; }
+.legend { display: flex; flex-wrap: wrap; gap: 10px 14px; margin: 10px 0 0; font-size: 12px; color: var(--text-2); }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+.swatch { width: 10px; height: 10px; border-radius: 2px; flex: none; }
+
+svg { display: block; width: 100%; overflow: visible; }
+/* Keep this a fill PROPERTY, not a fill attribute on the <text>: a presentation
+   attribute loses to this rule, which once rendered every coverage label grey. */
+.axis { font-size: 11px; fill: var(--text-3); }
+.vlabel { font-size: 11px; fill: var(--text-2); font-variant-numeric: tabular-nums; }
+.gridline { stroke: var(--grid); stroke-width: 1; }

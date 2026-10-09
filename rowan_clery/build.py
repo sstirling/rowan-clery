@@ -6,8 +6,10 @@ data/processed/ and this rebuilds it identically from the archive.
 
 from __future__ import annotations
 
+import base64
 import collections
 import datetime as dt
+import html
 import json
 import pathlib
 import re
@@ -27,6 +29,57 @@ LIVE_STATUSES = {"active", "missing"}
 # Replaced by another row after the source amended an identity field. Not a removal:
 # the incident is still published, under a corrected case number or timestamp.
 SUPERSEDED = "superseded"
+
+
+#: How far back "recent activity" looks, in days. A rolling window: the strip answers
+#: "what has Rowan done lately", which stops being a useful question the moment it is
+#: measured from a fixed date that keeps receding.
+ACTIVITY_WINDOW_DAYS = 7
+
+
+def _activity(changelog, runs, archive_started, today, staleness):
+    """Count what the source did in the last ACTIVITY_WINDOW_DAYS.
+
+    Computed here rather than on the page so the overview does not have to ship the
+    whole changelog just to show five numbers.
+
+    Two exclusions and one split matter:
+
+    * The archive's own opening capture is excluded. Every incident that already existed
+      was logged as "added" on day one, so counting it would report 186 incidents added
+      in a week when Rowan published none.
+    * Cosmetic date reformats are excluded: 2/16/22 becoming 2/16/2022 is not an
+      amendment, and there are 67 of them.
+    * `withdrawn` and `source_removed` are counted separately. A whole sheet ageing out
+      of Rowan's rolling window is routine retention. A single row vanishing from a sheet
+      that is still published is not, and conflating them buries the second in the first.
+    """
+    cutoff = (dt.date.fromisoformat(today) - dt.timedelta(days=ACTIVITY_WINDOW_DAYS)).isoformat()
+
+    live = [
+        e for e in changelog
+        if e.get("source") != "reconciliation"
+        and not e.get("cosmetic")
+        and cutoff <= e.get("observed_date", "") <= today
+        and e.get("observed_date", "") > archive_started
+    ]
+
+    def distinct(*types):
+        return len({e["incident_uid"] for e in live if e.get("change_type") in types
+                    and e.get("incident_uid")})
+
+    return {
+        "window_days": ACTIVITY_WINDOW_DAYS,
+        "since": cutoff,
+        "until": today,
+        "added": distinct("added"),
+        "amended": distinct("amended"),
+        "withdrawn": distinct("withdrawn"),
+        "aged_out": distinct("source_removed"),
+        "runs_in_window": sum(1 for r in runs if cutoff <= r.get("date", "") <= today),
+        "checked_total": len(runs),
+        "staleness_days": staleness,
+    }
 
 
 def _load_run_records(data_dir: pathlib.Path) -> list[dict]:
@@ -224,6 +277,12 @@ def build(data_dir: pathlib.Path, config_dir: pathlib.Path, today: str | None = 
             "alarms": last_run.get("alarms", []) if last_run else [],
             "warnings": last_run.get("warnings", []) if last_run else [],
         },
+        # Anchored to the build date, not to the last successful run: "the last 7 days"
+        # has to mean the last 7 days. If the scraper has been down, the window goes
+        # quiet and the staleness banner says why — which is the honest pair of facts.
+        "activity": _activity(
+            changelog, runs, _archive_started(data_dir, today), today, staleness
+        ),
         "incidents": incidents,
         "changelog": changelog,
         "quality": quality,
@@ -308,18 +367,118 @@ def _facets(incidents: list[dict]) -> dict:
     }
 
 
-def render_site(data_dir: pathlib.Path, site_dir: pathlib.Path, out_dir: pathlib.Path, payload: dict) -> pathlib.Path:
-    """Inline the payload into the page template to make one self-contained file.
+#: Payload keys every page needs: the masthead strap, the footer provenance line and
+#: the about page's source link all read from these.
+CHROME_KEYS = (
+    "generated_utc", "archive_started", "source_folder", "published_era",
+    "counts", "current_school_year",
+)
 
-    No CDN, no fetch, no build step. The page works from file://, works offline, and
-    can be emailed as a single attachment — which matters when the thing being archived
-    may stop being public.
+#: One entry per output page. `keys` is the payload slice that page is given — no page
+#: carries data it cannot use, which keeps changes.html and about.html small and makes
+#: "this page reads something it was not given" a testable error rather than a blank
+#: section.
+PAGES = {
+    "index.html": {
+        "nav": "Overview",
+        "title": "Rowan University Clery Act Data Hub",
+        "css": ("chrome.css", "charts.css", "table.css"),
+        "js": ("lib.js", "index.js"),
+        "keys": CHROME_KEYS + ("status", "runs", "school_years", "activity", "incidents", "facets"),
+    },
+    "changes.html": {
+        "nav": "Data & changes",
+        "title": "Data & changes — Rowan University Clery Act Data Hub",
+        "css": ("chrome.css", "audit.css"),
+        "js": ("lib.js", "changes.js"),
+        "keys": CHROME_KEYS + ("status", "changelog", "quality"),
+    },
+    "about.html": {
+        "nav": "About",
+        "title": "About — Rowan University Clery Act Data Hub",
+        "css": ("chrome.css",),
+        "js": ("lib.js",),
+        "keys": CHROME_KEYS,
+    },
+}
+
+
+#: Placeholder -> file under site/assets/. Each is base64-inlined into every page.
+#: Inlined rather than linked so each page stays a single file that works from file://
+#: and survives being emailed. The committed assets are produced once by
+#: scripts/make_assets.py; this never reprocesses them.
+ASSETS = {
+    "__LOGO__": "logo.png",                        # masthead wordmark
+    "__FAVICON__": "favicon.png",                  # tab icon
+    "__EMBLEM__": "emblem.png",                    # the owl on a callout box
+    "__DIVIDER__": "divider-dots.png",             # section rule
+    "__DIVIDER_CENTER__": "divider-dots-center.png",   # ornamental section break
+}
+
+
+def _asset_data_uris(site_dir: pathlib.Path) -> dict[str, str]:
+    site_dir = pathlib.Path(site_dir)
+    uris = {}
+    for token, name in ASSETS.items():
+        raw = (site_dir / "assets" / name).read_bytes()
+        uris[token] = "data:image/png;base64," + base64.b64encode(raw).decode("ascii")
+    return uris
+
+
+def _nav(current: str) -> str:
+    """The masthead nav, with the current section marked.
+
+    `aria-current` rather than a class alone: the active state is also carried by a gold
+    underline in CSS, so identity never rests on colour by itself.
     """
-    template = (pathlib.Path(site_dir) / "template.html").read_text(encoding="utf-8")
-    # `</script>` inside the JSON would close the host <script> tag early.
-    data = json.dumps(payload, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
-    out_dir = pathlib.Path(out_dir)
+    links = []
+    for filename, spec in PAGES.items():
+        here = ' aria-current="page"' if filename == current else ""
+        links.append(f'<a href="{filename}"{here}>{html.escape(spec["nav"])}</a>')
+    return "\n      ".join(links)
+
+
+def render_pages(site_dir: pathlib.Path, out_dir: pathlib.Path, payload: dict) -> list[pathlib.Path]:
+    """Compose every page from the shared skeleton and write them to out_dir.
+
+    Each output is self-contained: no CDN, no fetch, no build step, no external image.
+    The pages work from file://, work offline, and can be emailed as single attachments —
+    which matters when the thing being archived may stop being public.
+    """
+    site_dir, out_dir = pathlib.Path(site_dir), pathlib.Path(out_dir)
+    base = (site_dir / "base.html").read_text(encoding="utf-8")
+    assets = _asset_data_uris(site_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
-    target = out_dir / "index.html"
-    target.write_text(template.replace("__DATA__", data), encoding="utf-8")
-    return target
+
+    written = []
+    for filename, spec in PAGES.items():
+        slice_ = {k: payload[k] for k in spec["keys"] if k in payload}
+        missing = [k for k in spec["keys"] if k not in payload]
+        if missing:
+            raise KeyError(f"{filename}: payload is missing {missing}")
+
+        # `</script>` inside the JSON would close the host <script> tag early.
+        data = json.dumps(slice_, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+
+        page = base
+        for token, value in (
+            ("__TITLE__", html.escape(spec["title"])),
+            ("__CSS__", "\n".join((site_dir / "css" / name).read_text(encoding="utf-8")
+                                  for name in spec["css"])),
+            ("__NAV__", _nav(filename)),
+            ("__CONTENT__", (site_dir / "pages" / filename).read_text(encoding="utf-8")),
+            ("__JS__", "\n".join((site_dir / "js" / name).read_text(encoding="utf-8")
+                                 for name in spec["js"])),
+            *assets.items(),
+            ("__DATA__", data),
+        ):
+            page = page.replace(token, value)
+
+        leftover = sorted(set(re.findall(r"__[A-Z_]{3,}__", page)))
+        if leftover:
+            raise ValueError(f"{filename}: placeholders never substituted: {leftover}")
+
+        target = out_dir / filename
+        target.write_text(page, encoding="utf-8")
+        written.append(target)
+    return written

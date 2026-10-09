@@ -1,0 +1,23 @@
+/* The "Every incident" table and its filter bar. Overview page only. */
+
+.filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+input[type=search] { flex: 1 1 230px; }
+.count { font-size: 12.5px; color: var(--text-3); margin-left: auto; font-variant-numeric: tabular-nums; }
+
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;
+     color: var(--text-3); font-weight: 600; padding: 7px 9px; border-bottom: 1px solid var(--border);
+     position: sticky; top: 0; background: var(--surface-1); cursor: pointer; white-space: nowrap; }
+td { padding: 8px 9px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text-2); }
+td.case { font-family: var(--mono); font-size: 11.5px; white-space: nowrap; color: var(--text-3); }
+td.narr { color: var(--text-1); min-width: 260px; }
+tr.gone td { opacity: 0.62; }
+tr.gone td.narr { text-decoration: line-through; }
+.tablewrap { max-height: 640px; overflow: auto; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-1); }
+
+.tag { display: inline-block; font-size: 10.5px; padding: 1.5px 6px; border-radius: 4px;
+       background: var(--surface-2); color: var(--text-2); margin: 1px 3px 1px 0; white-space: nowrap; border: 1px solid var(--border); }
+.tag.cat { border-color: color-mix(in srgb, var(--s1) 45%, var(--border)); color: var(--text-1); }
+.tag.bad { border-color: var(--alarm); color: var(--alarm); }
+.tag.amend { border-color: var(--warn); color: var(--warn); }
+.tag.aged { border-color: var(--border); color: var(--text-3); }

@@ -1,0 +1,19 @@
+/* Data & changes page: the changelog feed and the data-quality panel. */
+
+.feed { display: flex; flex-direction: column; gap: 8px; max-height: 620px; overflow: auto; }
+.ev { border-left: 3px solid var(--border); padding: 7px 0 7px 11px; font-size: 13px; }
+.ev.added { border-color: var(--s3); }
+.ev.amended { border-color: var(--warn); }
+.ev.withdrawn { border-color: var(--alarm); }
+/* A whole sheet ageing out of Rowan's rolling window is routine retention, not an
+   alarm. It stays in the feed as a recorded event, in neutral grey. */
+.ev.source_removed { border-color: var(--text-3); }
+.ev.reappeared, .ev.relocated { border-color: var(--s1); }
+.ev .meta { font-size: 11px; color: var(--text-3); font-family: var(--mono); }
+.ev .diff { font-size: 12px; margin-top: 3px; }
+.ev .old { color: var(--alarm); text-decoration: line-through; }
+.ev .new { color: var(--ok); }
+
+details.q { border-top: 1px solid var(--border); padding: 9px 0 0; margin-top: 9px; }
+details.q summary { cursor: pointer; font-size: 13px; color: var(--text-2); }
+details.q ul { font-size: 12.5px; color: var(--text-3); margin: 7px 0 0; padding-left: 18px; }

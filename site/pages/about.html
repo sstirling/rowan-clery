@@ -1,0 +1,60 @@
+  <h1>About this project</h1>
+  <div class="callout">
+    <p>An independent, append-only archive of Rowan University's Clery Act daily crime log,
+    captured every day and kept after the university takes it down.</p>
+  </div>
+
+  <div class="card">
+    <h2>What this is</h2>
+    <p><span class="tk">TK</span> — what the project is for, who it serves, and what a reader
+    should take away from it.</p>
+  </div>
+
+  <div class="card">
+    <h2>Why it exists</h2>
+    <p>Rowan publishes the daily crime log as monthly Google Sheets in a
+    <a id="srclink" href="#">public Drive folder</a>. That folder is a working directory, not an
+    archive: it holds a rolling window. Rowan's annual security report states that logs "for the
+    most recent 90-day period are available for public inspection"; in practice the folder has
+    held a little more. Either way, older months come down. Records are also edited after publication — the sheet marks that a
+    disposition or an offense classification changed, but never what it said before, or when.</p>
+    <p>This project captures the log daily, keeps every version of every record, and logs each
+    change it observes. <span class="tk">TK</span> — add the reporting rationale.</p>
+  </div>
+
+  <div class="card">
+    <h2>How it works</h2>
+    <p>Each run fetches every monthly sheet, stores a byte-exact copy, and merges it into a
+    permanent record. Nothing is ever deleted or overwritten: when a row changes, the change is
+    recorded against the same incident; when a row or a whole month disappears from the source,
+    it stays here, flagged. A record is only ever marked missing after it has been absent on
+    three separate days, so a failed fetch is never mistaken for a deletion.</p>
+    <p>Offense and disposition wording is mapped to consistent categories through a checked-in
+    file that anyone can read and audit. An unrecognised term stops the build rather than being
+    quietly bucketed into "Other".</p>
+    <p>The full method — identity keying, the safety interlocks, known errors in the source and
+    the limits of what these numbers can support — is in
+    <code>METHODOLOGY.md</code> in the project repository.</p>
+  </div>
+
+  <div class="card">
+    <h2>How to use it responsibly</h2>
+    <p>These are counts of <em>logged incidents</em>, not of crime. Reporting rates, Campus
+    Security Authority referrals and the academic calendar all move them independently of
+    anything happening on campus. Not every case number is a Rowan police matter — some are
+    Glassboro municipal police, some are CSA reports with no police response.</p>
+    <p><span class="tk">TK</span> — any further guidance for readers and reporters.</p>
+  </div>
+
+  <div class="card">
+    <h2>Who built it, and contact</h2>
+    <p><span class="tk">TK</span> — byline, affiliation, and how to get in touch about a
+    correction or a question.</p>
+  </div>
+
+  <div class="card">
+    <h2>Corrections</h2>
+    <p>This archive reproduces what Rowan published, including its errors, and says so rather
+    than cleaning them up silently. If something here is wrong, <span class="tk">TK</span> —
+    how to report it.</p>
+  </div>

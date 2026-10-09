@@ -11,6 +11,12 @@
 # showing exactly which row disappeared is the point of storing CSV in the first place.
 data/raw/** -text
 
+# The masthead logo is base64-inlined into every page, so a line-ending rewrite would
+# silently change what ships. `* text=auto` above would leave this to git's NUL-byte
+# heuristic; this repo is built on byte-exactness, so declare it instead of inferring it.
+# Unlike data/raw/**, `-diff` IS wanted here: there is no readable diff of a PNG.
+*.png binary
+
 # Test fixtures are byte-exact copies of the four real sheets. They are evidence of
 # what the source looked like on the capture date, so they get the same protection.
 tests/fixtures/** -text

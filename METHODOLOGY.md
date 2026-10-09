@@ -274,7 +274,7 @@ identically.
 
 ## Known problems in the source
 
-Surfaced in the page's data-quality panel rather than silently cleaned.
+Surfaced on the site's Data & changes page rather than silently cleaned.
 
 | Problem | Count at first capture | Note |
 |---|---|---|

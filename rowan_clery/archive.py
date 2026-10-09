@@ -189,10 +189,34 @@ class Archive:
                 fh.write(json.dumps(event, sort_keys=True, ensure_ascii=False) + "\n")
 
     def read_changelog(self) -> list[dict]:
+        """Every recorded event, in order, with exact repeats collapsed.
+
+        The log is an append-only text file, which makes it the one part of the archive
+        a git merge can corrupt: when a local run and the scheduled run both record the
+        same day and the branches are merged, git concatenates both copies rather than
+        recognising them as the same events. That happened on 2026-10-07 — all 17 events
+        appeared twice and the page listed every amendment twice.
+
+        `incidents.csv` is immune because it is keyed by uid. Here, deduplication is done
+        on READ: the file is evidence and is never rewritten. Two events that differ in
+        any field at all — including a second, different amendment to the same field on
+        the same day — are kept as two.
+        """
         if not self.changelog_path.exists():
             return []
+        seen: set[str] = set()
+        entries = []
         with self.changelog_path.open(encoding="utf-8") as fh:
-            return [json.loads(line) for line in fh if line.strip()]
+            for line in fh:
+                if not line.strip():
+                    continue
+                entry = json.loads(line)
+                fingerprint = json.dumps(entry, sort_keys=True)
+                if fingerprint in seen:
+                    continue
+                seen.add(fingerprint)
+                entries.append(entry)
+        return entries
 
     # ---- merge ----------------------------------------------------------------
 

@@ -29,7 +29,7 @@
    ]
   }
  ],
- "generated_utc": "2026-10-08T18:53:24+00:00",
+ "generated_utc": "2026-10-09T10:54:22+00:00",
  "archive_started": "2026-10-01",
  "source_folder": "https://drive.google.com/drive/folders/1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
  "published_era": {
@@ -50,13 +50,25 @@
  "status": {
   "last_run": "2026-10-08",
   "last_successful_run": "2026-10-08",
-  "staleness_days": 0,
+  "staleness_days": 1,
   "alarms": [
    "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 7 runs — treating the source file as removed. Its rows are preserved in full."
   ],
   "warnings": [
    "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']"
   ]
+ },
+ "activity": {
+  "window_days": 7,
+  "since": "2026-10-02",
+  "until": "2026-10-09",
+  "added": 22,
+  "amended": 6,
+  "withdrawn": 0,
+  "aged_out": 14,
+  "runs_in_window": 6,
+  "checked_total": 7,
+  "staleness_days": 1
  },
  "incidents": [
   {
@@ -12051,146 +12063,6 @@
    "previous_status": "active",
    "source_file_id": "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE",
    "source_month": "June 2026"
-  },
-  {
-   "case_number": "RUPD 26-030450",
-   "change_type": "amended",
-   "cosmetic": false,
-   "field": "disposition_raw",
-   "incident_uid": "57336ab31f23053d",
-   "new": "Open/Active; UPDATED- Closed; Victim declined to pursue",
-   "observed_date": "2026-10-07",
-   "old": "Open/Active"
-  },
-  {
-   "case_number": "RUPD 26-027789",
-   "change_type": "amended",
-   "cosmetic": false,
-   "field": "disposition_raw",
-   "incident_uid": "a291cb782cb2ec30",
-   "new": "Open/Active; Disposition updated- Closed; Victim declined to pursue",
-   "observed_date": "2026-10-07",
-   "old": "Open/Active; Disposition updated/Inactive"
-  },
-  {
-   "case_number": "GPD 26-030700",
-   "change_type": "added",
-   "date_reported": "9/14/26 9:54",
-   "incident_uid": "648f0cc344ab3030",
-   "nature": "Disorderly Conduct; Obstruction",
-   "observed_date": "2026-10-07"
-  },
-  {
-   "case_number": "GPD 26-031764",
-   "change_type": "added",
-   "date_reported": "9/15/26 9:47",
-   "incident_uid": "45c131e32cb409bd",
-   "nature": "DWI",
-   "observed_date": "2026-10-07"
-  },
-  {
-   "case_number": "GPD 26-033812",
-   "change_type": "added",
-   "date_reported": "10/1/26 15:50",
-   "incident_uid": "42a6005af5086335",
-   "nature": "Possession of open container of alcohol",
-   "observed_date": "2026-10-07"
-  },
-  {
-   "case_number": "GPD 26-033807",
-   "change_type": "added",
-   "date_reported": "10/1/26 15:50",
-   "incident_uid": "9a08581a9f2dbde4",
-   "nature": "Littering",
-   "observed_date": "2026-10-07"
-  },
-  {
-   "case_number": "GPD 26-033787",
-   "change_type": "added",
-   "date_reported": "10/1/26 15:50",
-   "incident_uid": "42b24c1d66bf543b",
-   "nature": "Possession of open container of alcohol",
-   "observed_date": "2026-10-07"
-  },
-  {
-   "case_number": "GPD 26-033774",
-   "change_type": "added",
-   "date_reported": "10/1/26 15:50",
-   "incident_uid": "d593f4a0a4e11c05",
-   "nature": "Possession of open containers of alcohol",
-   "observed_date": "2026-10-07"
-  },
-  {
-   "case_number": "GPD 26-033653",
-   "change_type": "added",
-   "date_reported": "10/1/26 15:50",
-   "incident_uid": "abb0d670b6ea4ff9",
-   "nature": "Possession of open container of alcohol",
-   "observed_date": "2026-10-07"
-  },
-  {
-   "case_number": "GPD 26-033590",
-   "change_type": "added",
-   "date_reported": "10/1/26 15:50",
-   "incident_uid": "0b23e8fa670678ed",
-   "nature": "Possession of open container of alcohol",
-   "observed_date": "2026-10-07"
-  },
-  {
-   "case_number": "GPD 26-033507",
-   "change_type": "added",
-   "date_reported": "10/1/26 15:50",
-   "incident_uid": "56fba9026e53db40",
-   "nature": "Public urination",
-   "observed_date": "2026-10-07"
-  },
-  {
-   "case_number": "GPD 26-033500",
-   "change_type": "added",
-   "date_reported": "10/1/26 15:50",
-   "incident_uid": "606ec9d71a975743",
-   "nature": "Public urination",
-   "observed_date": "2026-10-07"
-  },
-  {
-   "case_number": "GPD 26-033497",
-   "change_type": "added",
-   "date_reported": "10/1/26 15:50",
-   "incident_uid": "60412a6313d4269b",
-   "nature": "Possession of open container of alcohol",
-   "observed_date": "2026-10-07"
-  },
-  {
-   "case_number": "RUPD 26-032209",
-   "change_type": "added",
-   "date_reported": "10/1/26 19:02",
-   "incident_uid": "37b1567a99767802",
-   "nature": "Trespassing",
-   "observed_date": "2026-10-07"
-  },
-  {
-   "case_number": "RUPD 26-032231",
-   "change_type": "added",
-   "date_reported": "10/1/26 23:38",
-   "incident_uid": "8fff7f54af72b424",
-   "nature": "Obstruction; Resisting Arrest; Terroristic Threats",
-   "observed_date": "2026-10-07"
-  },
-  {
-   "case_number": "CSA 87455",
-   "change_type": "added",
-   "date_reported": "10/2/26 14:14",
-   "incident_uid": "ed1407baaf1c100d",
-   "nature": "Harassment",
-   "observed_date": "2026-10-07"
-  },
-  {
-   "case_number": "RUPD 26-032445/ CSA 87613",
-   "change_type": "added",
-   "date_reported": "10/3/26 15:38",
-   "incident_uid": "28a5bb830987c336",
-   "nature": "Sexual Assault-Fondling",
-   "observed_date": "2026-10-07"
   },
   {
    "case_number": "RUPD 26-030450",

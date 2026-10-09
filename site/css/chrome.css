@@ -1,0 +1,232 @@
+/* Shared chrome: tokens, typography, masthead, nav, cards, banners, footer.
+   Everything here is emitted on all three pages. Anything page-specific lives in
+   charts.css, table.css or audit.css. */
+
+:root {
+  color-scheme: light;
+  --surface-0: #f4f4f2;
+  --surface-1: #fcfcfb;
+  --surface-2: #eeeeec;
+  --border:    #d8d8d4;
+  --text-1:    #0b0b0b;
+  --text-2:    #52514e;
+  /* Darkened from #7a7975, which measured 4.24:1 on surface-1 and 3.96:1 on surface-0 —
+     under the 4.5:1 floor. This carries the chart axis labels, the .sub captions and the
+     footer disclaimer, so it is small text that has to clear it. Now 4.52:1 at worst. */
+  --text-3:    #6d6c68;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100;
+  --s5: #e87ba4; --s6: #008300; --s7: #4a3aa7; --s8: #e34948;
+  --alarm:  #c0392b;
+  --warn:   #b06a00;
+  --ok:     #1baf7a;
+  --grid:   #e4e4e0;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  /* The Whit sets headlines in Merriweather and body in Frank Ruhl Libre. Those are
+     webfonts, and these pages are deliberately self-contained — no CDN, works offline,
+     emailable as one file — so this uses the nearest ubiquitous newspaper serif instead
+     of trading that property away for an exact match. */
+  --serif: Georgia, "Iowan Old Style", "Times New Roman", times, serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  /* Rowan gold. Verified: 1.59:1 on white, so never text or a chart mark on light —
+     but 9.76:1 for #222 ON it, and 10.69:1 against the dark surface. Used the way The
+     Whit uses it: as a fill behind dark text, and as section rules. */
+  --accent: #f9c335;
+  --accent-ink: #1a1a19;
+}
+/* One dark block, not two. The inline <head> script resolves "follow the system" into
+   an explicit data-theme, so there is no prefers-color-scheme copy to keep in step. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --surface-0: #121211; --surface-1: #1a1a19; --surface-2: #232322;
+  --border: #35352f; --text-1: #ffffff; --text-2: #c3c2b7; --text-3: #8d8c83;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500;
+  --s5:#d55181; --s6:#008300; --s7:#9085e9; --s8:#e66767;
+  --alarm:#ef6f61; --warn:#e0a33c; --grid:#2c2c29;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--surface-0); color: var(--text-1);
+  font: 15px/1.5 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+/* Serif for display, sans for data. The Whit splits the same way — Merriweather
+   masthead, Noto Sans nav — and a serif at 13px across 2,300 table rows would be
+   harder to scan, not more characterful. */
+h1, h2 { font-family: var(--serif); }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 16px 80px; }
+h1 { font-size: 26px; margin: 0 0 4px; letter-spacing: -0.015em; font-weight: 700; }
+h2 {
+  font-size: 19px; margin: 0 0 3px; letter-spacing: -0.01em; font-weight: 700;
+  padding-top: 9px; position: relative;
+}
+/* The Whit's signature: a short gold rule above each section heading. */
+h2::before {
+  content: ""; position: absolute; top: 0; left: 0;
+  width: 34px; height: 3px; background: var(--accent); border-radius: 2px;
+}
+h3 { font-size: 13px; margin: 0 0 10px; color: var(--text-2); font-weight: 600; }
+p  { margin: 0 0 10px; color: var(--text-2); }
+a  { color: var(--s1); }
+.sub { color: var(--text-3); font-size: 13px; }
+.lede { font-size: 15px; color: var(--text-2); max-width: 70ch; }
+
+/* ---- masthead ---- */
+header {
+  position: sticky; top: 0; z-index: 40;
+  border-bottom: 1px solid var(--border); box-shadow: inset 0 -3px 0 var(--accent);
+  background: color-mix(in srgb, var(--surface-1) 92%, transparent);
+  backdrop-filter: saturate(140%) blur(8px);
+  margin-bottom: 18px;
+}
+.masthead {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap; padding-top: 9px; padding-bottom: 9px;
+}
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; min-width: 0; }
+.brand .mark { display: block; flex: none; height: 34px; width: auto; }
+/* The logo is mostly dark brown with gold highlights, so on the dark surface the bird's
+   body all but vanishes and only the wings read. A faint light halo traces the silhouette
+   back in without putting the mark in a white box. */
+:root[data-theme="dark"] .brand .mark {
+  filter: drop-shadow(0 0 0.5px rgba(255, 255, 255, 0.9))
+          drop-shadow(0 0 2px rgba(249, 195, 53, 0.35));
+}
+.brandname { display: flex; flex-direction: column; line-height: 1.12; min-width: 0; }
+.brandname .l1 {
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.11em;
+  color: var(--text-3); font-weight: 700;
+}
+.brandname .l2 { font-family: var(--serif); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; }
+nav { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+nav a {
+  font-size: 13px; font-weight: 600; color: var(--text-2); text-decoration: none;
+  padding: 7px 10px; border-radius: 7px; border: 1px solid transparent; white-space: nowrap;
+}
+nav a:hover { color: var(--text-1); background: var(--surface-2); }
+/* Identity is not carried by colour alone: the current section also gets a gold rule
+   under it and aria-current for anything reading the page aloud. */
+nav a[aria-current="page"] {
+  color: var(--text-1); background: var(--surface-2); border-color: var(--border);
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+nav .ghost { margin-left: 6px; }
+@media (max-width: 560px) {
+  .masthead { gap: 8px; }
+  .brandname .l2 { font-size: 16px; }
+  nav { width: 100%; gap: 2px; }
+  nav a { padding: 6px 8px; font-size: 12.5px; }
+}
+
+button.ghost {
+  background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border);
+  border-radius: 7px; padding: 6px 11px; font-size: 12px; cursor: pointer; font-family: inherit;
+}
+button.ghost:hover { color: var(--text-1); }
+
+.cardhead { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.cardhead .acts { display: flex; gap: 6px; flex: none; flex-wrap: wrap; }
+button.copy {
+  flex: none; background: transparent; color: var(--text-3); border: 1px solid var(--border);
+  border-radius: 6px; padding: 4px 9px; font-size: 11.5px; font-family: inherit; cursor: pointer;
+  white-space: nowrap; transition: background .12s, color .12s, border-color .12s;
+}
+button.copy:hover { border-color: var(--accent); color: var(--text-1); }
+button.copy.done { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
+
+.card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 14px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 820px) { .grid2 { grid-template-columns: 1fr; } }
+
+.banner { border-radius: 10px; padding: 12px 15px; margin-bottom: 14px; font-size: 13.5px; border: 1px solid; }
+.banner.alarm { background: color-mix(in srgb, var(--alarm) 11%, var(--surface-1)); border-color: var(--alarm); color: var(--text-1); }
+.banner.warn  { background: color-mix(in srgb, var(--warn) 12%, var(--surface-1)); border-color: var(--warn); color: var(--text-1); }
+.banner.note  { background: var(--surface-2); border-color: var(--border); color: var(--text-2); }
+.banner strong { color: var(--text-1); }
+.banner ul { margin: 6px 0 0; padding-left: 18px; }
+
+/* Shared by charts, the audit panel and the incident table, so it lives here. */
+.empty { color: var(--text-3); font-size: 13px; font-style: italic; padding: 10px 0; }
+code { font-family: var(--mono); font-size: 12px; background: var(--surface-2); padding: 1px 4px; border-radius: 3px; }
+
+/* The base control styling. The scope selector on the overview page depends on it, so
+   it is chrome rather than part of the table's filter bar. */
+select, input[type=search] {
+  background: var(--surface-1); color: var(--text-1); border: 1px solid var(--border);
+  border-radius: 7px; padding: 7px 9px; font-size: 13px; font-family: inherit; min-width: 0;
+}
+select:focus, input[type=search]:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+footer { margin-top: 26px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-3); }
+footer p { color: var(--text-3); font-size: 12px; }
+.disclaim { border-left: 3px solid var(--accent); padding-left: 11px; margin-bottom: 0; }
+
+/* ---- callout ----
+   The design comes from assets/owl-callout.png. That file is a flattened mockup: the
+   transparency checkerboard and a paper texture are baked into its pixels, and a raster
+   frame cannot stretch to fit a paragraph of arbitrary length or adapt to dark mode. So
+   the frame is rebuilt here from colours sampled out of it — cream #fcf3e3, gold
+   #fdb00d, brown #4a1b03 — and only the owl itself is used as artwork.
+
+   Note these are the ARTWORK's gold and brown, which are warmer and more saturated than
+   the site's --accent. They are deliberately not tokenised: this component is a quotation
+   of a specific illustration, not part of the palette. */
+.callout {
+  --callout-cream: #fcf3e3;
+  --callout-gold:  #fdb00d;
+  --callout-brown: #4a1b03;
+  position: relative;
+  margin: 0 0 16px 30px;              /* room for the owl to overhang on the left */
+  padding: 15px 18px 15px 40px;
+  background: var(--callout-cream);
+  border: 2px solid var(--callout-gold);
+  outline: 3px solid var(--callout-brown);
+  outline-offset: 0;
+  border-radius: 14px;
+  color: #2b1a0c;                     /* 13.6:1 on the cream — fixed, because the fill is */
+  font-size: 13.5px;
+}
+.callout strong { color: #1b0f06; }
+.callout a { color: #8a4a00; }
+.callout p { color: inherit; margin: 0 0 8px; }
+.callout p:last-child { margin-bottom: 0; }
+.callout::before {
+  content: "";
+  position: absolute;
+  left: -34px; top: 50%; transform: translateY(-50%);
+  width: 58px; height: 46px;
+  background: url("__EMBLEM__") left center / contain no-repeat;
+  /* The owl sits half on the cream and half on whatever is behind the box; a thin light
+     ring keeps its dark brown readable against the dark surface. */
+  filter: drop-shadow(0 0 1px rgba(252, 243, 227, 0.95));
+}
+@media (max-width: 560px) {
+  .callout { margin-left: 0; padding-left: 18px; padding-top: 34px; }
+  .callout::before { left: 12px; top: -16px; transform: none; }
+}
+
+/* ---- section rules ----
+   assets/divider-dots.png and divider-dots-center.png, inlined. Decorative only, so they
+   are background images on an empty element and carry no alt text to announce. */
+.divider {
+  height: 10px; margin: 20px 0 18px; border: 0;
+  background: url("__DIVIDER__") center / contain no-repeat;
+  opacity: 0.85;
+}
+.divider.center {
+  height: 26px; margin: 26px 0 22px;
+  background-image: url("__DIVIDER_CENTER__");
+}
+/* The brown centre dot of the ornament disappears on the dark surface. */
+:root[data-theme="dark"] .divider.center { filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.5)); }
+
+/* An unwritten section, marked the way a newsroom marks one. */
+.tk {
+  display: inline-block; background: var(--accent); color: var(--accent-ink);
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 1px 6px; border-radius: 4px; vertical-align: 1px;
+}
+
+.tip { position: fixed; pointer-events: none; background: var(--surface-1); border: 1px solid var(--border);
+       border-radius: 7px; padding: 7px 9px; font-size: 12px; color: var(--text-1); opacity: 0;
+       transition: opacity .1s; box-shadow: 0 4px 14px rgba(0,0,0,.14); z-index: 50; max-width: 260px; }

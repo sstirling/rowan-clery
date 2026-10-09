@@ -1,0 +1,83 @@
+  <div class="activity" id="activity"></div>
+  <div id="banners"></div>
+
+  <div class="scopebar">
+    <label for="scope">Showing</label>
+    <select id="scope"></select>
+    <span class="sub" id="scopenote"></span>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="cardhead"><h2>Incidents per month</h2>
+        <div class="acts"><button class="copy" data-copy="month">Copy data</button></div></div>
+      <h3 id="monthsub"></h3>
+      <div id="chart-month"></div>
+      <div class="legend" id="legend-month"></div>
+    </div>
+    <div class="card">
+      <div class="cardhead"><h2>Most common offenses</h2>
+        <div class="acts"><button class="copy" data-copy="cat">Copy data</button></div></div>
+      <h3 id="catsub"></h3>
+      <div id="chart-cat"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="cardhead"><h2>Each offense, month by month</h2>
+      <div class="acts"><button class="copy" data-copy="trend">Copy data</button></div></div>
+    <h3 id="trendsub"></h3>
+    <div id="chart-trend"></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="cardhead"><h2>Where incidents are logged</h2>
+        <div class="acts"><button class="copy" data-copy="loc">Copy data</button></div></div>
+      <h3>Top 15 locations, as written in the source</h3>
+      <div id="chart-loc"></div>
+    </div>
+    <div class="card">
+      <div class="cardhead"><h2>How incidents end</h2>
+        <div class="acts"><button class="copy" data-copy="disp">Copy data</button></div></div>
+      <h3>One incident can carry several outcomes</h3>
+      <div id="chart-disp"></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="card">
+    <div class="cardhead"><h2>Every incident</h2>
+      <div class="acts">
+        <button class="copy" data-copy="table">Copy data</button>
+        <button class="copy" data-download="table">Download CSV</button>
+      </div></div>
+    <h3>Including records the source no longer publishes, shown struck through.
+        Both buttons export exactly what the filters below are showing.</h3>
+    <div class="filters">
+      <input type="search" id="q" placeholder="Search narratives, case numbers, locations…">
+      <select id="f-month" aria-label="Filter by month"></select>
+      <select id="f-cat" aria-label="Filter by offense"></select>
+      <select id="f-campus" aria-label="Filter by campus"></select>
+      <select id="f-agency" aria-label="Filter by agency"></select>
+      <select id="f-status" aria-label="Filter by record status"></select>
+      <span class="count" id="tcount"></span>
+    </div>
+    <div class="tablewrap">
+      <table id="tbl">
+        <thead><tr>
+          <th data-k="reported">Reported</th>
+          <th data-k="case_number">Case</th>
+          <th data-k="nature_raw">Nature</th>
+          <th data-k="narrative">Narrative</th>
+          <th data-k="campus">Campus</th>
+          <th data-k="location">Location</th>
+          <th data-k="disposition_raw">Disposition</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>

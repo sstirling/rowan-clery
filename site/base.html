@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- This site republishes incident narratives verbatim, including reports of sexual
+     assault and domestic violence. Keep it out of search indexes. -->
+<meta name="robots" content="noindex, nofollow">
+<title>__TITLE__</title>
+<!-- The owl-face emblem, not the masthead wordmark: a wide logo is unreadable in a
+     16px tab slot, whereas the face still reads. -->
+<link rel="icon" href="__FAVICON__">
+<script>
+/* Set the theme before first paint. Without this the page renders light, then flips —
+   which with three pages would mean a flash on every navigation.
+
+   It also resolves "follow the system" into an explicit data-theme attribute, so the
+   stylesheet needs only one dark block instead of repeating every token in a
+   prefers-color-scheme media query as well. lib.js keeps it in step if the OS theme
+   changes while the page is open and the reader has not chosen for themselves. */
+(function () {
+  var t;
+  try { t = localStorage.getItem("theme"); } catch (e) { t = null; }
+  if (t !== "light" && t !== "dark") {
+    t = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+  document.documentElement.setAttribute("data-theme", t);
+})();
+</script>
+<style>
+__CSS__
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap masthead">
+    <a class="brand" href="index.html">
+      <img class="mark" src="__LOGO__" alt="" width="51" height="34">
+      <span class="brandname"><span class="l1">Rowan University</span><span class="l2">Clery Act Data Hub</span></span>
+    </a>
+    <nav aria-label="Sections">
+      __NAV__
+      <button class="ghost" id="theme" type="button">Theme</button>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+__CONTENT__
+
+  <hr class="divider center">
+
+  <footer>
+    <p id="foot"></p>
+    <p class="disclaim">This site isn't associated with Rowan University. It is built using the
+    help of Claude Code. Always confirm information presented here against official records,
+    and consult responsible authorities.</p>
+  </footer>
+</div>
+
+<div class="tip" id="tip"></div>
+<script id="payload" type="application/json">__DATA__</script>
+<script data-main>
+"use strict";
+__JS__
+</script>
+</body>
+</html>
