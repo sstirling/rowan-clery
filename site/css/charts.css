@@ -26,6 +26,10 @@
 .scopebar { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
 .scopebar label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-3); font-weight: 600; }
 .scopebar select { font-size: 14px; padding: 7px 10px; font-weight: 600; }
+/* The binning caveat. Sits directly under the scopebar because it governs every chart
+   on the page, not just the one it is nearest. Measure is capped so it stays readable
+   rather than running the full width of a desktop window. */
+.binnote { max-width: 68ch; margin: -6px 0 16px; line-height: 1.45; }
 .smallmult { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 12px 14px; }
 .sm { border: 1px solid var(--border); border-radius: 8px; padding: 9px 10px; }
 .sm .nm { font-size: 12px; font-weight: 600; color: var(--text-1); display: flex; justify-content: space-between; gap: 6px; }

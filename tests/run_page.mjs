@@ -26,8 +26,9 @@ const name = path.basename(file);
 // "Copy data" buttons — a chart that draws but exports nothing is a silently dead button.
 const EXPECT = {
   "index.html": {
-    mounts: ["stats", "activity", "banners", "scope", "chart-month", "chart-cat",
-             "chart-trend", "chart-loc", "chart-disp", "tbl tbody", "foot"],
+    mounts: ["stats", "activity", "banners", "scope", "binning", "binnote",
+             "chart-month", "chart-cat", "chart-trend", "chart-loc", "chart-disp",
+             "tbl tbody", "foot"],
     charts: ["month", "cat", "trend", "loc", "disp", "table"],
   },
   "changes.html": {
@@ -159,7 +160,8 @@ try {
   // export registry has to be handed out explicitly from inside the same evaluation.
   (0, eval)(source +
     "\n;globalThis.__CHART_DATA = typeof CHART_DATA !== 'undefined' ? CHART_DATA : null;" +
-    "\n;globalThis.__RENDER = typeof render !== 'undefined' ? render : null;");
+    "\n;globalThis.__RENDER = typeof render !== 'undefined' ? render : null;" +
+    "\n;globalThis.__BINNING = typeof BINNING !== 'undefined' ? () => BINNING : null;");
 } catch (err) {
   console.error("THREW: " + (err && err.stack ? err.stack.split("\n")[0] : err));
   process.exit(1);
@@ -225,6 +227,46 @@ if (name === "index.html") {
   if (problems.length) {
     console.error("EXPORT IGNORES FILTERS: " + problems.join("; "));
     process.exit(6);
+  }
+}
+
+// The month charts can be counted either by when an incident was reported or by when it
+// occurred. Those differ for about a third of the log, so a toggle that leaves the bars
+// identical means the binning is not actually wired to the charts — the same class of
+// silent failure as a dead export button, and invisible in a screenshot.
+if (name === "index.html") {
+  const sel = registry.get("binning");
+  const monthsOf = () => resolve("month").rows.map((r) => String(r[0])).join(",");
+  const noteOf = () => written["binnote"] || "";
+  const started = globalThis.__BINNING ? globalThis.__BINNING() : null;
+
+  if (started !== "occurred") {
+    console.error(`DEFAULT BINNING: expected "occurred", got ${JSON.stringify(started)}`);
+    process.exit(7);
+  }
+  const occurredMonths = monthsOf();
+  const occurredNote = noteOf();
+
+  sel.value = "reported";
+  sel.onchange();
+  const reportedMonths = monthsOf();
+  const reportedNote = noteOf();
+
+  const binProblems = [];
+  if (!occurredNote.trim()) binProblems.push("the occurred note is empty");
+  if (!reportedNote.trim()) binProblems.push("the reported note is empty");
+  if (occurredNote === reportedNote) binProblems.push("the note does not change with the binning");
+  if (!occurredMonths) binProblems.push("the occurred binning charted no months");
+  if (!reportedMonths) binProblems.push("the reported binning charted no months");
+
+  // Restore, so anything added after this sees the page as it loads.
+  sel.value = "occurred";
+  sel.onchange();
+  if (monthsOf() !== occurredMonths) binProblems.push("toggling back did not restore the chart");
+
+  if (binProblems.length) {
+    console.error("BINNING: " + binProblems.join("; "));
+    process.exit(7);
   }
 }
 

@@ -331,6 +331,63 @@ annotation reliably stops a reader making it. Charts cover the current publicati
 (June 2026 onward); the school-year table above is the honest way to see the older
 record's shape.
 
+## Counting by when an incident happened
+
+The monthly charts count each incident under **the month it occurred**, not the month
+Rowan published it. The binning is switchable on the page; occurrence is the default.
+
+This matters because the two are not the same question, and for Glassboro they are far
+apart. Measured across the live feed on 2026-10-09, campus police log same-day — a median
+lag of **0.0 days**, with 88.8% of RUPD incidents reported within 24 hours. Glassboro
+police report on a median lag of about **two weeks** (15.4 days), and under 2% of GPD
+incidents reach the log the day they happen. The published month and the month of the
+event differ for roughly a third of incidents.
+
+Every figure in this section moves as reports arrive. The ones rendered on the page are
+recomputed at each build; the ones written here are a snapshot for orientation, not
+constants.
+
+So a chart binned on the publication month answers "what did Rowan disclose, and when."
+Only a chart binned on occurrence answers "when was there crime."
+
+### What that costs, and what the page says about it
+
+Occurrence dates are usable here but not perfect, and the page states both limits
+rather than smoothing them over. The exact figures are computed at build time and
+rendered into the note under the chart, so they cannot drift from the bars.
+
+**Incidents with no month.** `Date/Time Occurred` is the messiest field in the source
+(see *Known problems*). A handful of rows carry no date precise enough to place in a
+month — bare `Unknown`, an impossible `9/31/26`, or a year alone (`2021 Unknown`). A
+year is a real date and still cannot name a month, so these are counted in the note and
+charted nowhere. They are never assigned a guessed month.
+
+**Incidents from before the window.** Charts begin at **June 2026**, the first sheet
+Rowan published in this format. A few rows are late reports of older incidents, running
+from spring 2026 back to October 2025. Their occurrence months predate anything the log
+covers, so charting them would plant one-incident bars across empty history. They are
+counted in the note instead.
+
+**Recent months are incomplete.** This is the real limitation and it is not fixable.
+Because reports arrive late, a month's occurrence count keeps rising after the month
+ends — about 98% of incidents are reported within 30 days and over 99% within 60, so a
+month is roughly settled after two months and short before then. The newest month always
+reads low. Nothing is dropped or shaded to hide this; the note says plainly that the
+latest month will rise, and names Glassboro's median lag as the reason.
+
+### The scope selector follows the binning
+
+Switching the binning also regroups the school-year selector, because an academic year
+is itself a range of months. A scope whose months came from publication dates while its
+bars came from occurrence dates could draw a bar outside its own August-to-July window.
+Both groupings are built in `build.py` and carried in the payload as `school_years` and
+`school_years_occurred`.
+
+One consequence worth knowing: the scope filter governs the whole page, so switching the
+binning shifts which incidents appear in every chart and in the table, not only in the
+two monthly charts. The table's **Month** column always shows the *sheet* month, because
+that is the provenance needed to check a row against Rowan's own file.
+
 ## The two formats are not comparable
 
 | | pre-2026 (`cleryapp`) | 2026- (Drive) |

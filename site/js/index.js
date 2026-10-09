@@ -148,33 +148,104 @@ function wireTips(sel) {
    calendar, so an August-to-July window keeps a year's population cycle intact; the full
    archive stays one selection away. */
 const ERA_INCIDENTS = D.incidents;
+
+/* ---- binning ----
+   Two ways to put an incident in a month: when Rowan PUBLISHED it (the sheet it appeared
+   in) or when it actually HAPPENED. Those differ for about a third of the log, because
+   Glassboro police report on a median lag of roughly two weeks while campus police log
+   same-day. Occurrence is the default: it is the honest answer to "when was there crime".
+
+   The trade is completeness. A month's occurred count keeps rising as late reports
+   arrive, so the newest month always reads short. That is stated in the note rather than
+   hidden by dropping the month. */
+let BINNING = (D.binning && D.binning.default) || "reported";
+const binMonth = (i) => BINNING === "occurred" ? i.occurred_month : i.month;
+const binKey   = (i) => BINNING === "occurred" ? i.occurred_month_key : i.month_key;
+const binYear  = (i) => BINNING === "occurred" ? i.occurred_school_year : i.school_year;
+// An incident with no bin under the active binning is charted nowhere. It is still
+// counted, in the note, with the reason.
+const binnable = (i) => !!binMonth(i);
+const yearsFor = () => (BINNING === "occurred" ? D.school_years_occurred : D.school_years) || [];
 // Offer only school years that BEGAN inside the published window. The log starts partway
 // through 2025-26, so this page holds just that year's June-July tail; listing it as
 // "2025-26 — 37 incidents" would describe a school year as if it were two months long.
 // Those incidents are still counted under "The whole log".
 const FIRST_MONTH = D.facets.months.map(m => monthKey(m.value)).filter(Boolean).sort()[0];
-const ERA_YEARS = D.school_years
+const eraYears = () => yearsFor()
   .map(y => y.year)
   .filter(y => `${y.slice(0, 4)}-08` >= FIRST_MONTH)
   .sort().reverse();
 const CURRENT = D.current_school_year;
-let SCOPE = ERA_YEARS.includes(CURRENT) ? CURRENT : (ERA_YEARS[0] || "era");
+let SCOPE = eraYears().includes(CURRENT) ? CURRENT : (eraYears()[0] || "era");
 
-if ($("#scope")) {
+// Rebuilt whenever the binning changes: the per-year counts and month coverage are
+// properties of the binning, not constants. Leaving them fixed was the trap here — a
+// scope labelled from publication months while the bars came from occurrence months can
+// draw a bar in a month outside its own academic range.
+function renderScope() {
+  const years = eraYears();
+  if (!years.includes(SCOPE) && SCOPE !== "era") SCOPE = years[0] || "era";
+  const binned = ERA_INCIDENTS.filter(binnable);
+  if (!$("#scope")) return;
   $("#scope").innerHTML =
-    ERA_YEARS.map(y => {
-      const n = ERA_INCIDENTS.filter(i => i.school_year === y).length;
-      const ms = [...new Set(ERA_INCIDENTS.filter(i => i.school_year === y).map(i => i.month_key))];
+    years.map(y => {
+      const rows = binned.filter(i => binYear(i) === y);
+      const ms = [...new Set(rows.map(binKey))].filter(Boolean);
       return `<option value="${esc(y)}"${y === SCOPE ? " selected" : ""}>`
-        + `${esc(y)} school year — ${n} incidents (${esc(coverageLabel(ms))})</option>`;
+        + `${esc(y)} school year — ${rows.length} incidents (${esc(coverageLabel(ms))})</option>`;
     }).join("")
-    + `<option value="era">The whole log — ${ERA_INCIDENTS.length} incidents`
-    + ` (${esc(coverageLabel([...new Set(ERA_INCIDENTS.map(i => i.month_key))], true))})</option>`;
+    + `<option value="era"${SCOPE === "era" ? " selected" : ""}>The whole log — ${binned.length} incidents`
+    + ` (${esc(coverageLabel([...new Set(binned.map(binKey))].filter(Boolean), true))})</option>`;
   $("#scope").onchange = () => { SCOPE = $("#scope").value; drawAll(); };
 }
 
+const BIN_OPTIONS = [
+  ["occurred", "When the incident occurred"],
+  ["reported", "When Rowan reported it"],
+];
+
+function renderBinning() {
+  if (!$("#binning")) return;
+  $("#binning").innerHTML = BIN_OPTIONS.map(([v, label]) =>
+    `<option value="${esc(v)}"${v === BINNING ? " selected" : ""}>${esc(label)}</option>`).join("");
+  $("#binning").onchange = () => {
+    BINNING = $("#binning").value;
+    renderScope();
+    drawAll();
+  };
+}
+
+// What the chosen binning leaves out. Every figure comes from the payload, so the note
+// cannot drift away from the bars it is explaining.
+function renderBinNote() {
+  const el = $("#binnote");
+  if (!el || !D.binning) return;
+  const b = D.binning;
+  if (BINNING !== "occurred") {
+    el.textContent = "Counted by the month Rowan published each incident in. "
+      + `Every one of the ${b.total} incidents is included.`;
+    return;
+  }
+  const missing = b.excluded_no_date + b.excluded_before_window;
+  const why = [];
+  // Not "no date": one of these is a real date given only as a year. What disqualifies
+  // them all is that none names a month, and inventing one would be a guess.
+  if (b.excluded_no_date)
+    why.push(`${b.excluded_no_date} have no date precise enough to place in a month`);
+  if (b.excluded_before_window)
+    why.push(`${b.excluded_before_window} occurred before ${b.window_start_label}`);
+  const gpd = b.lag_median_days && b.lag_median_days.GPD;
+  const lag = gpd
+    ? ` Recent months are still filling in: Glassboro police report a median ${gpd} days`
+      + " after an incident, so the latest month will rise as reports arrive."
+    : " Recent months are still filling in, so the latest month will rise as reports arrive.";
+  el.textContent = "Counted by when each incident occurred, not when it was reported."
+    + (missing ? ` ${missing} of ${b.total} incidents are not shown: ${why.join(", ")}.` : "")
+    + lag;
+}
+
 // Nothing outside the current format is ever charted.
-const inScope = (i) => SCOPE === "era" || i.school_year === SCOPE;
+const inScope = (i) => binnable(i) && (SCOPE === "era" || binYear(i) === SCOPE);
 function scopeLabel() {
   return SCOPE === "era" ? "every month in the log" : `the ${SCOPE} school year`;
 }
@@ -191,7 +262,7 @@ function niceMax(v) {
 
 function drawMonth() {
   const scoped = D.incidents.filter(inScope);
-  const months = [...new Set(scoped.map(i => i.month))].filter(Boolean).sort(monthKeyCmp);
+  const months = [...new Set(scoped.map(binMonth))].filter(Boolean).sort(monthKeyCmp);
   const top = topCategories(scoped, 7);
   const keys = top.concat(["Other"]);
   if ($("#monthsub")) $("#monthsub").textContent =
@@ -199,7 +270,7 @@ function drawMonth() {
     + ` · each incident counted once, under its first-listed offense`;
 
   const data = months.map(m => {
-    const rows = scoped.filter(i => i.month === m);
+    const rows = scoped.filter(i => binMonth(i) === m);
     const o = { m, total: rows.length, era: rows.length ? rows[0].era : "" };
     keys.forEach(k => o[k] = 0);
     rows.forEach(i => {
@@ -264,7 +335,7 @@ const monthKeyCmp = (a, b) => monthKey(a) < monthKey(b) ? -1 : monthKey(a) > mon
 // "is THIS offense moving", which each panel answers on its own.
 function drawTrend() {
   const scoped = D.incidents.filter(inScope);
-  const months = [...new Set(scoped.map(i => i.month))].filter(Boolean).sort(monthKeyCmp);
+  const months = [...new Set(scoped.map(binMonth))].filter(Boolean).sort(monthKeyCmp);
   const cats = topCategories(scoped, 12);
 
   if ($("#trendsub")) $("#trendsub").textContent = months.length < 2
@@ -273,14 +344,14 @@ function drawTrend() {
 
   register("trend", ["Offense", ...months],
     cats.map(cat => [cat, ...months.map(m =>
-      scoped.filter(i => i.month === m && i.categories.includes(cat)).length)]));
+      scoped.filter(i => binMonth(i) === m && i.categories.includes(cat)).length)]));
 
   if (!$("#chart-trend")) return;
   if (!cats.length) { $("#chart-trend").innerHTML = `<div class="empty">No incidents in scope.</div>`; return; }
 
   const W = 165, H = 54, PADL = 4, PADB = 13;
   $("#chart-trend").innerHTML = `<div class="smallmult">` + cats.map(cat => {
-    const series = months.map(m => scoped.filter(i => i.month === m && i.categories.includes(cat)).length);
+    const series = months.map(m => scoped.filter(i => binMonth(i) === m && i.categories.includes(cat)).length);
     const total = series.reduce((a, b) => a + b, 0);
     const peak = Math.max(...series, 1);
     const bw = Math.max(2, (W - PADL * 2) / series.length - 2);
@@ -333,6 +404,7 @@ function drawAll() {
   if ($("#catsub")) $("#catsub").textContent =
     `${scopeLabel()} · incidents may carry more than one offense, so the total exceeds the incident count`;
 
+  renderBinNote();
   drawMonth();
   drawTrend();
   hbars("#chart-cat", countBy(scoped, i => i.categories).slice(0, 14), cssvar("--s1"),
@@ -428,5 +500,7 @@ function render() {
 
 setRedraw(drawAll);
 renderActivity();
+renderBinning();
+renderScope();
 drawAll();
 render();

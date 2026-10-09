@@ -36,6 +36,24 @@ SUPERSEDED = "superseded"
 #: measured from a fixed date that keeps receding.
 ACTIVITY_WINDOW_DAYS = 7
 
+#: Earliest month an occurred-binned chart will draw. June 2026 is the first sheet Rowan
+#: published in the Drive format, so an occurred date before it belongs to a month the
+#: log never covered — a late report of an older incident. Charting those would plant
+#: one-incident bars across empty history, so they are counted and named in the page's
+#: note instead. A handful of live rows sit here, mostly late Glassboro reports of
+#: spring 2026 incidents; the page states the current count rather than this comment.
+OCCURRED_WINDOW_START = "2026-06"
+
+#: Occurred precisions that can be placed in a month bin. `year` is deliberately absent:
+#: "2021 Unknown" is a real date to report but cannot be assigned to a month, and
+#: guessing one would invent a month the source never gave.
+MONTH_BINNABLE_PRECISIONS = {"minute", "day", "month", "range_start"}
+
+#: Minimum incidents before an agency's median reporting lag goes on the page. A median
+#: over a handful of rows is noise, and the note quotes it as a reason to distrust the
+#: newest month.
+LAG_MIN_SAMPLE = 20
+
 
 def _activity(changelog, runs, archive_started, today, staleness):
     """Count what the source did in the last ACTIVITY_WINDOW_DAYS.
@@ -133,6 +151,7 @@ def build(data_dir: pathlib.Path, config_dir: pathlib.Path, today: str | None = 
         nature = normalize.categorize(row["nature_raw"], category_map, strict=strict)
         disposition = normalize.disposition_flags(row["disposition_raw"], disposition_map, strict=strict)
         lag = normalize.reporting_lag_hours(reported, occurred)
+        occ_key, occ_excluded = occurred_bin(occurred)
 
         incident = {
             "uid": uid,
@@ -161,6 +180,14 @@ def build(data_dir: pathlib.Path, config_dir: pathlib.Path, today: str | None = 
             "month": row["source_month"],
             "month_key": month_key(row["source_month"]),
             "school_year": school_year(row["source_month"]),
+            # The parallel grouping for counting by WHEN THE INCIDENT HAPPENED rather
+            # than when Rowan published it. Glassboro PD reports on a median lag of
+            # about two weeks, so for roughly a third of the live feed these two months
+            # differ. Both are carried; the page chooses which to bin on.
+            "occurred_month": month_label(occ_key),
+            "occurred_month_key": occ_key,
+            "occurred_school_year": school_year(occ_key) if occ_key else None,
+            "occurred_excluded": occ_excluded,
             "status": row["status"],
             "revision": int(row["revision"] or 1),
             "first_seen_by_archive": row["first_seen_by_archive"],
@@ -230,28 +257,84 @@ def build(data_dir: pathlib.Path, config_dir: pathlib.Path, today: str | None = 
         (dt.date.fromisoformat(today) - dt.date.fromisoformat(last_success)).days if last_success else None
     )
 
-    year_months: dict[str, set] = collections.defaultdict(set)
-    year_eras: dict[str, set] = collections.defaultdict(set)
-    for i in incidents:
-        if i["school_year"]:
-            year_months[i["school_year"]].add(i["month_key"])
-            year_eras[i["school_year"]].add(i["era"])
+    def group_school_years(year_of, month_of):
+        """Summarise incidents into academic years under one choice of binning.
+
+        Factored out because the scope selector has to follow whichever binning is
+        active: if the chart bins on the occurred month while the selector still groups
+        by publication month, a scope can draw a bar in a month outside its own
+        academic range.
+        """
+        months: dict[str, set] = collections.defaultdict(set)
+        eras: dict[str, set] = collections.defaultdict(set)
+        counts: dict[str, int] = collections.Counter()
+        for i in incidents:
+            year = year_of(i)
+            if not year:
+                continue
+            months[year].add(month_of(i))
+            eras[year].add(i["era"])
+            counts[year] += 1
+        return [
+            {
+                "year": y,
+                "incidents": counts[y],
+                "months_covered": len(months[y]),
+                "months": sorted(months[y]),
+                "complete": len(months[y]) == 12,
+                "eras": sorted(eras[y]),
+            }
+            for y in sorted(months)
+        ]
 
     current = school_year(f"{today[:4]}-{today[5:7]}")
 
+    # Median reporting lag per agency, for the note that explains why the newest
+    # occurred-binned month is short. Computed from the data rather than written down,
+    # so it cannot drift away from what the archive actually shows.
+    lag_by_agency: dict[str, list[float]] = collections.defaultdict(list)
+    for i in incidents:
+        if i["reporting_lag_hours"] is None or i["reporting_lag_hours"] < 0:
+            continue
+        for agency in i["agencies"] or ["(none)"]:
+            lag_by_agency[agency].append(i["reporting_lag_hours"])
+
+    def median(values: list[float]) -> float:
+        ordered = sorted(values)
+        mid = len(ordered) // 2
+        if len(ordered) % 2:
+            return ordered[mid]
+        return (ordered[mid - 1] + ordered[mid]) / 2
+
+    excluded = collections.Counter(
+        i["occurred_excluded"] for i in incidents if i["occurred_excluded"]
+    )
+
     payload = {
         "current_school_year": current,
-        "school_years": [
-            {
-                "year": y,
-                "incidents": sum(1 for i in incidents if i["school_year"] == y),
-                "months_covered": len(year_months[y]),
-                "months": sorted(year_months[y]),
-                "complete": len(year_months[y]) == 12,
-                "eras": sorted(year_eras[y]),
-            }
-            for y in sorted(year_months)
-        ],
+        "school_years": group_school_years(
+            lambda i: i["school_year"], lambda i: i["month_key"]
+        ),
+        "school_years_occurred": group_school_years(
+            lambda i: i["occurred_school_year"], lambda i: i["occurred_month_key"]
+        ),
+        # Everything the page needs to bin by occurrence date and then say honestly what
+        # that binning leaves out. `shown + the two exclusions` is the incident total by
+        # construction, so the note can never quietly disagree with the chart.
+        "binning": {
+            "default": "occurred",
+            "window_start": OCCURRED_WINDOW_START,
+            "window_start_label": month_label(OCCURRED_WINDOW_START),
+            "total": len(incidents),
+            "shown": sum(1 for i in incidents if i["occurred_month_key"]),
+            "excluded_no_date": excluded.get("no_date", 0),
+            "excluded_before_window": excluded.get("before_window", 0),
+            "lag_median_days": {
+                agency: round(median(values) / 24, 1)
+                for agency, values in sorted(lag_by_agency.items())
+                if len(values) >= LAG_MIN_SAMPLE and agency != "(none)"
+            },
+        },
         "generated_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
         "archive_started": _archive_started(data_dir, today),
         "source_folder": "https://drive.google.com/drive/folders/1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
@@ -320,6 +403,39 @@ def month_key(source_month: str) -> str | None:
     return f"{parsed.year}-{parsed.month:02d}"
 
 
+def month_label(key: str | None) -> str | None:
+    """Turn "2026-09" into "September 2026". The reverse of `month_key`.
+
+    Occurred-binned charts need a display label in the same shape as the sheet-derived
+    `month` field, so tooltips, axis ticks and the CSV export read identically whichever
+    binning is active.
+    """
+    if not key or not re.fullmatch(r"\d{4}-\d{2}", key):
+        return None
+    return dt.date(int(key[:4]), int(key[5:7]), 1).strftime("%B %Y")
+
+
+def occurred_bin(occurred: dict) -> tuple[str | None, str | None]:
+    """Which month bin an occurred date belongs to, and why it has none.
+
+    Returns `(month_key, excluded_reason)`; exactly one of the two is set.
+
+    The reason is kept rather than discarded so the page can say how many incidents are
+    missing from the chart and on what grounds. A chart binned on this column that
+    cannot state what it could not place is silently undercounting, which is the one
+    thing `normalize.parse_datetime` exists to prevent.
+    """
+    if occurred.get("precision") not in MONTH_BINNABLE_PRECISIONS:
+        return None, "no_date"
+    value = str(occurred.get("value") or "")
+    if len(value) < 7:
+        return None, "no_date"
+    key = value[:7]
+    if key < OCCURRED_WINDOW_START:
+        return None, "before_window"
+    return key, None
+
+
 def school_year(source_month: str) -> str | None:
     """Academic year label ("2026-27") for a log month.
 
@@ -384,7 +500,8 @@ PAGES = {
         "title": "Rowan University Clery Act Data Hub",
         "css": ("chrome.css", "charts.css", "table.css"),
         "js": ("lib.js", "index.js"),
-        "keys": CHROME_KEYS + ("status", "runs", "school_years", "activity", "incidents", "facets"),
+        "keys": CHROME_KEYS + ("status", "runs", "school_years", "school_years_occurred",
+                               "binning", "activity", "incidents", "facets"),
     },
     "changes.html": {
         "nav": "Data & changes",

@@ -195,8 +195,9 @@ def test_built_page_has_the_mounts_its_scripts_write_to(name):
     """Guard the specific failure mode: chrome renders, data does not."""
     html = read(name)
     expected = {
-        "index.html": ("activity", "banners", "scope", "stats", "chart-month", "chart-cat",
-                       "chart-trend", "chart-loc", "chart-disp", "tbl", "q", "tcount"),
+        "index.html": ("activity", "banners", "scope", "binning", "binnote", "stats",
+                       "chart-month", "chart-cat", "chart-trend", "chart-loc",
+                       "chart-disp", "tbl", "q", "tcount"),
         "changes.html": ("feed", "feedsub", "quality"),
         "about.html": ("srclink",),
     }[name]
