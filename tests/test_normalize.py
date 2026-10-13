@@ -93,6 +93,47 @@ def test_disposition_update_supersedes_earlier_state(disposition_map):
     assert result["disposition_amended"] is True
 
 
+def test_update_marker_is_recognised_whatever_punctuation_rowan_used(disposition_map):
+    """The daily run died on RUPD 26-032267, which wrote the marker with a colon.
+
+    Rowan punctuates this marker four ways now -- "Disposition updated", "Disposition
+    updated- Closed", "Updated- Closed" and "Disposition updated: Closed". The variants
+    cannot be collapsed in the tokenizer, because this column also uses "/" inside
+    single tokens ("Open/Active") and as a separator ("Disposition updated/Inactive"),
+    so a rule general enough to catch the colon would split tokens that must stay whole.
+    Each spelling is therefore its own row, and this test pins the set.
+
+    The assertion is on the resolved flags rather than on not raising: the marker's job
+    is to supersede, so a row mapped with the right flags but the wrong role would still
+    report this case as simultaneously open and closed.
+    """
+    variants = [
+        "Open/Active; Disposition updated; Closed",
+        "Open/Active; Disposition updated- Closed",
+        "Open/Active; Updated- Closed",
+        "Open/Active; Disposition updated: Closed",
+    ]
+    for raw in variants:
+        result = normalize.disposition_flags(raw, disposition_map)
+        assert "closed" in result["flags"], raw
+        assert "open_active" not in result["flags"], raw
+        assert result["disposition_amended"] is True, raw
+
+
+def test_the_row_that_broke_the_2026_10_12_run_resolves_to_both_outcomes(disposition_map):
+    """RUPD 26-032267, verbatim: an unfounded case closed after being left open.
+
+    The outcome that matters journalistically is `unfounded` -- the officer concluded no
+    crime occurred -- and it sits AFTER the marker, so it must survive supersession
+    while "Open/Active" before the marker does not.
+    """
+    result = normalize.disposition_flags(
+        "Open/Active; Disposition updated: Closed; Unfounded by officer", disposition_map
+    )
+    assert set(result["flags"]) == {"closed", "unfounded"}
+    assert result["superseded_flags"] == ["open_active"]
+
+
 def test_multiple_outcomes_are_all_kept(disposition_map):
     result = normalize.disposition_flags("Closed; Subject arrested; Trespass notice issued", disposition_map)
     assert set(result["flags"]) == {"closed", "arrested", "trespass_notice"}

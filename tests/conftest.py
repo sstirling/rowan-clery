@@ -5,10 +5,11 @@ synthetic data, so they exercise the actual mess in the source: dual case number
 a duplicate case number, unparseable dates, inconsistent capitalisation and a September
 31st that does not exist.
 
-They come in two sets. REAL_SHEETS is the frozen golden corpus of closed months, whose
-counts are fixed forever and so can be asserted exactly. CURRENT_SHEETS is the month in
-progress, which grows daily; it exists so the vocabulary-coverage tests can see the one
-sheet where a new wording can first appear.
+They come in two sets. REAL_SHEETS is the frozen golden corpus: snapshots of past
+months, whose counts can be asserted exactly because the FIXTURE is immutable, not
+because the sheet is. CURRENT_SHEETS is the month in progress, which grows daily; it
+exists so the vocabulary-coverage tests can see the one sheet where a new wording can
+first appear.
 """
 
 from __future__ import annotations
@@ -20,10 +21,15 @@ import pytest
 FIXTURE_DIR = pathlib.Path(__file__).parent / "fixtures"
 
 # The frozen golden corpus: file_id -> (month label, expected incident count).
-# These four are CLOSED months, so their counts can never change again and the archive,
-# parse and pipeline invariants can assert exact numbers against them. Do not add the
-# month in progress here -- it grows daily and would make every golden total a moving
-# target. See CURRENT_SHEETS.
+# The counts describe the SNAPSHOT in tests/fixtures/, which is why the archive, parse
+# and pipeline invariants can assert exact numbers against them. They are not claims
+# about the live sheet. Rowan does still revise a past month: between 2026-10-09 and
+# 2026-10-13 the September sheet gained two GPD rows, amended two dispositions and
+# edited three occurred timestamps. So refresh a fixture deliberately, as one change
+# with its new count, rather than treating a past month as settled.
+#
+# Do not add the month in progress here -- it grows daily and would make every golden
+# total a moving target. See CURRENT_SHEETS.
 REAL_SHEETS = {
     "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE": ("June 2026", 14),
     "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o": ("July 2026", 23),

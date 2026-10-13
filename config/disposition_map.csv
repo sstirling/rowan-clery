@@ -132,3 +132,14 @@ updated- closed,audit_marker,closed,Variant of "disposition updated- closed"
 # token does not say so, and only the narrative does; flags follow the token, not the
 # narrative, or the counts stop being reproducible from the Disposition column.
 subjects arrested/issued summons,outcome,arrested|summons_issued,
+#
+# Added 2026-10-13 from October's data (RUPD 26-032267, logged as "Open/Active;
+# Disposition updated: Closed; Unfounded by officer"). The fourth punctuation of this
+# one marker, after "Disposition updated", "Disposition updated- Closed" and
+# "Updated- Closed". Role is audit_marker, not outcome: the flags would be identical
+# either way, but as an outcome it would stop superseding and the row would report the
+# case as open and closed at once. Not folded into the tokenizer -- this column uses
+# "/" both inside a token ("Open/Active") and as a separator ("Disposition
+# updated/Inactive"), so any punctuation rule loose enough to catch a colon also
+# splits tokens that have to stay whole.
+disposition updated: closed,audit_marker,closed,Variant of "disposition updated- closed"
