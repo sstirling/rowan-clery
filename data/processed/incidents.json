@@ -16,7 +16,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 207,
+   "incidents": 218,
    "months_covered": 3,
    "months": [
     "2026-08",
@@ -45,7 +45,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 199,
+   "incidents": 209,
    "months_covered": 3,
    "months": [
     "2026-08",
@@ -62,9 +62,9 @@
   "default": "occurred",
   "window_start": "2026-06",
   "window_start_label": "June 2026",
-  "total": 244,
-  "shown": 233,
-  "excluded_no_date": 4,
+  "total": 255,
+  "shown": 243,
+  "excluded_no_date": 5,
   "excluded_before_window": 7,
   "lag_median_days": {
    "CSA": 0.3,
@@ -72,30 +72,30 @@
    "RUPD": 0.0
   }
  },
- "generated_utc": "2026-10-12T00:35:59+00:00",
+ "generated_utc": "2026-10-13T11:16:21+00:00",
  "archive_started": "2026-10-01",
  "source_folder": "https://drive.google.com/drive/folders/1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
  "published_era": {
   "id": "drive-2026",
   "label": "Google Sheets on Drive",
-  "count": 244,
+  "count": 255,
   "since": "June 2026"
  },
  "counts": {
-  "total_archived": 244,
-  "currently_published": 230,
+  "total_archived": 255,
+  "currently_published": 241,
   "no_longer_published": 14,
   "superseded": 0,
-  "distinct_incidents": 244,
+  "distinct_incidents": 255,
   "withdrawn": 0,
   "source_removed": 14
  },
  "status": {
-  "last_run": "2026-10-12",
-  "last_successful_run": "2026-10-12",
+  "last_run": "2026-10-13",
+  "last_successful_run": "2026-10-13",
   "staleness_days": 0,
   "alarms": [
-   "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 11 runs — treating the source file as removed. Its rows are preserved in full."
+   "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 12 runs — treating the source file as removed. Its rows are preserved in full."
   ],
   "warnings": [
    "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']"
@@ -103,14 +103,14 @@
  },
  "activity": {
   "window_days": 7,
-  "since": "2026-10-05",
-  "until": "2026-10-12",
-  "added": 58,
-  "amended": 3,
+  "since": "2026-10-06",
+  "until": "2026-10-13",
+  "added": 69,
+  "amended": 4,
   "withdrawn": 0,
   "aged_out": 0,
   "runs_in_window": 7,
-  "checked_total": 11,
+  "checked_total": 12,
   "staleness_days": 0
  },
  "incidents": [
@@ -163,7 +163,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -217,7 +217,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -270,7 +270,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -323,7 +323,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -377,7 +377,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -430,7 +430,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -485,7 +485,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -538,7 +538,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -592,7 +592,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -699,7 +699,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -752,7 +752,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -805,7 +805,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -823,13 +823,13 @@
     "range_end": null
    },
    "occurred": {
-    "value": "2026-09-19T11:40:00",
+    "value": "2026-09-19T10:57:00",
     "precision": "minute",
-    "raw": "9/19/26 11:40",
+    "raw": "9/19/26 10:57",
     "ongoing": false,
     "range_end": null
    },
-   "reporting_lag_hours": 72.45,
+   "reporting_lag_hours": 73.17,
    "nature_raw": "Theft",
    "categories": [
     "Theft"
@@ -855,9 +855,9 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -911,7 +911,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -964,7 +964,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -1016,7 +1016,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -1069,7 +1069,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -1122,7 +1122,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -1175,7 +1175,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -1228,7 +1228,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -1281,7 +1281,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -1340,7 +1340,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -1393,7 +1393,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -1446,7 +1446,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-08",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -1499,7 +1499,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -1552,7 +1552,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -1605,7 +1605,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -1659,7 +1659,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -1711,7 +1711,59 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "237529980d6ea01a",
+   "case_number": "RUPD 26-032300",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-02T16:14:00",
+    "precision": "minute",
+    "raw": "10/2/26 16:14",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": null,
+    "precision": "unknown",
+    "raw": "August '26",
+    "ongoing": false
+   },
+   "reporting_lag_hours": null,
+   "nature_raw": "Stalking",
+   "categories": [
+    "Stalking"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to RUPD being harassed and stalked by a non-student.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Holly Pointe Commons; Online",
+   "disposition_raw": "Closed; Reporting party declined police involvement",
+   "disposition_flags": [
+    "closed",
+    "rp_declined"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": null,
+   "occurred_month_key": null,
+   "occurred_school_year": null,
+   "occurred_excluded": "no_date",
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-13",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -1764,7 +1816,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -1817,7 +1869,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -1870,7 +1922,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -1921,7 +1973,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -1973,7 +2025,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -2028,7 +2080,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -2082,7 +2134,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -2134,7 +2186,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -2188,7 +2240,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -2244,7 +2296,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -2297,7 +2349,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -2350,7 +2402,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -2403,7 +2455,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -2456,7 +2508,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -2510,7 +2562,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -2564,7 +2616,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -2617,7 +2669,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -2670,7 +2722,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -2728,7 +2780,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -2781,7 +2833,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -2834,7 +2886,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -2890,7 +2942,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -2943,7 +2995,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -2994,7 +3046,60 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "3e453ee65472c90c",
+   "case_number": "RUPD 26-033149",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-09T01:47:00",
+    "precision": "minute",
+    "raw": "10/9/26 1:47",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-09T01:47:00",
+    "precision": "minute",
+    "raw": "10/9/26 1:47",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 0.0,
+   "nature_raw": "Possession of open container of alcohol",
+   "categories": [
+    "Alcohol violation"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "RUPD issued a summons to a non-student for possession of an open alcohol container.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "State St./ E. New St.",
+   "disposition_raw": "Closed; Subject issued summons",
+   "disposition_flags": [
+    "closed",
+    "summons_issued"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-13",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -3047,7 +3152,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -3101,7 +3206,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -3154,7 +3259,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -3207,7 +3312,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -3260,7 +3365,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -3313,7 +3418,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -3366,7 +3471,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -3421,7 +3526,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -3474,7 +3579,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -3527,7 +3632,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -3580,7 +3685,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -3632,7 +3737,60 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "48be7e4c4ef3fdb8",
+   "case_number": "RUPD 26-033208",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-09T12:27:00",
+    "precision": "minute",
+    "raw": "10/9/26 12:27",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-09T00:00:00",
+    "precision": "minute",
+    "raw": "10/9/26 0:00",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 12.45,
+   "nature_raw": "Sexual Assault/Sex Offense",
+   "categories": [
+    "Sex offense"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to Third Party/RUPD being sexually assaulted in their on-campus residence.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "On-Campus Residential Housing",
+   "disposition_raw": "Open/Active; Addressed by University Department",
+   "disposition_flags": [
+    "open_active",
+    "referred_university"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-13",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -3686,7 +3844,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -3739,7 +3897,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -3796,7 +3954,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -3852,7 +4010,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -3907,7 +4065,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -3960,7 +4118,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -4013,7 +4171,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -4066,7 +4224,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -4119,7 +4277,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -4174,7 +4332,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -4232,7 +4390,60 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "553a155a68574675",
+   "case_number": "RUPD 26-032366",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-03T01:17:00",
+    "precision": "minute",
+    "raw": "10/3/26 1:17",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-03T01:17:00",
+    "precision": "minute",
+    "raw": "10/3/26 1:17",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 0.0,
+   "nature_raw": "Littering",
+   "categories": [
+    "Littering"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Non-student was issued a summons for littering, from a vehicle",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Whitney Ave.",
+   "disposition_raw": "Closed; Subject issued summons",
+   "disposition_flags": [
+    "closed",
+    "summons_issued"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-13",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -4285,7 +4496,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -4338,7 +4549,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -4391,7 +4602,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -4444,7 +4655,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -4497,7 +4708,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -4550,7 +4761,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -4603,7 +4814,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -4657,7 +4868,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -4710,7 +4921,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -4764,7 +4975,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -4816,7 +5027,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -4869,7 +5080,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -4922,7 +5133,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -4975,7 +5186,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -5028,7 +5239,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -5081,7 +5292,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -5134,7 +5345,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -5187,7 +5398,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -5241,7 +5452,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -5293,7 +5504,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -5346,7 +5557,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -5400,7 +5611,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -5453,7 +5664,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -5506,7 +5717,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -5559,7 +5770,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -5613,7 +5824,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -5666,7 +5877,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -5718,7 +5929,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -5771,7 +5982,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -5830,7 +6041,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -5883,7 +6094,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -5990,7 +6201,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-08",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -6043,7 +6254,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-08",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -6098,7 +6309,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -6152,7 +6363,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -6204,7 +6415,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -6257,7 +6468,60 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "7f7de0ebd85aab05",
+   "case_number": "RUPD 26-032267",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-02T09:12:00",
+    "precision": "minute",
+    "raw": "10/2/26 9:12",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-01T08:10:00",
+    "precision": "minute",
+    "raw": "10/1/26 8:10",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 25.03,
+   "nature_raw": "Criminal mischief",
+   "categories": [
+    "Criminal mischief"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Employee reported damage to their vehicle to RUPD.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Lot H",
+   "disposition_raw": "Open/Active; Disposition updated: Closed; Unfounded by officer",
+   "disposition_flags": [
+    "closed",
+    "unfounded"
+   ],
+   "disposition_amended": true,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-13",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -6310,7 +6574,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -6365,7 +6629,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -6418,7 +6682,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -6471,7 +6735,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -6524,7 +6788,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -6577,7 +6841,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -6631,7 +6895,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -6683,7 +6947,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -6737,7 +7001,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -6789,7 +7053,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -6842,7 +7106,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -6899,7 +7163,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -6951,7 +7215,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -7004,7 +7268,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -7168,7 +7432,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -7222,7 +7486,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -7276,7 +7540,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -7331,7 +7595,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -7384,7 +7648,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -7438,7 +7702,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -7491,7 +7755,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -7547,7 +7811,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -7600,7 +7864,61 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "96f9c9ce1050532a",
+   "case_number": "RUPD 26-032938",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-07T12:51:00",
+    "precision": "minute",
+    "raw": "10/7/26 12:51",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-06T23:50:00",
+    "precision": "minute",
+    "raw": "10/6/26 23:50",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 13.02,
+   "nature_raw": "Theft",
+   "categories": [
+    "Theft"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to RUPD that their bicycle was stolen.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Outside of Mullica Hall",
+   "disposition_raw": "Closed; Reporting party declined police involvement; Property recovered",
+   "disposition_flags": [
+    "closed",
+    "rp_declined",
+    "property_recovered"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-13",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -7654,7 +7972,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -7708,7 +8026,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": [
     "near_duplicate"
@@ -7764,7 +8082,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -7871,7 +8189,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -7924,7 +8242,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -7977,7 +8295,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -8030,7 +8348,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -8083,7 +8401,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -8135,7 +8453,7 @@
    "status": "active",
    "revision": 3,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -8188,7 +8506,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -8241,7 +8559,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -8293,7 +8611,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -8346,7 +8664,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -8399,7 +8717,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -8505,7 +8823,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -8558,7 +8876,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -8611,7 +8929,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -8665,7 +8983,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -8718,7 +9036,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -8771,7 +9089,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -8824,7 +9142,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-08",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -8877,7 +9195,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-08",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -8931,7 +9249,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -8985,7 +9303,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -9038,7 +9356,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-08",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -9091,7 +9409,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -9143,7 +9461,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -9196,7 +9514,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -9249,7 +9567,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -9358,7 +9676,59 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "b6cef45e2bec2b63",
+   "case_number": "RUPD 26-032271",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-02T10:06:00",
+    "precision": "minute",
+    "raw": "10/2/26 10:06",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-02T01:44:00",
+    "precision": "minute",
+    "raw": "10/2/26 1:44",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 8.37,
+   "nature_raw": "Criminal mischief",
+   "categories": [
+    "Criminal mischief"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "A Flock camera was observed damaged.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Mullica Hill Rd./Yale Rd.",
+   "disposition_raw": "Open/Active",
+   "disposition_flags": [
+    "open_active"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-13",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -9411,7 +9781,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -9464,7 +9834,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -9517,7 +9887,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -9572,7 +9942,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -9627,7 +9997,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -9680,7 +10050,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -9733,7 +10103,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -9786,7 +10156,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -9838,7 +10208,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -9892,7 +10262,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -9945,7 +10315,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -9999,7 +10369,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -10053,7 +10423,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -10106,7 +10476,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -10159,7 +10529,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -10212,7 +10582,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -10264,7 +10634,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -10318,7 +10688,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -10371,7 +10741,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -10425,7 +10795,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -10477,7 +10847,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -10583,7 +10953,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -10636,7 +11006,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -10689,7 +11059,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -10743,7 +11113,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -10796,7 +11166,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -10850,7 +11220,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -10906,7 +11276,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -10958,7 +11328,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -11011,7 +11381,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -11065,7 +11435,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -11117,7 +11487,59 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "d68bd81d81432d68",
+   "case_number": "RUPD 26-032708",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-05T18:19:00",
+    "precision": "minute",
+    "raw": "10/5/26 18:19",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-05T15:13:00",
+    "precision": "minute",
+    "raw": "10/5/26 15:13",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 3.1,
+   "nature_raw": "Criminal mischief",
+   "categories": [
+    "Criminal mischief"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to RUPD that their car tire was slashed.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Lot O",
+   "disposition_raw": "Open/Active",
+   "disposition_flags": [
+    "open_active"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-13",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -11170,7 +11592,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-08",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -11224,7 +11646,61 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "d82de24bf6045068",
+   "case_number": "RUPD 26-032754",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-06T01:49:00",
+    "precision": "minute",
+    "raw": "10/6/26 1:49",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-06T01:49:00",
+    "precision": "minute",
+    "raw": "10/6/26 1:49",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 0.0,
+   "nature_raw": "DWI; Possession of open container of alcohol in vehicle",
+   "categories": [
+    "DWI",
+    "Alcohol violation"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Non-student was arrested for DWI and possessing an open container of alcohol in their vehicle.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Delsea Dr./ West St.",
+   "disposition_raw": "Closed; Subject arrested",
+   "disposition_flags": [
+    "closed",
+    "arrested"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-13",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -11277,7 +11753,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -11330,7 +11806,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -11383,7 +11859,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -11436,7 +11912,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-08",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -11488,7 +11964,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -11541,7 +12017,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-08",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -11648,7 +12124,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -11702,7 +12178,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -11756,7 +12232,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -11808,7 +12284,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -11861,7 +12337,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -11914,7 +12390,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -12073,7 +12549,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -12125,7 +12601,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -12178,7 +12654,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -12287,7 +12763,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -12340,7 +12816,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -12393,7 +12869,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -12499,7 +12975,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -12552,7 +13028,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -12605,7 +13081,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -12658,7 +13134,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -12712,7 +13188,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -12765,7 +13241,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -12872,7 +13348,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -12925,7 +13401,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -12977,7 +13453,59 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "fb5f65680f644127",
+   "case_number": "RUPD 26-032285",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-02T11:54:00",
+    "precision": "minute",
+    "raw": "10/2/26 11:54",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-09-30T21:00:00",
+    "precision": "minute",
+    "raw": "9/30/26 21:00",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 38.9,
+   "nature_raw": "Theft",
+   "categories": [
+    "Theft"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to RUPD that their e-scooter charger was taken.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Outside of Mullica Hall",
+   "disposition_raw": "Open/Active",
+   "disposition_flags": [
+    "open_active"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "September 2026",
+   "occurred_month_key": "2026-09",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-13",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -13031,7 +13559,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": [
     "near_duplicate"
@@ -13087,7 +13615,59 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "fe51f4cb7e64d8a7",
+   "case_number": "RUPD 26-032705",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-05T17:22:00",
+    "precision": "minute",
+    "raw": "10/5/26 17:22",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-05T17:00:00",
+    "precision": "minute",
+    "raw": "10/5/26 17:00",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 0.37,
+   "nature_raw": "Theft",
+   "categories": [
+    "Theft"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported that their gaming console was stolen from room.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Mimosa Hall",
+   "disposition_raw": "Open/Active",
+   "disposition_flags": [
+    "open_active"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-13",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   },
@@ -13139,7 +13719,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-10-12",
+   "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
   }
@@ -15344,6 +15924,104 @@
    "incident_uid": "0b1eaf65910f79c8",
    "nature": "Sexual Assault-Rape",
    "observed_date": "2026-10-09"
+  },
+  {
+   "case_number": "RUPD 26-031065",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "date_occurred_raw",
+   "incident_uid": "0d4dab5dac702a00",
+   "new": "9/19/26 10:57",
+   "observed_date": "2026-10-13",
+   "old": "9/19/26 11:40"
+  },
+  {
+   "case_number": "RUPD 26-032267",
+   "change_type": "added",
+   "date_reported": "10/2/26 9:12",
+   "incident_uid": "7f7de0ebd85aab05",
+   "nature": "Criminal mischief",
+   "observed_date": "2026-10-13"
+  },
+  {
+   "case_number": "RUPD 26-032271",
+   "change_type": "added",
+   "date_reported": "10/2/26 10:06",
+   "incident_uid": "b6cef45e2bec2b63",
+   "nature": "Criminal mischief",
+   "observed_date": "2026-10-13"
+  },
+  {
+   "case_number": "RUPD 26-032285",
+   "change_type": "added",
+   "date_reported": "10/2/26 11:54",
+   "incident_uid": "fb5f65680f644127",
+   "nature": "Theft",
+   "observed_date": "2026-10-13"
+  },
+  {
+   "case_number": "RUPD 26-032300",
+   "change_type": "added",
+   "date_reported": "10/2/26 16:14",
+   "incident_uid": "237529980d6ea01a",
+   "nature": "Stalking",
+   "observed_date": "2026-10-13"
+  },
+  {
+   "case_number": "RUPD 26-032366",
+   "change_type": "added",
+   "date_reported": "10/3/26 1:17",
+   "incident_uid": "553a155a68574675",
+   "nature": "Littering",
+   "observed_date": "2026-10-13"
+  },
+  {
+   "case_number": "RUPD 26-032705",
+   "change_type": "added",
+   "date_reported": "10/5/26 17:22",
+   "incident_uid": "fe51f4cb7e64d8a7",
+   "nature": "Theft",
+   "observed_date": "2026-10-13"
+  },
+  {
+   "case_number": "RUPD 26-032708",
+   "change_type": "added",
+   "date_reported": "10/5/26 18:19",
+   "incident_uid": "d68bd81d81432d68",
+   "nature": "Criminal mischief",
+   "observed_date": "2026-10-13"
+  },
+  {
+   "case_number": "RUPD 26-032754",
+   "change_type": "added",
+   "date_reported": "10/6/26 1:49",
+   "incident_uid": "d82de24bf6045068",
+   "nature": "DWI; Possession of open container of alcohol in vehicle",
+   "observed_date": "2026-10-13"
+  },
+  {
+   "case_number": "RUPD 26-032938",
+   "change_type": "added",
+   "date_reported": "10/7/26 12:51",
+   "incident_uid": "96f9c9ce1050532a",
+   "nature": "Theft",
+   "observed_date": "2026-10-13"
+  },
+  {
+   "case_number": "RUPD 26-033149",
+   "change_type": "added",
+   "date_reported": "10/9/26 1:47",
+   "incident_uid": "3e453ee65472c90c",
+   "nature": "Possession of open container of alcohol",
+   "observed_date": "2026-10-13"
+  },
+  {
+   "case_number": "RUPD 26-033208",
+   "change_type": "added",
+   "date_reported": "10/9/26 12:27",
+   "incident_uid": "48be7e4c4ef3fdb8",
+   "nature": "Sexual Assault/Sex Offense",
+   "observed_date": "2026-10-13"
   }
  ],
  "quality": {
@@ -15360,6 +16038,12 @@
     "case_number": "CSA 87745",
     "raw": "9/30/26 Unk.",
     "precision": "day"
+   },
+   {
+    "uid": "237529980d6ea01a",
+    "case_number": "RUPD 26-032300",
+    "raw": "August '26",
+    "precision": "unknown"
    },
    {
     "uid": "267760e3991d52b5",
@@ -15496,19 +16180,23 @@
   "categories": [
    {
     "value": "Alcohol violation",
-    "count": 75
+    "count": 77
    },
    {
     "value": "Theft",
-    "count": 25
+    "count": 28
    },
    {
     "value": "Trespassing",
     "count": 22
    },
    {
+    "value": "Criminal mischief",
+    "count": 17
+   },
+   {
     "value": "DWI",
-    "count": 16
+    "count": 17
    },
    {
     "value": "Disorderly conduct",
@@ -15519,8 +16207,8 @@
     "count": 15
    },
    {
-    "value": "Criminal mischief",
-    "count": 14
+    "value": "Sex offense",
+    "count": 13
    },
    {
     "value": "Simple assault",
@@ -15531,15 +16219,11 @@
     "count": 13
    },
    {
-    "value": "Sex offense",
+    "value": "Littering",
     "count": 12
    },
    {
     "value": "Domestic violence",
-    "count": 11
-   },
-   {
-    "value": "Littering",
     "count": 11
    },
    {
@@ -15567,6 +16251,10 @@
     "count": 4
    },
    {
+    "value": "Stalking",
+    "count": 3
+   },
+   {
     "value": "Fraud",
     "count": 3
    },
@@ -15584,10 +16272,6 @@
    },
    {
     "value": "Providing false identification",
-    "count": 2
-   },
-   {
-    "value": "Stalking",
     "count": 2
    },
    {
@@ -15614,7 +16298,7 @@
   "school_years": [
    {
     "value": "2026-27",
-    "count": 207
+    "count": 218
    },
    {
     "value": "2025-26",
@@ -15624,7 +16308,7 @@
   "campuses": [
    {
     "value": "Glassboro",
-    "count": 236
+    "count": 247
    },
    {
     "value": "Rowan-Virtua SOM (Stratford)",
@@ -15642,7 +16326,7 @@
    },
    {
     "value": "October 2026",
-    "count": 56
+    "count": 67
    },
    {
     "value": "August 2026",
@@ -15668,7 +16352,7 @@
    },
    {
     "value": "On-Campus Residential Housing",
-    "count": 10
+    "count": 11
    },
    {
     "value": "Campus",
@@ -15775,6 +16459,10 @@
     "count": 2
    },
    {
+    "value": "Whitney Ave.",
+    "count": 2
+   },
+   {
     "value": "E. New St./ N. Main St.",
     "count": 2
    },
@@ -15784,6 +16472,10 @@
    },
    {
     "value": "Ellis St. Lot",
+    "count": 2
+   },
+   {
+    "value": "Outside of Mullica Hall",
     "count": 2
    },
    {
@@ -15844,6 +16536,10 @@
    },
    {
     "value": "Glassboro Town Square",
+    "count": 1
+   },
+   {
+    "value": "Holly Pointe Commons; Online",
     "count": 1
    },
    {
@@ -15908,6 +16604,10 @@
    },
    {
     "value": "Rohrer Business Hall",
+    "count": 1
+   },
+   {
+    "value": "State St./ E. New St.",
     "count": 1
    },
    {
@@ -15987,6 +16687,10 @@
     "count": 1
    },
    {
+    "value": "Lot H",
+    "count": 1
+   },
+   {
     "value": "Outside of Student Center",
     "count": 1
    },
@@ -16024,10 +16728,6 @@
    },
    {
     "value": "Outside of Intermediate School",
-    "count": 1
-   },
-   {
-    "value": "Whitney Ave.",
     "count": 1
    },
    {
@@ -16099,6 +16799,10 @@
     "count": 1
    },
    {
+    "value": "Mullica Hill Rd./Yale Rd.",
+    "count": 1
+   },
+   {
     "value": "E. New St./ State St.",
     "count": 1
    },
@@ -16151,6 +16855,14 @@
     "count": 1
    },
    {
+    "value": "Lot O",
+    "count": 1
+   },
+   {
+    "value": "Delsea Dr./ West St.",
+    "count": 1
+   },
+   {
     "value": "Rowan Blvd./ Victoria St.",
     "count": 1
    },
@@ -16185,16 +16897,20 @@
    {
     "value": "E. New St./N. Main St.",
     "count": 1
+   },
+   {
+    "value": "Mimosa Hall",
+    "count": 1
    }
   ],
   "disposition_flags": [
    {
     "value": "closed",
-    "count": 121
+    "count": 127
    },
    {
     "value": "summons_issued",
-    "count": 115
+    "count": 117
    },
    {
     "value": "glassboro_pd",
@@ -16202,10 +16918,14 @@
    },
    {
     "value": "arrested",
-    "count": 43
+    "count": 44
    },
    {
     "value": "referred_university",
+    "count": 27
+   },
+   {
+    "value": "open_active",
     "count": 26
    },
    {
@@ -16213,16 +16933,12 @@
     "count": 22
    },
    {
-    "value": "open_active",
-    "count": 21
-   },
-   {
     "value": "not_reported_to_rupd",
     "count": 17
    },
    {
     "value": "rp_declined",
-    "count": 15
+    "count": 17
    },
    {
     "value": "inactive",
@@ -16230,7 +16946,7 @@
    },
    {
     "value": "property_recovered",
-    "count": 7
+    "count": 8
    },
    {
     "value": "juvenile_involved",
@@ -16261,6 +16977,10 @@
     "count": 1
    },
    {
+    "value": "unfounded",
+    "count": 1
+   },
+   {
     "value": "building_ban",
     "count": 1
    },
@@ -16288,7 +17008,7 @@
   "agencies": [
    {
     "value": "RUPD",
-    "count": 145
+    "count": 156
    },
    {
     "value": "GPD",
@@ -16306,7 +17026,7 @@
   "statuses": [
    {
     "value": "active",
-    "count": 230
+    "count": 241
    },
    {
     "value": "source_removed",
@@ -16368,6 +17088,11 @@
   {
    "date": "2026-10-12",
    "summary": "+0 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
+   "alarms": 1
+  },
+  {
+   "date": "2026-10-13",
+   "summary": "+11 added, 1 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
    "alarms": 1
   }
  ]
