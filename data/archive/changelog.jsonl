@@ -2588,3 +2588,6 @@
 {"case_number": "RUPD 26-032938", "change_type": "added", "date_reported": "10/7/26 12:51", "incident_uid": "96f9c9ce1050532a", "nature": "Theft", "observed_date": "2026-10-13"}
 {"case_number": "RUPD 26-033149", "change_type": "added", "date_reported": "10/9/26 1:47", "incident_uid": "3e453ee65472c90c", "nature": "Possession of open container of alcohol", "observed_date": "2026-10-13"}
 {"case_number": "RUPD 26-033208", "change_type": "added", "date_reported": "10/9/26 12:27", "incident_uid": "48be7e4c4ef3fdb8", "nature": "Sexual Assault/Sex Offense", "observed_date": "2026-10-13"}
+{"case_number": "RUPD 26-033208", "change_type": "amended", "cosmetic": false, "field": "narrative_raw", "incident_uid": "48be7e4c4ef3fdb8", "new": "Student reported to Third Party/RUPD being sexually assaulted in an on-campus residence.", "observed_date": "2026-10-13", "old": "Student reported to Third Party/RUPD being sexually assaulted in their on-campus residence."}
+{"case_number": "RUPD 26-033289", "change_type": "added", "date_reported": "10/10/26 1:04", "incident_uid": "c9ca62cf939a45c2", "nature": "Terroristic Threats", "observed_date": "2026-10-13"}
+{"case_number": "RUPD 26-033428", "change_type": "added", "date_reported": "10/11/26 3:36", "incident_uid": "9d1858fa3b6dc0a5", "nature": "Disorderly conduct", "observed_date": "2026-10-13"}

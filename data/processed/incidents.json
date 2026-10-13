@@ -16,7 +16,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 218,
+   "incidents": 220,
    "months_covered": 3,
    "months": [
     "2026-08",
@@ -45,7 +45,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 209,
+   "incidents": 211,
    "months_covered": 3,
    "months": [
     "2026-08",
@@ -62,8 +62,8 @@
   "default": "occurred",
   "window_start": "2026-06",
   "window_start_label": "June 2026",
-  "total": 255,
-  "shown": 243,
+  "total": 257,
+  "shown": 245,
   "excluded_no_date": 5,
   "excluded_before_window": 7,
   "lag_median_days": {
@@ -72,21 +72,21 @@
    "RUPD": 0.0
   }
  },
- "generated_utc": "2026-10-13T11:16:21+00:00",
+ "generated_utc": "2026-10-13T17:00:02+00:00",
  "archive_started": "2026-10-01",
  "source_folder": "https://drive.google.com/drive/folders/1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
  "published_era": {
   "id": "drive-2026",
   "label": "Google Sheets on Drive",
-  "count": 255,
+  "count": 257,
   "since": "June 2026"
  },
  "counts": {
-  "total_archived": 255,
-  "currently_published": 241,
+  "total_archived": 257,
+  "currently_published": 243,
   "no_longer_published": 14,
   "superseded": 0,
-  "distinct_incidents": 255,
+  "distinct_incidents": 257,
   "withdrawn": 0,
   "source_removed": 14
  },
@@ -105,8 +105,8 @@
   "window_days": 7,
   "since": "2026-10-06",
   "until": "2026-10-13",
-  "added": 69,
-  "amended": 4,
+  "added": 71,
+  "amended": 5,
   "withdrawn": 0,
   "aged_out": 0,
   "runs_in_window": 7,
@@ -3769,7 +3769,7 @@
    "reclassified_from": [],
    "unclassified": [],
    "unclassified_disposition": [],
-   "narrative": "Student reported to Third Party/RUPD being sexually assaulted in their on-campus residence.",
+   "narrative": "Student reported to Third Party/RUPD being sexually assaulted in an on-campus residence.",
    "campus": "Glassboro",
    "campus_raw": "Glassboro",
    "era": "drive-2026",
@@ -3788,7 +3788,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-10-13",
    "last_verified": "2026-10-13",
    "missing_since": "",
@@ -8300,6 +8300,59 @@
    "flags": []
   },
   {
+   "uid": "9d1858fa3b6dc0a5",
+   "case_number": "RUPD 26-033428",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-11T03:36:00",
+    "precision": "minute",
+    "raw": "10/11/26 3:36",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-11T03:36:00",
+    "precision": "minute",
+    "raw": "10/11/26 3:36",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 0.0,
+   "nature_raw": "Disorderly conduct",
+   "categories": [
+    "Disorderly conduct"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student was issued a citation by RUPD due to causing a disturbance and not cooperating with officers.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Outside of Edgewood Parks Apts.",
+   "disposition_raw": "Closed; Subject issued summons",
+   "disposition_flags": [
+    "closed",
+    "summons_issued"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-13",
+   "last_verified": "2026-10-13",
+   "missing_since": "",
+   "flags": []
+  },
+  {
    "uid": "a0db9269c7e6c0e5",
    "case_number": "GPD 26-036109",
    "agencies": [
@@ -10688,6 +10741,59 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
+   "last_verified": "2026-10-13",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "c9ca62cf939a45c2",
+   "case_number": "RUPD 26-033289",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-10T01:04:00",
+    "precision": "minute",
+    "raw": "10/10/26 1:04",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-10T01:04:00",
+    "precision": "minute",
+    "raw": "10/10/26 1:04",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 0.0,
+   "nature_raw": "Terroristic Threats",
+   "categories": [
+    "Terroristic threats"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to RUPD that a non-student made threats toward them during an argument.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Lot W",
+   "disposition_raw": "Reporting party provided citizen's complaint info; Trespass warning issued",
+   "disposition_flags": [
+    "rp_referred_to_complaint",
+    "trespass_notice"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-13",
    "last_verified": "2026-10-13",
    "missing_since": "",
    "flags": []
@@ -16022,6 +16128,32 @@
    "incident_uid": "48be7e4c4ef3fdb8",
    "nature": "Sexual Assault/Sex Offense",
    "observed_date": "2026-10-13"
+  },
+  {
+   "case_number": "RUPD 26-033208",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "narrative_raw",
+   "incident_uid": "48be7e4c4ef3fdb8",
+   "new": "Student reported to Third Party/RUPD being sexually assaulted in an on-campus residence.",
+   "observed_date": "2026-10-13",
+   "old": "Student reported to Third Party/RUPD being sexually assaulted in their on-campus residence."
+  },
+  {
+   "case_number": "RUPD 26-033289",
+   "change_type": "added",
+   "date_reported": "10/10/26 1:04",
+   "incident_uid": "c9ca62cf939a45c2",
+   "nature": "Terroristic Threats",
+   "observed_date": "2026-10-13"
+  },
+  {
+   "case_number": "RUPD 26-033428",
+   "change_type": "added",
+   "date_reported": "10/11/26 3:36",
+   "incident_uid": "9d1858fa3b6dc0a5",
+   "nature": "Disorderly conduct",
+   "observed_date": "2026-10-13"
   }
  ],
  "quality": {
@@ -16200,7 +16332,7 @@
    },
    {
     "value": "Disorderly conduct",
-    "count": 15
+    "count": 16
    },
    {
     "value": "Harassment",
@@ -16247,6 +16379,10 @@
     "count": 5
    },
    {
+    "value": "Terroristic threats",
+    "count": 4
+   },
+   {
     "value": "Improper behavior",
     "count": 4
    },
@@ -16256,10 +16392,6 @@
    },
    {
     "value": "Fraud",
-    "count": 3
-   },
-   {
-    "value": "Terroristic threats",
     "count": 3
    },
    {
@@ -16298,7 +16430,7 @@
   "school_years": [
    {
     "value": "2026-27",
-    "count": 218
+    "count": 220
    },
    {
     "value": "2025-26",
@@ -16308,7 +16440,7 @@
   "campuses": [
    {
     "value": "Glassboro",
-    "count": 247
+    "count": 249
    },
    {
     "value": "Rowan-Virtua SOM (Stratford)",
@@ -16326,7 +16458,7 @@
    },
    {
     "value": "October 2026",
-    "count": 67
+    "count": 69
    },
    {
     "value": "August 2026",
@@ -16747,6 +16879,10 @@
     "count": 1
    },
    {
+    "value": "Outside of Edgewood Parks Apts.",
+    "count": 1
+   },
+   {
     "value": "Victoria St./ Rowan Blvd.",
     "count": 1
    },
@@ -16835,6 +16971,10 @@
     "count": 1
    },
    {
+    "value": "Lot W",
+    "count": 1
+   },
+   {
     "value": "Online; Holly Pointe Commons",
     "count": 1
    },
@@ -16906,11 +17046,11 @@
   "disposition_flags": [
    {
     "value": "closed",
-    "count": 127
+    "count": 128
    },
    {
     "value": "summons_issued",
-    "count": 117
+    "count": 118
    },
    {
     "value": "glassboro_pd",
@@ -16930,7 +17070,7 @@
    },
    {
     "value": "trespass_notice",
-    "count": 22
+    "count": 23
    },
    {
     "value": "not_reported_to_rupd",
@@ -16949,16 +17089,16 @@
     "count": 8
    },
    {
+    "value": "rp_referred_to_complaint",
+    "count": 3
+   },
+   {
     "value": "juvenile_involved",
     "count": 3
    },
    {
     "value": "charged",
     "count": 3
-   },
-   {
-    "value": "rp_referred_to_complaint",
-    "count": 2
    },
    {
     "value": "tro_issued",
@@ -17008,7 +17148,7 @@
   "agencies": [
    {
     "value": "RUPD",
-    "count": 156
+    "count": 158
    },
    {
     "value": "GPD",
@@ -17026,7 +17166,7 @@
   "statuses": [
    {
     "value": "active",
-    "count": 241
+    "count": 243
    },
    {
     "value": "source_removed",
@@ -17092,7 +17232,7 @@
   },
   {
    "date": "2026-10-13",
-   "summary": "+11 added, 1 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
+   "summary": "+2 added, 1 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
    "alarms": 1
   }
  ]
