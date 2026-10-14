@@ -39,7 +39,7 @@
       "name": "October 2026 Daily Crime Log",
       "rows": 73,
       "sha256": "2765c00111ee8e523d8ba9db39204693cde5587d6b0b54c266426a76649771da",
-      "snapshot_written": true,
+      "snapshot_written": false,
       "status": "ok"
     }
   },
@@ -49,22 +49,22 @@
     "status": "ok"
   },
   "merge": {
-    "added": 3,
+    "added": 0,
     "amended": 0,
-    "changed": true,
-    "missing": 1,
+    "changed": false,
+    "missing": 0,
     "quarantined": [],
     "reappeared": 0,
     "relocated": 0,
     "source_removed": 0,
-    "unchanged": 244,
+    "unchanged": 247,
     "unfetched": [],
     "warnings": [
       "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: 1 row(s) absent — advancing confirmation ladder"
     ],
     "withdrawn": 0
   },
-  "summary": "+3 added, 0 amended, 1 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
+  "summary": "+0 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
   "warnings": [
     "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']",
     "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: 1 row(s) absent — advancing confirmation ladder"
