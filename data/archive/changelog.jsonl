@@ -2591,3 +2591,5 @@
 {"case_number": "RUPD 26-033208", "change_type": "amended", "cosmetic": false, "field": "narrative_raw", "incident_uid": "48be7e4c4ef3fdb8", "new": "Student reported to Third Party/RUPD being sexually assaulted in an on-campus residence.", "observed_date": "2026-10-13", "old": "Student reported to Third Party/RUPD being sexually assaulted in their on-campus residence."}
 {"case_number": "RUPD 26-033289", "change_type": "added", "date_reported": "10/10/26 1:04", "incident_uid": "c9ca62cf939a45c2", "nature": "Terroristic Threats", "observed_date": "2026-10-13"}
 {"case_number": "RUPD 26-033428", "change_type": "added", "date_reported": "10/11/26 3:36", "incident_uid": "9d1858fa3b6dc0a5", "nature": "Disorderly conduct", "observed_date": "2026-10-13"}
+{"case_number": "RUPD 26-033449", "change_type": "added", "date_reported": "10/11/26 9:43", "incident_uid": "41bacfe424ad006b", "nature": "Criminal mischief; Theft", "observed_date": "2026-10-14"}
+{"case_number": "RUPD 26-033468/ CSA 87838", "change_type": "added", "date_reported": "10/11/26 15:38", "incident_uid": "194a1c65d3afc239", "nature": "Domestic Violence; Simple Assault", "observed_date": "2026-10-14"}
