@@ -16,7 +16,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 222,
+   "incidents": 225,
    "months_covered": 3,
    "months": [
     "2026-08",
@@ -45,7 +45,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 213,
+   "incidents": 216,
    "months_covered": 3,
    "months": [
     "2026-08",
@@ -62,8 +62,8 @@
   "default": "occurred",
   "window_start": "2026-06",
   "window_start_label": "June 2026",
-  "total": 259,
-  "shown": 247,
+  "total": 262,
+  "shown": 250,
   "excluded_no_date": 5,
   "excluded_before_window": 7,
   "lag_median_days": {
@@ -72,21 +72,21 @@
    "RUPD": 0.0
   }
  },
- "generated_utc": "2026-10-14T00:21:37+00:00",
+ "generated_utc": "2026-10-14T14:34:12+00:00",
  "archive_started": "2026-10-01",
  "source_folder": "https://drive.google.com/drive/folders/1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
  "published_era": {
   "id": "drive-2026",
   "label": "Google Sheets on Drive",
-  "count": 259,
+  "count": 262,
   "since": "June 2026"
  },
  "counts": {
-  "total_archived": 259,
-  "currently_published": 245,
+  "total_archived": 262,
+  "currently_published": 248,
   "no_longer_published": 14,
   "superseded": 0,
-  "distinct_incidents": 259,
+  "distinct_incidents": 262,
   "withdrawn": 0,
   "source_removed": 14
  },
@@ -98,14 +98,15 @@
    "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 13 runs — treating the source file as removed. Its rows are preserved in full."
   ],
   "warnings": [
-   "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']"
+   "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']",
+   "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: 1 row(s) absent — advancing confirmation ladder"
   ]
  },
  "activity": {
   "window_days": 7,
   "since": "2026-10-07",
   "until": "2026-10-14",
-  "added": 73,
+  "added": 76,
   "amended": 5,
   "withdrawn": 0,
   "aged_out": 0,
@@ -649,6 +650,60 @@
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-10-01",
    "missing_since": "2026-10-03",
+   "flags": []
+  },
+  {
+   "uid": "09b676a710e2cd8b",
+   "case_number": "RUPD 26-033738",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-13T18:24:00",
+    "precision": "minute",
+    "raw": "10/13/26 18:24",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-13T18:00:00",
+    "precision": "minute",
+    "raw": "10/13/26 18:00",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 0.4,
+   "nature_raw": "Simple Assault; Trespassing",
+   "categories": [
+    "Simple assault",
+    "Trespassing"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "A student reported to RUPD that he was assaulted by a previously trespassed non-student.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "North Halls Gazebo",
+   "disposition_raw": "Closed; Reporting party provided citizen's complaint info",
+   "disposition_flags": [
+    "closed",
+    "rp_referred_to_complaint"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-14",
+   "last_verified": "2026-10-14",
+   "missing_since": "",
    "flags": []
   },
   {
@@ -2676,6 +2731,60 @@
    "flags": []
   },
   {
+   "uid": "369905406d221538",
+   "case_number": "RUPD 26-033208/ CSA 87974",
+   "agencies": [
+    "RUPD",
+    "CSA"
+   ],
+   "reported": {
+    "value": "2026-10-09T12:27:00",
+    "precision": "minute",
+    "raw": "10/9/26 12:27",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-09T00:00:00",
+    "precision": "minute",
+    "raw": "10/9/26 0:00",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 12.45,
+   "nature_raw": "Sexual Assault/Sex Offense",
+   "categories": [
+    "Sex offense"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to Third Party/RUPD being sexually assaulted in an on-campus residence.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "On-Campus Residential Housing",
+   "disposition_raw": "Open/Active; Addressed by University Department",
+   "disposition_flags": [
+    "open_active",
+    "referred_university"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-14",
+   "last_verified": "2026-10-14",
+   "missing_since": "",
+   "flags": []
+  },
+  {
    "uid": "3796ca1bfa4d1094",
    "case_number": "GPD 26-032370",
    "agencies": [
@@ -3479,6 +3588,58 @@
    "flags": []
   },
   {
+   "uid": "424796c50fc2f745",
+   "case_number": "RUPD 26-033806",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-14T04:42:00",
+    "precision": "minute",
+    "raw": "10/14/26 4:42",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-14T04:42:00",
+    "precision": "minute",
+    "raw": "10/14/26 4:42",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 0.0,
+   "nature_raw": "Theft",
+   "categories": [
+    "Theft"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "RUPD responded to a call of unknown individuals stealing construction equipment from a van.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Lot F",
+   "disposition_raw": "Open/Active",
+   "disposition_flags": [
+    "open_active"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-14",
+   "last_verified": "2026-10-14",
+   "missing_since": "",
+   "flags": []
+  },
+  {
    "uid": "42a6005af5086335",
    "case_number": "GPD 26-033812",
    "agencies": [
@@ -3896,11 +4057,11 @@
    "occurred_month_key": "2026-10",
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
-   "status": "active",
+   "status": "missing",
    "revision": 2,
    "first_seen_by_archive": "2026-10-13",
    "last_verified": "2026-10-14",
-   "missing_since": "",
+   "missing_since": "2026-10-14",
    "flags": []
   },
   {
@@ -16279,6 +16440,38 @@
    "incident_uid": "194a1c65d3afc239",
    "nature": "Domestic Violence; Simple Assault",
    "observed_date": "2026-10-14"
+  },
+  {
+   "case_number": "RUPD 26-033208",
+   "change_type": "missing",
+   "confirmations": 1,
+   "incident_uid": "48be7e4c4ef3fdb8",
+   "missing_since": "2026-10-14",
+   "observed_date": "2026-10-14"
+  },
+  {
+   "case_number": "RUPD 26-033208/ CSA 87974",
+   "change_type": "added",
+   "date_reported": "10/9/26 12:27",
+   "incident_uid": "369905406d221538",
+   "nature": "Sexual Assault/Sex Offense",
+   "observed_date": "2026-10-14"
+  },
+  {
+   "case_number": "RUPD 26-033738",
+   "change_type": "added",
+   "date_reported": "10/13/26 18:24",
+   "incident_uid": "09b676a710e2cd8b",
+   "nature": "Simple Assault; Trespassing",
+   "observed_date": "2026-10-14"
+  },
+  {
+   "case_number": "RUPD 26-033806",
+   "change_type": "added",
+   "date_reported": "10/14/26 4:42",
+   "incident_uid": "424796c50fc2f745",
+   "nature": "Theft",
+   "observed_date": "2026-10-14"
   }
  ],
  "quality": {
@@ -16441,11 +16634,11 @@
    },
    {
     "value": "Theft",
-    "count": 29
+    "count": 30
    },
    {
     "value": "Trespassing",
-    "count": 22
+    "count": 23
    },
    {
     "value": "Criminal mischief",
@@ -16460,16 +16653,16 @@
     "count": 16
    },
    {
+    "value": "Simple assault",
+    "count": 15
+   },
+   {
     "value": "Harassment",
     "count": 15
    },
    {
-    "value": "Simple assault",
-    "count": 14
-   },
-   {
     "value": "Sex offense",
-    "count": 13
+    "count": 14
    },
    {
     "value": "Obstruction",
@@ -16555,7 +16748,7 @@
   "school_years": [
    {
     "value": "2026-27",
-    "count": 222
+    "count": 225
    },
    {
     "value": "2025-26",
@@ -16565,7 +16758,7 @@
   "campuses": [
    {
     "value": "Glassboro",
-    "count": 251
+    "count": 254
    },
    {
     "value": "Rowan-Virtua SOM (Stratford)",
@@ -16583,7 +16776,7 @@
    },
    {
     "value": "October 2026",
-    "count": 71
+    "count": 74
    },
    {
     "value": "August 2026",
@@ -16609,7 +16802,7 @@
    },
    {
     "value": "On-Campus Residential Housing",
-    "count": 11
+    "count": 12
    },
    {
     "value": "Campus",
@@ -16636,11 +16829,11 @@
     "count": 5
    },
    {
-    "value": "Rowan Blvd. Apts. student housing",
-    "count": 4
+    "value": "North Halls Gazebo",
+    "count": 5
    },
    {
-    "value": "North Halls Gazebo",
+    "value": "Rowan Blvd. Apts. student housing",
     "count": 4
    },
    {
@@ -16697,6 +16890,10 @@
    },
    {
     "value": "Lot B",
+    "count": 2
+   },
+   {
+    "value": "Lot F",
     "count": 2
    },
    {
@@ -17092,10 +17289,6 @@
     "count": 1
    },
    {
-    "value": "Lot F",
-    "count": 1
-   },
-   {
     "value": "Lot W",
     "count": 1
    },
@@ -17171,7 +17364,7 @@
   "disposition_flags": [
    {
     "value": "closed",
-    "count": 130
+    "count": 131
    },
    {
     "value": "summons_issued",
@@ -17187,11 +17380,11 @@
    },
    {
     "value": "referred_university",
-    "count": 27
+    "count": 28
    },
    {
     "value": "open_active",
-    "count": 26
+    "count": 28
    },
    {
     "value": "trespass_notice",
@@ -17215,7 +17408,7 @@
    },
    {
     "value": "rp_referred_to_complaint",
-    "count": 3
+    "count": 4
    },
    {
     "value": "juvenile_involved",
@@ -17273,7 +17466,7 @@
   "agencies": [
    {
     "value": "RUPD",
-    "count": 160
+    "count": 163
    },
    {
     "value": "GPD",
@@ -17281,7 +17474,7 @@
    },
    {
     "value": "CSA",
-    "count": 46
+    "count": 47
    },
    {
     "value": "GEN",
@@ -17291,11 +17484,15 @@
   "statuses": [
    {
     "value": "active",
-    "count": 245
+    "count": 247
    },
    {
     "value": "source_removed",
     "count": 14
+   },
+   {
+    "value": "missing",
+    "count": 1
    }
   ]
  },
@@ -17362,7 +17559,7 @@
   },
   {
    "date": "2026-10-14",
-   "summary": "+2 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
+   "summary": "+3 added, 0 amended, 1 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
    "alarms": 1
   }
  ]
