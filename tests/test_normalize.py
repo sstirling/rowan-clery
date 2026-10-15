@@ -150,6 +150,59 @@ def test_unmapped_disposition_token_fails_loudly(disposition_map):
         normalize.disposition_flags("Closed; Subject teleported", disposition_map)
 
 
+def test_the_four_tokens_that_broke_the_2026_10_15_run(category_map, disposition_map):
+    """All four new wordings from that run, as the rows Rowan actually published.
+
+    The build reports only the first unmapped token it reaches, so a one-token fix just
+    moves the crash to the next row. These are asserted together for that reason.
+
+    Every one is a new spelling of a concept the maps already carried, so each is
+    checked against the flag or category its existing synonyms produce -- a new token
+    quietly given a flag of its own would split one real-world outcome across two
+    series and undercount both.
+    """
+    # RUPD 26-033387 -- a third spelling of an offense already in the map.
+    assault = normalize.categorize(
+        "DWI; Possession of open container of alcohol in vehicle; Assault on a police officer",
+        category_map,
+    )
+    assert "Assault on an officer" in assault["categories"]
+    assert assault["categories"] == normalize.categorize(
+        "DWI; Possession of open container of alcohol in vehicle; Assault on Officer",
+        category_map,
+    )["categories"], "a spelling variant must not create a second category"
+    assert not assault["unclassified"]
+
+    # RUPD 26-031065 -- the sixth spelling of the reporting party declining.
+    declined = normalize.disposition_flags(
+        "Open/Active; Closed; Reporting party declined to pursue; Property recovered",
+        disposition_map,
+    )
+    # Rowan wrote both Open/Active and Closed in this one cell with no "Disposition
+    # updated" between them. Supersession fires only at an explicit marker, so both
+    # survive -- deciding which one was meant would be guessing, and the archive's job
+    # is to report the source's contradiction, not to resolve it.
+    assert set(declined["flags"]) == {
+        "open_active", "closed", "rp_declined", "property_recovered",
+    }
+    assert declined["disposition_amended"] is False, "no marker, so nothing was superseded"
+
+    # RUPD 26-033221 -- "located" is the same finding as "recovered"; splitting them
+    # would halve any count of recovered property.
+    located = normalize.disposition_flags(
+        "Open/Active; Closed; Property located; Unfounded by officer", disposition_map
+    )
+    assert "property_recovered" in located["flags"]
+    assert "unfounded" in located["flags"]
+
+    # RUPD 26-033855 -- plural of "TRO issued".
+    tros = normalize.disposition_flags("Closed; Subjects issued TROs", disposition_map)
+    assert set(tros["flags"]) == {"closed", "tro_issued"}
+    assert tros["flags"] == normalize.disposition_flags(
+        "Closed; TRO issued", disposition_map
+    )["flags"], "plural must land on the same flag as the singular"
+
+
 # ---- every real token is covered ----------------------------------------------
 
 

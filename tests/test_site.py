@@ -8,10 +8,10 @@ other test because the Python pipeline was perfectly healthy both times.
 
 So the built pages get parsed, and then executed, here.
 
-Since the site became three pages, every check below is parametrised over all of them.
-The single-page versions of these tests were worse than useless on the other two: they
-asserted the overview's chart mounts, so they would have failed on the about page, and
-they skipped silently when a page was missing rather than failing.
+Every check below is parametrised over whatever PAGES currently builds. The
+single-page versions of these tests were worse than useless once there was more than
+one page: they asserted the overview's chart mounts, so they failed on any other page,
+and they skipped silently when a page was missing rather than failing.
 """
 
 from __future__ import annotations
@@ -215,18 +215,31 @@ def test_unpublishing_a_page_removes_the_page_it_already_published(tmp_path):
 
     Guarded because the cleanup deletes files: it must take the orphan and nothing else.
     """
-    payload = build.build(ROOT / "data", ROOT / "config", today="2026-10-09")
+    # Built against a COPY of data/. build() writes data/processed/ beside the archive
+    # it reads, so pointing it at the repo made running the suite rewrite the project's
+    # derived data with this test's frozen date -- which produced a negative
+    # staleness_days sitting in the working tree, one `git add` away from being
+    # published. Same precaution as tests/test_binning.py.
+    data = tmp_path / "data"
+    shutil.copytree(ROOT / "data" / "archive", data / "archive")
+    manifest = ROOT / "data" / "raw" / "manifest.json"
+    if manifest.exists():
+        (data / "raw").mkdir(parents=True, exist_ok=True)
+        shutil.copy(manifest, data / "raw" / "manifest.json")
+    payload = build.build(data, ROOT / "config", today="2026-10-09")
 
-    orphan = tmp_path / "about.html"
+    out_dir = tmp_path / "docs"
+    out_dir.mkdir()
+    orphan = out_dir / "about.html"
     orphan.write_text("<html>a page that is no longer built</html>", encoding="utf-8")
-    keep_dir = tmp_path / "assets"
+    keep_dir = out_dir / "assets"
     keep_dir.mkdir()
     keep_asset = keep_dir / "nested.html"
     keep_asset.write_text("<html>not a top-level page</html>", encoding="utf-8")
-    keep_other = tmp_path / "CNAME"
+    keep_other = out_dir / "CNAME"
     keep_other.write_text("example.org\n", encoding="utf-8")
 
-    written = build.render_pages(SITE, tmp_path, payload)
+    written = build.render_pages(SITE, out_dir, payload)
 
     assert not orphan.exists(), "the unpublished page is still being served"
     assert {p.name for p in written} == set(build.PAGES)

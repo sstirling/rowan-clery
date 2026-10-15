@@ -14,7 +14,7 @@ import pytest
 from rowan_clery import archive as arch
 from rowan_clery.archive import Archive
 from rowan_clery import parse
-from tests.conftest import REAL_SHEETS
+from tests.conftest import REAL_SHEETS, TOTAL_INCIDENTS
 
 AUGUST = "1Ms5gjJX_-vnA4wUaTW-z60Hd98guINjRU5R-e5n58Ts"
 SEPT = "1HULCgv9mk7XMkfC2DKkBaOUm5rA00aVfO83lU9489p0"
@@ -43,11 +43,11 @@ def commit(archive, observed, fetched_ok, today, file_meta=None):
 
 def test_first_run_ingests_everything(archive, parsed):
     rows, events, report = commit(archive, parsed, set(parsed), "2026-10-01")
-    assert len(rows) == 186
-    assert report.added == 186
+    assert len(rows) == TOTAL_INCIDENTS
+    assert report.added == TOTAL_INCIDENTS
     assert all(r["status"] == "active" for r in rows.values())
     assert all(r["first_seen_by_archive"] == "2026-10-01" for r in rows.values())
-    assert sum(1 for e in events if e["change_type"] == "added") == 186
+    assert sum(1 for e in events if e["change_type"] == "added") == TOTAL_INCIDENTS
 
 
 def test_second_identical_run_is_a_no_op(archive, parsed):
@@ -58,9 +58,9 @@ def test_second_identical_run_is_a_no_op(archive, parsed):
 
     assert events == []
     assert report.changed is False
-    assert report.unchanged == 186
+    assert report.unchanged == TOTAL_INCIDENTS
     # Only last_verified moves, so the file is not byte-identical; the record set is.
-    assert len(rows) == 186
+    assert len(rows) == TOTAL_INCIDENTS
     after = archive.incidents_path.read_bytes()
     assert before.count(b"\n") == after.count(b"\n")
 
@@ -80,7 +80,7 @@ def test_amendment_keeps_identity_and_records_old_value(archive, parsed):
     rows, events, report = commit(archive, amended, set(parsed), "2026-10-02")
 
     assert report.amended == 1
-    assert len(rows) == 186, "an amendment must not create a second record"
+    assert len(rows) == TOTAL_INCIDENTS, "an amendment must not create a second record"
     assert rows[uid]["revision"] == "2"
     assert rows[uid]["disposition_raw"] == "Closed; Subject arrested; Disposition updated"
 
@@ -127,7 +127,7 @@ def test_deleted_row_is_preserved_and_confirmed_over_three_days(archive, parsed)
     assert report.withdrawn == 1
 
     # The whole point: the record and its last known values survive intact.
-    assert len(rows) == 186
+    assert len(rows) == TOTAL_INCIDENTS
     assert rows[uid]["narrative_raw"] == removed["Incident Narrative"]
     assert rows[uid]["disposition_raw"] == removed["Disposition"]
     assert rows[uid]["missing_since"] == "2026-10-02"
@@ -163,7 +163,7 @@ def test_whole_file_deleted_preserves_every_row(archive, parsed):
     for day in ("2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05"):
         rows, _, _ = commit(archive, remaining, set(remaining), day)
 
-    assert len(rows) == 186
+    assert len(rows) == TOTAL_INCIDENTS
     assert all(rows[uid]["status"] == "active" for uid in august_uids), (
         "rows from an unfetched file must never be marked missing — absence of the file "
         "is not evidence of absence of its rows"
@@ -198,14 +198,14 @@ def test_empty_but_valid_snapshot_is_quarantined(archive, parsed):
 
     assert SEPT in report.quarantined
     assert all(rows[uid]["status"] == "active" for uid in uids)
-    assert len(rows) == 186
+    assert len(rows) == TOTAL_INCIDENTS
 
 
 def test_mass_removal_is_quarantined_not_applied(archive, parsed):
     commit(archive, parsed, set(parsed), "2026-10-01")
     uids = {r["incident_uid"] for r in parsed[SEPT]}
 
-    gutted = dict(parsed) | {SEPT: parsed[SEPT][:50]}  # 107 -> 50
+    gutted = dict(parsed) | {SEPT: parsed[SEPT][:50]}  # September, truncated
     rows, events, report = commit(archive, gutted, set(parsed), "2026-10-02")
 
     assert SEPT in report.quarantined
@@ -238,7 +238,7 @@ def test_reupload_under_new_file_id_is_a_relocation_not_a_mass_deletion(archive,
 
     rows, events, report = commit(archive, reuploaded, set(reuploaded), "2026-10-02")
 
-    assert len(rows) == 186, "a re-upload must not duplicate every row"
+    assert len(rows) == TOTAL_INCIDENTS, "a re-upload must not duplicate every row"
     assert report.added == 0, "re-uploaded rows are the same incidents, not new ones"
     assert report.relocated == REAL_SHEETS[AUGUST][1]
     assert report.withdrawn == 0 and report.missing == 0
@@ -306,7 +306,7 @@ def test_confirmed_file_removal_preserves_rows_and_is_distinct_from_withdrawal(a
     archive.write(rows)
     archive.append_changelog(events)
 
-    assert len(rows) == 186, "no record may be lost when a month is deleted"
+    assert len(rows) == TOTAL_INCIDENTS, "no record may be lost when a month is deleted"
     assert report.source_removed == REAL_SHEETS[AUGUST][1]
     assert report.withdrawn == 0, "a deleted file is not the same event as a withdrawn row"
     assert all(rows[uid]["status"] == "source_removed" for uid in august_uids)

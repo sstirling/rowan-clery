@@ -143,3 +143,20 @@ subjects arrested/issued summons,outcome,arrested|summons_issued,
 # updated/Inactive"), so any punctuation rule loose enough to catch a colon also
 # splits tokens that have to stay whole.
 disposition updated: closed,audit_marker,closed,Variant of "disposition updated- closed"
+#
+# Added 2026-10-15. Three new wordings in one run, all of them synonyms of outcomes
+# already in this file. Each is mapped to the existing flag rather than a new one: a
+# fresh flag per spelling would split one real outcome across two series and undercount
+# both.
+#
+# RUPD 26-031065 (a September row amended after the month closed) -- the SIXTH spelling
+# of the reporting party declining, after "reporting party declined", "reporting party
+# declined police involvement", "reporting parties declined police involvement",
+# "parties declined police involvement" and "victim declined to pursue".
+reporting party declined to pursue,outcome,rp_declined,
+# RUPD 26-033221 -- "located" is the same finding as "recovered"; the row reads
+# "Property located; Unfounded by officer", i.e. the missing item turned up and the
+# theft report was closed as unfounded.
+property located,outcome,property_recovered,Same finding as "property recovered"
+# RUPD 26-033855 -- plural of "TRO issued". TRO = temporary restraining order.
+subjects issued tros,outcome,tro_issued,

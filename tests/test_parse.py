@@ -20,7 +20,7 @@ def test_golden_row_counts(all_sheets):
 
 def test_golden_total(all_sheets):
     total = sum(len(parse.parse_and_key(b, fid)) for fid, b in all_sheets.items())
-    assert total == TOTAL_INCIDENTS == 186
+    assert total == TOTAL_INCIDENTS == 188
 
 
 def test_no_field_is_silently_dropped(all_sheets):
@@ -36,7 +36,7 @@ def test_no_field_is_silently_dropped(all_sheets):
 
 
 def test_uids_are_unique_across_the_whole_corpus(all_sheets):
-    """186 rows must produce 186 distinct uids, with the key being file-independent."""
+    """Every row must produce a distinct uid, with the key being file-independent."""
     uids = [r["incident_uid"] for fid, b in all_sheets.items() for r in parse.parse_and_key(b, fid)]
     assert len(uids) == TOTAL_INCIDENTS
     assert len(set(uids)) == TOTAL_INCIDENTS, "uid collision — two incidents would merge"

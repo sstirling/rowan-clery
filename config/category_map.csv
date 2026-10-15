@@ -312,3 +312,11 @@ Possession of open containers of alcohol,offense,Alcohol violation,Plural varian
 # the category mean something different from October onward and break month-over-month
 # comparison. Same reasoning as "Improper Behavior" and "Lewdness" above.
 Offensive Language,offense,Offensive language,NJ 2C:33-2(b); kept separate so Disorderly conduct stays comparable across months
+#
+# Added 2026-10-15 from October's data (RUPD 26-033387, logged as "DWI; Possession of
+# open container of alcohol in vehicle; Assault on a police officer"). The third
+# spelling of an offense already here -- "Assault on Officer" and "Assault on officer"
+# both map to this category -- so it takes the same one. Folding handles the
+# capitalisation; it cannot know that "a police officer" and "Officer" are the same
+# person, which is why the variant still needs a row.
+Assault on a police officer,offense,Assault on an officer,
