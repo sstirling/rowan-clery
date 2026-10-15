@@ -2576,3 +2576,24 @@
 {"case_number": "CSA 87461", "change_type": "added", "date_reported": "10/2/26 15:24", "incident_uid": "e758804659b46f4e", "nature": "Theft", "observed_date": "2026-10-09"}
 {"case_number": "GEN 87573", "change_type": "added", "date_reported": "10/8/26 13:19", "incident_uid": "c414f2cf58ae83a1", "nature": "Sexual Assault-Rape", "observed_date": "2026-10-09"}
 {"case_number": "CSA 87745", "change_type": "added", "date_reported": "10/8/26 15:29", "incident_uid": "0b1eaf65910f79c8", "nature": "Sexual Assault-Rape", "observed_date": "2026-10-09"}
+{"case_number": "RUPD 26-031065", "change_type": "amended", "cosmetic": false, "field": "date_occurred_raw", "incident_uid": "0d4dab5dac702a00", "new": "9/19/26 10:57", "observed_date": "2026-10-13", "old": "9/19/26 11:40"}
+{"case_number": "RUPD 26-032267", "change_type": "added", "date_reported": "10/2/26 9:12", "incident_uid": "7f7de0ebd85aab05", "nature": "Criminal mischief", "observed_date": "2026-10-13"}
+{"case_number": "RUPD 26-032271", "change_type": "added", "date_reported": "10/2/26 10:06", "incident_uid": "b6cef45e2bec2b63", "nature": "Criminal mischief", "observed_date": "2026-10-13"}
+{"case_number": "RUPD 26-032285", "change_type": "added", "date_reported": "10/2/26 11:54", "incident_uid": "fb5f65680f644127", "nature": "Theft", "observed_date": "2026-10-13"}
+{"case_number": "RUPD 26-032300", "change_type": "added", "date_reported": "10/2/26 16:14", "incident_uid": "237529980d6ea01a", "nature": "Stalking", "observed_date": "2026-10-13"}
+{"case_number": "RUPD 26-032366", "change_type": "added", "date_reported": "10/3/26 1:17", "incident_uid": "553a155a68574675", "nature": "Littering", "observed_date": "2026-10-13"}
+{"case_number": "RUPD 26-032705", "change_type": "added", "date_reported": "10/5/26 17:22", "incident_uid": "fe51f4cb7e64d8a7", "nature": "Theft", "observed_date": "2026-10-13"}
+{"case_number": "RUPD 26-032708", "change_type": "added", "date_reported": "10/5/26 18:19", "incident_uid": "d68bd81d81432d68", "nature": "Criminal mischief", "observed_date": "2026-10-13"}
+{"case_number": "RUPD 26-032754", "change_type": "added", "date_reported": "10/6/26 1:49", "incident_uid": "d82de24bf6045068", "nature": "DWI; Possession of open container of alcohol in vehicle", "observed_date": "2026-10-13"}
+{"case_number": "RUPD 26-032938", "change_type": "added", "date_reported": "10/7/26 12:51", "incident_uid": "96f9c9ce1050532a", "nature": "Theft", "observed_date": "2026-10-13"}
+{"case_number": "RUPD 26-033149", "change_type": "added", "date_reported": "10/9/26 1:47", "incident_uid": "3e453ee65472c90c", "nature": "Possession of open container of alcohol", "observed_date": "2026-10-13"}
+{"case_number": "RUPD 26-033208", "change_type": "added", "date_reported": "10/9/26 12:27", "incident_uid": "48be7e4c4ef3fdb8", "nature": "Sexual Assault/Sex Offense", "observed_date": "2026-10-13"}
+{"case_number": "RUPD 26-033208", "change_type": "amended", "cosmetic": false, "field": "narrative_raw", "incident_uid": "48be7e4c4ef3fdb8", "new": "Student reported to Third Party/RUPD being sexually assaulted in an on-campus residence.", "observed_date": "2026-10-13", "old": "Student reported to Third Party/RUPD being sexually assaulted in their on-campus residence."}
+{"case_number": "RUPD 26-033289", "change_type": "added", "date_reported": "10/10/26 1:04", "incident_uid": "c9ca62cf939a45c2", "nature": "Terroristic Threats", "observed_date": "2026-10-13"}
+{"case_number": "RUPD 26-033428", "change_type": "added", "date_reported": "10/11/26 3:36", "incident_uid": "9d1858fa3b6dc0a5", "nature": "Disorderly conduct", "observed_date": "2026-10-13"}
+{"case_number": "RUPD 26-033449", "change_type": "added", "date_reported": "10/11/26 9:43", "incident_uid": "41bacfe424ad006b", "nature": "Criminal mischief; Theft", "observed_date": "2026-10-14"}
+{"case_number": "RUPD 26-033468/ CSA 87838", "change_type": "added", "date_reported": "10/11/26 15:38", "incident_uid": "194a1c65d3afc239", "nature": "Domestic Violence; Simple Assault", "observed_date": "2026-10-14"}
+{"case_number": "RUPD 26-033208", "change_type": "missing", "confirmations": 1, "incident_uid": "48be7e4c4ef3fdb8", "missing_since": "2026-10-14", "observed_date": "2026-10-14"}
+{"case_number": "RUPD 26-033208/ CSA 87974", "change_type": "added", "date_reported": "10/9/26 12:27", "incident_uid": "369905406d221538", "nature": "Sexual Assault/Sex Offense", "observed_date": "2026-10-14"}
+{"case_number": "RUPD 26-033738", "change_type": "added", "date_reported": "10/13/26 18:24", "incident_uid": "09b676a710e2cd8b", "nature": "Simple Assault; Trespassing", "observed_date": "2026-10-14"}
+{"case_number": "RUPD 26-033806", "change_type": "added", "date_reported": "10/14/26 4:42", "incident_uid": "424796c50fc2f745", "nature": "Theft", "observed_date": "2026-10-14"}
