@@ -320,3 +320,16 @@ Offensive Language,offense,Offensive language,NJ 2C:33-2(b); kept separate so Di
 # capitalisation; it cannot know that "a police officer" and "Officer" are the same
 # person, which is why the variant still needs a row.
 Assault on a police officer,offense,Assault on an officer,
+#
+# Added 2026-10-16 from September's data (RUPD 26-032130, logged as "DWI; Possession of
+# open container CDS (prohibited drug) in vehicle"). The sixth spelling of a token
+# already here: it differs from "Possession of open container of CDS (Prohibited Drug)
+# in a vehicle" only by a missing "of" and "a", which folding cannot bridge.
+#
+# Drug offense, not Alcohol violation, despite reading like the open-container rule.
+# CDS is New Jersey's "controlled dangerous substance"; this row's narrative says the
+# container held cannabis. The UCR definitions Clery reporting rests on count liquor
+# and drug violations as separate offenses, so filing it as alcohol would inflate one
+# series and undercount the other. Follows its five siblings rather than drawing a new
+# cannabis-versus-other-CDS distinction, which would redefine the category mid-series.
+Possession of open container CDS (prohibited drug) in vehicle,offense,Drug offense,

@@ -34,7 +34,7 @@ REAL_SHEETS = {
     "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE": ("June 2026", 14),
     "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o": ("July 2026", 23),
     "1Ms5gjJX_-vnA4wUaTW-z60Hd98guINjRU5R-e5n58Ts": ("August 2026", 42),
-    "1HULCgv9mk7XMkfC2DKkBaOUm5rA00aVfO83lU9489p0": ("September 2026", 109),
+    "1HULCgv9mk7XMkfC2DKkBaOUm5rA00aVfO83lU9489p0": ("September 2026", 110),
 }
 
 TOTAL_INCIDENTS = sum(count for _, count in REAL_SHEETS.values())

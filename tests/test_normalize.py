@@ -203,6 +203,29 @@ def test_the_four_tokens_that_broke_the_2026_10_15_run(category_map, disposition
     )["flags"], "plural must land on the same flag as the singular"
 
 
+def test_an_open_container_of_cds_is_a_drug_offense_not_an_alcohol_violation(category_map):
+    """RUPD 26-032130, the token that broke the 2026-10-16 run.
+
+    The trap is that it reads like the alcohol open-container violation, which has its
+    own eight spellings in the map. CDS is New Jersey's "controlled dangerous
+    substance" -- this row's narrative says cannabis -- and the FBI's UCR definitions
+    that Clery reporting is built on count liquor and drug violations separately. Filing
+    it as an alcohol violation would inflate one series and undercount the other.
+
+    It is the sixth spelling of a token already in the map, differing only by a missing
+    "of" and "a", so it is checked against that sibling rather than a literal.
+    """
+    result = normalize.categorize(
+        "DWI; Possession of open container CDS (prohibited drug) in vehicle", category_map
+    )
+    assert set(result["categories"]) == {"DWI", "Drug offense"}
+    assert "Alcohol violation" not in result["categories"]
+    assert not result["unclassified"]
+    assert result["categories"] == normalize.categorize(
+        "DWI; Possession of open container of CDS (Prohibited Drug) in a vehicle", category_map
+    )["categories"], "the filler-word variant must land on the same category"
+
+
 # ---- every real token is covered ----------------------------------------------
 
 

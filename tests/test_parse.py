@@ -20,7 +20,7 @@ def test_golden_row_counts(all_sheets):
 
 def test_golden_total(all_sheets):
     total = sum(len(parse.parse_and_key(b, fid)) for fid, b in all_sheets.items())
-    assert total == TOTAL_INCIDENTS == 188
+    assert total == TOTAL_INCIDENTS == 189
 
 
 def test_no_field_is_silently_dropped(all_sheets):
