@@ -16,7 +16,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 231,
+   "incidents": 233,
    "months_covered": 3,
    "months": [
     "2026-08",
@@ -45,7 +45,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 222,
+   "incidents": 224,
    "months_covered": 3,
    "months": [
     "2026-08",
@@ -62,8 +62,8 @@
   "default": "occurred",
   "window_start": "2026-06",
   "window_start_label": "June 2026",
-  "total": 268,
-  "shown": 256,
+  "total": 270,
+  "shown": 258,
   "excluded_no_date": 5,
   "excluded_before_window": 7,
   "lag_median_days": {
@@ -72,21 +72,21 @@
    "RUPD": 0.0
   }
  },
- "generated_utc": "2026-10-16T14:00:46+00:00",
+ "generated_utc": "2026-10-16T23:39:12+00:00",
  "archive_started": "2026-10-01",
  "source_folder": "https://drive.google.com/drive/folders/1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
  "published_era": {
   "id": "drive-2026",
   "label": "Google Sheets on Drive",
-  "count": 268,
+  "count": 270,
   "since": "June 2026"
  },
  "counts": {
-  "total_archived": 268,
-  "currently_published": 253,
+  "total_archived": 270,
+  "currently_published": 255,
   "no_longer_published": 15,
   "superseded": 0,
-  "distinct_incidents": 268,
+  "distinct_incidents": 270,
   "withdrawn": 1,
   "source_removed": 14
  },
@@ -105,7 +105,7 @@
   "window_days": 7,
   "since": "2026-10-09",
   "until": "2026-10-16",
-  "added": 58,
+  "added": 60,
   "amended": 5,
   "withdrawn": 1,
   "aged_out": 0,
@@ -4016,6 +4016,57 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
+   "last_verified": "2026-10-16",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "45fb23154eec9755",
+   "case_number": "RUPD 26-034008",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-15T14:43:00",
+    "precision": "minute",
+    "raw": "10/15/26 14:43",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-14",
+    "precision": "day",
+    "raw": "10/14/26 Unk.",
+    "ongoing": false
+   },
+   "reporting_lag_hours": null,
+   "nature_raw": "Motor Vehicle Theft (Electric Scooter)",
+   "categories": [
+    "Motor vehicle theft"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to RUPD that their E-scooter was stolen.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Outside of Holly Pointe Commons",
+   "disposition_raw": "Open/Active",
+   "disposition_flags": [
+    "open_active"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-16",
    "last_verified": "2026-10-16",
    "missing_since": "",
    "flags": []
@@ -13260,6 +13311,61 @@
    "flags": []
   },
   {
+   "uid": "eb2e77342503a59b",
+   "case_number": "RUPD 26-034005/ CSA 88071",
+   "agencies": [
+    "RUPD",
+    "CSA"
+   ],
+   "reported": {
+    "value": "2026-10-15T14:14:00",
+    "precision": "minute",
+    "raw": "10/15/26 14:14",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-14T02:00:00",
+    "precision": "minute",
+    "raw": "10/14/26 2:00",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 36.23,
+   "nature_raw": "Domestic Violence; Simple Assault",
+   "categories": [
+    "Domestic violence",
+    "Simple assault"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "A student reported to RUPD that she was assaulted by another student during an argument.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Rowan Blvd. Apts.",
+   "disposition_raw": "Closed; Subject arrested",
+   "disposition_flags": [
+    "closed",
+    "arrested"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-16",
+   "last_verified": "2026-10-16",
+   "missing_since": "",
+   "flags": []
+  },
+  {
    "uid": "ed1407baaf1c100d",
    "case_number": "CSA 87455",
    "agencies": [
@@ -16939,6 +17045,22 @@
    "incident_uid": "5a0aaf1adb207198",
    "nature": "DWI; Possession of open container CDS (prohibited drug) in vehicle",
    "observed_date": "2026-10-16"
+  },
+  {
+   "case_number": "RUPD 26-034005/ CSA 88071",
+   "change_type": "added",
+   "date_reported": "10/15/26 14:14",
+   "incident_uid": "eb2e77342503a59b",
+   "nature": "Domestic Violence; Simple Assault",
+   "observed_date": "2026-10-16"
+  },
+  {
+   "case_number": "RUPD 26-034008",
+   "change_type": "added",
+   "date_reported": "10/15/26 14:43",
+   "incident_uid": "45fb23154eec9755",
+   "nature": "Motor Vehicle Theft (Electric Scooter)",
+   "observed_date": "2026-10-16"
   }
  ],
  "quality": {
@@ -16979,6 +17101,12 @@
     "case_number": "RUPD 26-028623/ CSA 86238, 86134",
     "raw": "Since 5/13/26 Unk.",
     "precision": "range_start"
+   },
+   {
+    "uid": "45fb23154eec9755",
+    "case_number": "RUPD 26-034008",
+    "raw": "10/14/26 Unk.",
+    "precision": "day"
    },
    {
     "uid": "476df2f0291b9231",
@@ -17138,6 +17266,10 @@
    },
    {
     "value": "Simple assault",
+    "count": 16
+   },
+   {
+    "value": "Domestic violence",
     "count": 15
    },
    {
@@ -17149,16 +17281,12 @@
     "count": 14
    },
    {
-    "value": "Domestic violence",
-    "count": 14
-   },
-   {
     "value": "Obstruction",
     "count": 13
    },
    {
     "value": "Motor vehicle theft",
-    "count": 12
+    "count": 13
    },
    {
     "value": "Littering",
@@ -17236,7 +17364,7 @@
   "school_years": [
    {
     "value": "2026-27",
-    "count": 231
+    "count": 233
    },
    {
     "value": "2025-26",
@@ -17246,7 +17374,7 @@
   "campuses": [
    {
     "value": "Glassboro",
-    "count": 260
+    "count": 262
    },
    {
     "value": "Rowan-Virtua SOM (Stratford)",
@@ -17264,7 +17392,7 @@
    },
    {
     "value": "October 2026",
-    "count": 79
+    "count": 81
    },
    {
     "value": "August 2026",
@@ -17306,7 +17434,7 @@
    },
    {
     "value": "Outside of Holly Pointe Commons",
-    "count": 7
+    "count": 8
    },
    {
     "value": "Rt. 322",
@@ -17837,6 +17965,10 @@
     "count": 1
    },
    {
+    "value": "Rowan Blvd. Apts.",
+    "count": 1
+   },
+   {
     "value": "Ellis St./Sewell St.",
     "count": 1
    },
@@ -17860,7 +17992,7 @@
   "disposition_flags": [
    {
     "value": "closed",
-    "count": 136
+    "count": 137
    },
    {
     "value": "summons_issued",
@@ -17872,11 +18004,11 @@
    },
    {
     "value": "arrested",
-    "count": 48
+    "count": 49
    },
    {
     "value": "open_active",
-    "count": 30
+    "count": 31
    },
    {
     "value": "referred_university",
@@ -17962,7 +18094,7 @@
   "agencies": [
    {
     "value": "RUPD",
-    "count": 169
+    "count": 171
    },
    {
     "value": "GPD",
@@ -17970,7 +18102,7 @@
    },
    {
     "value": "CSA",
-    "count": 47
+    "count": 48
    },
    {
     "value": "GEN",
@@ -17980,7 +18112,7 @@
   "statuses": [
    {
     "value": "active",
-    "count": 253
+    "count": 255
    },
    {
     "value": "source_removed",
@@ -18065,7 +18197,7 @@
   },
   {
    "date": "2026-10-16",
-   "summary": "+0 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
+   "summary": "+2 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
    "alarms": 1
   }
  ]
