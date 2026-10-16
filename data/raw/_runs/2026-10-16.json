@@ -18,7 +18,7 @@
       "name": "September 2026 Daily Crime Log",
       "rows": 110,
       "sha256": "7fdb1ec4ff8b3bdf8bf55bfa9c8864ea1247d43ab2f33e0f9589b73b2cceb9f6",
-      "snapshot_written": true,
+      "snapshot_written": false,
       "status": "ok"
     },
     "1Ms5gjJX_-vnA4wUaTW-z60Hd98guINjRU5R-e5n58Ts": {
@@ -49,24 +49,21 @@
     "status": "ok"
   },
   "merge": {
-    "added": 1,
+    "added": 0,
     "amended": 0,
-    "changed": true,
+    "changed": false,
     "missing": 0,
     "quarantined": [],
     "reappeared": 0,
     "relocated": 0,
     "source_removed": 0,
-    "unchanged": 252,
+    "unchanged": 253,
     "unfetched": [],
-    "warnings": [
-      "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: 1 row(s) absent — advancing confirmation ladder"
-    ],
-    "withdrawn": 1
+    "warnings": [],
+    "withdrawn": 0
   },
-  "summary": "+1 added, 0 amended, 0 missing, 1 withdrawn, 0 source-removed, 0 reappeared",
+  "summary": "+0 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
   "warnings": [
-    "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']",
-    "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: 1 row(s) absent — advancing confirmation ladder"
+    "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']"
   ]
 }

@@ -72,7 +72,7 @@
    "RUPD": 0.0
   }
  },
- "generated_utc": "2026-10-16T09:49:03+00:00",
+ "generated_utc": "2026-10-16T14:00:46+00:00",
  "archive_started": "2026-10-01",
  "source_folder": "https://drive.google.com/drive/folders/1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
  "published_era": {
@@ -98,8 +98,7 @@
    "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 15 runs — treating the source file as removed. Its rows are preserved in full."
   ],
   "warnings": [
-   "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']",
-   "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: 1 row(s) absent — advancing confirmation ladder"
+   "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']"
   ]
  },
  "activity": {
@@ -18066,7 +18065,7 @@
   },
   {
    "date": "2026-10-16",
-   "summary": "+1 added, 0 amended, 0 missing, 1 withdrawn, 0 source-removed, 0 reappeared",
+   "summary": "+0 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
    "alarms": 1
   }
  ]
