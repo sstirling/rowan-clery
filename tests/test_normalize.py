@@ -433,3 +433,66 @@ def test_lewdness_is_not_counted_as_a_clery_sex_offense(category_map):
         result = normalize.categorize(token, category_map)
         assert result["categories"] == ["Lewdness"], token
         assert "Sex offense" not in result["categories"], token
+
+
+def test_the_four_tokens_that_broke_the_2026_10_19_run(category_map, disposition_map):
+    """The build names only the first unmapped token it hits; this run had four.
+
+    CI stopped on "subject issued summons and trespass warning". Scanning the whole live
+    feed against both maps found three more waiting behind it, so fixing the one in the
+    traceback would only have moved the crash to the next scheduled run.
+
+    Each is checked for the flags/categories it should resolve to, not merely for being
+    mapped: a new row that parses but says the wrong thing is the failure mode that
+    actually corrupts a count.
+    """
+    # 1. RUPD 26-028469, a September row amended after the month closed. The "warning"
+    #    spelling of "subject issued summons and trespass notice", already in the map.
+    #    Two flags from one token, because the source packed two outcomes into it.
+    summons = normalize.disposition_flags(
+        "Open/Active; Disposition Updated; Closed; Subject issued summons and trespass warning",
+        disposition_map,
+        strict=True,
+    )
+    assert set(summons["flags"]) == {"closed", "summons_issued", "trespass_notice"}
+    assert summons["disposition_amended"] is True  # "Disposition Updated" supersedes Open/Active
+    assert "open_active" not in summons["flags"]
+
+    # 2. RUPD 26-034287. Being removed from a building is not the same outcome as being
+    #    barred from one or issued a notice, so it gets its own flag rather than being
+    #    folded into trespass_notice -- which, flags being a set, would have made the
+    #    removal silently vanish behind the notice the same row already carries.
+    removed = normalize.disposition_flags(
+        "Closed; Subject removed from building; Trespass notice issued",
+        disposition_map,
+        strict=True,
+    )
+    assert set(removed["flags"]) == {"closed", "removed_from_building", "trespass_notice"}
+
+    # 3. RUPD 26-034234. The Nature cell is a sentence with COMMA-separated offenses.
+    #    Tokens split on semicolons only, so this arrives as one token naming three
+    #    offenses, and has to map to all three or the incident is undercounted twice.
+    dwi = normalize.categorize(
+        "DWI, possession of illegal drug, possession of open alcohol in a vehicle.",
+        category_map,
+    )
+    assert set(dwi["categories"]) == {"DWI", "Drug offense", "Alcohol violation"}
+
+    # 4. RUPD 26-034287. "DV" is the log's abbreviation for domestic violence; the full
+    #    spelling is already in the map a dozen times.
+    dv = normalize.categorize("Trespassing; DV", category_map)
+    assert set(dv["categories"]) == {"Trespassing", "Domestic violence"}
+
+
+def test_a_comma_separated_nature_sentence_is_one_token_not_three():
+    """Why RUPD 26-034234 needs a row of its own rather than a tokenizer change.
+
+    Splitting Nature on commas as well as semicolons would break the tokens that carry
+    a comma inside themselves -- "Alcohol Violations (Open Container in Vehicle, DWI)"
+    is a single offense pair in the source, and comma-splitting would shear it in half
+    and leave two fragments that match nothing.
+    """
+    assert normalize.TOKEN_SPLIT.split("DWI, possession of illegal drug") == [
+        "DWI, possession of illegal drug"
+    ]
+    assert normalize.TOKEN_SPLIT.split("Trespassing; DV") == ["Trespassing", "DV"]

@@ -1,0 +1,811 @@
+<title>The Record That Vanished</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  /* Layout: a single reading column of numbered slide panels, each sized by its own
+     content; a sticky bar carries position and the notes toggle. Paper-dominant, with
+     ink panels reserved for section breaks and terminal output. */
+  :root {
+    color-scheme: light;
+
+    --paper:    #FCFCFD;
+    --surface:  #F1F3F6;
+    --surface-2:#E7EBEF;
+    --ink:      #141A1F;
+    --ink-soft: #3A4650;
+    --muted:    #5E6D79;
+    --rule:     #DCE2E8;
+    --vermil:   #B23A31;
+    --teal:     #15655F;
+    --amber:    #8A6212;
+    --panel:    #161D24;   /* terminal + section ground, same in both themes */
+    --panel-tx: #E6EBEF;
+    --panel-dim:#8A99A5;
+    --panel-tl: #5FBFB3;
+    --panel-vm: #E8796E;
+
+    --f-display: "Newsreader", "Iowan Old Style", Georgia, serif;
+    --f-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+    --step--1: clamp(.78rem, .74rem + .18vw, .86rem);
+    --step-0:  clamp(1rem, .96rem + .22vw, 1.09rem);
+    --step-1:  clamp(1.2rem, 1.1rem + .5vw, 1.4rem);
+    --step-2:  clamp(1.55rem, 1.3rem + 1.1vw, 2.1rem);
+    --step-3:  clamp(2rem, 1.5rem + 2.2vw, 3.1rem);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --paper:    #0F1419;
+      --surface:  #19212A;
+      --surface-2:#222C36;
+      --ink:      #E9EDF1;
+      --ink-soft: #C3CCD4;
+      --muted:    #8C9AA6;
+      --rule:     #2A343E;
+      --vermil:   #E8796E;
+      --teal:     #5FBFB3;
+      --amber:    #D9A23B;
+      --panel:    #070B0E;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper:    #0F1419;
+    --surface:  #19212A;
+    --surface-2:#222C36;
+    --ink:      #E9EDF1;
+    --ink-soft: #C3CCD4;
+    --muted:    #8C9AA6;
+    --rule:     #2A343E;
+    --vermil:   #E8796E;
+    --teal:     #5FBFB3;
+    --amber:    #D9A23B;
+    --panel:    #070B0E;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: var(--step-0);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* --- chrome ------------------------------------------------------------- */
+  .bar {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 20;
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    padding: .6rem clamp(1rem, 4vw, 2.5rem);
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .bar h1 {
+    font-family: var(--f-display);
+    font-size: var(--step-0); font-weight: 600; margin: 0; letter-spacing: -.01em;
+  }
+  .bar .spacer { flex: 1 1 auto; }
+  .count {
+    font-family: var(--f-mono); font-size: var(--step--1); color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  button.toggle {
+    font-family: var(--f-mono); font-size: var(--step--1);
+    background: var(--surface); color: var(--ink);
+    border: 1px solid var(--rule); border-radius: 999px;
+    padding: .3rem .8rem; cursor: pointer;
+  }
+  button.toggle[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  button.toggle:focus-visible, a:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+  /* --- slides ------------------------------------------------------------- */
+  main { padding: 0 clamp(1rem, 4vw, 2.5rem) 5rem; }
+  .wrap { max-width: 61rem; margin: 0 auto; }
+
+  .slide {
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    background: var(--paper);
+    padding: clamp(1.4rem, 3.5vw, 2.6rem);
+    margin-top: clamp(1.2rem, 3vw, 2rem);
+    scroll-margin-top: 4.5rem;
+  }
+  .slide.dark {
+    background: var(--panel); border-color: var(--panel);
+    color: var(--panel-tx);
+  }
+  .slide.dark .kicker { background: #26313B; color: #fff; }
+  .slide.dark h2 { color: #fff; }
+  .slide.dark p { color: var(--panel-tx); }
+
+  .kicker {
+    display: inline-block;
+    font-family: var(--f-mono); font-size: .68rem; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase;
+    padding: .25rem .6rem; border-radius: 4px;
+    background: var(--ink); color: var(--paper);
+    margin-bottom: .9rem;
+  }
+  .kicker.vm { background: var(--vermil); color: #fff; }
+  .kicker.tl { background: var(--teal); color: #fff; }
+
+  h2 {
+    font-family: var(--f-display);
+    font-size: var(--step-2); font-weight: 600; line-height: 1.12;
+    letter-spacing: -.015em; margin: 0 0 1rem; text-wrap: balance;
+  }
+  .slide.title h2 { font-size: var(--step-3); }
+  .lede { font-size: var(--step-1); color: var(--ink-soft); max-width: 42ch; }
+  .slide.dark .lede { color: var(--panel-tx); }
+  p { margin: 0 0 .85rem; max-width: 68ch; }
+  p:last-child { margin-bottom: 0; }
+
+  ul.points { margin: 0; padding-left: 1.1rem; max-width: 66ch; }
+  ul.points li { margin-bottom: .6rem; }
+  ul.points li::marker { color: var(--teal); }
+
+  .cols { display: grid; gap: clamp(.8rem, 2vw, 1.2rem); }
+  .cols.c2 { grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
+  .cols.c3 { grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); }
+  .cols.c4 { grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); }
+
+  .card {
+    background: var(--surface); border-radius: 8px;
+    padding: 1rem 1.1rem;
+  }
+  .card.ink { background: var(--panel); color: var(--panel-tx); }
+  .card h3 {
+    font-family: var(--f-body); font-size: var(--step-0); font-weight: 600;
+    margin: 0 0 .4rem; color: var(--ink);
+  }
+  .card.ink h3 { color: #fff; }
+  .card h3.vm { color: var(--vermil); }
+  .card h3.tl { color: var(--teal); }
+  .card.ink h3.vm { color: var(--panel-vm); }
+  .card.ink h3.tl { color: var(--panel-tl); }
+  .card p { font-size: var(--step--1); color: var(--ink-soft); margin: 0; }
+  .card.ink p { color: var(--panel-tx); }
+  .num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6rem; height: 1.6rem; border-radius: 999px;
+    background: var(--teal); color: #fff;
+    font-family: var(--f-mono); font-size: .8rem; font-weight: 600;
+    margin-bottom: .55rem;
+  }
+  .num.vm { background: var(--vermil); }
+
+  .stats { display: grid; gap: 1.2rem; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); }
+  .stat .v {
+    font-family: var(--f-display); font-size: clamp(2.4rem, 1.6rem + 3vw, 3.6rem);
+    font-weight: 600; line-height: 1; letter-spacing: -.02em;
+    font-variant-numeric: tabular-nums; color: var(--vermil);
+  }
+  .stat .v.tl { color: var(--teal); }
+  .stat .v.am { color: var(--amber); }
+  .stat .v.nt { color: var(--muted); }
+  .stat .l { font-size: var(--step--1); color: var(--muted); margin-top: .4rem; max-width: 26ch; }
+  .slide.dark .stat .l { color: var(--panel-dim); }
+
+  pre.term {
+    background: var(--panel); color: var(--panel-tx);
+    font-family: var(--f-mono); font-size: clamp(.72rem, .64rem + .3vw, .85rem);
+    line-height: 1.65; margin: 0; padding: 1rem 1.1rem;
+    border-radius: 8px; overflow-x: auto;
+  }
+  pre.term .c { color: var(--panel-dim); }
+  pre.term .t { color: var(--panel-tl); }
+  pre.term .r { color: var(--panel-vm); }
+  pre.term .b { font-weight: 600; }
+
+  .note {
+    margin-top: 1.1rem; padding-top: .9rem; border-top: 1px dashed var(--rule);
+    font-size: var(--step--1); color: var(--muted); max-width: 70ch;
+  }
+  .note b { font-family: var(--f-mono); font-size: .68rem; letter-spacing: .12em;
+            text-transform: uppercase; color: var(--teal); display: block; margin-bottom: .3rem; }
+  body:not(.show-notes) .note { display: none; }
+
+  .kick { font-size: var(--step-1); font-weight: 500; color: var(--ink); max-width: 56ch; }
+  .slide.dark .kick { color: #fff; }
+
+  /* --- charts ------------------------------------------------------------- */
+  .chart { display: grid; gap: .55rem; margin: .4rem 0 0; }
+  .row { display: grid; grid-template-columns: minmax(6.5rem, 10rem) 1fr; gap: .7rem; align-items: center; }
+  .row .nm { font-size: var(--step--1); color: var(--ink-soft); }
+  .track { display: flex; align-items: center; gap: .5rem; }
+  .bar-fill { height: 1.05rem; border-radius: 3px; background: var(--teal); min-width: 2px; }
+  .bar-fill.vm { background: var(--vermil); }
+  .bar-fill.nt { background: var(--muted); }
+  .val { font-family: var(--f-mono); font-size: var(--step--1); color: var(--ink-soft);
+         font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .legend { display: flex; gap: 1.1rem; flex-wrap: wrap; font-size: var(--step--1);
+            color: var(--muted); margin-bottom: .7rem; }
+  .legend span { display: inline-flex; align-items: center; gap: .4rem; }
+  .swatch { width: .75rem; height: .75rem; border-radius: 2px; display: inline-block; }
+
+  .scale { font-family: var(--f-mono); font-size: .68rem; color: var(--muted);
+           margin-top: .5rem; }
+
+  a { color: var(--teal); }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto !important; } }
+  @media (min-width: 40rem) { html { scroll-behavior: smooth; } }
+</style>
+
+<div class="bar">
+  <h1>The record that vanished</h1>
+  <span class="spacer"></span>
+  <span class="count" id="count">1 / 30</span>
+  <button class="toggle" id="notesBtn" aria-pressed="false">Speaker notes</button>
+</div>
+
+<main><div class="wrap" id="deck"></div></main>
+
+<script>
+(function () {
+  "use strict";
+
+  // Every figure below was measured from the live archive on 2026-10-18.
+  var F = {
+    total: "2,434", added: "2,449", amended: "129", removed: "14",
+    commits: "55", snapshots: "24", tokens: "259", cats: "42",
+    tests: "174", testLines: "2,454", pipeLines: "3,125",
+    gpd: "13.7", rupd: "0.0", csa: "0.3"
+  };
+
+  function term(lines) {
+    return '<pre class="term">' + lines.map(function (l) {
+      if (typeof l === "string") return esc(l);
+      return '<span class="' + (l.cls || "") + '">' + esc(l.t) + "</span>";
+    }).join("\n") + "</pre>";
+  }
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  function cards(items, cls) {
+    return '<div class="cols ' + (cls || "c2") + '">' + items.map(function (c) {
+      return '<div class="card' + (c.ink ? " ink" : "") + '">' +
+        (c.n ? '<div class="num' + (c.nv ? " vm" : "") + '">' + c.n + "</div>" : "") +
+        '<h3 class="' + (c.tone || "") + '">' + c.h + "</h3><p>" + c.p + "</p></div>";
+    }).join("") + "</div>";
+  }
+  function stats(items) {
+    return '<div class="stats">' + items.map(function (s) {
+      return '<div class="stat"><div class="v ' + (s.tone || "") + '">' + s.v +
+        '</div><div class="l">' + s.l + "</div></div>";
+    }).join("") + "</div>";
+  }
+  function barChart(rows, max, unit) {
+    return '<div class="chart">' + rows.map(function (r) {
+      return '<div class="row"><div class="nm">' + r.nm + '</div>' +
+        '<div class="track"><div class="bar-fill ' + (r.tone || "") +
+        '" style="width:' + Math.max((r.v / max) * 100, 0.4) + '%"></div>' +
+        '<span class="val">' + r.v + (unit || "") + "</span></div></div>";
+    }).join("") + "</div>";
+  }
+
+  var S = [];
+  function slide(o) { S.push(o); }
+
+  // ---- 1. the record that vanished ---------------------------------------
+  slide({ cls: "title dark", kicker: "Public records · Claude Code", kickTone: "vm",
+    h: "The record that vanished",
+    body: '<p class="lede">How to build an archive of a public record that keeps ' +
+      'changing — with a terminal, Claude Code, and a free robot.</p>' +
+      '<p style="margin-top:1.4rem;color:var(--panel-tl);font-weight:600">Stephen Stirling</p>',
+    note: "Open with the story, not the tooling. The hard part was never the code. It " +
+      "was deciding what counts as a number you can defend." });
+
+  slide({ cls: "dark", kicker: "The hook", kickTone: "vm",
+    h: "On October 1, this public record stopped being public",
+    body: term([
+      { t: "$ python run.py all", cls: "t" },
+      "! June 2026 Daily Crime Log REMOVED:",
+      "  .../1TLdzJn6iUkT.../export?format=csv",
+      { t: "  failed after 4 attempts: HTTP Error 401: Unauthorized", cls: "r" }
+    ]) + '<div style="margin-top:1.3rem">' + stats([
+      { v: "14", l: "incidents in that month's log. The sheet still exists — Rowan " +
+        "stopped sharing it. Those rows now sit in one public place, and it is not Rowan's." }
+    ]) + "</div>" +
+      '<p style="margin-top:1.1rem;color:var(--panel-dim)">The pipeline had been saving ' +
+      'a copy twice a day since June. That is the only reason this slide has numbers on it.</p>',
+    note: "Do not allege bad intent — we do not know why sharing changed. The point is " +
+      "that a record which was public is no longer, and without an independent copy " +
+      "there would be nothing to compare against." });
+
+  slide({ kicker: "The record",
+    h: "Every US campus has to publish a daily crime log",
+    body: '<div class="cols c2"><div><ul class="points">' +
+      "<li>The Clery Act requires any college taking federal student aid to keep one, " +
+      "and to make it open to the public.</li>" +
+      "<li>Each entry: the nature of the incident, when it was reported, when it " +
+      "occurred, the general location, and the disposition.</li>" +
+      "<li>New entries within two business days. It is one of the few crime records " +
+      "you can read without filing anything.</li></ul></div><div>" +
+      cards([
+        { h: "Why reporters care", p: "It is the closest thing to a running police " +
+          "blotter for a campus — assaults, thefts, drug and alcohol enforcement, and " +
+          "how each was resolved." },
+        { h: "And the catch", tone: "vm", p: "The law says publish it. It does not say " +
+          "keep what you published, or note when you change your mind." }
+      ], "c2") + "</div></div>",
+    note: "Keep this short. It is context, not the argument." });
+
+  slide({ kicker: "How it is published",
+    h: "Rowan publishes it as a Google Sheet",
+    body: cards([
+      { n: 1, h: "One sheet per month", p: "A new file each month, linked from a Drive folder." },
+      { n: 2, h: "Typed by hand", p: "The same offense, spelled differently month to month." },
+      { n: 3, h: "Edited in place", p: "Dispositions and times get revised after publication." },
+      { n: 4, nv: true, h: "No history", p: "Nothing on the page says a row ever changed." }
+    ], "c4") + '<div style="margin-top:1.2rem">' + term([
+      { t: "# what a \"publication\" actually is", cls: "c" },
+      "docs.google.com/spreadsheets/d/<id>/export?format=csv"
+    ]) + "</div>" +
+      "<p style=\"margin-top:.9rem\">That URL is the whole dependency. It is also the " +
+      "thing that returned 401.</p>",
+    note: "The export URL is worth showing — most people do not know a Sheet has one." });
+
+  slide({ cls: "dark", kicker: "The problem", kickTone: "vm",
+    h: "A public record you cannot cite",
+    body: stats([
+      { v: F.amended, tone: "am", l: "rows the university revised after publishing them — " +
+        "new dispositions, changed times, reclassified offenses" },
+      { v: F.removed, l: "rows whose source file stopped being shared, now preserved " +
+        "only in this archive" },
+      { v: "0", tone: "nt", l: "of those changes appear anywhere on Rowan's own pages" }
+    ]) + '<p class="kick" style="margin-top:1.5rem">If you quote a figure today and the ' +
+      'sheet reads differently next month, you have no way to show you were right.</p>',
+    note: "The thesis. Everything after this serves being able to say: here is what the " +
+      "record said on this date, and here is what it says now." });
+
+  // ---- 2. what we built ---------------------------------------------------
+  slide({ cls: "dark", kicker: "Part one", kickTone: "tl",
+    h: "An archive that remembers",
+    body: '<p class="lede">' + F.total + " incidents · Dec. 2017 to Oct. 2026 · " +
+      "checked twice a day · every version kept.</p>",
+    note: "Transition: so what do you actually build to fix that?" });
+
+  slide({ kicker: "Architecture",
+    h: "Four layers, and only one of them may change",
+    body: cards([
+      { n: 1, h: "Raw", p: "The bytes, exactly as downloaded, in a dated file. <b>Never edited.</b>" },
+      { n: 2, h: "Archive", p: "One row per incident, with every revision recorded. <b>Append only.</b>" },
+      { n: 3, h: "Derived", p: "Categories, counts, lags — rebuilt from scratch each run. <b>Disposable.</b>" },
+      { n: 4, h: "Site", p: "The pages people read. <b>Disposable.</b>" }
+    ], "c4") +
+      "<p style=\"margin-top:1.2rem\">The rule that makes it an archive rather than a " +
+      "scraper: if the derived layers burn down, you rebuild them from raw. If raw burns " +
+      "down, the record is gone.</p>",
+    note: "The most portable idea in the talk. It applies to any scrape: keep the bytes, " +
+      "derive everything else." });
+
+  slide({ kicker: "The output",
+    h: "What a reader gets",
+    body: '<div class="cols c2"><div>' + cards([
+      { h: "A site that explains itself", p: "Charts by month, category and location, " +
+        "plus a page listing every change the archive has caught, with the old value " +
+        "beside the new one." },
+      { h: "Data you can take away", p: "Every chart exports the exact rows behind it as " +
+        "CSV, so a reader can check the number rather than trust it." }
+    ], "c2") + "</div><div>" + term([
+      { t: "# one commit per run, change or no change", cls: "c" },
+      "data: +31 added, 0 amended, 0 missing,",
+      "      0 withdrawn, 0 source-removed — 2026-10-09",
+      "",
+      { t: "# and the receipts underneath", cls: "c" },
+      "data/raw/<sheet-id>/2026-10-09.csv"
+    ]) + "</div></div>",
+    note: "Show the live site here if the wifi holds; otherwise this stands in for it." });
+
+  // ---- 3. the tools -------------------------------------------------------
+  slide({ cls: "dark", kicker: "Part two", kickTone: "tl",
+    h: "Three tools, no computer science degree",
+    body: '<p class="lede">A terminal, Claude Code, and GitHub. Each earns its place the ' +
+      'moment you actually need it, so that is the order we meet them in.</p>',
+    note: "Reassure the room. Nobody here needs to become an engineer." });
+
+  slide({ kicker: "The terminal",
+    h: "The terminal is a text conversation with your computer",
+    body: '<div class="cols c2"><div><ul class="points">' +
+      "<li>You type an instruction, press enter, and it answers. That is the whole interface.</li>" +
+      "<li>It is already on your machine: Terminal on a Mac, PowerShell on Windows.</li>" +
+      "<li>Why bother, when you could click? Because a command is something you can write " +
+      "down, hand to a colleague, and run again next year. A click is not.</li>" +
+      "<li>Same reason we prefer a script to a spreadsheet: it can be re-run, so it can " +
+      "be checked.</li></ul></div><div>" + term([
+        { t: "$ cd Documents/rowan-clery", cls: "t" },
+        "$ ls",
+        "config/  data/  docs/  rowan_clery/  tests/",
+        { t: "$ python run.py build", cls: "t" },
+        "built page data: 267 archived,",
+        "  253 published, 14 no longer published"
+      ]) + '<p style="margin-top:.9rem;font-size:var(--step--1);color:var(--muted)">' +
+      "Reproducibility is a journalistic standard, not an engineering one.</p></div></div>",
+    note: "If anyone looks frightened: you will use four commands, and Claude Code will " +
+      "tell you which one." });
+
+  slide({ kicker: "Day one",
+    h: "The commands you actually need on day one",
+    body: '<div class="cols c2"><div>' + term([
+      { t: "cd rowan-clery", cls: "t b" },
+      { t: "    move into the project folder", cls: "c" },
+      "",
+      { t: "ls", cls: "t b" },
+      { t: "    what is in here?", cls: "c" },
+      "",
+      { t: "python run.py all", cls: "t b" },
+      { t: "    fetch, archive, rebuild the site", cls: "c" },
+      "",
+      { t: "git log --oneline -5", cls: "t b" },
+      { t: "    what changed recently?", cls: "c" }
+    ]) + "</div><div>" + cards([
+      { h: "Four commands", p: "That is the barrier to entry. Everything else in this " +
+        "project, Claude Code wrote while I watched." },
+      { ink: true, tone: "tl", h: "The one habit", p: "Read what it proposes before you " +
+        "say yes. You are the editor. The tool is a very fast, very literal reporter." }
+    ], "c2") + "</div></div>",
+    note: "Linger here. This is the slide that makes people think they could try." });
+
+  slide({ kicker: "Claude Code",
+    h: "Claude Code lives in that terminal",
+    body: '<div class="cols c2"><div><ul class="points">' +
+      "<li>It reads and writes the files in your project, runs commands, reads the errors " +
+      "that come back, and fixes them.</li>" +
+      "<li>It asks before it changes anything or runs something consequential.</li>" +
+      "<li>It sees the whole project at once, which is why it finds every instance of a " +
+      "problem rather than the first one.</li>" +
+      "<li>It costs money per use. Budget for it like a database subscription, not a " +
+      "free plugin.</li></ul></div><div>" + term([
+        { t: "$ claude", cls: "t" },
+        "",
+        "> the scheduled run failed overnight.",
+        "  here is the error. can you",
+        "  investigate?",
+        "",
+        { t: "  [pasted log]", cls: "c" }
+      ]) + '<p style="margin-top:.9rem;font-size:var(--step--1);color:var(--muted)">' +
+      "That prompt is a real one. It is also the entire workflow.</p></div></div>",
+    note: "Be honest about cost. Newsroom budgets are the first objection you will get." });
+
+  slide({ kicker: "The loop",
+    h: "What the loop actually looks like",
+    body: term([
+      { t: "MappingError: Unmapped Nature token(s):", cls: "r" },
+      { t: "  ['Possession of open container CDS (prohibited drug) in vehicle']", cls: "r" }
+    ]) + '<div style="margin-top:1.2rem">' + cards([
+      { n: 1, nv: true, h: "The robot stops", p: "A wording the project has never seen " +
+        "takes the run down. Nothing is published." },
+      { n: 2, h: "I paste the error in", p: "No diagnosis of my own. Just the log." },
+      { n: 3, h: "It checks everything", p: "Scans all four live sheets for every unknown " +
+        "wording, not only the one reported." },
+      { n: 4, h: "It proves the fix", p: "Writes a failing test, adds the mapping, shows " +
+        "the test passing." }
+    ], "c4") + "</div>",
+    note: "Step 3 is the one worth dwelling on. The first run of this example reported " +
+      "one unknown wording and there were four." });
+
+  slide({ kicker: "The shift",
+    h: "The mental shift that matters",
+    body: cards([
+      { h: "Not this", tone: "vm", p: "&ldquo;Write me a scraper for this crime log.&rdquo;" +
+        "<br><br>You get something that works today, makes a hundred silent decisions, " +
+        "and you cannot defend any of them." },
+      { ink: true, h: "This", tone: "tl", p: "&ldquo;The occurred-date column sometimes " +
+        "just says Unknown. Never guess a month from one. Count those rows separately " +
+        "and put the number on the page.&rdquo;<br><br>You supply the editorial judgment. " +
+        "It supplies the typing." }
+    ], "c2") + '<p class="kick" style="margin-top:1.3rem">You are not short of code. You ' +
+      "are short of someone to argue with about what the number means.</p>",
+    note: "The second quote is close to a real prompt from this project." });
+
+  slide({ kicker: "GitHub",
+    h: "GitHub does two jobs here",
+    body: cards([
+      { n: 1, h: "A public, timestamped audit trail", p: F.commits + " commits so far. " +
+        "Each is a dated receipt saying what the archive looked like at that moment. " +
+        "Anyone can check your work against it, including the institution you are " +
+        "writing about." },
+      { n: 2, h: "A free robot", p: "GitHub Actions runs the whole pipeline twice a day " +
+        "on someone else's computer. Your laptop can be shut. This costs nothing for a " +
+        "public repository." }
+    ], "c2") + '<div style="margin-top:1rem">' + cards([
+      { ink: true, tone: "tl", h: "The part people miss", p: "Publishing the archive " +
+        "publicly is itself an editorial act. It means the record survives you losing " +
+        "interest, changing jobs, or losing a laptop." }
+    ], "c2") + "</div>",
+    note: "A private repo works too, but then you are the single point of failure." });
+
+  slide({ kicker: "Git",
+    h: "Git, in one idea",
+    body: '<p class="kick" style="margin-bottom:1.1rem">A commit is a labeled snapshot ' +
+      "you can always go back to.</p>" + term([
+        { t: "$ git log --oneline -4", cls: "t" },
+        "6b3bb0f New category",
+        "4e37154 data: +5 added, 4 amended, 1 missing — 2026-10-15",
+        "a4460ca update mapping",
+        "1c8dabc data: +0 added, 0 amended, 0 missing — 2026-10-12"
+      ]) + "<p style=\"margin-top:1rem\">The robot writes one of these every run, change " +
+      "or no change, so the log itself becomes the audit trail. A quiet day is evidence too.</p>",
+    note: "You do not need branches, merges or pull requests. One branch and honest " +
+      "commit messages is plenty." });
+
+  slide({ kicker: "Automation",
+    h: "Cron with receipts",
+    body: '<div class="cols c2"><div>' + term([
+      { t: "# .github/workflows/daily.yml", cls: "c" },
+      "on:",
+      "  schedule:",
+      { t: "    - cron: \"17 9 * * *\"", cls: "t" },
+      { t: "    - cron: \"17 21 * * *\"", cls: "t" }
+    ]) + "</div><div>" + cards([
+      { h: "Why twice", p: "Scheduled runs on free infrastructure get delayed and " +
+        "sometimes skipped entirely. The second run is cheap insurance." },
+      { h: "Why an odd minute", p: "Everyone schedules on the hour. Queueing at :17 gets " +
+        "you served sooner." }
+    ], "c2") + "</div></div>" + '<div style="margin-top:1rem">' + cards([
+      { ink: true, tone: "tl", h: "Why commit even when nothing changed",
+        p: "GitHub switches off scheduled jobs after 60 days without a commit. A silent " +
+          "scraper that has quietly stopped is worse than no scraper." }
+    ], "c2") + "</div>",
+    note: "That last card is a genuinely nasty trap and worth saying out loud. It would " +
+      "have switched this project off during a quiet stretch." });
+
+  // ---- 4. the decisions ---------------------------------------------------
+  slide({ cls: "dark", kicker: "Part three", kickTone: "vm",
+    h: "The code was the easy part",
+    body: '<p class="lede">Five rules. Every one exists because the convenient shortcut ' +
+      'would have produced a number I could not defend in print.</p>',
+    note: "The heart of the talk. Budget the most time here." });
+
+  slide({ kicker: "Rule 1", kickTone: "tl",
+    h: "Raw capture is immutable",
+    body: cards([
+      { n: 1, h: "Download", p: "Fetch the CSV exactly as the server sends it." },
+      { n: 2, h: "Write once", p: "Save the bytes to a dated file and never touch them again." },
+      { n: 3, h: "Verify", p: "A step in every run checks that raw was only added to, " +
+        "never modified." }
+    ], "c3") + '<div style="margin-top:1.3rem" class="cols c2"><div>' + stats([
+      { v: F.snapshots, tone: "tl", l: "dated snapshots on disk" }
+    ]) + "</div><div><p>Every transformation produces a new file. If a category turns out " +
+      "to be wrong, you re-derive from raw. You do not repair the archive and hope nobody " +
+      "asks.</p></div></div>",
+    note: "Raw data is immutable is the oldest rule in data journalism. It still holds." });
+
+  slide({ kicker: "Rule 2", kickTone: "tl",
+    h: "Nothing is ever deleted",
+    body: stats([
+      { v: F.added, tone: "tl", l: "incidents added" },
+      { v: F.amended, tone: "am", l: "revised after publication" },
+      { v: F.removed, l: "whose source stopped being shared" }
+    ]) + '<div style="margin-top:1.3rem">' + cards([
+      { h: "A row that vanishes is marked, not removed", p: "It keeps its place, with a " +
+        "flag saying the source stopped listing it and the date that happened." },
+      { ink: true, tone: "tl", h: "And only after three strikes", p: "Live sheets get " +
+        "edited mid-day. A row missing once is usually a typo in progress, so it takes " +
+        "three consecutive runs to call it gone." }
+    ], "c2") + "</div>",
+    note: "The three-strike ladder came from observation: a row went missing at 9am and " +
+      "was back by mid-afternoon." });
+
+  slide({ cls: "dark", kicker: "Rule 3", kickTone: "vm",
+    h: "Fail loudly",
+    body: term([
+      { t: "MappingError: Unmapped Nature token(s):", cls: "r" },
+      { t: "  ['Offensive Language']", cls: "r" },
+      "",
+      "Add them to config/category_map.csv with a role and",
+      "categories. Refusing to guess, because a wrong guess",
+      "silently undercounts a category."
+    ]) + '<p class="kick" style="margin-top:1.3rem">An offense wording the project has ' +
+      "never seen takes the entire build down. On purpose.</p>" +
+      '<p style="color:var(--panel-dim);margin-top:.8rem">That message is written for the ' +
+      "person who will read it at 7am, including the reason, so the fix is not a guess either.</p>",
+    note: "Read the error message aloud. It is the argument of the whole talk in three lines." });
+
+  slide({ kicker: "Rule 3 · why",
+    h: "Why crashing is the right behaviour",
+    body: cards([
+      { h: "The convenient option", tone: "vm", p: "Put anything unrecognised in " +
+        "&ldquo;Other&rdquo;.<br><br>The build stays green. Nobody gets woken up. And you " +
+        "publish a crime category quietly short by however many incidents used a new " +
+        "wording that month." },
+      { ink: true, h: "The option we took", tone: "tl", p: "Stop everything.<br><br>" +
+        "Nothing publishes until a human has looked at the wording and decided which " +
+        "category it belongs in. The archive is never silently wrong." }
+    ], "c2") + '<p class="kick" style="margin-top:1.3rem">An undercount published as a ' +
+      "finding is the failure that would embarrass a reporter most. So it is the one the " +
+      "system is built to make impossible.</p>",
+    note: "If you take one idea home, take this one." });
+
+  slide({ kicker: "Rule 3 · the bill",
+    h: "What that choice costs, honestly",
+    body: stats([
+      { v: "4", l: "breakages in eight days, Oct. 9 to 16" },
+      { v: F.tokens, tone: "tl", l: "distinct wordings mapped by hand, into " + F.cats + " categories" },
+      { v: "13", tone: "am", l: "spellings of &ldquo;trespass notice&rdquo; alone" }
+    ]) + '<div style="margin-top:1.3rem">' + cards([
+      { h: "This is the maintenance bill for not guessing", p: "Someone has to read the " +
+        "alarm and make a call, every few days. If nobody in your newsroom will own that, " +
+        "build something simpler. An unmaintained archive that fails silently is worse " +
+        "than none." }
+    ], "c2") + "</div>",
+    note: "Be straight about this. It is the main reason these projects die, and " +
+      "pretending otherwise does the audience no favours." });
+
+  slide({ kicker: "Rule 4", kickTone: "tl",
+    h: "The source lies in interesting ways",
+    body: '<div class="cols c2"><div>' +
+      '<p style="font-size:var(--step--1);color:var(--muted);margin-bottom:.6rem">' +
+      "Median days from incident to report, by reporting agency</p>" +
+      barChart([
+        { nm: "Campus police", v: F.rupd, tone: "nt" },
+        { nm: "Security authorities", v: F.csa, tone: "nt" },
+        { nm: "Glassboro PD", v: F.gpd, tone: "vm" }
+      ], 14, " days") +
+      '<p class="scale">Scale 0 to 14 days. Measured where both timestamps are precise ' +
+      "to the minute: 156 campus police, 36 security authorities, 83 Glassboro.</p>" +
+      "</div><div><p><b>One log, two very different clocks.</b></p>" +
+      "<p>Campus police file 89% of their reports within a day. Glassboro's borough " +
+      "police file 1% within a day. Their median is " + F.gpd + " days.</p>" +
+      "<p style=\"color:var(--muted)\">Nothing on the page tells you this. You only find " +
+      "it by measuring.</p></div></div>",
+    note: "This is where the talk stops being about tools and starts being about the data." });
+
+  slide({ kicker: "Rule 4 · so what",
+    h: "&ldquo;When&rdquo; depends on which date you count",
+    body: '<div class="cols c2"><div>' +
+      '<div class="legend"><span><i class="swatch" style="background:var(--muted)"></i>' +
+      "By date reported</span><span><i class=\"swatch\" style=\"background:var(--teal)\">" +
+      "</i>By date it happened</span></div>" +
+      barChart([
+        { nm: "June — reported", v: 14, tone: "nt" }, { nm: "June — happened", v: 11 },
+        { nm: "July — reported", v: 23, tone: "nt" }, { nm: "July — happened", v: 23 },
+        { nm: "Aug. — reported", v: 42, tone: "nt" }, { nm: "Aug. — happened", v: 49 },
+        { nm: "Sept. — reported", v: 109, tone: "nt" }, { nm: "Sept. — happened", v: 144 },
+        { nm: "Oct. — reported", v: 79, tone: "nt" }, { nm: "Oct. — happened", v: 28 }
+      ], 144) +
+      '<p class="scale">Scale 0 to 144 incidents. Live feed, June to October 2026.</p>' +
+      "</div><div><p><b>September: 109 reported, 144 happened.</b></p>" +
+      "<p>October reads 28 and will keep climbing for weeks as Glassboro files.</p>" +
+      "<p>The site counts by when things happened, because that is the honest answer to " +
+      "&ldquo;when was there crime&rdquo; — and says on the page that recent months are " +
+      "incomplete.</p></div></div>",
+    note: "Both series are correct. They answer different questions. That is what makes " +
+      "the choice editorial rather than technical." });
+
+  slide({ kicker: "Rule 5", kickTone: "tl",
+    h: "Tests are editorial infrastructure",
+    body: stats([
+      { v: F.tests, tone: "tl", l: "automated checks" },
+      { v: F.testLines, l: "lines of tests" },
+      { v: F.pipeLines, tone: "nt", l: "lines of actual pipeline" }
+    ]) + '<div style="margin-top:1.3rem">' + cards([
+      { h: "One runs the page in a fake browser", p: "A JavaScript typo ships a page that " +
+        "returns 200 with every chart silently empty. That happened twice." },
+      { h: "One checks the arithmetic of the caveat", p: "Every incident must be either on " +
+        "the chart or counted in the note saying what is missing." },
+      { h: "One refuses to let a number drift", p: "Change the data a test is pinned to, " +
+        "and you must state the new figure deliberately." }
+    ], "c3") + "</div>",
+    note: "Tests in a newsroom are not engineering hygiene. They are what stops you " +
+      "publishing a chart with no data in it." });
+
+  // ---- 5. what to steal ---------------------------------------------------
+  slide({ kicker: "The division of labour",
+    h: "What the tool did, and what it could not",
+    body: cards([
+      { h: "Claude Code was good at", tone: "tl", p: "The boilerplate. The tests. The " +
+        "documentation. Reading a stack trace. Finding every instance of a problem " +
+        "instead of the first one. Explaining its reasoning well enough to argue with." },
+      { ink: true, h: "It could not decide", tone: "tl", p: "A new wording arrived: " +
+        "&ldquo;Possession of open container CDS (prohibited drug) in vehicle.&rdquo;" +
+        "<br><br>It reads like the alcohol open-container rule. CDS means controlled " +
+        "dangerous substance — a drug offense." }
+    ], "c2") + '<p class="kick" style="margin-top:1.3rem">File it as alcohol and you ' +
+      "inflate one crime category while undercounting another. No tool knows which you " +
+      "meant. That is your job, and it is the actual work.</p>",
+    note: "The machine removed the typing, not the judgment." });
+
+  slide({ kicker: "Your beat",
+    h: "Pick a record worth preserving",
+    body: cards([
+      { n: 1, h: "Already public", p: "No FOIA, no login. If you have to fight for it, " +
+        "that is a different project." },
+      { n: 2, h: "Overwritten in place", p: "The current version replaces the last one, " +
+        "and nothing keeps the old." },
+      { n: 3, h: "Consequential", p: "Someone would care if the numbers changed quietly." }
+    ], "c3") + '<div style="margin-top:1.2rem">' + cards([
+      { ink: true, h: "Records that fit, in most states", p: "Restaurant inspection " +
+        "scores · jail rosters and daily booking logs · school board agendas and minutes · " +
+        "building permits and code violations · campus crime logs · lobbyist registries · " +
+        "water quality notices · nursing home inspection results" }
+    ], "c2") + "</div>",
+    note: "Invite the room to name one from their beat. Jail rosters are the usual " +
+      "lightbulb — they change hourly and nobody keeps yesterday's." });
+
+  slide({ kicker: "Start",
+    h: "How to start this week",
+    body: cards([
+      { n: 1, h: "Find the URL that holds the data today", p: "The export link behind the " +
+        "page. Often a CSV or JSON you can see in your browser." },
+      { n: 2, h: "Save it to a dated file", p: "That is an archive. You have already done " +
+        "the irreplaceable part." },
+      { n: 3, h: "Put it on GitHub", p: "That is an audit trail, and it outlives your laptop." },
+      { n: 4, h: "Add a schedule", p: "Now it is a scraper, and it runs without you." },
+      { n: 5, h: "Only then make it look nice", p: "Charts are the last 10% and the first " +
+        "thing people want to build." }
+    ], "c3") + '<p class="kick" style="margin-top:1.2rem;color:var(--teal)">Steps one to ' +
+      "three are an afternoon. Everything after that is optional.</p>",
+    note: "End on how small step one is. The archive starts the day you save one file." });
+
+  slide({ cls: "title dark", kicker: "Take it apart", kickTone: "tl",
+    h: "The archive is the story",
+    body: '<p class="lede">The site is just how you read it. Everything is public — the ' +
+      "code, the raw snapshots, the methodology, and every change the archive has " +
+      "caught.</p>" + '<div style="margin-top:1.3rem">' + term([
+        { t: "github.com/sstirling/rowan-clery", cls: "t b" },
+        "  METHODOLOGY.md   what counts, and what does not",
+        "  data/raw/        every byte, exactly as downloaded",
+        "  config/*.csv     every wording, mapped by hand"
+      ]) + "</div>",
+    note: "Offer to help anyone who wants to try it on their own beat. Figures on these " +
+      "slides were measured on October 18, 2026." });
+
+  // ---- render -------------------------------------------------------------
+  var deck = document.getElementById("deck");
+  var html = S.map(function (s, i) {
+    return '<section class="slide ' + (s.cls || "") + '" id="s' + (i + 1) + '">' +
+      '<span class="kicker ' + (s.kickTone || "") + '">' +
+        String(i + 1).padStart(2, "0") + " · " + s.kicker + "</span>" +
+      "<h2>" + s.h + "</h2>" + s.body +
+      (s.note ? '<div class="note"><b>Speaker note</b>' + s.note + "</div>" : "") +
+      "</section>";
+  }).join("");
+  deck.innerHTML = html;
+
+  // ---- chrome -------------------------------------------------------------
+  var sections = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+  var countEl = document.getElementById("count");
+  countEl.textContent = "1 / " + sections.length;
+
+  var current = 0;
+  function sync() {
+    var best = 0, bestDist = Infinity;
+    for (var i = 0; i < sections.length; i++) {
+      var d = Math.abs(sections[i].getBoundingClientRect().top - 80);
+      if (d < bestDist) { bestDist = d; best = i; }
+    }
+    current = best;
+    countEl.textContent = (best + 1) + " / " + sections.length;
+  }
+  addEventListener("scroll", sync, { passive: true });
+  sync();
+
+  addEventListener("keydown", function (e) {
+    if (e.target && /^(INPUT|TEXTAREA|BUTTON)$/.test(e.target.tagName)) return;
+    var k = e.key;
+    if (k === "ArrowDown" || k === "ArrowRight" || k === "PageDown" || k === " ") {
+      e.preventDefault();
+      sections[Math.min(current + 1, sections.length - 1)].scrollIntoView({ block: "start" });
+    } else if (k === "ArrowUp" || k === "ArrowLeft" || k === "PageUp") {
+      e.preventDefault();
+      sections[Math.max(current - 1, 0)].scrollIntoView({ block: "start" });
+    } else if (k === "n" || k === "N") {
+      document.getElementById("notesBtn").click();
+    }
+  });
+
+  var btn = document.getElementById("notesBtn");
+  btn.addEventListener("click", function () {
+    var on = document.body.classList.toggle("show-notes");
+    btn.setAttribute("aria-pressed", on ? "true" : "false");
+  });
+})();
+</script>

@@ -392,6 +392,7 @@ const DISP_LABEL = {
   referred_prosecutor:"Referred to county prosecutor", rp_referred_to_complaint:"Citizen's complaint info given",
   rp_provided_resources:"Resources provided",
   barred: "Subject barred from campus",
+  removed_from_building: "Removed from the building",
   other_agency: "Referred to another agency",
   station_house_adjustment: "Juvenile station house adjustment",
   title_ix: "Title IX / equity office",

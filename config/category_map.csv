@@ -333,3 +333,20 @@ Assault on a police officer,offense,Assault on an officer,
 # series and undercount the other. Follows its five siblings rather than drawing a new
 # cannabis-versus-other-CDS distinction, which would redefine the category mid-series.
 Possession of open container CDS (prohibited drug) in vehicle,offense,Drug offense,
+#
+# Added 2026-10-19 from October's data. Two new Nature wordings, neither a new offense.
+#
+# RUPD 26-034234 -- the Nature cell is a SENTENCE, with the offenses separated by
+# commas: "DWI, possession of illegal drug, possession of open alcohol in a vehicle."
+# Tokens split on semicolons only, so it arrives whole and has to name all three
+# offenses here or the incident is undercounted twice. Mapped the same way as
+# "Alcohol Violations (Open Container in Vehicle, DWI)" and "Alcohol Violation (DWI),
+# Possession of CDS (Illegal Drug)" above. Deliberately NOT fixed in the tokenizer:
+# splitting Nature on commas would shear those two tokens in half and leave fragments
+# that match nothing.
+"DWI, possession of illegal drug, possession of open alcohol in a vehicle.",offense,DWI|Drug offense|Alcohol violation,Single token naming three offenses
+# RUPD 26-034287, logged as "Trespassing; DV". The log's abbreviation for domestic
+# violence, already in this file spelled out a dozen ways. Read from the abbreviation,
+# not from the facts: the narrative says only that an intoxicated unwanted guest was in
+# a student's apartment, so the relationship that makes it domestic is not stated.
+DV,offense,Domestic violence,Abbreviation for domestic violence

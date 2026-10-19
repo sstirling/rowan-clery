@@ -160,3 +160,17 @@ reporting party declined to pursue,outcome,rp_declined,
 property located,outcome,property_recovered,Same finding as "property recovered"
 # RUPD 26-033855 -- plural of "TRO issued". TRO = temporary restraining order.
 subjects issued tros,outcome,tro_issued,
+#
+# Added 2026-10-19. Two tokens, one old outcome and one new one.
+#
+# RUPD 26-028469, a September row amended after the month closed -- the narrative
+# changed from "Unknown individuals" to "Non-student" and this token was appended. It
+# is the "warning" spelling of "subject issued summons and trespass notice" above, and
+# carries the same two flags: the source packs two outcomes into one token.
+subject issued summons and trespass warning,outcome,summons_issued|trespass_notice,
+# RUPD 26-034287 -- "Closed; Subject removed from building; Trespass notice issued".
+# A new outcome rather than a new spelling: being walked out of a building is a
+# different act from being barred from one (barred) or served a notice
+# (trespass_notice). Folding it into trespass_notice would have erased it, because
+# flags are a set and that row already carries trespass_notice from its own token.
+subject removed from building,outcome,removed_from_building,

@@ -1,0 +1,767 @@
+<title>Four commands and a folder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
+<style>
+/* Layout: one slide fills the viewport; a fixed rail at the bottom carries position,
+   and every command sits in an ink pane that keeps the same shape at every width. */
+:root {
+  --paper: #FFFFFF;
+  --mist: #EDF1F2;
+  --ink: #12191C;
+  --panel: #1E292F;
+  --slate: #33444D;
+  --grey: #5E6E78;
+  --ochre: #9E5E0D;
+  --ochre-pane: #E5A24A;
+  --blue: #1F5B7A;
+  --green: #2C6E49;
+  --green-pane: #73BF95;
+  --red-pane: #E8766C;
+  --grey-pane: #9FAEB7;
+  --mist-pane: #EDF1F2;
+  --rule: #DCE3E5;
+  --shadow: 0 1px 10px rgba(18, 25, 28, .10);
+
+  --display: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --body: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --mono: "IBM Plex Mono", "Courier New", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #0E1416;
+    --mist: #1A2429;
+    --ink: #060A0C;
+    --panel: #222F36;
+    --slate: #C3CFD4;
+    --grey: #8FA0A8;
+    --ochre: #E5A24A;
+    --blue: #6FB2D6;
+    --green: #73BF95;
+    --rule: #26343A;
+    --shadow: 0 1px 10px rgba(0, 0, 0, .45);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0E1416;
+  --mist: #1A2429;
+  --ink: #060A0C;
+  --panel: #222F36;
+  --slate: #C3CFD4;
+  --grey: #8FA0A8;
+  --ochre: #E5A24A;
+  --blue: #6FB2D6;
+  --green: #73BF95;
+  --rule: #26343A;
+  --shadow: 0 1px 10px rgba(0, 0, 0, .45);
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper);
+  color: var(--slate);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.5;
+}
+.deck { min-height: 100svh; display: flex; flex-direction: column; }
+.slide {
+  flex: 1;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 22px;
+  padding: 40px 28px 96px;
+  max-width: 1120px;
+  margin: 0 auto;
+  width: 100%;
+}
+.slide.on { display: flex; }
+.slide.dark { background: var(--ink); }
+
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .09em;
+  text-transform: lowercase;
+  color: var(--paper);
+  background: var(--ochre);
+  padding: 5px 11px;
+  border-radius: 4px;
+  align-self: flex-start;
+}
+:root[data-theme="dark"] .kicker { color: var(--ink); }
+.kicker.grey { background: var(--grey); }
+
+h1 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(30px, 5.4vw, 54px);
+  line-height: 1.08;
+  letter-spacing: -.012em;
+  color: var(--ink);
+  margin: 0;
+  text-wrap: balance;
+}
+h2 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(25px, 3.9vw, 38px);
+  line-height: 1.14;
+  color: var(--ink);
+  margin: 0;
+  text-wrap: balance;
+}
+.dark h1, .dark h2 { color: var(--mist-pane); }
+.lede { font-size: clamp(16px, 2vw, 20px); max-width: 62ch; margin: 0; }
+.dark .lede { color: var(--grey-pane); }
+.say { font-size: clamp(17px, 2.3vw, 23px); color: var(--ink); max-width: 68ch; margin: 0; }
+.dark .say { color: var(--mist-pane); }
+.aside { font-style: italic; color: var(--grey); margin: 0; }
+
+/* The one repeated motif: commands always appear in an ink pane. */
+pre.term {
+  background: var(--ink);
+  border-radius: 6px;
+  padding: 18px 20px;
+  margin: 0;
+  overflow-x: auto;
+  box-shadow: var(--shadow);
+  font-family: var(--mono);
+  font-size: clamp(12px, 1.55vw, 16px);
+  line-height: 1.65;
+  color: var(--mist-pane);
+  -webkit-overflow-scrolling: touch;
+}
+:root[data-theme="dark"] pre.term { border: 1px solid var(--rule); }
+pre.term .t { color: var(--ochre-pane); font-weight: 600; }
+pre.term .d { color: var(--grey-pane); }
+pre.term .k { color: var(--green-pane); }
+pre.term .x { color: var(--red-pane); }
+pre.term.big { font-size: clamp(18px, 3.4vw, 30px); letter-spacing: .08em; }
+
+.cols { display: grid; gap: 16px; }
+.cols.two { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.cols.three { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+.split { display: grid; gap: 18px; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); align-items: start; }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } }
+
+.card {
+  background: var(--mist);
+  border-radius: 6px;
+  padding: 16px 18px;
+  box-shadow: var(--shadow);
+}
+.card.fill { background: var(--panel); color: var(--mist-pane); }
+.card.fill h3 { color: var(--paper); }
+:root[data-theme="dark"] .card.fill h3 { color: var(--mist-pane); }
+.card h3 {
+  margin: 0 0 5px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.card h3.mono { font-family: var(--mono); font-size: 15px; }
+.card h3.good { color: var(--green); }
+.card h3.warn { color: var(--ochre); }
+.card p { margin: 0; font-size: 14.5px; }
+.card .n {
+  display: inline-grid;
+  place-items: center;
+  width: 25px; height: 25px;
+  border-radius: 50%;
+  background: var(--ochre);
+  color: var(--paper);
+  font-size: 13px;
+  font-weight: 600;
+  margin-right: 9px;
+  vertical-align: -5px;
+}
+:root[data-theme="dark"] .card .n { color: var(--ink); }
+.card .n.blue { background: var(--blue); }
+
+.vocab { display: grid; gap: 14px; }
+.vocab div { display: grid; grid-template-columns: 130px 1fr; gap: 14px; align-items: baseline; }
+@media (max-width: 520px) { .vocab div { grid-template-columns: 92px 1fr; } }
+.vocab code {
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: clamp(17px, 2.6vw, 24px);
+  color: var(--ochre-pane);
+}
+.vocab code.look { color: var(--green-pane); }
+.vocab span { font-size: clamp(15px, 2vw, 19px); color: var(--mist-pane); }
+
+.steps { display: grid; gap: 13px; }
+.steps div { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 13px; align-items: start; }
+.steps b { color: var(--mist-pane); font-weight: 600; font-size: 16px; display: block; }
+.steps code { font-family: var(--mono); font-size: 13.5px; color: var(--grey-pane); display: block; margin-top: 2px; }
+.steps .n { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; font-size: 13px; font-weight: 600; color: #FFF; }
+
+kbd {
+  font-family: var(--body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--slate);
+  background: var(--mist);
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  padding: 4px 9px;
+  box-shadow: 0 1px 2px rgba(18, 25, 28, .14);
+}
+.keys { display: flex; align-items: center; gap: 7px; margin: 10px 0 8px; flex-wrap: wrap; }
+.keys span { color: var(--grey); }
+
+/* Bottom rail */
+.rail {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 18px calc(10px + env(safe-area-inset-bottom, 0px));
+  background: var(--paper);
+  border-top: 1px solid var(--rule);
+  font-size: 12.5px;
+  color: var(--grey);
+}
+.rail .bar { flex: 1; height: 3px; background: var(--rule); border-radius: 2px; overflow: hidden; }
+.rail .bar i { display: block; height: 100%; background: var(--ochre); transition: width .22s ease; }
+.rail button {
+  font: inherit;
+  font-weight: 600;
+  color: var(--slate);
+  background: var(--mist);
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  padding: 5px 11px;
+  cursor: pointer;
+}
+.rail button:hover { color: var(--ink); }
+.rail .count { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+:focus-visible { outline: 2px solid var(--ochre); outline-offset: 2px; }
+
+.notes {
+  position: fixed;
+  left: 0; right: 0; bottom: calc(44px + env(safe-area-inset-bottom, 0px));
+  max-height: 46vh;
+  overflow-y: auto;
+  background: var(--panel);
+  color: var(--mist-pane);
+  padding: 18px 22px calc(18px + env(safe-area-inset-bottom, 0px));
+  border-top: 2px solid var(--ochre);
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+.notes p { margin: 0 0 10px; max-width: 76ch; }
+.notes p:last-child { margin: 0; }
+.notes .hd {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .09em;
+  color: var(--grey-pane);
+  margin-bottom: 8px;
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="deck" id="deck"></div>
+<div class="notes" id="notes" hidden></div>
+<div class="rail">
+  <button id="prev" type="button" aria-label="Previous slide">&larr;</button>
+  <button id="next" type="button" aria-label="Next slide">&rarr;</button>
+  <span class="count"><b id="num">1</b> / 18</span>
+  <span class="bar"><i id="bar"></i></span>
+  <button id="noteBtn" type="button">Notes <span style="opacity:.6">n</span></button>
+</div>
+
+<script>
+const SLIDES = [
+{
+  dark: true,
+  html: `<span class="kicker">~/Documents/GitHub</span>
+    <h1>Four commands and a folder</h1>
+    <p class="lede">Getting set up with the terminal, GitHub and Claude Code.
+      No prior experience assumed &mdash; we start by opening a window.</p>
+    <div class="split" style="align-items:center">
+      <pre class="term"><span class="d">laptop ~ % </span></pre>
+      <p class="aside" style="color:var(--grey-pane)">That blinking cursor is the whole
+        barrier. It goes away in about a minute.</p>
+    </div>`,
+  notes: [
+    "Set expectations in one sentence: by the end of this you will be able to open a terminal, get to the folder where your projects live, and start Claude Code there.",
+    "That is genuinely the whole skill. Everything intimidating about the terminal is unfamiliarity, not difficulty &mdash; there are four commands in this deck and you only need two of them most days.",
+    "Say up front what we are NOT doing: not learning to code, not learning git properly, not configuring anything. Just getting to a working prompt."
+  ]
+},
+{
+  html: `<h2>Here is where we're going</h2>
+    <div class="split">
+      <pre class="term"><span class="t">laptop ~ % cd Documents/GitHub/rowan-clery</span>
+<span class="t">laptop rowan-clery % claude</span>
+
+<span class="d">  &#10022; Welcome to Claude Code</span>
+<span class="d">    cwd: /Users/you/Documents/GitHub/rowan-clery</span>
+
+&gt; what does this project do?</pre>
+      <div class="cols">
+        <div class="card"><h3><span class="n">1</span>Go to the folder</h3>
+          <p>One command. The folder holds the project you want to work on.</p></div>
+        <div class="card"><h3><span class="n">2</span>Type claude</h3>
+          <p>One word. It starts in that folder and reads the files there.</p></div>
+        <div class="card"><h3><span class="n">3</span>Ask in plain English</h3>
+          <p>No syntax to learn. Full sentences work better than keywords.</p></div>
+      </div>
+    </div>
+    <p class="aside">Two commands, then a conversation. The rest of this deck is how to get here.</p>`,
+  notes: [
+    "Show the destination before the journey, so every command that follows has an obvious purpose.",
+    "Point at the two highlighted lines: that is all the typing. One line moves you to a folder, one line starts Claude Code. Everything after that is typed in English.",
+    "The 'cwd' line matters and we come back to it on slide 14: Claude Code works on the folder you started it in. Starting in the right place is the single most important habit in this deck."
+  ]
+},
+{
+  html: `<h2>A window where you type instead of click</h2>
+    <div class="cols two">
+      <div class="card"><h3>Finder, or File Explorer</h3>
+        <p>You see your files as icons. You open a folder by double-clicking it.
+          You move a file by dragging it.</p></div>
+      <div class="card fill"><h3>The terminal</h3>
+        <p>You see a line of text. You open a folder by naming it.
+          You move a file by saying where it goes.</p></div>
+    </div>
+    <p class="say">Same computer. Same files. The only difference is whether you point at
+      them or name them.</p>
+    <div class="card"><h3>So why learn it at all?</h3>
+      <p>Because the tools worth learning next &mdash; Claude Code, git, anything that runs
+        on a schedule &mdash; all live here. The terminal is the door, not the destination.</p></div>`,
+  notes: [
+    "The most useful thing you can do in the first two minutes is demystify this. The terminal is not a different computer, not a hacker tool, not a place where mistakes are irreversible. It is a text interface to the same files they already have.",
+    "The analogy that lands: Finder is pointing, the terminal is naming. If you can say where something is, you can work in the terminal.",
+    "Be honest about the payoff. Nobody should learn the terminal for its own sake. They are learning it because Claude Code runs there."
+  ]
+},
+{
+  html: `<h2>Open one</h2>
+    <div class="cols two">
+      <div class="card"><h3>On a Mac</h3>
+        <div class="keys"><kbd>Cmd</kbd><span>+</span><kbd>Space</kbd></div>
+        <p>then type <b>Terminal</b> and press Return</p></div>
+      <div class="card"><h3>On Windows</h3>
+        <div class="keys"><kbd>Win</kbd><span>+</span><kbd>X</kbd></div>
+        <p>then choose <b>Windows PowerShell</b> or <b>Terminal</b></p></div>
+    </div>
+    <div class="split" style="align-items:center">
+      <pre class="term"><span class="d">Last login: Mon Oct 19 09:14:02</span>
+<span class="d">laptop ~ % </span></pre>
+      <p class="lede">A window with a blinking cursor. Nothing is wrong &mdash; it is
+        waiting for you.</p>
+    </div>`,
+  notes: [
+    "Do this live and slowly, and wait for the room to catch up. On a Mac, Spotlight is the fastest route and the one they will remember.",
+    "On Windows, flag the PowerShell versus CMD distinction now, because it decides which install command works on slide 13. PowerShell shows 'PS' at the start of the line; CMD does not.",
+    "If anyone's window looks different &mdash; different colours, a '$' instead of a '%' &mdash; that is fine and expected. Terminals are configurable and none of it changes what we type."
+  ]
+},
+{
+  html: `<h2>Read the line before you type on it</h2>
+    <pre class="term big"><b>laptop &nbsp;~ &nbsp;%</b></pre>
+    <div class="cols three">
+      <div class="card"><h3 class="mono">laptop</h3>
+        <p>Which computer you are on. Yours will show your own name.</p></div>
+      <div class="card"><h3 class="mono">~</h3>
+        <p>The folder you are standing in right now. The ~ is shorthand for your home folder.</p></div>
+      <div class="card"><h3 class="mono">%</h3>
+        <p>Your turn. Everything you type goes after this, and runs when you press Return.</p></div>
+    </div>
+    <div class="card fill"><h3>The middle part changes as you move, and that is the point</h3>
+      <p>On Windows the same line reads <code>PS C:\\Users\\you&gt;</code> &mdash; different
+        punctuation, identical job. Watch that folder name every time before you press Return.</p></div>`,
+  notes: [
+    "Spend a real minute here. Almost every beginner mistake in the terminal is running a correct command in the wrong folder, and the prompt is already telling them which folder they are in.",
+    "Have them look at their own prompt and read the three parts off it out loud.",
+    "The tilde is worth naming explicitly. It appears constantly in instructions online, and nobody tells you it just means your home folder &mdash; /Users/yourname on a Mac."
+  ]
+},
+{
+  html: `<span class="kicker grey">command 1 of 4</span>
+    <h2>pwd &mdash; where am I?</h2>
+    <div class="split">
+      <pre class="term"><span class="t">laptop ~ % pwd</span>
+<span class="k">/Users/you</span></pre>
+      <div class="card"><h3>Print working directory</h3>
+        <p>Directory is the old word for folder.</p></div>
+    </div>
+    <p class="lede">It answers one question and changes nothing. When you are lost, this is
+      the command.</p>
+    <div class="card"><h3>A path is just a set of nested folders, read left to right</h3>
+      <p><code>/Users/you/Documents/GitHub</code> means: the Users folder, then your folder,
+        then Documents, then GitHub. The slashes are the steps inward. That is the entire
+        concept, and it is the only one you need.</p></div>`,
+  notes: [
+    "Four commands in this deck. This is the first and the least risky: it reads your location and prints it. Nothing can go wrong.",
+    "Use it to introduce paths, because paths are the actual idea students need. Read one out loud, slash by slash, as nested folders.",
+    "Tell them the translation out loud: ~ and /Users/you are the same place. The prompt shows the short form; pwd shows the long one."
+  ]
+},
+{
+  html: `<span class="kicker grey">command 2 of 4</span>
+    <h2>ls &mdash; what's in here?</h2>
+    <div class="split">
+      <pre class="term"><span class="t">laptop ~ % ls</span>
+Applications   Desktop     Documents
+Downloads      Movies      Music
+Pictures       Public</pre>
+      <div class="cols">
+        <div class="card"><h3>List</h3><p>Two letters: lowercase L, lowercase S.</p></div>
+        <div class="card"><h3>Nothing came back?</h3>
+          <p>Then the folder is empty. Silence is a real answer here.</p></div>
+      </div>
+    </div>
+    <p class="lede">The same folders you see in Finder, in the same home folder. Open a
+      Finder window beside the terminal and compare the two lists &mdash; they match.</p>`,
+  notes: [
+    "Do the Finder comparison live if you can. Putting the two windows side by side is what makes the terminal stop feeling like a separate machine.",
+    "The 'silence is an answer' point saves a lot of confusion later. Terminal commands that succeed often print nothing at all, which beginners read as a failure.",
+    "Mention that files starting with a dot are hidden from both ls and Finder by default. They will meet one on slide 11."
+  ]
+},
+{
+  html: `<span class="kicker grey">command 3 of 4</span>
+    <h2>cd &mdash; move</h2>
+    <div class="split">
+      <div style="display:grid;gap:16px">
+        <pre class="term"><span class="t">laptop ~ % cd Documents</span>
+<span class="t">laptop Documents % cd ..</span>
+<span class="t">laptop ~ % </span></pre>
+        <p class="aside">Watch the middle of the prompt change. That is how you know it worked.</p>
+        <div class="card fill"><h3>Press Tab instead of finishing the word</h3>
+          <p>Type <code>cd Doc</code> and press Tab &mdash; the terminal completes it to
+            Documents. It only completes names that really exist, so Tab is also how you
+            check your spelling before you commit to it.</p></div>
+      </div>
+      <div class="cols">
+        <div class="card"><h3 class="mono">cd Documents</h3><p>Go into a folder you can see</p></div>
+        <div class="card"><h3 class="mono">cd ..</h3><p>Go back up one level</p></div>
+        <div class="card"><h3 class="mono">cd ~</h3><p>Go straight home from anywhere</p></div>
+      </div>
+    </div>`,
+  notes: [
+    "This is the one command they will use every single day, and the only one worth drilling. Have the room run all three forms.",
+    "Teach Tab completion here rather than as a tip at the end. It prevents typos, it is faster, and it quietly teaches them which folders exist. Beginners who learn Tab early stop fearing long paths.",
+    "The two-dots form confuses people the first time. Say it plainly: one dot is here, two dots is the folder above here."
+  ]
+},
+{
+  dark: true,
+  html: `<h2>The whole vocabulary</h2>
+    <div class="vocab">
+      <div><code class="look">pwd</code><span>Where am I?</span></div>
+      <div><code class="look">ls</code><span>What is in here?</span></div>
+      <div><code>cd</code><span>Go somewhere else</span></div>
+      <div><code>mkdir</code><span>Make a new folder</span></div>
+    </div>
+    <p class="aside" style="color:var(--grey-pane)">Two of them only look. Two of them act.
+      None of them can delete anything.</p>
+    <div class="cols three">
+      <div class="card fill"><h3><kbd>Tab</kbd> completes a name</h3></div>
+      <div class="card fill"><h3><kbd>&uarr;</kbd> brings back the last command</h3></div>
+      <div class="card fill"><h3><kbd>Ctrl</kbd> + <kbd>C</kbd> stops anything</h3></div>
+    </div>`,
+  notes: [
+    "The slide to photograph. Tell them to take a picture of this one now, so they stop worrying about remembering.",
+    "Make the safety point explicitly: none of the four commands in this deck deletes anything. The command that does delete is rm, it is not in this deck, and they should be careful the day they meet it.",
+    "Ctrl+C is the escape hatch. If the terminal ever seems stuck or is printing forever, Ctrl+C gets them back to a prompt. Knowing that removes most of the fear of typing something wrong."
+  ]
+},
+{
+  html: `<span class="kicker grey">command 4 of 4</span>
+    <h2>Make one folder where all your projects live</h2>
+    <div class="split">
+      <div style="display:grid;gap:16px">
+        <pre class="term"><span class="t">laptop ~ % cd Documents</span>
+<span class="t">laptop Documents % mkdir GitHub</span>
+<span class="t">laptop Documents % cd GitHub</span>
+<span class="d">laptop GitHub % </span></pre>
+        <p class="aside">Three lines, once, and you never do it again.</p>
+        <div class="card fill"><h3>Why one folder, and why this one</h3>
+          <p>Every project in the same place means one path to remember and one place to
+            look. Documents/GitHub is also where GitHub's own desktop app puts things, so you
+            stay compatible with the tool you may add later. The name is yours to choose
+            &mdash; code, projects, dev all work. Pick one today and keep it.</p></div>
+      </div>
+      <div class="cols">
+        <div class="card"><h3 class="mono">mkdir</h3>
+          <p>Make directory. It creates the folder and says nothing when it works.</p></div>
+        <div class="card"><h3>Already have one?</h3>
+          <p>Then skip mkdir and just cd into it. GitHub Desktop makes this same folder.</p></div>
+      </div>
+    </div>`,
+  notes: [
+    "This is the 'folder' in the title of the talk, and it is a habit rather than a technical step.",
+    "The reason to insist on one folder: six months from now they will have eight projects, and the difference between a tidy Documents/GitHub and eight folders scattered across the Desktop and Downloads is whether they can find their own work.",
+    "Say that mkdir printing nothing means success, and tie it back to slide 7. If they want proof, run ls."
+  ]
+},
+{
+  html: `<h2>What GitHub actually is</h2>
+    <div class="cols three">
+      <div class="card"><h3><span class="n blue">1</span>A repository</h3>
+        <p>A project folder that keeps its own history. Usually called a repo. The history
+          lives in a hidden .git folder inside it.</p></div>
+      <div class="card"><h3><span class="n blue">2</span>A copy that isn't yours</h3>
+        <p>github.com holds a copy on the internet. Your laptop is no longer the only place
+          your work exists.</p></div>
+      <div class="card"><h3><span class="n blue">3</span>Every version, kept</h3>
+        <p>Each saved change records what changed, who changed it and when. You can read any
+          earlier version back.</p></div>
+    </div>
+    <p class="say">Think of it as version history for a folder of files, with a copy stored
+      somewhere other than your laptop.</p>
+    <div class="card fill"><h3>Two names, two things</h3>
+      <p>Git is the program on your laptop that records the history. GitHub is a website that
+        stores a copy and lets other people see it. An account is free.</p></div>`,
+  notes: [
+    "Students conflate git and GitHub constantly, so separate them in one sentence and move on. Git is local and does the work; GitHub is a website that holds a copy.",
+    "The version-history framing is the one that lands with people who have used Google Docs. Same idea, applied to a whole folder, with the history under your control.",
+    "You do not need to teach commit, push, branch or pull request today. They can ask Claude Code to do all of it in English, and they will learn the words by watching what it runs. Say that out loud &mdash; it gives them permission to start before they understand everything."
+  ]
+},
+{
+  html: `<h2>Put a project on your laptop</h2>
+    <pre class="term"><span class="t">laptop GitHub % git clone https://github.com/sstirling/rowan-clery.git</span>
+Cloning into 'rowan-clery'...
+Receiving objects: 100% (1,284/1,284), done.
+<span class="t">laptop GitHub % cd rowan-clery</span>
+<span class="d">laptop rowan-clery % </span></pre>
+    <p class="lede">Clone copies the project and its whole history down into a new folder
+      named after the repo. You get the URL from the green Code button on any GitHub page.</p>
+    <div class="cols three">
+      <div class="card"><h3>First git on a Mac?</h3>
+        <p>macOS offers to install developer tools. Click install and wait.</p></div>
+      <div class="card"><h3>On Windows</h3>
+        <p>Install Git for Windows from git-scm.com first. Accept every default.</p></div>
+      <div class="card"><h3>No project yet?</h3>
+        <p>Then mkdir my-project, cd into it, and let Claude Code set up the rest.</p></div>
+    </div>`,
+  notes: [
+    "Use a real public repo so the command actually works in the room. Any public repo clones without a login.",
+    "Point out that clone creates the folder for them, so they should run it from inside Documents/GitHub and not make an empty folder first. Cloning into the wrong place is the most common stumble here, and the fix is pwd.",
+    "Private repos need authentication, which is a separate session. Keep today public."
+  ]
+},
+{
+  html: `<h2>Install Claude Code</h2>
+    <p class="lede">Copy one line. Paste it. Press Return. Which line depends on your computer.</p>
+    <div class="cols two">
+      <div>
+        <h3 style="font-size:12px;letter-spacing:.08em;color:var(--grey);margin:0 0 7px;font-family:var(--mono)">MACOS OR LINUX</h3>
+        <pre class="term"><span class="t">curl -fsSL https://claude.ai/install.sh | bash</span></pre>
+      </div>
+      <div>
+        <h3 style="font-size:12px;letter-spacing:.08em;color:var(--grey);margin:0 0 7px;font-family:var(--mono)">WINDOWS POWERSHELL</h3>
+        <pre class="term"><span class="t">irm https://claude.ai/install.ps1 | iex</span></pre>
+      </div>
+    </div>
+    <div class="cols two">
+      <div>
+        <h3 style="font-size:12px;letter-spacing:.08em;color:var(--grey);margin:0 0 7px;font-family:var(--mono)">THEN CHECK IT LANDED</h3>
+        <pre class="term"><span class="t">claude --version</span>
+<span class="k">2.1.302 (Claude Code)</span></pre>
+      </div>
+      <div class="card"><h3>Nothing appears to happen</h3>
+        <p>No progress bar appears while it downloads. Leave the window alone and wait.</p></div>
+    </div>
+    <div class="cols two">
+      <div class="card fill"><h3>This one needs a paid plan</h3>
+        <p>Claude Code requires Pro, Max, Team, Enterprise or a Console account. The free
+          claude.ai plan does not include it. Check for a student or campus plan before you pay.</p></div>
+      <div class="card"><h3 class="mono">command not found: claude</h3>
+        <p>It installed, but your terminal does not know where to look yet. Slide 17 has the
+          fix. Open a new window and try again first.</p></div>
+    </div>`,
+  notes: [
+    "Say the plan requirement out loud and early. Students on the free plan will hit a wall at login, and finding that out after installing feels like a bait and switch. Check what your campus provides before the session.",
+    "The silence during download trips up almost everyone. Warn them before they run it, not after they have force-quit the window.",
+    "These commands come from the official install docs, which do change. Re-check code.claude.com/docs/en/terminal-guide the week you present this.",
+    "Worth naming: pasting a command that downloads and runs a script is a real trust decision. It is fine here because the address is claude.ai, Anthropic's own domain. Teach them to read the domain in any install line before they run it."
+  ]
+},
+{
+  html: `<h2>Where you start it is what it can see</h2>
+    <pre class="term"><span class="t">laptop ~ % cd Documents/GitHub/rowan-clery</span>
+<span class="t">laptop rowan-clery % claude</span></pre>
+    <div class="cols two">
+      <div class="card"><h3 class="good">Started inside the project</h3>
+        <p>Claude Code reads that project's files, runs its tests, and works on the thing you
+          are actually doing.</p></div>
+      <div class="card"><h3 class="warn">Started in your home folder</h3>
+        <p>It is now pointed at everything you own &mdash; your whole Documents folder, your
+          Desktop, all of it. Slower, and far broader than you meant.</p></div>
+    </div>
+    <div class="card fill"><h3 style="font-size:19px">The habit worth building: cd first, then claude.</h3></div>`,
+  notes: [
+    "If the students remember one thing from the Claude Code half of this deck, make it this. Everything else they can look up.",
+    "The welcome screen prints the working directory. Teach them to read that line before typing their first message, the same way they read the prompt on slide 5.",
+    "Starting in the home folder is not dangerous so much as unfocused &mdash; but scope is also a safety habit. Keeping the tool pointed at one project is how you keep it away from everything else you own."
+  ]
+},
+{
+  html: `<h2>Your first five minutes in a session</h2>
+    <p class="lede">It logs you in through your browser once, then you just type in English.</p>
+    <div class="split">
+      <div style="display:grid;gap:16px">
+        <pre class="term">&gt; what does this project do?
+
+&gt; explain the folder structure
+
+&gt; what files have I changed?
+
+&gt; add a hello world page and show me</pre>
+        <div class="card fill"><h3>Ask it about itself</h3>
+          <p>&ldquo;What can you do?&rdquo; and &ldquo;how do I undo that?&rdquo; are both
+            reasonable first questions. It knows its own documentation.</p></div>
+      </div>
+      <div class="cols">
+        <div class="card"><h3>Return sends</h3><p>Full sentences beat keywords.</p></div>
+        <div class="card"><h3>Esc interrupts</h3><p>Stops it mid-answer.</p></div>
+        <div class="card"><h3>/help lists commands</h3><p>Anything starting with / is a command.</p></div>
+        <div class="card"><h3>exit leaves</h3><p>Or Ctrl + D twice.</p></div>
+      </div>
+    </div>`,
+  notes: [
+    "Start with a question rather than a task. Asking it to explain the project proves it can read the files, and it costs nothing if the answer is wrong.",
+    "The mental shift that takes longest: you are describing an outcome, not issuing a command. Vague in, vague out. 'Fix the bug' is weak; 'the page shows a blank screen after I log in with a bad password &mdash; fix that' is strong.",
+    "You cannot click in the terminal. Arrow keys move, and the mouse does nothing. Warn them before someone starts clicking at a menu that will not respond."
+  ]
+},
+{
+  html: `<h2>It asks before it changes your files</h2>
+    <div class="split">
+      <div style="display:grid;gap:16px">
+        <pre class="term"><span class="d">  Edit file</span>
+<span class="d">  index.html</span>
+<span class="x">  -  &lt;h1&gt;Hello&lt;/h1&gt;</span>
+<span class="k">  +  &lt;h1&gt;Hello, Rowan&lt;/h1&gt;</span>
+  Do you want to make this edit?
+<span class="t">  &#10095; 1. Yes</span>
+<span class="d">    2. No, tell Claude what to do differently</span></pre>
+        <div class="card fill"><h3>Two things to keep out of the terminal</h3>
+          <p>Passwords and API keys. Do not paste them into a session and do not save them
+            into a project you might put on GitHub &mdash; a public repo publishes them to
+            everyone.</p></div>
+      </div>
+      <div class="cols">
+        <div class="card"><h3>Read the red and green</h3>
+          <p>Red is what leaves, green is what arrives. This is the habit that keeps you in charge.</p></div>
+        <div class="card"><h3>Saying no is useful</h3>
+          <p>Choosing no lets you explain what you wanted instead. It is a conversation, not a refusal.</p></div>
+        <div class="card"><h3>Shift + Tab</h3>
+          <p>Cycles how much it asks. Leave it alone until you trust it.</p></div>
+      </div>
+    </div>`,
+  notes: [
+    "The permission prompt is the slide that converts the nervous people in the room. Nothing changes on their disk without them pressing yes.",
+    "Teach the diff format properly: minus and red is the old line, plus and green is the new one. They will read hundreds of these.",
+    "Make the point that 'no' is the more interesting answer, because it opens a conversation about what they actually wanted. Students assume no means the tool gives up.",
+    "The credentials warning is worth 20 seconds. The classic first-week mistake is committing a key to a public repo, and it is tedious to undo."
+  ]
+},
+{
+  html: `<h2>The three errors you will actually hit</h2>
+    <div class="split">
+      <pre class="term"><span class="x">command not found: claude</span></pre>
+      <div>
+        <p class="lede" style="font-size:15px;margin-bottom:10px">It installed, but your
+          terminal does not know where to look. Run this once, then open a new window:</p>
+        <pre class="term" style="font-size:12px"><span class="t">echo 'export PATH="$HOME/.local/bin:$PATH"' &gt;&gt; ~/.zshrc</span></pre>
+      </div>
+    </div>
+    <div class="split">
+      <pre class="term"><span class="x">no such file or directory</span></pre>
+      <p class="lede" style="font-size:15px">You are not where you think you are, or the name
+        is misspelled. Run pwd to see where you are and ls to see what is really there.
+        Then use Tab.</p>
+    </div>
+    <div class="split">
+      <pre class="term"><span class="x">'irm' is not recognized</span></pre>
+      <p class="lede" style="font-size:15px">You are in CMD, not PowerShell. Close it, press
+        Win + X, and choose Windows PowerShell. The line with PS at the front is the right window.</p>
+    </div>
+    <div class="card fill"><h3>Or paste the error straight into Claude Code and ask what it means.</h3></div>`,
+  notes: [
+    "Pre-empting these three saves the whole room. They are the errors that make beginners quit, and each one has a one-line fix.",
+    "The PATH error is the most common and sounds the most alarming. Reassure them: the install worked. The terminal just has not been told where the program went, and a new window after that line fixes it.",
+    "Teach the habit on the last line. An error message pasted into Claude Code usually gets explained and fixed on the spot, and reading error messages instead of fearing them is most of what separates a beginner from an intermediate."
+  ]
+},
+{
+  dark: true,
+  html: `<h2>Everything, in order</h2>
+    <div class="steps">
+      <div><span class="n" style="background:var(--ochre)">1</span>
+        <div><b>Open a terminal</b><code>Cmd + Space, type Terminal</code></div></div>
+      <div><span class="n" style="background:var(--ochre)">2</span>
+        <div><b>Install Claude Code, once</b><code>curl -fsSL https://claude.ai/install.sh | bash</code></div></div>
+      <div><span class="n" style="background:var(--blue)">3</span>
+        <div><b>Make your projects folder, once</b><code>cd Documents &nbsp;then&nbsp; mkdir GitHub</code></div></div>
+      <div><span class="n" style="background:var(--blue)">4</span>
+        <div><b>Get a project into it</b><code>cd ~/Documents/GitHub &nbsp;then&nbsp; git clone &lt;url&gt;</code></div></div>
+      <div><span class="n" style="background:var(--green)">5</span>
+        <div><b>Start Claude Code inside it</b><code>cd &lt;project&gt; &nbsp;then&nbsp; claude</code></div></div>
+    </div>
+    <p class="lede" style="color:var(--mist-pane)">Steps 2 and 3 you do once, ever. After that
+      it is two lines to start work.</p>`,
+  notes: [
+    "Close by collapsing the whole session into five lines, and tell them again to photograph it.",
+    "The honest summary: two of these steps are one-time setup, and daily use is cd then claude. That is the reason this was worth 30 minutes.",
+    "Leave them with one assignment rather than a reading list: clone any public repo tonight, start Claude Code in it, and ask what the project does. Nothing breaks, and the fear is gone after the first time.",
+    "Source for every command here: code.claude.com/docs &mdash; the terminal guide and the quickstart."
+  ]
+}
+];
+
+const deck = document.getElementById("deck");
+SLIDES.forEach((s, i) => {
+  const el = document.createElement("section");
+  el.className = "slide" + (s.dark ? " dark" : "") + (i === 0 ? " on" : "");
+  el.innerHTML = s.html;
+  deck.appendChild(el);
+});
+
+const els = Array.from(document.querySelectorAll(".slide"));
+const notesEl = document.getElementById("notes");
+const numEl = document.getElementById("num");
+const barEl = document.getElementById("bar");
+let at = 0;
+let notesOpen = false;
+
+function paint() {
+  els.forEach((el, i) => el.classList.toggle("on", i === at));
+  numEl.textContent = at + 1;
+  barEl.style.width = ((at + 1) / els.length * 100) + "%";
+  notesEl.innerHTML = '<div class="hd">SPEAKER NOTES &middot; SLIDE ' + (at + 1) + '</div>' +
+    SLIDES[at].notes.map((n) => "<p>" + n + "</p>").join("");
+}
+function go(n) { at = Math.max(0, Math.min(els.length - 1, n)); paint(); }
+
+document.getElementById("prev").onclick = () => go(at - 1);
+document.getElementById("next").onclick = () => go(at + 1);
+document.getElementById("noteBtn").onclick = () => {
+  notesOpen = !notesOpen;
+  notesEl.hidden = !notesOpen;
+};
+addEventListener("keydown", (e) => {
+  if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") { e.preventDefault(); go(at + 1); }
+  else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); go(at - 1); }
+  else if (e.key === "Home") go(0);
+  else if (e.key === "End") go(els.length - 1);
+  else if (e.key === "n" || e.key === "N") { notesOpen = !notesOpen; notesEl.hidden = !notesOpen; }
+});
+
+paint();
+</script>
