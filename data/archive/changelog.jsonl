@@ -2643,3 +2643,6 @@
 {"case_number": "GPD 26-034352", "change_type": "amended", "cosmetic": false, "field": "date_occurred_raw", "incident_uid": "b45c34626f0d7bb4", "new": "9/17/26 23:06", "observed_date": "2026-10-20", "old": "9/18/26 23:06"}
 {"case_number": "GPD 26-034088", "change_type": "added", "date_reported": "10/1/26 16:20", "incident_uid": "58ce596ff70813e1", "nature": "DWI; Hindering apprehension", "observed_date": "2026-10-20"}
 {"case_number": "RUPD 26-034519", "change_type": "added", "date_reported": "10/19/26 15:37", "incident_uid": "33ea2e5778e3c5a3", "nature": "Filing false police report", "observed_date": "2026-10-20"}
+{"case_number": "GPD 26- 032844", "change_type": "added", "date_reported": "10/1/26 15:50", "incident_uid": "78ddddab43ca9906", "nature": "Robbery", "observed_date": "2026-10-20"}
+{"case_number": "GPD 26-036236", "change_type": "added", "date_reported": "10/15/26 11:08", "incident_uid": "686d04cc2da2defd", "nature": "Possession of open container of alcohol", "observed_date": "2026-10-20"}
+{"case_number": "GPD 26-036100", "change_type": "added", "date_reported": "10/15/26 11:08", "incident_uid": "39437b31dcbc540e", "nature": "Littering", "observed_date": "2026-10-20"}

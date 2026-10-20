@@ -10,11 +10,11 @@
     "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: 1 row(s) absent \u2014 advancing confirmation ladder"
   ],
   "counts": {
-    "total_archived": 290,
-    "currently_published": 275,
+    "total_archived": 293,
+    "currently_published": 278,
     "no_longer_published": 15,
     "superseded": 0,
-    "distinct_incidents": 290,
+    "distinct_incidents": 293,
     "withdrawn": 1,
     "source_removed": 14
   }

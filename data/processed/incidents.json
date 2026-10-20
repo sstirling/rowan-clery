@@ -16,7 +16,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 253,
+   "incidents": 256,
    "months_covered": 3,
    "months": [
     "2026-08",
@@ -45,7 +45,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 244,
+   "incidents": 247,
    "months_covered": 3,
    "months": [
     "2026-08",
@@ -62,8 +62,8 @@
   "default": "occurred",
   "window_start": "2026-06",
   "window_start_label": "June 2026",
-  "total": 290,
-  "shown": 278,
+  "total": 293,
+  "shown": 281,
   "excluded_no_date": 5,
   "excluded_before_window": 7,
   "lag_median_days": {
@@ -72,21 +72,21 @@
    "RUPD": 0.0
   }
  },
- "generated_utc": "2026-10-20T15:05:31+00:00",
+ "generated_utc": "2026-10-20T23:56:02+00:00",
  "archive_started": "2026-10-01",
  "source_folder": "https://drive.google.com/drive/folders/1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
  "published_era": {
   "id": "drive-2026",
   "label": "Google Sheets on Drive",
-  "count": 290,
+  "count": 293,
   "since": "June 2026"
  },
  "counts": {
-  "total_archived": 290,
-  "currently_published": 275,
+  "total_archived": 293,
+  "currently_published": 278,
   "no_longer_published": 15,
   "superseded": 0,
-  "distinct_incidents": 290,
+  "distinct_incidents": 293,
   "withdrawn": 1,
   "source_removed": 14
  },
@@ -106,7 +106,7 @@
   "window_days": 7,
   "since": "2026-10-13",
   "until": "2026-10-20",
-  "added": 46,
+  "added": 49,
   "amended": 9,
   "withdrawn": 1,
   "aged_out": 0,
@@ -3328,6 +3328,59 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
+   "last_verified": "2026-10-20",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "39437b31dcbc540e",
+   "case_number": "GPD 26-036100",
+   "agencies": [
+    "GPD"
+   ],
+   "reported": {
+    "value": "2026-10-15T11:08:00",
+    "precision": "minute",
+    "raw": "10/15/26 11:08",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-02T00:37:00",
+    "precision": "minute",
+    "raw": "10/2/26 0:37",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 322.52,
+   "nature_raw": "Littering",
+   "categories": [
+    "Littering"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "GPD issued a summons to a student for littering.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Normal Blvd./ Carpenter St.",
+   "disposition_raw": "Glassboro Police Case; Subject issued summons",
+   "disposition_flags": [
+    "glassboro_pd",
+    "summons_issued"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-20",
    "last_verified": "2026-10-20",
    "missing_since": "",
    "flags": []
@@ -6590,6 +6643,59 @@
    "flags": []
   },
   {
+   "uid": "686d04cc2da2defd",
+   "case_number": "GPD 26-036236",
+   "agencies": [
+    "GPD"
+   ],
+   "reported": {
+    "value": "2026-10-15T11:08:00",
+    "precision": "minute",
+    "raw": "10/15/26 11:08",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-02T23:53:00",
+    "precision": "minute",
+    "raw": "10/2/26 23:53",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 299.25,
+   "nature_raw": "Possession of open container of alcohol",
+   "categories": [
+    "Alcohol violation"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "GPD issued a summons to a student for possession of an open alcohol container.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "New St.",
+   "disposition_raw": "Glassboro Police Case; Subject issued summons",
+   "disposition_flags": [
+    "glassboro_pd",
+    "summons_issued"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-20",
+   "last_verified": "2026-10-20",
+   "missing_since": "",
+   "flags": []
+  },
+  {
    "uid": "693f6b8a94bd420a",
    "case_number": "GPD 26-034346",
    "agencies": [
@@ -7333,6 +7439,59 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-08",
+   "last_verified": "2026-10-20",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "78ddddab43ca9906",
+   "case_number": "GPD 26- 032844",
+   "agencies": [
+    "GPD"
+   ],
+   "reported": {
+    "value": "2026-10-01T15:50:00",
+    "precision": "minute",
+    "raw": "10/1/26 15:50",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-09-06T01:22:00",
+    "precision": "minute",
+    "raw": "9/6/26 1:22",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 614.47,
+   "nature_raw": "Robbery",
+   "categories": [
+    "Robbery"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "GPD arrested a non-student for causing injury while stealing a necklace.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "N. Main St./ College Ave.",
+   "disposition_raw": "Glassboro Police Case; Subject arrested",
+   "disposition_flags": [
+    "glassboro_pd",
+    "arrested"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "September 2026",
+   "occurred_month_key": "2026-09",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-20",
    "last_verified": "2026-10-20",
    "missing_since": "",
    "flags": []
@@ -18383,6 +18542,30 @@
    "incident_uid": "33ea2e5778e3c5a3",
    "nature": "Filing false police report",
    "observed_date": "2026-10-20"
+  },
+  {
+   "case_number": "GPD 26- 032844",
+   "change_type": "added",
+   "date_reported": "10/1/26 15:50",
+   "incident_uid": "78ddddab43ca9906",
+   "nature": "Robbery",
+   "observed_date": "2026-10-20"
+  },
+  {
+   "case_number": "GPD 26-036236",
+   "change_type": "added",
+   "date_reported": "10/15/26 11:08",
+   "incident_uid": "686d04cc2da2defd",
+   "nature": "Possession of open container of alcohol",
+   "observed_date": "2026-10-20"
+  },
+  {
+   "case_number": "GPD 26-036100",
+   "change_type": "added",
+   "date_reported": "10/15/26 11:08",
+   "incident_uid": "39437b31dcbc540e",
+   "nature": "Littering",
+   "observed_date": "2026-10-20"
   }
  ],
  "quality": {
@@ -18574,7 +18757,7 @@
   "categories": [
    {
     "value": "Alcohol violation",
-    "count": 86
+    "count": 87
    },
    {
     "value": "Theft",
@@ -18613,15 +18796,15 @@
     "count": 15
    },
    {
+    "value": "Littering",
+    "count": 14
+   },
+   {
     "value": "Sex offense",
     "count": 13
    },
    {
     "value": "Motor vehicle theft",
-    "count": 13
-   },
-   {
-    "value": "Littering",
     "count": 13
    },
    {
@@ -18693,6 +18876,10 @@
     "count": 1
    },
    {
+    "value": "Robbery",
+    "count": 1
+   },
+   {
     "value": "Fugitive from justice",
     "count": 1
    }
@@ -18700,7 +18887,7 @@
   "school_years": [
    {
     "value": "2026-27",
-    "count": 253
+    "count": 256
    },
    {
     "value": "2025-26",
@@ -18710,7 +18897,7 @@
   "campuses": [
    {
     "value": "Glassboro",
-    "count": 282
+    "count": 285
    },
    {
     "value": "Rowan-Virtua SOM (Stratford)",
@@ -18728,7 +18915,7 @@
    },
    {
     "value": "October 2026",
-    "count": 101
+    "count": 104
    },
    {
     "value": "August 2026",
@@ -18785,6 +18972,10 @@
     "count": 5
    },
    {
+    "value": "Normal Blvd./ Carpenter St.",
+    "count": 5
+   },
+   {
     "value": "Rowan Blvd. Apts. student housing",
     "count": 4
    },
@@ -18798,10 +18989,6 @@
    },
    {
     "value": "Outside of James Hall",
-    "count": 4
-   },
-   {
-    "value": "Normal Blvd./ Carpenter St.",
     "count": 4
    },
    {
@@ -19097,11 +19284,19 @@
     "count": 1
    },
    {
+    "value": "New St.",
+    "count": 1
+   },
+   {
     "value": "Campus lot",
     "count": 1
    },
    {
     "value": "Lot C",
+    "count": 1
+   },
+   {
+    "value": "N. Main St./ College Ave.",
     "count": 1
    },
    {
@@ -19352,15 +19547,15 @@
    },
    {
     "value": "summons_issued",
-    "count": 127
+    "count": 129
    },
    {
     "value": "glassboro_pd",
-    "count": 92
+    "count": 95
    },
    {
     "value": "arrested",
-    "count": 59
+    "count": 60
    },
    {
     "value": "open_active",
@@ -19458,7 +19653,7 @@
    },
    {
     "value": "GPD",
-    "count": 96
+    "count": 99
    },
    {
     "value": "CSA",
@@ -19472,7 +19667,7 @@
   "statuses": [
    {
     "value": "active",
-    "count": 274
+    "count": 277
    },
    {
     "value": "source_removed",
@@ -19581,7 +19776,7 @@
   },
   {
    "date": "2026-10-20",
-   "summary": "+2 added, 1 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
+   "summary": "+3 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
    "alarms": 1
   }
  ]
