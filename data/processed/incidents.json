@@ -16,7 +16,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 251,
+   "incidents": 253,
    "months_covered": 3,
    "months": [
     "2026-08",
@@ -45,7 +45,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 242,
+   "incidents": 244,
    "months_covered": 3,
    "months": [
     "2026-08",
@@ -62,31 +62,31 @@
   "default": "occurred",
   "window_start": "2026-06",
   "window_start_label": "June 2026",
-  "total": 288,
-  "shown": 276,
+  "total": 290,
+  "shown": 278,
   "excluded_no_date": 5,
   "excluded_before_window": 7,
   "lag_median_days": {
    "CSA": 0.5,
-   "GPD": 13.5,
+   "GPD": 13.6,
    "RUPD": 0.0
   }
  },
- "generated_utc": "2026-10-20T02:09:03+00:00",
+ "generated_utc": "2026-10-20T15:05:31+00:00",
  "archive_started": "2026-10-01",
  "source_folder": "https://drive.google.com/drive/folders/1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
  "published_era": {
   "id": "drive-2026",
   "label": "Google Sheets on Drive",
-  "count": 288,
+  "count": 290,
   "since": "June 2026"
  },
  "counts": {
-  "total_archived": 288,
-  "currently_published": 273,
+  "total_archived": 290,
+  "currently_published": 275,
   "no_longer_published": 15,
   "superseded": 0,
-  "distinct_incidents": 288,
+  "distinct_incidents": 290,
   "withdrawn": 1,
   "source_removed": 14
  },
@@ -106,8 +106,8 @@
   "window_days": 7,
   "since": "2026-10-13",
   "until": "2026-10-20",
-  "added": 44,
-  "amended": 8,
+  "added": 46,
+  "amended": 9,
   "withdrawn": 1,
   "aged_out": 0,
   "runs_in_window": 8,
@@ -2795,6 +2795,59 @@
    "flags": []
   },
   {
+   "uid": "33ea2e5778e3c5a3",
+   "case_number": "RUPD 26-034519",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-19T15:37:00",
+    "precision": "minute",
+    "raw": "10/19/26 15:37",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-07T14:16:00",
+    "precision": "minute",
+    "raw": "10/7/26 14:16",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 289.35,
+   "nature_raw": "Filing false police report",
+   "categories": [
+    "Filing a false police report"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student was arrested by RUPD for filing a false MV damage report.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Lot O",
+   "disposition_raw": "Closed; Subject arrested",
+   "disposition_flags": [
+    "closed",
+    "arrested"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-20",
+   "last_verified": "2026-10-20",
+   "missing_since": "",
+   "flags": []
+  },
+  {
    "uid": "342384b782896cba",
    "case_number": "GPD 26-035198",
    "agencies": [
@@ -5415,6 +5468,60 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
+   "last_verified": "2026-10-20",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "58ce596ff70813e1",
+   "case_number": "GPD 26-034088",
+   "agencies": [
+    "GPD"
+   ],
+   "reported": {
+    "value": "2026-10-01T16:20:00",
+    "precision": "minute",
+    "raw": "10/1/26 16:20",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-09-15T23:40:00",
+    "precision": "minute",
+    "raw": "9/15/26 23:40",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 376.67,
+   "nature_raw": "DWI; Hindering apprehension",
+   "categories": [
+    "DWI",
+    "Obstruction"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "GPD arrested a non-student for DWI and Hindering apprehension.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Rowan Blvd.",
+   "disposition_raw": "Glassboro Police Case; Subject arrested",
+   "disposition_flags": [
+    "glassboro_pd",
+    "arrested"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "September 2026",
+   "occurred_month_key": "2026-09",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-20",
    "last_verified": "2026-10-20",
    "missing_since": "",
    "flags": []
@@ -10883,13 +10990,13 @@
     "range_end": null
    },
    "occurred": {
-    "value": "2026-09-18T23:06:00",
+    "value": "2026-09-17T23:06:00",
     "precision": "minute",
-    "raw": "9/18/26 23:06",
+    "raw": "9/17/26 23:06",
     "ongoing": false,
     "range_end": null
    },
-   "reporting_lag_hours": 305.23,
+   "reporting_lag_hours": 329.23,
    "nature_raw": "Littering",
    "categories": [
     "Littering"
@@ -10916,7 +11023,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-10-09",
    "last_verified": "2026-10-20",
    "missing_since": "",
@@ -18250,6 +18357,32 @@
    "incident_uid": "8826438c64793c22",
    "nature": "Obstruction; Resisting arrest",
    "observed_date": "2026-10-20"
+  },
+  {
+   "case_number": "GPD 26-034352",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "date_occurred_raw",
+   "incident_uid": "b45c34626f0d7bb4",
+   "new": "9/17/26 23:06",
+   "observed_date": "2026-10-20",
+   "old": "9/18/26 23:06"
+  },
+  {
+   "case_number": "GPD 26-034088",
+   "change_type": "added",
+   "date_reported": "10/1/26 16:20",
+   "incident_uid": "58ce596ff70813e1",
+   "nature": "DWI; Hindering apprehension",
+   "observed_date": "2026-10-20"
+  },
+  {
+   "case_number": "RUPD 26-034519",
+   "change_type": "added",
+   "date_reported": "10/19/26 15:37",
+   "incident_uid": "33ea2e5778e3c5a3",
+   "nature": "Filing false police report",
+   "observed_date": "2026-10-20"
   }
  ],
  "quality": {
@@ -18453,7 +18586,7 @@
    },
    {
     "value": "DWI",
-    "count": 21
+    "count": 22
    },
    {
     "value": "Criminal mischief",
@@ -18472,11 +18605,11 @@
     "count": 16
    },
    {
-    "value": "Harassment",
-    "count": 15
+    "value": "Obstruction",
+    "count": 16
    },
    {
-    "value": "Obstruction",
+    "value": "Harassment",
     "count": 15
    },
    {
@@ -18548,6 +18681,10 @@
     "count": 1
    },
    {
+    "value": "Filing a false police report",
+    "count": 1
+   },
+   {
     "value": "Offensive language",
     "count": 1
    },
@@ -18563,7 +18700,7 @@
   "school_years": [
    {
     "value": "2026-27",
-    "count": 251
+    "count": 253
    },
    {
     "value": "2025-26",
@@ -18573,7 +18710,7 @@
   "campuses": [
    {
     "value": "Glassboro",
-    "count": 280
+    "count": 282
    },
    {
     "value": "Rowan-Virtua SOM (Stratford)",
@@ -18591,7 +18728,7 @@
    },
    {
     "value": "October 2026",
-    "count": 99
+    "count": 101
    },
    {
     "value": "August 2026",
@@ -18624,16 +18761,16 @@
     "count": 10
    },
    {
+    "value": "Rowan Blvd.",
+    "count": 9
+   },
+   {
     "value": "N. Main St./ Carpenter St.",
     "count": 9
    },
    {
     "value": "Outside of Holly Pointe Commons",
     "count": 9
-   },
-   {
-    "value": "Rowan Blvd.",
-    "count": 8
    },
    {
     "value": "Rt. 322",
@@ -18713,6 +18850,10 @@
    },
    {
     "value": "Rowan Blvd./Mullica Hill Rd.",
+    "count": 2
+   },
+   {
+    "value": "Lot O",
     "count": 2
    },
    {
@@ -19156,10 +19297,6 @@
     "count": 1
    },
    {
-    "value": "Lot O",
-    "count": 1
-   },
-   {
     "value": "Delsea Dr./ West St.",
     "count": 1
    },
@@ -19211,7 +19348,7 @@
   "disposition_flags": [
    {
     "value": "closed",
-    "count": 142
+    "count": 143
    },
    {
     "value": "summons_issued",
@@ -19219,11 +19356,11 @@
    },
    {
     "value": "glassboro_pd",
-    "count": 91
+    "count": 92
    },
    {
     "value": "arrested",
-    "count": 57
+    "count": 59
    },
    {
     "value": "open_active",
@@ -19317,11 +19454,11 @@
   "agencies": [
    {
     "value": "RUPD",
-    "count": 178
+    "count": 179
    },
    {
     "value": "GPD",
-    "count": 95
+    "count": 96
    },
    {
     "value": "CSA",
@@ -19335,7 +19472,7 @@
   "statuses": [
    {
     "value": "active",
-    "count": 272
+    "count": 274
    },
    {
     "value": "source_removed",
@@ -19444,7 +19581,7 @@
   },
   {
    "date": "2026-10-20",
-   "summary": "+11 added, 2 amended, 1 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
+   "summary": "+2 added, 1 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
    "alarms": 1
   }
  ]
