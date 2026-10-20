@@ -174,3 +174,13 @@ subject issued summons and trespass warning,outcome,summons_issued|trespass_noti
 # (trespass_notice). Folding it into trespass_notice would have erased it, because
 # flags are a set and that row already carries trespass_notice from its own token.
 subject removed from building,outcome,removed_from_building,
+#
+# Added 2026-10-20. One token, an old outcome worded around the offense.
+#
+# RUPD 26-032445/ CSA 87613 -- a Sexual Assault-Fondling row amended after the fact:
+# the source appended "Defiant trespassing" to Nature and this to Disposition. Carries
+# the same two flags as "subject issued summons and trespass notice" above. The token
+# names the offense the summons was for, which is a fact about the charge and not about
+# the outcome, so it adds no flag of its own. "Defiant trespassing" is New Jersey's
+# statutory term (N.J.S.A. 2C:18-3b), not a separate kind of trespass notice.
+summons for defiant trespassing and trespass warning issued,outcome,summons_issued|trespass_notice,

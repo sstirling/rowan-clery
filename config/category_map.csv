@@ -350,3 +350,25 @@ Possession of open container CDS (prohibited drug) in vehicle,offense,Drug offen
 # not from the facts: the narrative says only that an intoxicated unwanted guest was in
 # a student's apartment, so the relationship that makes it domestic is not stated.
 DV,offense,Domestic violence,Abbreviation for domestic violence
+#
+# Added 2026-10-20 from October's data. Three new Nature wordings, all Glassboro
+# arrests, none of them a new offense.
+#
+# GPD 26-036637 -- "Receiving stolen property". Receiving rather than possessing.
+# "Possession of Stolen Property" above is already Theft and "Receiving stolen motor
+# vehicle" is already Motor vehicle theft, so the receiving/possessing distinction has
+# never changed the bucket; only the vehicle/not-vehicle one does. Nothing here touches
+# the open question about the "of" in the two Possession*Stolen Motor Vehicle rows.
+Receiving stolen property,offense,Theft,
+# GPD 26-036348, logged as "Possessing false ID; Obstruction; Possession of open
+# container of alcohol". Possessing rather than providing. Read as the same offense:
+# "Displaying false vehicle documentation (license plate)" above is already mapped to
+# Providing false identification, so the category covers the document, not the act of
+# handing it over. The narrative says only that GPD arrested a non-student, so whether
+# the ID was shown to an officer is not stated either way.
+Possessing false ID,offense,Providing false identification,
+# GPD 26-036037 -- "Possession of Illegal drugs/paraphernalia". A possession-side
+# spelling of "Illegal drugs/paraphernalia found" above, which is already a Drug
+# offense. The slash is inside the token, not a separator: Nature splits on semicolons
+# only, so this arrives whole.
+Possession of Illegal drugs/paraphernalia,offense,Drug offense,

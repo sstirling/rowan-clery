@@ -496,3 +496,45 @@ def test_a_comma_separated_nature_sentence_is_one_token_not_three():
         "DWI, possession of illegal drug"
     ]
     assert normalize.TOKEN_SPLIT.split("Trespassing; DV") == ["Trespassing", "DV"]
+
+
+def test_the_four_tokens_that_broke_the_2026_10_20_run(category_map, disposition_map):
+    """Regression for the 2026-10-20 CI crash -- again four tokens, not the one reported.
+
+    The traceback named only the Disposition token. Scanning the whole live feed found
+    three more, all Nature, all Glassboro arrests from October.
+    """
+    # 1. RUPD 26-032445. A Sexual Assault-Fondling row amended after the fact: the
+    #    source appended a second offense to Nature and this outcome to Disposition.
+    #    Same two flags as "subject issued summons and trespass notice" -- the source
+    #    names the offense inside an outcome token, which changes nothing about the
+    #    outcome itself.
+    summons = normalize.disposition_flags(
+        "Closed; Reporting party declined police involvement; Addressed by University "
+        "Department; Disposition updated; Summons for Defiant trespassing and trespass "
+        "warning issued.",
+        disposition_map,
+        strict=True,
+    )
+    assert {"summons_issued", "trespass_notice"} <= set(summons["flags"])
+    assert summons["disposition_amended"] is True
+
+    # 2. GPD 26-036637. Receiving rather than possessing, which the map already covers
+    #    for motor vehicles ("Receiving stolen motor vehicle") but not for property.
+    receiving = normalize.categorize("Receiving stolen property", category_map)
+    assert receiving["categories"] == ["Theft"]
+
+    # 3. GPD 26-036348. Possessing rather than providing a false ID.
+    false_id = normalize.categorize(
+        "Possessing false ID; Obstruction; Possession of open container of alcohol",
+        category_map,
+    )
+    assert set(false_id["categories"]) == {
+        "Providing false identification",
+        "Obstruction",
+        "Alcohol violation",
+    }
+
+    # 4. GPD 26-036037. A slash variant of "Illegal drugs/paraphernalia found".
+    drugs = normalize.categorize("Possession of Illegal drugs/paraphernalia", category_map)
+    assert drugs["categories"] == ["Drug offense"]
