@@ -538,3 +538,29 @@ def test_the_four_tokens_that_broke_the_2026_10_20_run(category_map, disposition
     # 4. GPD 26-036037. A slash variant of "Illegal drugs/paraphernalia found".
     drugs = normalize.categorize("Possession of Illegal drugs/paraphernalia", category_map)
     assert drugs["categories"] == ["Drug offense"]
+
+
+def test_the_two_tokens_that_broke_the_second_2026_10_20_run(category_map):
+    """Regression for the second CI crash of 2026-10-20, two rows after the first fix.
+
+    Both Nature, no Disposition. One is a synonym of a mapped offense; the other is the
+    first offense in this archive for lying to the police, which is a different statute
+    from the false-public-alarm rows and gets its own category.
+    """
+    # 1. GPD 26-034088, "DWI; Hindering apprehension". New Jersey's statute is
+    #    "hindering apprehension or prosecution"; the map already sends "Hindering
+    #    Arrest" and "Attempting to elude police" to Obstruction.
+    hindering = normalize.categorize("DWI; Hindering apprehension", category_map)
+    assert set(hindering["categories"]) == {"DWI", "Obstruction"}
+
+    # 2. RUPD 26-034519, a student arrested for filing a false vehicle-damage report.
+    #    Deliberately NOT folded into Creating false public alarm: that category holds
+    #    false alarms and false 911 calls, and merging a false insurance-style report
+    #    into it would redefine the category mid-series.
+    false_report = normalize.categorize("Filing false police report", category_map)
+    assert false_report["categories"] == ["Filing a false police report"]
+
+    # The distinction is the point, so assert the two stay apart.
+    assert normalize.categorize("False 911 call", category_map)["categories"] == [
+        "Creating false public alarm"
+    ]

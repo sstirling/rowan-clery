@@ -372,3 +372,21 @@ Possessing false ID,offense,Providing false identification,
 # offense. The slash is inside the token, not a separator: Nature splits on semicolons
 # only, so this arrives whole.
 Possession of Illegal drugs/paraphernalia,offense,Drug offense,
+#
+# Added 2026-10-20, second batch -- two rows arrived after the morning's fix and broke
+# the next run. Both Nature, both October.
+#
+# GPD 26-034088, logged as "DWI; Hindering apprehension". New Jersey's statute is
+# "hindering apprehension or prosecution" (N.J.S.A. 2C:29-3); "Hindering Arrest" and
+# "Attempting to elude police" above are both already Obstruction, so this is the third
+# wording of one offense rather than a new one.
+Hindering apprehension,offense,Obstruction,
+# RUPD 26-034519 -- "Filing false police report". Narrative: a student arrested for
+# filing a false motor-vehicle damage report. A NEW category, not a spelling of
+# "Creating false public alarm" above. Those rows are false alarms and false 911 calls,
+# N.J.S.A. 2C:33-3, an offense against public order; lying to police in a report is
+# N.J.S.A. 2C:28-4, an offense against the administration of law. Folding this in would
+# redefine Creating false public alarm mid-series and break month-over-month comparison
+# for a category that already has four spellings feeding it. Not Obstruction either:
+# that bucket holds physical interference with police, not a false statement.
+Filing false police report,offense,Filing a false police report,First false-report-to-police offense in the archive
