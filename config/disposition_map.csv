@@ -184,3 +184,39 @@ subject removed from building,outcome,removed_from_building,
 # the outcome, so it adds no flag of its own. "Defiant trespassing" is New Jersey's
 # statutory term (N.J.S.A. 2C:18-3b), not a separate kind of trespass notice.
 summons for defiant trespassing and trespass warning issued,outcome,summons_issued|trespass_notice,
+#
+# Added 2026-10-21. Five tokens, from two September rows amended after the month closed
+# and one new October row. The traceback named only the first two, which shared a row.
+#
+# RUPD 26-028143/ CSA 85932 (Theft, a stolen DoorDash delivery) went from a bare
+# "Open/Active" to "Open/Active; Disposition updated; Close; Non-student arrested".
+# "Close" is Rowan's typo for "Closed", kept here as the typo: this file records what
+# the source published, and correcting a spelling in the fetcher would hide the defect.
+close,outcome,closed,"Rowan's typo for ""closed"" -- recorded, not corrected"
+# Same row. Affiliation is NOT made a flag. The pre-2026 log published
+# student/non-student as its own field and legacy.py extracts it into `student_flag`
+# specifically to keep it out of this vocabulary; a flag here would record affiliation
+# for the one row that happens to name it in Disposition and leave it blank for the
+# hundreds that name it in the narrative. Follows "two individuals issued summons
+# (non-students)", which likewise maps to the outcome alone.
+non-student arrested,outcome,arrested,Affiliation belongs in student_flag rather than a flag
+#
+# RUPD 26-031375 (Motor Vehicle Theft, an e-scooter) also went from a bare
+# "Open/Active". The FIFTH punctuation of the update marker, after "Disposition
+# updated", "Disposition updated- Closed", "Updated- Closed" and "Disposition updated:
+# Closed" -- this time with the word "Disposition" dropped as well. audit_marker, not
+# outcome: as an outcome it would stop superseding and the row would report the case
+# open and closed at once.
+updated,audit_marker,,Variant of "disposition updated" with the noun dropped
+# Same row, and a different kind of defect: Rowan left the semicolon out, so "Closed"
+# and "Two non-student juveniles charged" arrive fused into one token. Mapped to every
+# outcome it names, following "closed - juvenile subject issued station house adjustment
+# and trespass notice" (2026-10-02). `juvenile_involved` comes from the token's own word
+# "juveniles". Not fixable in the tokenizer: a split-on-capital rule would shear
+# "Glassboro Police Case" and a dozen others into fragments that match nothing.
+closed two non-student juveniles charged,outcome,closed|charged|juvenile_involved,Missing semicolon in the source
+#
+# RUPD 26-034692 (a new October Simple Assault, two students in a fight). Plural of
+# "reporting party provided citizen's complaint info", mapped to the same flag: a flag
+# per spelling would split one outcome across two series and undercount both.
+reporting parties provided citizen's complaint info,outcome,rp_referred_to_complaint,

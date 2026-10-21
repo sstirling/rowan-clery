@@ -564,3 +564,97 @@ def test_the_two_tokens_that_broke_the_second_2026_10_20_run(category_map):
     assert normalize.categorize("False 911 call", category_map)["categories"] == [
         "Creating false public alarm"
     ]
+
+
+def test_the_five_tokens_that_broke_the_2026_10_21_run(category_map, disposition_map):
+    """Regression for the 2026-10-21 CI crash -- five tokens across three rows.
+
+    The traceback named two ("close", "non-student arrested") because both sat in the
+    first row the build reached. Scanning the whole live feed against both maps found
+    three more behind them, in a second amended September row and one new October row.
+
+    Two of the five come from Rowan dropping a semicolon, which is a different kind of
+    source defect from a new wording: the separator itself goes missing, so two outcomes
+    arrive fused into one token. Neither is fixable in the tokenizer -- see
+    test_a_missing_semicolon_cannot_be_recovered_by_the_tokenizer below.
+    """
+    # 1-2. RUPD 26-028143/ CSA 85932, a September Theft (stolen DoorDash delivery)
+    #      amended from a bare "Open/Active". "Close" is Rowan's typo for "Closed";
+    #      it is mapped as the typo rather than corrected upstream, because the map is
+    #      the record of what the source actually published.
+    #
+    #      "Non-student arrested" carries `arrested` and nothing more. The affiliation
+    #      is deliberately NOT a disposition flag: the pre-2026 log published
+    #      student/non-student as its own field, which legacy.py still extracts into
+    #      `student_flag` precisely so it cannot pollute this vocabulary. Inventing a
+    #      flag here would record affiliation for the one row whose Disposition cell
+    #      happens to mention it and leave it blank for the hundreds where it sits in
+    #      the narrative instead.
+    doordash = normalize.disposition_flags(
+        "Open/Active; Disposition updated; Close; Non-student arrested",
+        disposition_map,
+        strict=True,
+    )
+    assert set(doordash["flags"]) == {"closed", "arrested"}
+    assert doordash["disposition_amended"] is True
+    assert "open_active" not in doordash["flags"]  # superseded, not held alongside
+    # The typo must resolve exactly as the correct spelling does.
+    assert normalize.disposition_flags("Close", disposition_map)["flags"] == ["closed"]
+
+    # 3-4. RUPD 26-031375, a September Motor Vehicle Theft (e-scooter) also amended
+    #      from a bare "Open/Active".
+    #
+    #      "Updated" is the FIFTH punctuation of the update marker, after "Disposition
+    #      updated", "Disposition updated- Closed", "Updated- Closed" and "Disposition
+    #      updated: Closed". It must be an audit_marker, not an outcome: as an outcome
+    #      it would stop superseding and the row would report the case open and closed
+    #      at once.
+    #
+    #      "Closed Two non-student juveniles charged" is a missing semicolon, so one
+    #      token carries three outcomes. It follows the 2026-10-02 precedent
+    #      ("Closed - juvenile subject issued station house adjustment and trespass
+    #      notice"), which maps a fused token to every flag it names, `closed`
+    #      included. `juvenile_involved` comes from the token's own word "juveniles",
+    #      not from the narrative.
+    scooter = normalize.disposition_flags(
+        "Open/Active; Updated; Closed Two non-student juveniles charged",
+        disposition_map,
+        strict=True,
+    )
+    assert set(scooter["flags"]) == {"closed", "charged", "juvenile_involved"}
+    assert scooter["disposition_amended"] is True
+    assert "open_active" not in scooter["flags"]
+    # The bare marker contributes no flag of its own, or it becomes a phantom outcome.
+    assert normalize.disposition_flags("Updated", disposition_map)["flags"] == []
+
+    # 5. RUPD 26-034692, a new October Simple Assault. Plural of a token already in the
+    #    map -- two students in a fight were both pointed at the citizen's-complaint
+    #    process. Mapped to the existing flag, because a flag per spelling would split
+    #    one real outcome across two series and undercount both.
+    complaint = normalize.disposition_flags(
+        "Closed; Reporting parties provided citizen's complaint info",
+        disposition_map,
+        strict=True,
+    )
+    assert set(complaint["flags"]) == {"closed", "rp_referred_to_complaint"}
+    assert complaint["flags"] == normalize.disposition_flags(
+        "Closed; Reporting party provided citizen's complaint info", disposition_map
+    )["flags"]
+
+
+def test_a_missing_semicolon_cannot_be_recovered_by_the_tokenizer(disposition_map):
+    """Why the two fused 2026-10-21 tokens get map rows instead of a splitting rule.
+
+    "Closed Two non-student juveniles charged" is two outcomes with the separator left
+    out. Splitting on a capital letter mid-token would be the obvious rule and it is
+    wrong: this vocabulary is full of tokens that carry an internal capital, and the
+    rule would shear them into fragments that match nothing.
+    """
+    for token in (
+        "Glassboro Police Case",
+        "Subject issued summons and trespass notice",
+        "Addressed by University Department",
+        "Reporting party provided citizen's complaint info",
+    ):
+        assert normalize.TOKEN_SPLIT.split(token) == [token]
+        assert normalize.fold_token(token) in disposition_map
