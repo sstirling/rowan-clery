@@ -2657,3 +2657,11 @@
 {"case_number": "RUPD 26-034642", "change_type": "added", "date_reported": "10/20/26 13:42", "incident_uid": "65f8b4e4cf7d77ec", "nature": "Trespassing", "observed_date": "2026-10-21"}
 {"case_number": "RUPD 26-034664", "change_type": "added", "date_reported": "10/20/26 18:44", "incident_uid": "b9306c5b26edf98e", "nature": "Theft", "observed_date": "2026-10-21"}
 {"case_number": "RUPD 26-034692", "change_type": "added", "date_reported": "10/20/26 22:41", "incident_uid": "114134d3cedce4eb", "nature": "Simple Assault", "observed_date": "2026-10-21"}
+{"case_number": "RUPD 26-032705", "change_type": "missing", "confirmations": 1, "incident_uid": "fe51f4cb7e64d8a7", "missing_since": "2026-10-22", "observed_date": "2026-10-22"}
+{"case_number": "RUPD 26-032705/ CSA 87668", "change_type": "added", "date_reported": "10/5/26 17:22", "incident_uid": "3ae70cbf06bb2f25", "nature": "Theft", "observed_date": "2026-10-22"}
+{"case_number": "CSA 88259", "change_type": "added", "date_reported": "10/20/26 9:19", "incident_uid": "ad2bb7ed593687dd", "nature": "Criminal mischief", "observed_date": "2026-10-22"}
+{"case_number": "RUPD 26-034742", "change_type": "added", "date_reported": "10/21/26 9:12", "incident_uid": "425d5e1de288885e", "nature": "Theft", "observed_date": "2026-10-22"}
+{"case_number": "RUPD 26-034756", "change_type": "added", "date_reported": "10/21/26 11:25", "incident_uid": "c295a215fb72c0cc", "nature": "Motor Vehicle Theft (Electric Scooter)", "observed_date": "2026-10-22"}
+{"case_number": "RUPD 26-034776", "change_type": "added", "date_reported": "10/21/26 16:26", "incident_uid": "fca64dba44e7e3a6", "nature": "Theft", "observed_date": "2026-10-22"}
+{"case_number": "RUPD 26-034777", "change_type": "added", "date_reported": "10/21/26 16:28", "incident_uid": "4a546d34cfc54431", "nature": "Theft", "observed_date": "2026-10-22"}
+{"case_number": "RUPD 26-034793", "change_type": "added", "date_reported": "10/21/26 19:44", "incident_uid": "5d37cf350969f778", "nature": "Theft", "observed_date": "2026-10-22"}

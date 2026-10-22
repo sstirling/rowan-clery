@@ -6,14 +6,15 @@
     "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 21 runs \u2014 treating the source file as removed. Its rows are preserved in full."
   ],
   "warnings": [
-    "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']"
+    "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']",
+    "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: 1 row(s) absent \u2014 advancing confirmation ladder"
   ],
   "counts": {
-    "total_archived": 296,
-    "currently_published": 280,
+    "total_archived": 303,
+    "currently_published": 287,
     "no_longer_published": 16,
     "superseded": 0,
-    "distinct_incidents": 296,
+    "distinct_incidents": 303,
     "withdrawn": 2,
     "source_removed": 14
   }

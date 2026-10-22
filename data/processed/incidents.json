@@ -16,7 +16,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 259,
+   "incidents": 266,
    "months_covered": 3,
    "months": [
     "2026-08",
@@ -45,7 +45,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 250,
+   "incidents": 257,
    "months_covered": 3,
    "months": [
     "2026-08",
@@ -62,31 +62,31 @@
   "default": "occurred",
   "window_start": "2026-06",
   "window_start_label": "June 2026",
-  "total": 296,
-  "shown": 284,
+  "total": 303,
+  "shown": 291,
   "excluded_no_date": 5,
   "excluded_before_window": 7,
   "lag_median_days": {
-   "CSA": 0.5,
+   "CSA": 0.4,
    "GPD": 13.6,
    "RUPD": 0.0
   }
  },
- "generated_utc": "2026-10-22T00:03:00+00:00",
+ "generated_utc": "2026-10-22T14:34:09+00:00",
  "archive_started": "2026-10-01",
  "source_folder": "https://drive.google.com/drive/folders/1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
  "published_era": {
   "id": "drive-2026",
   "label": "Google Sheets on Drive",
-  "count": 296,
+  "count": 303,
   "since": "June 2026"
  },
  "counts": {
-  "total_archived": 296,
-  "currently_published": 280,
+  "total_archived": 303,
+  "currently_published": 287,
   "no_longer_published": 16,
   "superseded": 0,
-  "distinct_incidents": 296,
+  "distinct_incidents": 303,
   "withdrawn": 2,
   "source_removed": 14
  },
@@ -98,14 +98,15 @@
    "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 21 runs — treating the source file as removed. Its rows are preserved in full."
   ],
   "warnings": [
-   "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']"
+   "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']",
+   "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: 1 row(s) absent — advancing confirmation ladder"
   ]
  },
  "activity": {
   "window_days": 7,
   "since": "2026-10-15",
   "until": "2026-10-22",
-  "added": 34,
+  "added": 41,
   "amended": 10,
   "withdrawn": 2,
   "aged_out": 0,
@@ -3494,6 +3495,59 @@
    "flags": []
   },
   {
+   "uid": "3ae70cbf06bb2f25",
+   "case_number": "RUPD 26-032705/ CSA 87668",
+   "agencies": [
+    "RUPD",
+    "CSA"
+   ],
+   "reported": {
+    "value": "2026-10-05T17:22:00",
+    "precision": "minute",
+    "raw": "10/5/26 17:22",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-05T17:00:00",
+    "precision": "minute",
+    "raw": "10/5/26 17:00",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 0.37,
+   "nature_raw": "Theft",
+   "categories": [
+    "Theft"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported that their gaming console was stolen from room.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Mimosa Hall",
+   "disposition_raw": "Open/Active",
+   "disposition_flags": [
+    "open_active"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-22",
+   "last_verified": "2026-10-22",
+   "missing_since": "",
+   "flags": []
+  },
+  {
    "uid": "3bde0f42304d215d",
    "case_number": "RUPD 26-028143/ CSA 85932",
    "agencies": [
@@ -4132,6 +4186,58 @@
    "flags": []
   },
   {
+   "uid": "425d5e1de288885e",
+   "case_number": "RUPD 26-034742",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-21T09:12:00",
+    "precision": "minute",
+    "raw": "10/21/26 9:12",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-16T13:00:00",
+    "precision": "minute",
+    "raw": "10/16/26 13:00",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 116.2,
+   "nature_raw": "Theft",
+   "categories": [
+    "Theft"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Staff member reported that a whiteboard was stolen.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Engineering Hall",
+   "disposition_raw": "Open/Active",
+   "disposition_flags": [
+    "open_active"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-22",
+   "last_verified": "2026-10-22",
+   "missing_since": "",
+   "flags": []
+  },
+  {
    "uid": "42a6005af5086335",
    "case_number": "GPD 26-033812",
    "agencies": [
@@ -4657,6 +4763,58 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
+   "last_verified": "2026-10-22",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "4a546d34cfc54431",
+   "case_number": "RUPD 26-034777",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-21T16:28:00",
+    "precision": "minute",
+    "raw": "10/21/26 16:28",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-21T15:30:00",
+    "precision": "minute",
+    "raw": "10/21/26 15:30",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 0.97,
+   "nature_raw": "Theft",
+   "categories": [
+    "Theft"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Employee reported to RUPD that their wallet was stolen.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Holly Pointe Commons cafeteria",
+   "disposition_raw": "Open/Active",
+   "disposition_flags": [
+    "open_active"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-22",
    "last_verified": "2026-10-22",
    "missing_since": "",
    "flags": []
@@ -5894,6 +6052,57 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
+   "last_verified": "2026-10-22",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "5d37cf350969f778",
+   "case_number": "RUPD 26-034793",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-21T19:44:00",
+    "precision": "minute",
+    "raw": "10/21/26 19:44",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-20",
+    "precision": "day",
+    "raw": "10/20/26 Unk.",
+    "ongoing": false
+   },
+   "reporting_lag_hours": null,
+   "nature_raw": "Theft",
+   "categories": [
+    "Theft"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to RUPD that their clothing was taken.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Mimosa Hall laundry room",
+   "disposition_raw": "Open/Active",
+   "disposition_flags": [
+    "open_active"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-22",
    "last_verified": "2026-10-22",
    "missing_since": "",
    "flags": []
@@ -10712,6 +10921,58 @@
    "flags": []
   },
   {
+   "uid": "ad2bb7ed593687dd",
+   "case_number": "CSA 88259",
+   "agencies": [
+    "CSA"
+   ],
+   "reported": {
+    "value": "2026-10-20T09:19:00",
+    "precision": "minute",
+    "raw": "10/20/26 9:19",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-19",
+    "precision": "day",
+    "raw": "10/19/26 Unk.",
+    "ongoing": false
+   },
+   "reporting_lag_hours": null,
+   "nature_raw": "Criminal mischief",
+   "categories": [
+    "Criminal mischief"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "RLUH staff reported a damaged chair and holes in wall.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Rowan Blvd. Apts.",
+   "disposition_raw": "Incident not reported to RUPD; Addressed by University Department",
+   "disposition_flags": [
+    "not_reported_to_rupd",
+    "referred_university"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-22",
+   "last_verified": "2026-10-22",
+   "missing_since": "",
+   "flags": []
+  },
+  {
    "uid": "ad2c2a50dcd6b78a",
    "case_number": "RUPD 26-022631",
    "agencies": [
@@ -12254,6 +12515,57 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
+   "last_verified": "2026-10-22",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "c295a215fb72c0cc",
+   "case_number": "RUPD 26-034756",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-21T11:25:00",
+    "precision": "minute",
+    "raw": "10/21/26 11:25",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-21",
+    "precision": "day",
+    "raw": "10/21/26 Unk.",
+    "ongoing": false
+   },
+   "reporting_lag_hours": null,
+   "nature_raw": "Motor Vehicle Theft (Electric Scooter)",
+   "categories": [
+    "Motor vehicle theft"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to RUPD that their E-scooter was stolen.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Outside of Holly Pointe Commons",
+   "disposition_raw": "Open/Active",
+   "disposition_flags": [
+    "open_active"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-22",
    "last_verified": "2026-10-22",
    "missing_since": "",
    "flags": []
@@ -15775,6 +16087,60 @@
    ]
   },
   {
+   "uid": "fca64dba44e7e3a6",
+   "case_number": "RUPD 26-034776",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-21T16:26:00",
+    "precision": "minute",
+    "raw": "10/21/26 16:26",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-21T15:24:00",
+    "precision": "minute",
+    "raw": "10/21/26 15:24",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 1.03,
+   "nature_raw": "Theft",
+   "categories": [
+    "Theft"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to RUPD that part of their Instacart order was taken.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Outside of Mimosa Hall",
+   "disposition_raw": "Closed; Reporting party declined police involvement; Property recovered",
+   "disposition_flags": [
+    "closed",
+    "rp_declined",
+    "property_recovered"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-10-22",
+   "last_verified": "2026-10-22",
+   "missing_since": "",
+   "flags": []
+  },
+  {
    "uid": "fd9b1bca243c3e7a",
    "case_number": "GPD 26-031731",
    "agencies": [
@@ -15873,11 +16239,11 @@
    "occurred_month_key": "2026-10",
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
-   "status": "active",
+   "status": "missing",
    "revision": 1,
    "first_seen_by_archive": "2026-10-13",
    "last_verified": "2026-10-22",
-   "missing_since": "",
+   "missing_since": "2026-10-22",
    "flags": []
   },
   {
@@ -18833,6 +19199,70 @@
    "incident_uid": "114134d3cedce4eb",
    "nature": "Simple Assault",
    "observed_date": "2026-10-21"
+  },
+  {
+   "case_number": "RUPD 26-032705",
+   "change_type": "missing",
+   "confirmations": 1,
+   "incident_uid": "fe51f4cb7e64d8a7",
+   "missing_since": "2026-10-22",
+   "observed_date": "2026-10-22"
+  },
+  {
+   "case_number": "RUPD 26-032705/ CSA 87668",
+   "change_type": "added",
+   "date_reported": "10/5/26 17:22",
+   "incident_uid": "3ae70cbf06bb2f25",
+   "nature": "Theft",
+   "observed_date": "2026-10-22"
+  },
+  {
+   "case_number": "CSA 88259",
+   "change_type": "added",
+   "date_reported": "10/20/26 9:19",
+   "incident_uid": "ad2bb7ed593687dd",
+   "nature": "Criminal mischief",
+   "observed_date": "2026-10-22"
+  },
+  {
+   "case_number": "RUPD 26-034742",
+   "change_type": "added",
+   "date_reported": "10/21/26 9:12",
+   "incident_uid": "425d5e1de288885e",
+   "nature": "Theft",
+   "observed_date": "2026-10-22"
+  },
+  {
+   "case_number": "RUPD 26-034756",
+   "change_type": "added",
+   "date_reported": "10/21/26 11:25",
+   "incident_uid": "c295a215fb72c0cc",
+   "nature": "Motor Vehicle Theft (Electric Scooter)",
+   "observed_date": "2026-10-22"
+  },
+  {
+   "case_number": "RUPD 26-034776",
+   "change_type": "added",
+   "date_reported": "10/21/26 16:26",
+   "incident_uid": "fca64dba44e7e3a6",
+   "nature": "Theft",
+   "observed_date": "2026-10-22"
+  },
+  {
+   "case_number": "RUPD 26-034777",
+   "change_type": "added",
+   "date_reported": "10/21/26 16:28",
+   "incident_uid": "4a546d34cfc54431",
+   "nature": "Theft",
+   "observed_date": "2026-10-22"
+  },
+  {
+   "case_number": "RUPD 26-034793",
+   "change_type": "added",
+   "date_reported": "10/21/26 19:44",
+   "incident_uid": "5d37cf350969f778",
+   "nature": "Theft",
+   "observed_date": "2026-10-22"
   }
  ],
  "quality": {
@@ -18887,6 +19317,12 @@
     "precision": "day"
    },
    {
+    "uid": "5d37cf350969f778",
+    "case_number": "RUPD 26-034793",
+    "raw": "10/20/26 Unk.",
+    "precision": "day"
+   },
+   {
     "uid": "855f21b2e92fb843",
     "case_number": "CSA 86536",
     "raw": "9/14/26 Unk.",
@@ -18917,9 +19353,21 @@
     "precision": "day"
    },
    {
+    "uid": "ad2bb7ed593687dd",
+    "case_number": "CSA 88259",
+    "raw": "10/19/26 Unk.",
+    "precision": "day"
+   },
+   {
     "uid": "b1d1f921eef8db91",
     "case_number": "RUPD 26-029134 CAD/ GPD 26-033184/ CSA 86216, 86534",
     "raw": "9/8/26 Unk.",
+    "precision": "day"
+   },
+   {
+    "uid": "c295a215fb72c0cc",
+    "case_number": "RUPD 26-034756",
+    "raw": "10/21/26 Unk.",
     "precision": "day"
    },
    {
@@ -19038,7 +19486,7 @@
    },
    {
     "value": "Theft",
-    "count": 34
+    "count": 39
    },
    {
     "value": "Trespassing",
@@ -19049,11 +19497,11 @@
     "count": 22
    },
    {
-    "value": "Simple assault",
-    "count": 19
+    "value": "Criminal mischief",
+    "count": 20
    },
    {
-    "value": "Criminal mischief",
+    "value": "Simple assault",
     "count": 19
    },
    {
@@ -19082,7 +19530,7 @@
    },
    {
     "value": "Motor vehicle theft",
-    "count": 12
+    "count": 13
    },
    {
     "value": "Drug offense",
@@ -19164,7 +19612,7 @@
   "school_years": [
    {
     "value": "2026-27",
-    "count": 259
+    "count": 266
    },
    {
     "value": "2025-26",
@@ -19174,7 +19622,7 @@
   "campuses": [
    {
     "value": "Glassboro",
-    "count": 288
+    "count": 295
    },
    {
     "value": "Rowan-Virtua SOM (Stratford)",
@@ -19187,12 +19635,12 @@
   ],
   "months": [
    {
-    "value": "September 2026",
-    "count": 110
+    "value": "October 2026",
+    "count": 114
    },
    {
-    "value": "October 2026",
-    "count": 107
+    "value": "September 2026",
+    "count": 110
    },
    {
     "value": "August 2026",
@@ -19225,15 +19673,15 @@
     "count": 10
    },
    {
+    "value": "Outside of Holly Pointe Commons",
+    "count": 10
+   },
+   {
     "value": "Rowan Blvd.",
     "count": 9
    },
    {
     "value": "N. Main St./ Carpenter St.",
-    "count": 9
-   },
-   {
-    "value": "Outside of Holly Pointe Commons",
     "count": 9
    },
    {
@@ -19249,6 +19697,10 @@
     "count": 6
    },
    {
+    "value": "Rowan Blvd. Apts.",
+    "count": 5
+   },
+   {
     "value": "Normal Blvd./ Carpenter St.",
     "count": 5
    },
@@ -19258,10 +19710,6 @@
    },
    {
     "value": "Carpenter St./ Silver Ave.",
-    "count": 4
-   },
-   {
-    "value": "Rowan Blvd. Apts.",
     "count": 4
    },
    {
@@ -19326,6 +19774,10 @@
    },
    {
     "value": "Redmond Ave.",
+    "count": 2
+   },
+   {
+    "value": "Mimosa Hall",
     "count": 2
    },
    {
@@ -19505,6 +19957,10 @@
     "count": 1
    },
    {
+    "value": "Engineering Hall",
+    "count": 1
+   },
+   {
     "value": "230 Victoria St. Apts./Online",
     "count": 1
    },
@@ -19514,6 +19970,10 @@
    },
    {
     "value": "Outside of Rowan Blvd. 314 (Pizza Hut).",
+    "count": 1
+   },
+   {
+    "value": "Holly Pointe Commons cafeteria",
     "count": 1
    },
    {
@@ -19542,6 +20002,10 @@
    },
    {
     "value": "N. Main St./Focer St.",
+    "count": 1
+   },
+   {
+    "value": "Mimosa Hall laundry room",
     "count": 1
    },
    {
@@ -19813,18 +20277,18 @@
     "count": 1
    },
    {
-    "value": "E. New St./N. Main St.",
+    "value": "Outside of Mimosa Hall",
     "count": 1
    },
    {
-    "value": "Mimosa Hall",
+    "value": "E. New St./N. Main St.",
     "count": 1
    }
   ],
   "disposition_flags": [
    {
     "value": "closed",
-    "count": 147
+    "count": 148
    },
    {
     "value": "summons_issued",
@@ -19840,11 +20304,11 @@
    },
    {
     "value": "open_active",
-    "count": 31
+    "count": 36
    },
    {
     "value": "referred_university",
-    "count": 28
+    "count": 29
    },
    {
     "value": "trespass_notice",
@@ -19852,11 +20316,11 @@
    },
    {
     "value": "not_reported_to_rupd",
-    "count": 17
+    "count": 18
    },
    {
     "value": "rp_declined",
-    "count": 17
+    "count": 18
    },
    {
     "value": "inactive",
@@ -19864,7 +20328,7 @@
    },
    {
     "value": "property_recovered",
-    "count": 10
+    "count": 11
    },
    {
     "value": "tro_issued",
@@ -19930,7 +20394,7 @@
   "agencies": [
    {
     "value": "RUPD",
-    "count": 182
+    "count": 188
    },
    {
     "value": "GPD",
@@ -19938,7 +20402,7 @@
    },
    {
     "value": "CSA",
-    "count": 50
+    "count": 52
    },
    {
     "value": "GEN",
@@ -19948,7 +20412,7 @@
   "statuses": [
    {
     "value": "active",
-    "count": 280
+    "count": 286
    },
    {
     "value": "source_removed",
@@ -19957,6 +20421,10 @@
    {
     "value": "withdrawn",
     "count": 2
+   },
+   {
+    "value": "missing",
+    "count": 1
    }
   ]
  },
@@ -20063,7 +20531,7 @@
   },
   {
    "date": "2026-10-22",
-   "summary": "+0 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
+   "summary": "+7 added, 0 amended, 1 missing, 0 withdrawn, 0 source-removed, 0 reappeared",
    "alarms": 1
   }
  ]
