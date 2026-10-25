@@ -22,6 +22,7 @@ import dataclasses
 import datetime as dt
 import json
 import pathlib
+import re
 
 from .parse import (
     SOURCE_FIELDS,
@@ -85,9 +86,10 @@ FIELD_MAP = {
 # itself, but it is not a deletion.
 WITHDRAWAL_CONFIRMATIONS = 3
 
-# Per-file shrink guards. Exceeding either sends the file to quarantine: its raw
-# snapshot is still written (it is evidence), but no archive mutation is applied and the
-# run exits non-zero for a human to look at.
+# Per-file shrink guards. Exceeding either sends the file to quarantine: its raw snapshot
+# is still written (it is evidence), the file becomes ABSENCE-BLIND (see the comment in
+# merge() — additions and amendments still apply; only inferred absence is suppressed) and
+# the run exits non-zero for a human to look at.
 MAX_SILENT_DROPS = 2
 MIN_RETENTION = 0.90
 
@@ -108,6 +110,23 @@ def _utc_today() -> str:
     return dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d")
 
 
+# Every numeric reference in a case-number cell: an agency case core ("26-032705") or a
+# bare report id ("87668"). Order is discarded because the log writes the same pair both
+# ways round ("RUPD 26-012345/ CSA 12345" and "CSA 12345/ RUPD 26-012345").
+CASE_REFERENCE = re.compile(r"\b(?:\d{2}-\d{5,6}|\d{4,6})\b")
+
+# Fields that must agree before two rows are called one incident. Date/Time Reported is
+# handled separately, as the bucket key. Narrative and Disposition are deliberately NOT
+# here: Rowan routinely amends them in the same edit that extends the case number, so
+# requiring them to match would miss the very rows this is for.
+IDENTITY_CORROBORANTS = ("date_occurred_raw", "nature_raw", "campus_raw", "location_raw")
+
+
+def case_references(case_number: str) -> set[str]:
+    """The set of numeric references a case-number cell names."""
+    return set(CASE_REFERENCE.findall(case_number or ""))
+
+
 @dataclasses.dataclass
 class MergeReport:
     """What a single run did, for the commit message, the page and the run record."""
@@ -119,6 +138,7 @@ class MergeReport:
     source_removed: int = 0
     reappeared: int = 0
     relocated: int = 0
+    superseded: int = 0
     unchanged: int = 0
     quarantined: list[str] = dataclasses.field(default_factory=list)
     unfetched: list[str] = dataclasses.field(default_factory=list)
@@ -128,14 +148,14 @@ class MergeReport:
     def changed(self) -> bool:
         return bool(
             self.added or self.amended or self.withdrawn or self.source_removed
-            or self.reappeared or self.relocated
+            or self.reappeared or self.relocated or self.superseded
         )
 
     def summary(self) -> str:
         return (
             f"+{self.added} added, {self.amended} amended, {self.missing} missing, "
             f"{self.withdrawn} withdrawn, {self.source_removed} source-removed, "
-            f"{self.reappeared} reappeared"
+            f"{self.reappeared} reappeared, {self.superseded} superseded"
         )
 
     def as_dict(self) -> dict:
@@ -254,20 +274,35 @@ class Archive:
             for record in incidents:
                 observed[record["incident_uid"]] = record
 
+        # Identity amendments, resolved BEFORE the shrink guards. Rowan edits a published
+        # case-number cell — almost always appending a CSA number — and because the uid is
+        # derived from that cell the edit arrives as a deletion plus an addition. Matching
+        # has to happen first: these rows would otherwise be counted as unexplained drops,
+        # and three at once is enough to quarantine the file, which then blocks the very
+        # merge a post-hoc reconciliation would need in order to see them.
+        forks, ambiguous = self._match_identity_forks(existing, observed, fetched_ok)
+
         # Per-file shrink guards. Quarantine makes a file ABSENCE-BLIND: its rows can
         # still be added and amended, but nothing it fails to mention is treated as
         # missing. Discarding its observations outright would also throw away genuinely
         # new rows — that cost 9 December 2021 incidents before this was fixed. Additions
         # are never destructive; only inferred absence is.
-        quarantined_files = self._check_shrink(existing, observed_by_file, fetched_ok, report)
+        quarantined_files = self._check_shrink(
+            existing, observed_by_file, fetched_ok, report, explained=set(forks)
+        )
         trusted = fetched_ok - quarantined_files
 
         new_rows: dict[str, dict[str, str]] = {}
 
         for uid, row in existing.items():
             row = dict(row)
+            if uid in ambiguous:
+                row = self._mark_for_review(row)
             if uid in observed:
                 row, row_events = self._apply_seen(row, observed[uid], file_meta, today, report)
+                events.extend(row_events)
+            elif uid in forks:
+                row, row_events = self._apply_superseded(row, forks[uid], today, report)
                 events.extend(row_events)
             elif row.get("source_file_id") in removed_files:
                 row, row_events = self._apply_source_removed(row, today, report)
@@ -339,6 +374,19 @@ class Archive:
         """The row is present in a trusted snapshot: verify, amend, or restore it."""
         events: list[dict] = []
         uid = row["incident_uid"]
+
+        # A superseded row reappearing under its own case number means both it and its
+        # replacement are being published, so the supersession was wrong. Everything below
+        # would set status back to `active` while `superseded_by` stayed populated — a row
+        # counted as published that still claims to have been replaced, with nothing
+        # anywhere detecting the contradiction. Leave the status alone and ask for a human.
+        if row.get("status") == "superseded":
+            row = self._mark_for_review(row)
+            report.warnings.append(
+                f"{uid} ({row.get('case_number_raw','')}) is published again alongside "
+                f"{row.get('superseded_by','')} — supersession may be wrong, flagged for review"
+            )
+            return row, events
 
         if row.get("status") in ("missing", "withdrawn"):
             events.append(
@@ -430,6 +478,13 @@ class Archive:
 
         if row.get("status") == "withdrawn":
             return row, []  # already settled; don't re-log every day
+
+        # A superseded row is absent BY DEFINITION — Rowan edited its case-number cell, so
+        # the old number is gone from the sheet for good. Without this guard the ladder
+        # relabels it `missing` and then `withdrawn` within three runs, which is exactly
+        # the false withdrawal the supersession exists to prevent.
+        if row.get("status") == "superseded":
+            return row, []
 
         # Count at most one absence per calendar day, so a manual re-run cannot push a
         # row toward withdrawal faster than the confirmation window allows.
@@ -533,14 +588,175 @@ class Archive:
             "case_number": row.get("case_number_raw", ""),
         }]
 
+    # ---- identity amendments -------------------------------------------------
+
+    def _match_identity_forks(
+        self,
+        existing: dict[str, dict[str, str]],
+        observed: dict[str, dict[str, str]],
+        fetched_ok: set[str],
+    ) -> tuple[dict[str, dict[str, str]], set[str]]:
+        """Link rows that are one incident published under an amended case number.
+
+        Returns ({old_uid: the matched replacement row}, {ambiguous old_uids}).
+
+        A row qualifies as the OLD half if it is absent from this run's observations and
+        its file was fetched successfully — absence from a failed fetch means nothing.
+        A candidate qualifies as the NEW half when it sits in the same source file,
+        carries the same raw Date/Time Reported, agrees on every field in
+        IDENTITY_CORROBORANTS, and names a strict SUPERSET of the old row's references.
+
+        Matching on the reference SET rather than a string prefix is deliberate. The
+        pre-2026 reconciliation in backfill.py tests whether one case number starts with
+        the other, which catches "RUPD 26-032705" -> "RUPD 26-032705/ CSA 87668" but
+        misses "RUPD 26-034005/ CSA 88071" -> "RUPD 26-034005, 26-034174/ CSA 88071",
+        where the added reference lands mid-string. Both are the same act by Rowan.
+
+        Candidates come from this run's observations AND from rows already active in the
+        archive, because the replacement may have merged runs earlier — true of all three
+        October 2026 forks, where the new row arrived while the old one was still walking
+        the confirmation ladder.
+
+        Anything other than exactly one candidate links nothing. Two plausible
+        replacements is not a tie to be broken by sort order; it is a question for a
+        human, and `parse.normalize_case_number` documents why guessing here would fuse
+        genuinely distinct incidents.
+        """
+        # bucket -> {uid: row}, keyed by uid so a replacement that is BOTH observed this
+        # run and already active in the archive is held once. Listing it twice made it
+        # look like two rival candidates, which would have sent every one of the real
+        # October forks to the review queue instead of linking it.
+        candidates: dict[tuple, dict[str, dict[str, str]]] = {}
+
+        def bucket(file_id: str, reported: str) -> tuple:
+            """Group on file and reported time only.
+
+            NOT on source_month, even though a month is the natural unit here. A parsed
+            record has no `source_month` key at all — the month reaches the archive from
+            `file_meta`, applied in `_new_row` — so including it compared "October 2026"
+            on the archive side against "" on the observed side, and matched nothing in
+            production while passing every test that builds its own rows with an empty
+            `file_meta`. A file id already identifies the sheet, and a sheet is one month,
+            so the month term bought nothing anyway.
+            """
+            return (file_id, reported)
+
+        for record in observed.values():
+            key = bucket(
+                record.get("source_file_id", ""),
+                record.get("Date/Time Reported", ""),
+            )
+            candidates.setdefault(key, {})[record["incident_uid"]] = {
+                "incident_uid": record["incident_uid"],
+                "case_number_raw": record.get("Case Number", ""),
+                "date_reported_raw": record.get("Date/Time Reported", ""),
+                "date_occurred_raw": record.get("Date/Time Occurred", ""),
+                "nature_raw": record.get("Nature", ""),
+                "campus_raw": record.get("Campus", ""),
+                "location_raw": record.get("Location", ""),
+            }
+        for row in existing.values():
+            if row.get("status") != "active":
+                continue
+            key = bucket(row.get("source_file_id", ""), row.get("date_reported_raw", ""))
+            # setdefault, so a row observed this run keeps the fresher copy above.
+            candidates.setdefault(key, {}).setdefault(row["incident_uid"], row)
+
+        forks: dict[str, dict[str, str]] = {}
+        ambiguous: set[str] = set()
+
+        for uid, row in existing.items():
+            if uid in observed or row.get("status") not in ("active", "missing"):
+                continue
+            if row.get("source_file_id") not in fetched_ok:
+                continue
+
+            mine = case_references(row.get("case_number_raw", ""))
+            if not mine:
+                continue
+
+            key = bucket(row.get("source_file_id", ""), row.get("date_reported_raw", ""))
+            matches = [
+                other
+                for other in candidates.get(key, {}).values()
+                if other["incident_uid"] != uid
+                and mine < case_references(other.get("case_number_raw", ""))
+                and all(row.get(f, "") == other.get(f, "") for f in IDENTITY_CORROBORANTS)
+            ]
+
+            if len(matches) == 1:
+                forks[uid] = matches[0]
+            elif len(matches) > 1:
+                ambiguous.add(uid)
+
+        return forks, ambiguous
+
+    def _mark_for_review(self, row: dict[str, str]) -> dict[str, str]:
+        """Flag a row a human needs to look at, reusing the existing duplicate flag.
+
+        `build.py` already routes `possible_duplicate_identity` into
+        quality["duplicate_candidates"], so this needs no new plumbing downstream.
+        """
+        flags = set(filter(None, row.get("flags", "").split(";")))
+        flags.add("possible_duplicate_identity")
+        row["flags"] = ";".join(sorted(flags))
+        return row
+
+    def _apply_superseded(
+        self,
+        row: dict[str, str],
+        replacement: dict[str, str],
+        today: str,
+        report: MergeReport,
+    ) -> tuple[dict[str, str], list[dict]]:
+        """The row was republished under an amended case number. Retire it, keep it whole.
+
+        Nothing is deleted and no field of the record itself is rewritten: the old row
+        keeps its own case number, dates and narrative as published, and gains only a
+        pointer to what replaced it. The uid stays valid, which is what lets the old
+        case number keep resolving.
+
+        Unlike the backfill version this does NOT discard an `absent_in_later_capture`
+        flag. In the live era that flag is a genuine review marker someone may be acting
+        on, and a supersession is not a reason to erase it.
+        """
+        new_uid = replacement["incident_uid"]
+        flags = set(filter(None, row.get("flags", "").split(";")))
+        flags.add("superseded_identity")
+        row["flags"] = ";".join(sorted(flags))
+        row["status"] = "superseded"
+        row["superseded_by"] = new_uid
+        report.superseded += 1
+        return row, [
+            {
+                "observed_date": today,
+                "incident_uid": row["incident_uid"],
+                "change_type": "superseded_identity",
+                "superseded_by": new_uid,
+                "old_case_number": row.get("case_number_raw", ""),
+                "new_case_number": replacement.get("case_number_raw", ""),
+                "old_date_reported": row.get("date_reported_raw", ""),
+                "new_date_reported": replacement.get("date_reported_raw", ""),
+            }
+        ]
+
     def _check_shrink(
         self,
         existing: dict[str, dict[str, str]],
         observed_by_file: dict[str, list[dict[str, str]]],
         fetched_ok: set[str],
         report: MergeReport,
+        explained: set[str] | None = None,
     ) -> set[str]:
-        """Quarantine any file that lost more rows than a routine correction would."""
+        """Quarantine any file that lost more rows than a routine correction would.
+
+        `explained` holds uids whose absence already has an account — currently the old
+        halves of identity amendments. They are discounted from the drop count for the
+        same reason `source_removed` rows are exempt from the corpus brake: this guard
+        exists to catch UNEXPLAINED loss, and counting an amendment as a disappearance is
+        what quarantined October 2026 on every run.
+        """
+        explained = explained or set()
         quarantined: set[str] = set()
         for file_id in fetched_ok:
             prior = {
@@ -551,8 +767,13 @@ class Archive:
             if not prior:
                 continue
             seen = {r["incident_uid"] for r in observed_by_file.get(file_id, [])}
-            dropped = prior - seen
-            retention = len(prior & seen) / len(prior)
+            # Amended identities leave both the numerator and the denominator, so a sheet
+            # Rowan is actively correcting cannot fail the retention test for doing so.
+            accountable = prior - explained
+            if not accountable:
+                continue
+            dropped = accountable - seen
+            retention = len(accountable & seen) / len(accountable)
 
             if not seen:
                 quarantined.add(file_id)
@@ -560,8 +781,9 @@ class Archive:
             elif len(dropped) > MAX_SILENT_DROPS or retention < MIN_RETENTION:
                 quarantined.add(file_id)
                 report.warnings.append(
-                    f"{file_id}: {len(dropped)} of {len(prior)} rows absent "
-                    f"(retention {retention:.0%}) — quarantined, archive untouched for this file"
+                    f"{file_id}: {len(dropped)} of {len(accountable)} rows absent "
+                    f"(retention {retention:.0%}) — quarantined, no absence inferred for this "
+                    "file (additions and amendments still apply)"
                 )
             elif dropped:
                 report.warnings.append(f"{file_id}: {len(dropped)} row(s) absent — advancing confirmation ladder")

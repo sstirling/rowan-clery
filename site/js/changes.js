@@ -35,6 +35,14 @@ if ($("#feed")) {
       ${e.last_known_disposition ? `<div class="diff">Last known disposition: ${esc(e.last_known_disposition)}</div>` : ""}
       ${e.change_type === "superseded_identity" ? `<div class="diff"><span class="old">${esc(e.old_case_number)} · ${esc(e.old_date_reported)}</span>
          → <span class="new">${esc(e.new_case_number)} · ${esc(e.new_date_reported)}</span></div>` : ""}
+      ${/* A retraction of this archive's own error. Two incidents were reported above as
+            pulled from a live sheet when Rowan had only amended their case numbers, so
+            the correction has to say what it corrects — otherwise a reader scrolling the
+            feed meets the false claim and never learns it was withdrawn. */ ""}
+      ${e.retracted_status ? `<div class="diff">This archive previously recorded this row as
+         <strong>${esc(LABEL[e.retracted_status] || e.retracted_status)}</strong>. That was an error of
+         ours, not a change by Rowan: the record was republished under an amended case number, not
+         removed.${e.corrected_on ? ` Corrected ${esc(e.corrected_on)}.` : ""}</div>` : ""}
       ${e.change_type === "absent_in_later_capture" ? `<div class="diff">Last seen in the ${esc(e.source_month)} log. Preserved in full; not treated as a deletion.</div>` : ""}
     </div>`).join("")
     : `<div class="empty">No substantive amendments or removals observed yet. The archive started on ${esc(D.archive_started)};

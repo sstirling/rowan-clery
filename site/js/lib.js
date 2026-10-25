@@ -191,7 +191,7 @@ if (foot) {
      folder is a rolling window — only the most recent months stay online — so this is the longer
      record. Archive began ${esc(D.archive_started)}; it cannot attest to anything before that date.
      Covers the log as published since ${esc(D.published_era.since)} —
-     ${D.counts.total_archived} incidents · built
+     ${D.counts.distinct_incidents} incidents · built
      ${esc(D.generated_utc.replace("T", " ").replace("+00:00", " UTC"))} ·
      method, keying and known source errors are in METHODOLOGY.md.`;
 }

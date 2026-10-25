@@ -9,6 +9,9 @@
    alarm. It stays in the feed as a recorded event, in neutral grey. */
 .ev.source_removed { border-color: var(--text-3); }
 .ev.reappeared, .ev.relocated { border-color: var(--s1); }
+/* Rowan republishing one incident under an amended case number. Not a loss and not an
+   alarm — the same neutral register as a relocation, which it resembles. */
+.ev.superseded_identity { border-color: var(--s1); }
 .ev .meta { font-size: 11px; color: var(--text-3); font-family: var(--mono); }
 .ev .diff { font-size: 12px; margin-top: 3px; }
 .ev .old { color: var(--alarm); text-decoration: line-through; }

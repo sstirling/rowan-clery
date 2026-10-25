@@ -658,3 +658,36 @@ def test_a_missing_semicolon_cannot_be_recovered_by_the_tokenizer(disposition_ma
     ):
         assert normalize.TOKEN_SPLIT.split(token) == [token]
         assert normalize.fold_token(token) in disposition_map
+
+
+def test_the_token_that_broke_the_2026_10_25_run(disposition_map):
+    """CSA 87818 -- a CSA-only report handed to Glassboro's municipal force.
+
+    "Incident reported to the Glassboro Police" is the fourth wording routing a case to
+    GPD, after "Glassboro Police Case", "Glassboro Police jurisdiction" and "Referred to
+    Glassboro PD". All four resolve to `glassboro_pd`, because the distinction between
+    reporting a case to GPD and referring one is not a distinction the log keeps
+    consistently, and a flag per wording would split one outcome across four series.
+
+    It carries `glassboro_pd` and nothing else. The row has no RUPD number at all, so it
+    is tempting to add `not_reported_to_rupd` -- but that flag has its own token in this
+    vocabulary, the source did not write it here, and the CSA-only fact is already
+    derived from the case number by normalize.agencies(). Inferring it would make the
+    flag mean two different things depending on which row you read.
+    """
+    gpd = normalize.disposition_flags(
+        "Incident reported to the Glassboro Police", disposition_map, strict=True
+    )
+    assert gpd["flags"] == ["glassboro_pd"]
+    assert "not_reported_to_rupd" not in gpd["flags"]
+
+    # The CSA-only routing is derivable without the disposition flag.
+    assert normalize.agencies("CSA 87818") == ["CSA"]
+
+    # All four GPD wordings agree.
+    for wording in (
+        "Glassboro Police Case",
+        "Glassboro Police jurisdiction",
+        "Referred to Glassboro PD",
+    ):
+        assert normalize.disposition_flags(wording, disposition_map)["flags"] == ["glassboro_pd"]

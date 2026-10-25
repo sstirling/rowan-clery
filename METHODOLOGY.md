@@ -123,8 +123,10 @@ outnumber and bury the amendments worth reading.
 
 ### Identity under source edits
 
-The uid assumes the case number and reported date are never revised. That holds for 2026.
-It does not hold throughout the legacy era, and two distinct problems appeared:
+The uid assumes the case number and reported date are never revised. That assumption was
+written for the legacy era, where two distinct problems appeared — and it turned out to be
+wrong about the live feed too, which is documented under
+[Identity amendments in the live feed](#identity-amendments-in-the-live-feed) below.
 
 1. **Cosmetic reformats.** In February 2022, 34 of 59 rows changed from `02/13/22 2:23` to
    `02/13/2022 2:23` with no other field touched anywhere in the month. Hashing the raw
@@ -208,6 +210,52 @@ Chosen for **immutability**, not merely uniqueness:
 
 Once written, a uid is immutable for the life of the project.
 
+#### Identity amendments in the live feed
+
+The uid is derived from the case-number cell, and Rowan edits that cell. Almost always it
+appends a Campus Security Authority reference once a CSA report is matched to a police
+case — `RUPD 26-032705` becomes `RUPD 26-032705/ CSA 87668` — and sometimes a second RUPD
+number lands mid-string: `RUPD 26-034005/ CSA 88071` becomes
+`RUPD 26-034005, 26-034174/ CSA 88071`.
+
+Every such edit changes the uid, so the archive sees one incident as a deleted row plus a
+new row. Left unhandled this did real damage, found on 2026-10-25:
+
+- Two incidents walked the three-run confirmation ladder and were published as
+  `withdrawn` — the archive claiming Rowan removed records it never removed. One was a
+  sexual assault report. A withdrawal is the most consequential thing this archive says,
+  and both claims were false.
+- A third was counted twice, inflating the Theft count and every total containing it.
+- Three absences in one run crossed the shrink guard, quarantining the October sheet on
+  every subsequent run.
+
+**The rule.** Two rows are one incident when they share a source file, month and raw
+`Date/Time Reported`, agree on `Date/Time Occurred`, `Nature`, `Campus` and `Location`,
+and one names a strict **superset** of the other's numeric references, where a reference
+is any `NN-NNNNNN` case core or bare `NNNN`–`NNNNNN` report id. The older row is then
+marked `superseded` with `superseded_by` pointing at its replacement. Nothing is deleted:
+it keeps its own case number, dates and narrative, so the old number still resolves, and
+the page shows it tagged "Replaced by a corrected record".
+
+Matching is on the reference **set**, not a string prefix. A prefix test — which is what
+the legacy reconciliation uses — catches the appended-CSA case but misses the one where
+the new reference lands mid-string, and the log writes the same pair in either order
+(`CSA 12345/ RUPD 26-012345`). Validated against the archive, the rule links exactly the
+three real forks with zero false positives, and correctly leaves alone the nine other
+same-timestamp groups — Glassboro PD batch entries, up to 15 distinct cases filed under one
+transcription timestamp, whose six-digit cores never nest.
+
+**Limits.** The references have to nest. If Rowan *replaces* a case number outright the
+sets will not overlap, the rule will not link it, and the row is flagged
+`possible_duplicate_identity` for review rather than guessed at — the same choice as the
+rejected auto-merge above, and for the same reason. Two candidate replacements likewise
+links nothing. A superseded row that reappears under its own case number means both are
+genuinely published and the link was wrong; it is flagged rather than silently restored.
+
+A superseded row is excluded from every published count and chart, because it is the same
+incident as the row that replaced it. It remains in `incidents.json`, in the table, in the
+status filter and in the change feed as a `superseded_identity` event.
+
 #### Statuses
 
 | Status | Meaning |
@@ -216,6 +264,7 @@ Once written, a uid is immutable for the life of the project.
 | `missing` | Absent from 1–2 successful fetches; not yet confirmed |
 | `withdrawn` | Absent from 3+ successful fetches on distinct days, from a sheet that still exists |
 | `source_removed` | Its entire monthly sheet is gone from Drive |
+| `superseded` | Republished by Rowan under an amended case number; replaced, not removed |
 
 `withdrawn` and `source_removed` are kept distinct: one row quietly dropped from a live
 sheet is a different event from a whole month disappearing. In both cases every field is
@@ -236,9 +285,14 @@ The archive's integrity rests on never mistaking a fetch failure for a deletion.
   still returning valid CSV. A conclusive tab census runs on change and weekly.
 - File ids are pinned in `config/known_files.json` and fetched directly every run. The
   known set can grow from a folder listing but can never shrink because of one.
-- A file losing more than 2 rows **and** more than 10% of its rows is **quarantined**: its
-  raw snapshot is still written, but no archive mutation is applied and the run exits
-  non-zero for a human.
+- A file losing more than 2 rows **or** more than 10% of its rows is **quarantined**: its
+  raw snapshot is still written, the file becomes **absence-blind** — new and amended rows
+  are still merged, but nothing it fails to mention is treated as missing — and the run
+  exits non-zero for a human. Additions are never destructive; only inferred absence is,
+  and discarding a quarantined file's observations outright once cost 9 December 2021
+  incidents. Rows whose absence is already explained, currently the stale half of an
+  identity amendment, are discounted before the thresholds are applied: this guard is for
+  unexplained loss.
 - If every file fails, the run aborts without diffing.
 - The merged archive is assembled in memory and checked — no uid lost, no shrink, no
   rewritten identity or first-seen date — before anything is written.

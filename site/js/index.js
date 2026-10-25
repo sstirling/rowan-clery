@@ -86,9 +86,9 @@ banners.push(`<div class="banner note">
   <strong>Read these counts carefully.</strong> They are counts of <em>logged incidents</em>, not of
   crime, and academic terms move them hard — June 2026 holds ${monthCount("June 2026")} and
   September ${monthCount("September 2026")}, which is a campus filling up, not a crime wave.
-  Of the ${c.total_archived} incidents, ${agencyCount("RUPD")} carry a Rowan University police
+  Of the ${c.distinct_incidents} incidents, ${agencyCount("RUPD")} carry a Rowan University police
   reference, ${agencyCount("GPD")} a Glassboro municipal police reference and ${agencyCount("CSA")}
-  a Campus Security Authority reference, so "campus police handled ${c.total_archived} incidents"
+  a Campus Security Authority reference, so "campus police handled ${c.distinct_incidents} incidents"
   would be wrong. This archive can attest only to what it has <em>observed</em> since
   ${esc(D.archive_started)}.</div>`);
 
@@ -244,8 +244,13 @@ function renderBinNote() {
     + lag;
 }
 
-// Nothing outside the current format is ever charted.
-const inScope = (i) => binnable(i) && (SCOPE === "era" || binYear(i) === SCOPE);
+/* Nothing outside the current format is ever charted, and a superseded row is never
+   charted at all: it is the same incident as the row that replaced it, republished by
+   Rowan under an amended case number. Charting both would count one offense twice. The
+   row stays in the table under its own case number, tagged "Replaced by a corrected
+   record", because the amendment is itself part of the record. */
+const inScope = (i) =>
+  i.status !== "superseded" && binnable(i) && (SCOPE === "era" || binYear(i) === SCOPE);
 function scopeLabel() {
   return SCOPE === "era" ? "every month in the log" : `the ${SCOPE} school year`;
 }

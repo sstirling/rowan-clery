@@ -220,3 +220,18 @@ closed two non-student juveniles charged,outcome,closed|charged|juvenile_involve
 # "reporting party provided citizen's complaint info", mapped to the same flag: a flag
 # per spelling would split one outcome across two series and undercount both.
 reporting parties provided citizen's complaint info,outcome,rp_referred_to_complaint,
+#
+# Added 2026-10-25. One token, from a new October row.
+#
+# CSA 87818 -- a Domestic Violence/Terroristic Threats report made to RLUH staff with no
+# RUPD case number, handed to Glassboro's municipal force. The fourth wording for that
+# routing, after "Glassboro Police Case", "Glassboro Police jurisdiction" and "Referred
+# to Glassboro PD", and mapped to the same flag: the log does not hold a consistent line
+# between reporting a case to GPD and referring one, so a flag per wording would split
+# one outcome across four series.
+#
+# No not_reported_to_rupd flag. That flag has its own token here, the source did not
+# write it on this row, and the CSA-only fact is already derived from the case number by
+# normalize.agencies(). Inferring it would make the flag mean one thing on rows where
+# Rowan typed it and another where the tool guessed.
+incident reported to the glassboro police,outcome,glassboro_pd,

@@ -249,6 +249,13 @@ def build(data_dir: pathlib.Path, config_dir: pathlib.Path, today: str | None = 
     gone = [i for i in incidents if i["status"] not in LIVE_STATUSES | {SUPERSEDED}]
     superseded = [i for i in incidents if i["status"] == SUPERSEDED]
 
+    # Everything that COUNTS as an incident. A superseded row is the same incident as the
+    # row that replaced it, republished by Rowan under an amended case number, so counting
+    # both would report one offense twice in every chart. It stays in `incidents` — and so
+    # stays visible in the table under its own case number, which is the point of keeping
+    # it — but every aggregate below is computed from `counted`.
+    counted = [i for i in incidents if i["status"] != SUPERSEDED]
+
     last_run = runs[-1] if runs else None
     last_success = next(
         (r["date"] for r in reversed(runs) if r.get("archive_rows") is not None), None
@@ -268,7 +275,7 @@ def build(data_dir: pathlib.Path, config_dir: pathlib.Path, today: str | None = 
         months: dict[str, set] = collections.defaultdict(set)
         eras: dict[str, set] = collections.defaultdict(set)
         counts: dict[str, int] = collections.Counter()
-        for i in incidents:
+        for i in counted:
             year = year_of(i)
             if not year:
                 continue
@@ -293,7 +300,7 @@ def build(data_dir: pathlib.Path, config_dir: pathlib.Path, today: str | None = 
     # occurred-binned month is short. Computed from the data rather than written down,
     # so it cannot drift away from what the archive actually shows.
     lag_by_agency: dict[str, list[float]] = collections.defaultdict(list)
-    for i in incidents:
+    for i in counted:
         if i["reporting_lag_hours"] is None or i["reporting_lag_hours"] < 0:
             continue
         for agency in i["agencies"] or ["(none)"]:
@@ -307,7 +314,7 @@ def build(data_dir: pathlib.Path, config_dir: pathlib.Path, today: str | None = 
         return (ordered[mid - 1] + ordered[mid]) / 2
 
     excluded = collections.Counter(
-        i["occurred_excluded"] for i in incidents if i["occurred_excluded"]
+        i["occurred_excluded"] for i in counted if i["occurred_excluded"]
     )
 
     payload = {
@@ -325,8 +332,8 @@ def build(data_dir: pathlib.Path, config_dir: pathlib.Path, today: str | None = 
             "default": "occurred",
             "window_start": OCCURRED_WINDOW_START,
             "window_start_label": month_label(OCCURRED_WINDOW_START),
-            "total": len(incidents),
-            "shown": sum(1 for i in incidents if i["occurred_month_key"]),
+            "total": len(counted),
+            "shown": sum(1 for i in counted if i["occurred_month_key"]),
             "excluded_no_date": excluded.get("no_date", 0),
             "excluded_before_window": excluded.get("before_window", 0),
             "lag_median_days": {
@@ -349,7 +356,7 @@ def build(data_dir: pathlib.Path, config_dir: pathlib.Path, today: str | None = 
             "currently_published": len(live),
             "no_longer_published": len(gone),
             "superseded": len(superseded),
-            "distinct_incidents": len(incidents) - len(superseded),
+            "distinct_incidents": len(counted),
             "withdrawn": sum(1 for i in incidents if i["status"] == "withdrawn"),
             "source_removed": sum(1 for i in incidents if i["status"] == "source_removed"),
         },
@@ -369,7 +376,7 @@ def build(data_dir: pathlib.Path, config_dir: pathlib.Path, today: str | None = 
         "incidents": incidents,
         "changelog": changelog,
         "quality": quality,
-        "facets": _facets(incidents),
+        "facets": _facets(incidents, counted),
         "runs": [
             {"date": r["date"], "summary": r.get("summary", ""), "alarms": len(r.get("alarms", []))}
             for r in runs
@@ -465,20 +472,25 @@ def _archive_started(data_dir: pathlib.Path, today: str) -> str:
     return today
 
 
-def _facets(incidents: list[dict]) -> dict:
-    """Pre-computed filter vocabularies, so the page does not derive them at load."""
+def _facets(incidents: list[dict], counted: list[dict]) -> dict:
+    """Pre-computed filter vocabularies, so the page does not derive them at load.
+
+    Every count is over `counted`, which excludes superseded rows, so a filter's count
+    matches what the charts draw. `statuses` is the exception and runs over the full list:
+    it is how a reader reaches a superseded row in the first place, so a status the
+    archive holds must appear in its own dropdown.
+    """
     counter = lambda values: [  # noqa: E731
         {"value": v, "count": n} for v, n in collections.Counter(values).most_common()
     ]
     return {
-        "categories": counter(c for i in incidents for c in i["categories"]),
-        "school_years": counter(i["school_year"] for i in incidents if i["school_year"]),
-
-        "campuses": counter(i["campus"] for i in incidents if i["campus"]),
-        "months": counter(i["month"] for i in incidents if i["month"]),
-        "locations": counter(i["location"] for i in incidents if i["location"]),
-        "disposition_flags": counter(f for i in incidents for f in i["disposition_flags"]),
-        "agencies": counter(a for i in incidents for a in i["agencies"]),
+        "categories": counter(c for i in counted for c in i["categories"]),
+        "school_years": counter(i["school_year"] for i in counted if i["school_year"]),
+        "campuses": counter(i["campus"] for i in counted if i["campus"]),
+        "months": counter(i["month"] for i in counted if i["month"]),
+        "locations": counter(i["location"] for i in counted if i["location"]),
+        "disposition_flags": counter(f for i in counted for f in i["disposition_flags"]),
+        "agencies": counter(a for i in counted for a in i["agencies"]),
         "statuses": counter(i["status"] for i in incidents),
     }
 

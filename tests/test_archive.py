@@ -386,3 +386,268 @@ def test_read_changelog_keeps_genuinely_different_events(tmp_path):
         json.dumps(first) + "\n" + json.dumps(second) + "\n", encoding="utf-8")
 
     assert len(Archive(data).read_changelog()) == 2
+
+
+# ---- identity amendments (case-number forks) ----------------------------------
+#
+# Rowan edits a published case-number cell, almost always to append a CSA number. The
+# uid is derived from that cell, so the edit reads as a deletion plus an addition. Three
+# October 2026 incidents were forked this way before the archive learned to link them;
+# two of them reached `withdrawn`, publishing a withdrawal Rowan never made.
+
+
+def fork(record: dict, new_case: str) -> dict:
+    """Return `record` as Rowan would republish it after editing the case-number cell.
+
+    Only the case number changes, so the uid and content hash are recomputed exactly as
+    parse_and_key does. Everything else — above all Date/Time Reported — is untouched,
+    which is what makes the pair recognisable as one incident.
+    """
+    amended = dict(record)
+    amended["Case Number"] = new_case
+    amended["incident_uid"] = parse.incident_uid(new_case, amended["Date/Time Reported"])
+    amended["content_hash"] = parse.content_hash(amended)
+    return amended
+
+
+def test_appending_a_csa_number_is_an_amendment_not_a_withdrawal(archive, parsed):
+    """The core case. One incident, republished under a longer case number.
+
+    Without linking, the old uid walks the three-run ladder and is published as
+    `withdrawn` — a claim that Rowan removed a record, which is the single most
+    consequential thing this archive says. It must instead resolve to `superseded`,
+    with the old row kept in full and pointing at its replacement.
+    """
+    commit(archive, parsed, set(parsed), "2026-10-01")
+
+    original = parsed[SEPT][7]
+    old_uid = original["incident_uid"]
+    amended = fork(original, original["Case Number"] + "/ CSA 99999")
+
+    observed = dict(parsed) | {SEPT: parsed[SEPT][:7] + [amended] + parsed[SEPT][8:]}
+    rows, events, report = commit(archive, observed, set(parsed), "2026-10-02")
+
+    assert rows[old_uid]["status"] == "superseded"
+    assert rows[old_uid]["superseded_by"] == amended["incident_uid"]
+    assert report.superseded == 1
+    assert report.missing == 0, "an amendment is not an absence"
+    assert report.withdrawn == 0
+
+    # Nothing is deleted: the old row keeps its own case number and its first sighting.
+    assert rows[old_uid]["case_number_raw"] == original["Case Number"]
+    assert rows[old_uid]["first_seen_by_archive"] == "2026-10-01"
+    assert rows[amended["incident_uid"]]["status"] == "active"
+
+    event = next(e for e in events if e["change_type"] == "superseded_identity")
+    assert event["incident_uid"] == old_uid
+    assert event["superseded_by"] == amended["incident_uid"]
+    assert event["old_case_number"] == original["Case Number"]
+    assert event["new_case_number"] == amended["Case Number"]
+
+
+def test_a_reference_appended_mid_string_is_still_linked(archive, parsed):
+    """RUPD 26-034005/ CSA 88071 -> RUPD 26-034005, 26-034174/ CSA 88071.
+
+    The new reference lands in the middle, so the old string is NOT a prefix of the new
+    one. The literal-prefix test used by the pre-2026 reconciliation misses this shape
+    entirely, which is why matching is done on the SET of references instead.
+    """
+    commit(archive, parsed, set(parsed), "2026-10-01")
+
+    original = parsed[SEPT][11]
+    original = fork(original, "RUPD 26-030000/ CSA 88071")
+    seeded = dict(parsed) | {SEPT: parsed[SEPT][:11] + [original] + parsed[SEPT][12:]}
+    commit(archive, seeded, set(parsed), "2026-10-02")
+    old_uid = original["incident_uid"]
+
+    amended = fork(original, "RUPD 26-030000, 26-034174/ CSA 88071")
+    assert not amended["Case Number"].startswith(original["Case Number"]), "prefix test would miss this"
+
+    observed = dict(parsed) | {SEPT: parsed[SEPT][:11] + [amended] + parsed[SEPT][12:]}
+    rows, _, report = commit(archive, observed, set(parsed), "2026-10-03")
+
+    assert rows[old_uid]["status"] == "superseded"
+    assert rows[old_uid]["superseded_by"] == amended["incident_uid"]
+    assert report.superseded == 1
+
+
+def test_two_forks_do_not_quarantine_a_file_but_a_real_deletion_still_counts(archive, parsed):
+    """The 2026-10-25 run: three absent rows, two of them forks.
+
+    `MAX_SILENT_DROPS = 2`, so three absences quarantined October and left the file
+    quarantining on every subsequent run. Linking the two amendments first leaves one
+    genuine absence, which is a routine correction and must flow through the ladder as
+    normal.
+    """
+    commit(archive, parsed, set(parsed), "2026-10-01")
+
+    a, b, gone = parsed[SEPT][20], parsed[SEPT][21], parsed[SEPT][22]
+    rest = parsed[SEPT][:20] + parsed[SEPT][23:]
+    observed = dict(parsed) | {
+        SEPT: rest + [fork(a, a["Case Number"] + "/ CSA 90001"), fork(b, b["Case Number"] + "/ CSA 90002")]
+    }
+
+    rows, _, report = commit(archive, observed, set(parsed), "2026-10-02")
+
+    assert SEPT not in report.quarantined, "two of the three absences were amendments"
+    assert report.superseded == 2
+    assert rows[a["incident_uid"]]["status"] == "superseded"
+    assert rows[b["incident_uid"]]["status"] == "superseded"
+    # The one real disappearance is untouched by any of this.
+    assert rows[gone["incident_uid"]]["status"] == "missing"
+    assert report.missing == 1
+
+
+def test_superseded_survives_the_confirmation_ladder(archive, parsed):
+    """Regression guard for `_apply_absent`.
+
+    A superseded row is absent from the sheet by definition — Rowan edited the cell, so
+    the old case number is gone. If the ladder still applies to it, the row is relabelled
+    `missing` and then `withdrawn` within three runs and the fix silently undoes itself,
+    restoring the false withdrawal it was written to prevent.
+    """
+    commit(archive, parsed, set(parsed), "2026-10-01")
+
+    original = parsed[SEPT][30]
+    old_uid = original["incident_uid"]
+    amended = fork(original, original["Case Number"] + "/ CSA 90003")
+    observed = dict(parsed) | {SEPT: parsed[SEPT][:30] + [amended] + parsed[SEPT][31:]}
+
+    rows, _, _ = commit(archive, observed, set(parsed), "2026-10-02")
+    assert rows[old_uid]["status"] == "superseded"
+
+    for day in ("2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06"):
+        rows, events, report = commit(archive, observed, set(parsed), day)
+        assert rows[old_uid]["status"] == "superseded", f"lost supersession on {day}"
+        assert report.withdrawn == 0
+        assert not [e for e in events if e["change_type"] in ("missing", "withdrawn")]
+
+
+def test_a_superseded_row_that_comes_back_is_flagged_not_resurrected(archive, parsed):
+    """Regression guard for `_apply_seen`, which sets status unconditionally.
+
+    If the old case number reappears while its replacement is still published, both rows
+    genuinely exist and the supersession was wrong. Flipping it back to `active` would
+    leave a row counted as published while still carrying `superseded_by`, with nothing
+    anywhere detecting the contradiction. Flag it for a human instead.
+    """
+    commit(archive, parsed, set(parsed), "2026-10-01")
+
+    original = parsed[SEPT][40]
+    old_uid = original["incident_uid"]
+    amended = fork(original, original["Case Number"] + "/ CSA 90004")
+    forked = dict(parsed) | {SEPT: parsed[SEPT][:40] + [amended] + parsed[SEPT][41:]}
+    commit(archive, forked, set(parsed), "2026-10-02")
+
+    both = dict(parsed) | {SEPT: parsed[SEPT][:40] + [original, amended] + parsed[SEPT][41:]}
+    rows, _, _ = commit(archive, both, set(parsed), "2026-10-03")
+
+    assert rows[old_uid]["status"] == "superseded", "must not be silently republished"
+    assert "possible_duplicate_identity" in rows[old_uid]["flags"]
+
+
+def test_a_gpd_batch_sharing_one_timestamp_is_never_linked(archive, parsed):
+    """The false-positive guard.
+
+    Rowan enters Glassboro PD cases in batches, up to 15 distinct incidents under a
+    single transcription timestamp. They share a reported time and differ only by case
+    number, so a looser rule would fuse them. Their six-digit cores never nest, which is
+    what keeps them apart.
+    """
+    commit(archive, parsed, set(parsed), "2026-10-01")
+
+    stamp = parsed[SEPT][0]["Date/Time Reported"]
+    batch = [
+        fork(parsed[SEPT][i], f"GPD 26-03{1000 + i}") | {"Date/Time Reported": stamp}
+        for i in range(5)
+    ]
+    batch = [
+        dict(r, incident_uid=parse.incident_uid(r["Case Number"], stamp)) for r in batch
+    ]
+    observed = dict(parsed) | {SEPT: parsed[SEPT][5:] + batch}
+
+    rows, _, report = commit(archive, observed, set(parsed), "2026-10-02")
+
+    assert report.superseded == 0, "distinct cases must never be linked"
+    for r in batch:
+        assert rows[r["incident_uid"]]["status"] == "active"
+
+
+def test_an_ambiguous_match_links_nothing_and_asks_for_review(archive, parsed):
+    """Two candidates both extend the same references. The tool must not pick one."""
+    commit(archive, parsed, set(parsed), "2026-10-01")
+
+    original = parsed[SEPT][50]
+    old_uid = original["incident_uid"]
+    one = fork(original, original["Case Number"] + "/ CSA 90005")
+    two = fork(original, original["Case Number"] + "/ CSA 90006")
+
+    observed = dict(parsed) | {SEPT: parsed[SEPT][:50] + [one, two] + parsed[SEPT][51:]}
+    rows, _, report = commit(archive, observed, set(parsed), "2026-10-02")
+
+    assert rows[old_uid]["status"] != "superseded"
+    assert report.superseded == 0
+    assert "possible_duplicate_identity" in rows[old_uid]["flags"]
+
+
+def test_forks_are_matched_with_real_file_metadata(archive, parsed, all_sheets):
+    """Regression guard: the matcher must not depend on a field parsed rows lack.
+
+    `file_meta` is how a month reaches the archive, so an archive row carries
+    `source_month` ("September 2026") while a freshly parsed record has no such key at
+    all. Bucketing candidates on the month therefore compared "September 2026" against
+    "" and matched nothing — in production only, because every test that builds its own
+    rows passes an empty `file_meta` and so agrees with itself. This test passes the real
+    metadata, which is the only way that asymmetry shows up.
+    """
+    file_meta = {fid: {"name": f"{month} Daily Crime Log", "month": month}
+                 for fid, (month, _) in REAL_SHEETS.items()}
+
+    commit(archive, parsed, set(parsed), "2026-10-01", file_meta=file_meta)
+    rows = archive.load()
+    assert rows[parsed[SEPT][7]["incident_uid"]]["source_month"] == "September 2026", (
+        "fixture must actually populate source_month, or this guards nothing"
+    )
+
+    original = parsed[SEPT][7]
+    old_uid = original["incident_uid"]
+    amended = fork(original, original["Case Number"] + "/ CSA 99999")
+    observed = dict(parsed) | {SEPT: parsed[SEPT][:7] + [amended] + parsed[SEPT][8:]}
+
+    rows, _, report = commit(archive, observed, set(parsed), "2026-10-02", file_meta=file_meta)
+
+    assert report.superseded == 1
+    assert rows[old_uid]["status"] == "superseded"
+    assert rows[old_uid]["superseded_by"] == amended["incident_uid"]
+
+
+def test_a_fork_still_links_when_the_replacement_merged_in_an_earlier_run(archive, parsed):
+    """The real October shape, and the one a naive candidate list gets wrong.
+
+    Rowan added the amended row while the shrink guard was quarantining the sheet, so the
+    replacement merged days before the stale half could be retired. On every later run
+    that replacement is BOTH observed in the sheet and already active in the archive. A
+    candidate list that collects from each source without deduplicating holds it twice,
+    reads two rival candidates, and sends the pair to the review queue forever — which
+    would have left all three real forks unlinked while every synthetic test passed.
+    """
+    original = parsed[SEPT][60]
+    old_uid = original["incident_uid"]
+    amended = fork(original, original["Case Number"] + "/ CSA 90007")
+
+    # Run 1: both halves present, as happens when Rowan inserts the amended row before
+    # deleting the original. Nothing is superseded yet — the old row is still published.
+    both = dict(parsed) | {SEPT: parsed[SEPT][:60] + [original, amended] + parsed[SEPT][61:]}
+    rows, _, report = commit(archive, both, set(parsed), "2026-10-01")
+    assert report.superseded == 0
+    assert rows[old_uid]["status"] == "active"
+    assert rows[amended["incident_uid"]]["status"] == "active"
+
+    # Run 2: Rowan removes the original. Its replacement is now in both places at once.
+    only_new = dict(parsed) | {SEPT: parsed[SEPT][:60] + [amended] + parsed[SEPT][61:]}
+    rows, _, report = commit(archive, only_new, set(parsed), "2026-10-02")
+
+    assert report.superseded == 1, "the replacement was counted as two rival candidates"
+    assert rows[old_uid]["status"] == "superseded"
+    assert rows[old_uid]["superseded_by"] == amended["incident_uid"]
+    assert "possible_duplicate_identity" not in rows[old_uid]["flags"]

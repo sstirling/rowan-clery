@@ -159,7 +159,10 @@ def run(
     report["archive_rows"] = len(rows)
     report["warnings"].extend(merge_report.warnings)
     if merge_report.quarantined:
-        report["alarms"].append(f"Quarantined file(s), archive untouched for them: {merge_report.quarantined}")
+        report["alarms"].append(
+            "Quarantined file(s), no absence inferred for them (additions and amendments "
+            f"still apply): {merge_report.quarantined}"
+        )
 
     store.save_manifest(manifest)
     store.write_run_record(report, today)
