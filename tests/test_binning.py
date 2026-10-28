@@ -53,17 +53,31 @@ def incidents(payload):
     return payload["incidents"]
 
 
+@pytest.fixture(scope="module")
+def counted(incidents):
+    """The rows every published aggregate is computed over -- `build.counted`.
+
+    A superseded row is the same incident as the row that replaced it, republished by
+    Rowan under an amended case number, so it stays in `incidents` (and in the table,
+    reachable under its own case number) but is excluded from every count and chart. The
+    arithmetic checks below therefore have to compare the counters against this set, not
+    against `incidents`. Comparing against `incidents` is what made these three tests
+    fail the moment the first supersession landed, on 2026-10-25.
+    """
+    return [i for i in incidents if i["status"] != build.SUPERSEDED]
+
+
 # ---- nothing may vanish --------------------------------------------------------
 
 
-def test_every_incident_is_either_charted_or_counted_as_missing(payload, incidents):
+def test_every_incident_is_either_charted_or_counted_as_missing(payload, counted):
     """The arithmetic the page's note rests on.
 
     If these ever fail to add up, the chart and the sentence explaining it have drifted
     apart, and the page is quietly undercounting with a note that says otherwise.
     """
     b = payload["binning"]
-    assert b["total"] == len(incidents)
+    assert b["total"] == len(counted)
     assert b["shown"] + b["excluded_no_date"] + b["excluded_before_window"] == b["total"]
 
 
@@ -75,8 +89,8 @@ def test_an_excluded_incident_always_carries_its_reason(incidents):
             assert i["occurred_excluded"] is None, i["case_number"]
 
 
-def test_shown_count_matches_the_incidents_that_have_a_bin(payload, incidents):
-    assert payload["binning"]["shown"] == sum(1 for i in incidents if i["occurred_month_key"])
+def test_shown_count_matches_the_incidents_that_have_a_bin(payload, counted):
+    assert payload["binning"]["shown"] == sum(1 for i in counted if i["occurred_month_key"])
 
 
 # ---- the window ----------------------------------------------------------------
@@ -134,10 +148,10 @@ def test_occurred_label_and_school_year_follow_the_occurred_key(incidents):
         assert build.month_key(i["occurred_month"]) == key
 
 
-def test_the_two_school_year_groupings_each_add_up(payload, incidents):
+def test_the_two_school_year_groupings_each_add_up(payload, counted):
     by_reported = sum(y["incidents"] for y in payload["school_years"])
     by_occurred = sum(y["incidents"] for y in payload["school_years_occurred"])
-    assert by_reported == sum(1 for i in incidents if i["school_year"])
+    assert by_reported == sum(1 for i in counted if i["school_year"])
     assert by_occurred == payload["binning"]["shown"]
 
 
@@ -223,3 +237,33 @@ def test_occurred_bin_classifies_each_precision():
     assert bin_of("9/31/26 11:30") == (None, "no_date"), "an impossible date is not a month"
     assert bin_of("5/2/26 0:43") == (None, "before_window")
     assert bin_of("10/2025 Unk.") == (None, "before_window")
+
+
+def test_a_superseded_row_is_kept_but_never_counted(payload, incidents, counted):
+    """The invariant the three arithmetic checks above now rest on.
+
+    Asserted directly so the distinction cannot quietly invert: a superseded row has to
+    stay in `incidents`, because the table is how a reader reaches the record Rowan
+    amended, and it has to stay out of every aggregate, because it is the same incident
+    as its replacement and counting both reports one offense twice.
+    """
+    superseded = [i for i in incidents if i["status"] == build.SUPERSEDED]
+    assert superseded, "expected the archive to hold at least one amended case number"
+
+    # The replacement has to be reachable, or a reader hits a row marked "replaced" with
+    # nothing to replace it. The payload's incident record does not carry the archive's
+    # `superseded_by` pointer, so the change feed is the only route -- which is what
+    # changes.js renders as "Republished under a corrected case number".
+    events = {
+        e["old_case_number"]: e
+        for e in payload["changelog"]
+        if e.get("change_type") == "superseded_identity"
+    }
+    for i in superseded:
+        assert i not in counted
+        event = events.get(i["case_number"])
+        assert event, f"{i['case_number']} is superseded with no event naming its replacement"
+        assert event["new_case_number"] != i["case_number"]
+
+    assert payload["counts"]["superseded"] == len(superseded)
+    assert payload["binning"]["total"] == len(incidents) - len(superseded)

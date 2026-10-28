@@ -235,3 +235,17 @@ reporting parties provided citizen's complaint info,outcome,rp_referred_to_compl
 # normalize.agencies(). Inferring it would make the flag mean one thing on rows where
 # Rowan typed it and another where the tool guessed.
 incident reported to the glassboro police,outcome,glassboro_pd,
+#
+# Added 2026-10-28. Two tokens, both October, both restatements of outcomes already in
+# this file rather than new outcomes.
+#
+# RUPD 26-034863 -- "Closed; Student arrested; Property recovered". The affiliation
+# belongs in student_flag, which is derived separately; mapping it to `arrested` matches
+# "non-student arrested" above for exactly that reason. A `student_arrested` flag would
+# split one outcome across two series and undercount arrests in both.
+student arrested,outcome,arrested,Affiliation belongs in student_flag rather than a flag
+# RUPD 26-0345653 -- "Closed; Subject issued trespass notice". The eleventh wording for
+# this one outcome, after "trespass notice issued", "subject issued trespass warning"
+# and the rest; see the note at the trespass cluster above about the combinatorial
+# problem (trespass/trespassing x notice/warning x singular/plural).
+subject issued trespass notice,outcome,trespass_notice,

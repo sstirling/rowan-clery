@@ -390,3 +390,33 @@ Hindering apprehension,offense,Obstruction,
 # for a category that already has four spellings feeding it. Not Obstruction either:
 # that bucket holds physical interference with police, not a false statement.
 Filing false police report,offense,Filing a false police report,First false-report-to-police offense in the archive
+#
+# Added 2026-10-28. Five Nature tokens, all October, all from rows that accumulated
+# while the scheduled run was red. Four are Rowan typing a comma where its own
+# convention is a semicolon, so the tokenizer saw one unknown token instead of several
+# known ones; one is a spacing variant. Only the restraining-order category is a
+# genuinely new editorial decision.
+#
+# RUPD 26-035007/ CSA 88420 and RUPD 26-035260/ CSA 88502. Comma-fused. Every piece is
+# already mapped above, so nothing here is a new offense -- the categories are the ones
+# those rows would have received had the source used semicolons.
+"Harassment, Stalking",offense,Harassment|Stalking,Single token naming two offenses
+"Harassment, Stalking, Disorderly conduct, Criminal mischief",offense,Harassment|Stalking|Disorderly conduct|Criminal mischief,Single token naming four offenses
+# RUPD 26-035306 -- "Simple assault, Disorderly conduct". Same comma-for-semicolon slip.
+"Simple assault, Disorderly conduct",offense,Simple assault|Disorderly conduct,Single token naming two offenses
+# RUPD 26-035464/ CSA 88614. "Sexual Assault-Fondling" above with a space after the
+# hyphen. fold_token() collapses runs of whitespace but cannot know that a space around
+# a hyphen is noise, so the variant needs its own line. Same Clery sex offense.
+Sexual Assault- Fondling,offense,Sex offense,Spacing variant of "Sexual Assault-Fondling" above
+# RUPD 26-035474/ CSA 88642, logged as "Domestic Violence, Harassment, Defiant
+# Trespassing, Violation of Restraining Order, Stalking" -- comma-fused, and four of the
+# five pieces were already mapped. "Violation of Restraining Order" was not, and gets a
+# NEW category rather than folding into Domestic violence. It is a separate chargeable
+# offense in New Jersey (contempt of a domestic violence order, N.J.S.A. 2C:29-9b), not
+# another word for the underlying assault: folding it in would make Domestic violence
+# mean "a DV incident OR an order violated", and an RO violation logged on its own
+# someday would then be counted as domestic violence with no DV report behind it.
+# Distinct from "Service of TRO" and "Service of Temporary Restraining order" above,
+# which stay role=activity -- those record the order being served, not broken.
+Violation of Restraining Order,offense,Restraining order violation,First restraining-order violation in the archive
+"Domestic Violence, Harassment, Defiant Trespassing, Violation of Restraining Order, Stalking",offense,Domestic violence|Harassment|Trespassing|Restraining order violation|Stalking,Single token naming five offenses

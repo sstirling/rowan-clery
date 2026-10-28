@@ -691,3 +691,72 @@ def test_the_token_that_broke_the_2026_10_25_run(disposition_map):
         "Referred to Glassboro PD",
     ):
         assert normalize.disposition_flags(wording, disposition_map)["flags"] == ["glassboro_pd"]
+
+
+def test_the_seven_tokens_that_broke_the_2026_10_27_run(category_map, disposition_map):
+    """The backlog that built up while the scheduled run stayed red.
+
+    The traceback names only the first row it trips on, so each single-token fix revealed
+    the next one and cost another day's capture. These seven were found by running a
+    strict pass over all four live sheets at once instead, and are asserted together for
+    the same reason: a test per token would let the next backlog hide the same way.
+
+    Four of the five Nature tokens are one offense list with commas where Rowan's own
+    convention is semicolons. They get map rows rather than a comma-splitting rule in the
+    tokenizer, because this vocabulary already holds hand-labelled tokens whose commas
+    are internal ("Alcohol Violations (Open Container in Vehicle, DWI)"), and a splitting
+    rule would shear those into fragments and lose their reviewed categories.
+    """
+    # Comma-fused offense lists resolve to exactly the pieces' own categories.
+    for fused, expected in (
+        ("Harassment, Stalking", {"Harassment", "Stalking"}),
+        ("Simple assault, Disorderly conduct", {"Simple assault", "Disorderly conduct"}),
+        (
+            "Harassment, Stalking, Disorderly conduct, Criminal mischief",
+            {"Harassment", "Stalking", "Disorderly conduct", "Criminal mischief"},
+        ),
+    ):
+        assert normalize.TOKEN_SPLIT.split(fused) == [fused], "Nature splits on semicolons only"
+        assert set(normalize.categorize(fused, category_map, strict=True)["categories"]) == expected
+
+    # A spacing variant is the same Clery sex offense, not a new one.
+    spaced = normalize.categorize("Sexual Assault- Fondling", category_map, strict=True)
+    assert spaced["categories"] == ["Sex offense"]
+    assert spaced["categories"] == normalize.categorize(
+        "Sexual Assault-Fondling", category_map, strict=True
+    )["categories"]
+
+    # RUPD 26-035474/ CSA 88642. A violated restraining order is its own offense, and
+    # does NOT silently inflate the domestic violence count.
+    dv_row = normalize.categorize(
+        "Domestic Violence, Harassment, Defiant Trespassing, "
+        "Violation of Restraining Order, Stalking",
+        category_map,
+        strict=True,
+    )
+    assert set(dv_row["categories"]) == {
+        "Domestic violence",
+        "Harassment",
+        "Trespassing",
+        "Restraining order violation",
+        "Stalking",
+    }
+    alone = normalize.categorize("Violation of Restraining Order", category_map, strict=True)
+    assert alone["categories"] == ["Restraining order violation"]
+
+    # Serving an order is still not an offense; the new category must not leak into it.
+    for service in ("Service of TRO", "Service of Temporary Restraining order"):
+        assert normalize.categorize(service, category_map, strict=True)["categories"] == []
+
+    # Both dispositions restate outcomes already in the vocabulary.
+    assert normalize.disposition_flags("Student arrested", disposition_map, strict=True)[
+        "flags"
+    ] == normalize.disposition_flags("Non-student arrested", disposition_map, strict=True)["flags"]
+    assert (
+        normalize.disposition_flags(
+            "Subject issued trespass notice", disposition_map, strict=True
+        )["flags"]
+        == normalize.disposition_flags("Trespass notice issued", disposition_map, strict=True)[
+            "flags"
+        ]
+    )
