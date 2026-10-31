@@ -760,3 +760,68 @@ def test_the_seven_tokens_that_broke_the_2026_10_27_run(category_map, dispositio
             "flags"
         ]
     )
+
+
+def test_the_five_tokens_that_broke_the_2026_10_31_run(category_map):
+    """Five comma-fused Nature tokens, of which the traceback named one.
+
+    The run died on "Possession of open container of alcohol, Littering". A strict pass
+    over all four live sheets found four more waiting behind it, which is four further
+    days of discarded captures at one token per run. Asserted as a batch for that reason.
+    """
+    for fused, expected in (
+        ("Littering, Possession of open container of alcohol", {"Littering", "Alcohol violation"}),
+        ("Possession of open container of alcohol, Littering", {"Alcohol violation", "Littering"}),
+        ("Simple Assault, Trespassing", {"Simple assault", "Trespassing"}),
+    ):
+        assert normalize.TOKEN_SPLIT.split(fused) == [fused], "Nature splits on semicolons only"
+        assert set(normalize.categorize(fused, category_map, strict=True)["categories"]) == expected
+
+    # GPD 26-037034 and GPD 26-037119, 50 minutes apart: the same two offenses in
+    # opposite order. Order of the fused token must not change what the row counts as.
+    pair = [
+        set(normalize.categorize(t, category_map, strict=True)["categories"])
+        for t in (
+            "Littering, Possession of open container of alcohol",
+            "Possession of open container of alcohol, Littering",
+        )
+    ]
+    assert pair[0] == pair[1]
+
+    # GPD 26-037162. Both halves are Obstruction, so the row counts ONE offense, not two
+    # -- a duplicated category here would inflate the obstruction series.
+    assert normalize.categorize("Obstruction, Eluding Police", category_map, strict=True)[
+        "categories"
+    ] == ["Obstruction"]
+    # The new standalone wording agrees with the three already mapped to Obstruction.
+    for wording in ("Eluding Police", "Attempting to elude police", "Hindering apprehension"):
+        assert normalize.categorize(wording, category_map, strict=True)["categories"] == [
+            "Obstruction"
+        ]
+
+
+def test_an_additive_nature_update_keeps_the_offense_it_added_to(category_map):
+    """CSA 88641/ RUPD 26-035871 -- "Simple Assault, Nature updated, Burglary".
+
+    Narrative: "another student entered their room and initiated a physical altercation."
+    Both offenses happened; the amendment added Burglary rather than withdrawing the
+    assault. Stephen's decision, 2026-10-30.
+
+    The row reaches this reading because it is one comma-fused token, so the map decides
+    its categories and the supersession step never sees it. The semicolon form still
+    reads as a replacement, and that is deliberate -- supersession exists to stop one
+    incident being counted as both a simple and an aggravated assault. This test pins
+    both halves of that asymmetry so neither can drift without the other failing.
+    """
+    additive = normalize.categorize(
+        "Simple Assault, Nature updated, Burglary", category_map, strict=True
+    )
+    assert set(additive["categories"]) == {"Simple assault", "Burglary"}
+    assert not additive["reclassified_from"]
+
+    # The semicolon form is still a reclassification, and the marker is still a marker.
+    replaced = normalize.categorize(
+        "Simple Assault; Nature updated; Burglary", category_map, strict=True
+    )
+    assert replaced["categories"] == ["Burglary"]
+    assert replaced["reclassified_from"] == ["Simple assault"]

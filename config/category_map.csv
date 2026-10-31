@@ -420,3 +420,43 @@ Sexual Assault- Fondling,offense,Sex offense,Spacing variant of "Sexual Assault-
 # which stay role=activity -- those record the order being served, not broken.
 Violation of Restraining Order,offense,Restraining order violation,First restraining-order violation in the archive
 "Domestic Violence, Harassment, Defiant Trespassing, Violation of Restraining Order, Stalking",offense,Domestic violence|Harassment|Trespassing|Restraining order violation|Stalking,Single token naming five offenses
+#
+# Added 2026-10-30. Five Nature tokens, all October, all comma-fused -- Rowan typing a
+# comma where its own convention is a semicolon, so the tokenizer saw one unknown token
+# instead of several known ones. Every component was already mapped above; the only
+# judgment here is the `Nature updated` row at the end.
+#
+# GPD 26-037034 and GPD 26-037119 are the SAME PAIR OF OFFENSES IN OPPOSITE ORDER,
+# logged 50 minutes apart. Two map entries for one pair of offenses, because the lookup
+# is an exact whole-token match. This is the clearest example yet of why the comma
+# repair belongs in the tokenizer rather than in this file: every new permutation of
+# already-known offenses costs a build failure and a day's capture.
+"Littering, Possession of open container of alcohol",offense,Littering|Alcohol violation,Single token naming two offenses
+"Possession of open container of alcohol, Littering",offense,Alcohol violation|Littering,Same two offenses as the entry above in the opposite order
+# GPD 26-037162 -- "GPD arrested a student for Obstruction and attempting to elude
+# police." Both halves are Obstruction: "Attempting to elude police" above is already
+# mapped there, so the fused token carries that one category rather than two. "Eluding
+# Police" also gets its own line, because it is a new wording for that offense and would
+# otherwise fail the build the first time Rowan logs it on its own.
+Eluding Police,offense,Obstruction,Fourth wording for this offense after "Attempting to elude police" and "Hindering Arrest"
+"Obstruction, Eluding Police",offense,Obstruction,Both halves are the same offense so this carries one category
+# RUPD 26-035931 -- assaulted by a non-student who was then found on campus after being
+# told to leave. Two offenses, both already mapped.
+"Simple Assault, Trespassing",offense,Simple assault|Trespassing,Single token naming two offenses
+# CSA 88641/ RUPD 26-035871 -- "Simple Assault, Nature updated, Burglary". Narrative:
+# "another student entered their room and initiated a physical altercation."
+#
+# Mapped ADDITIVELY: the amendment added Burglary, it did not withdraw the assault. The
+# narrative names both elements of one event, and reading the marker as a replacement
+# here would publish a burglary with no assault and drop a Clery-reportable simple
+# assault. Stephen's decision, 2026-10-30.
+#
+# This does NOT change what `Nature updated` means in normalize.categorize(). The marker
+# supersedes tokens before it when the Nature cell is split on semicolons, and that rule
+# stays as it is -- it exists to stop one incident being counted as both a simple and an
+# aggravated assault. This row arrives as a single comma-fused token, so it never reaches
+# the supersession step and its categories are decided here instead. The consequence is
+# real and worth knowing: the comma form of this wording now reads as additive while the
+# semicolon form still reads as a replacement. See the second instance of this problem,
+# RUPD 26-031375 on 2026-10-21, which is still outstanding.
+"Simple Assault, Nature updated, Burglary",offense,Simple assault|Burglary,Additive amendment -- the marker added Burglary rather than withdrawing the assault
