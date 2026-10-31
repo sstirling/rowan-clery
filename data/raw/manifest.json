@@ -5,7 +5,7 @@
       "absent_count": 0,
       "first_seen": "2026-10-01",
       "last_tab_census": "2026-10-29",
-      "last_verified": "2026-10-30",
+      "last_verified": "2026-10-31",
       "month": "July 2026",
       "name": "July 2026 Daily Crime Log",
       "snapshots": [
@@ -24,7 +24,7 @@
       "absent_count": 0,
       "first_seen": "2026-10-01",
       "last_tab_census": "2026-10-29",
-      "last_verified": "2026-10-30",
+      "last_verified": "2026-10-31",
       "month": "September 2026",
       "name": "September 2026 Daily Crime Log",
       "snapshots": [
@@ -83,7 +83,7 @@
       "absent_count": 0,
       "first_seen": "2026-10-01",
       "last_tab_census": "2026-10-29",
-      "last_verified": "2026-10-30",
+      "last_verified": "2026-10-31",
       "month": "August 2026",
       "name": "August 2026 Daily Crime Log",
       "snapshots": [
@@ -109,11 +109,11 @@
       ]
     },
     "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE": {
-      "absent_count": 24,
+      "absent_count": 25,
       "first_seen": "2026-10-01",
-      "last_absent_date": "2026-10-30",
+      "last_absent_date": "2026-10-31",
       "last_fetch_error": {
-        "date": "2026-10-30",
+        "date": "2026-10-31",
         "reason": "https://docs.google.com/spreadsheets/d/1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE/export?format=csv failed after 4 attempts: HTTP Error 401: Unauthorized"
       },
       "last_tab_census": "2026-10-01",
@@ -141,8 +141,8 @@
         "date": "2026-10-05",
         "reason": "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: body is only 191 bytes"
       },
-      "last_tab_census": "2026-10-30",
-      "last_verified": "2026-10-30",
+      "last_tab_census": "2026-10-31",
+      "last_verified": "2026-10-31",
       "month": "October 2026",
       "name": "October 2026 Daily Crime Log",
       "snapshots": [
@@ -250,6 +250,11 @@
           "bytes": 32933,
           "date": "2026-10-30",
           "sha256": "a35656850b8c8d415ad9cb9c5d14235895022c9bcf3fce1d89a0ec74fd42b36e"
+        },
+        {
+          "bytes": 39283,
+          "date": "2026-10-31",
+          "sha256": "fd54a8794640d6c87836b32363f1b2e94ef9f1ba401577505be793507ef40d98"
         }
       ],
       "status": "present",

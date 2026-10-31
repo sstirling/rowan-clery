@@ -2711,3 +2711,32 @@
 {"case_number": "GEN 88642", "change_type": "added", "date_reported": "10/27/26 11:49", "incident_uid": "b0037a94b2cbbae3", "nature": "Sexual Assault-Rape", "observed_date": "2026-10-29"}
 {"case_number": "RUPD 26-035595", "change_type": "added", "date_reported": "10/27/26 21:52", "incident_uid": "9e849c8d5de1f106", "nature": "Theft", "observed_date": "2026-10-30"}
 {"case_number": "RUPD 26-035599", "change_type": "added", "date_reported": "10/27/26 23:07", "incident_uid": "fc7666d3573966f3", "nature": "Sextortion", "observed_date": "2026-10-30"}
+{"case_number": "CSA 88641", "change_type": "missing", "confirmations": 1, "incident_uid": "6168a2c451a5ec48", "missing_since": "2026-10-31", "observed_date": "2026-10-31"}
+{"case_number": "RUPD 26-033131", "change_type": "added", "date_reported": "10/8/26 23:39", "incident_uid": "c80ceaeb9072e85f", "nature": "Public Urination", "observed_date": "2026-10-31"}
+{"case_number": "CSA 88641/ RUPD 26-035871", "change_type": "added", "date_reported": "10/27/26 10:51", "incident_uid": "db9f7a841509dfd4", "nature": "Simple Assault, Nature updated, Burglary", "observed_date": "2026-10-31"}
+{"case_number": "RUPD 26-035931", "change_type": "added", "date_reported": "10/30/26 0:36", "incident_uid": "f2bad7ff19437e04", "nature": "Simple Assault, Trespassing", "observed_date": "2026-10-31"}
+{"case_number": "RUPD 26-035933", "change_type": "added", "date_reported": "10/30/26 0:55", "incident_uid": "c2853b6513045568", "nature": "Disorderly Conduct", "observed_date": "2026-10-31"}
+{"case_number": "GPD 26-037418", "change_type": "added", "date_reported": "10/30/26 10:25", "incident_uid": "ef0b4662400f0371", "nature": "Littering", "observed_date": "2026-10-31"}
+{"case_number": "GPD 26-037162", "change_type": "added", "date_reported": "10/30/26 10:25", "incident_uid": "c3f9ce1989711baa", "nature": "Obstruction, Eluding Police", "observed_date": "2026-10-31"}
+{"case_number": "GPD 26-037150", "change_type": "added", "date_reported": "10/30/26 10:25", "incident_uid": "4a5399b4c1f8111c", "nature": "Possession of open container of alcohol", "observed_date": "2026-10-31"}
+{"case_number": "GPD 26-037149", "change_type": "added", "date_reported": "10/30/26 10:25", "incident_uid": "4448df7d77b2b2af", "nature": "Possession of open container of alcohol", "observed_date": "2026-10-31"}
+{"case_number": "GPD 26-037147", "change_type": "added", "date_reported": "10/30/26 10:25", "incident_uid": "0a8d8225ea6abf43", "nature": "Possession of open container of alcohol", "observed_date": "2026-10-31"}
+{"case_number": "GPD 26-037145", "change_type": "added", "date_reported": "10/30/26 10:25", "incident_uid": "abbdbe79e3d1664f", "nature": "Possession of open container of alcohol", "observed_date": "2026-10-31"}
+{"case_number": "GPD 26-037143", "change_type": "added", "date_reported": "10/30/26 10:25", "incident_uid": "026c182b92b99d16", "nature": "Possession of open container of alcohol", "observed_date": "2026-10-31"}
+{"case_number": "GPD 26-037120", "change_type": "added", "date_reported": "10/30/26 10:25", "incident_uid": "521770f695f4aa68", "nature": "Possession of open container of alcohol", "observed_date": "2026-10-31"}
+{"case_number": "GPD 26-037078", "change_type": "added", "date_reported": "10/30/26 10:25", "incident_uid": "4b95db697cc44d36", "nature": "Simple Assault", "observed_date": "2026-10-31"}
+{"case_number": "GPD 26-037034", "change_type": "added", "date_reported": "10/30/26 10:25", "incident_uid": "85a193e87c9c059b", "nature": "Littering, Possession of open container of alcohol", "observed_date": "2026-10-31"}
+{"case_number": "GPD 26-037030", "change_type": "added", "date_reported": "10/30/26 10:25", "incident_uid": "a755afbf932e26f1", "nature": "Littering", "observed_date": "2026-10-31"}
+{"case_number": "GPD 26-037028", "change_type": "added", "date_reported": "10/30/26 10:25", "incident_uid": "dced3b2e6b4c9665", "nature": "Public urination", "observed_date": "2026-10-31"}
+{"case_number": "GPD 26-037010", "change_type": "added", "date_reported": "10/30/26 10:25", "incident_uid": "fcff25ce7e2001e3", "nature": "Possession of open container of alcohol", "observed_date": "2026-10-31"}
+{"case_number": "GPD 26-036918", "change_type": "added", "date_reported": "10/30/26 10:25", "incident_uid": "57b01f4143a93fe0", "nature": "Disorderly conduct", "observed_date": "2026-10-31"}
+{"case_number": "GPD 26-036917", "change_type": "added", "date_reported": "10/30/26 10:25", "incident_uid": "02cbf78288361123", "nature": "Public urination", "observed_date": "2026-10-31"}
+{"case_number": "GPD 26-036907", "change_type": "added", "date_reported": "10/30/26 10:25", "incident_uid": "61d1f1b9a9fc2bf4", "nature": "Public urination", "observed_date": "2026-10-31"}
+{"case_number": "GPD 26-036889", "change_type": "added", "date_reported": "10/30/26 10:25", "incident_uid": "af006607e06dfd72", "nature": "Possession of open container of alcohol", "observed_date": "2026-10-31"}
+{"case_number": "GPD 26-036880", "change_type": "added", "date_reported": "10/30/26 10:25", "incident_uid": "520a11d26c1016dd", "nature": "Possession of open container of alcohol", "observed_date": "2026-10-31"}
+{"case_number": "GPD 26-036368", "change_type": "added", "date_reported": "10/30/26 10:25", "incident_uid": "62b14ef1ab9e91bc", "nature": "Possession of open container of alcohol", "observed_date": "2026-10-31"}
+{"case_number": "GPD 26-036349", "change_type": "added", "date_reported": "10/30/26 10:25", "incident_uid": "aa9642b5f27880e7", "nature": "Possession of open container of alcohol", "observed_date": "2026-10-31"}
+{"case_number": "GPD 26-036330", "change_type": "added", "date_reported": "10/30/26 10:25", "incident_uid": "6d899d2fe86b1a89", "nature": "Public urination", "observed_date": "2026-10-31"}
+{"case_number": "GPD 26-037119", "change_type": "added", "date_reported": "10/30/26 11:15", "incident_uid": "44025a80b8012cc5", "nature": "Possession of open container of alcohol, Littering", "observed_date": "2026-10-31"}
+{"case_number": "GPD 26-037028", "change_type": "added", "date_reported": "10/30/26 11:15", "incident_uid": "5fce23f54365a012", "nature": "Public urination", "observed_date": "2026-10-31"}
+{"case_number": "GPD 26-037007", "change_type": "added", "date_reported": "10/30/26 11:15", "incident_uid": "9475993377b78a39", "nature": "Disorderly conduct", "observed_date": "2026-10-31"}
