@@ -2740,3 +2740,4 @@
 {"case_number": "GPD 26-037119", "change_type": "added", "date_reported": "10/30/26 11:15", "incident_uid": "44025a80b8012cc5", "nature": "Possession of open container of alcohol, Littering", "observed_date": "2026-10-31"}
 {"case_number": "GPD 26-037028", "change_type": "added", "date_reported": "10/30/26 11:15", "incident_uid": "5fce23f54365a012", "nature": "Public urination", "observed_date": "2026-10-31"}
 {"case_number": "GPD 26-037007", "change_type": "added", "date_reported": "10/30/26 11:15", "incident_uid": "9475993377b78a39", "nature": "Disorderly conduct", "observed_date": "2026-10-31"}
+{"case_number": "CSA 88641", "change_type": "missing", "confirmations": 2, "incident_uid": "6168a2c451a5ec48", "missing_since": "2026-10-31", "observed_date": "2026-11-01"}
