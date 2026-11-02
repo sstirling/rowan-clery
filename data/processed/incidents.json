@@ -72,7 +72,7 @@
    "RUPD": 0.0
   }
  },
- "generated_utc": "2026-11-02T21:08:57+00:00",
+ "generated_utc": "2026-11-02T21:18:59+00:00",
  "archive_started": "2026-10-01",
  "source_folder": "https://drive.google.com/drive/folders/1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
  "published_era": {
@@ -99,7 +99,7 @@
   ],
   "warnings": [
    "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']",
-   "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o (July 2026 Daily Crime Log): fetch failed (14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: only 2 lines, below floor of 3); absence 1 of 3. Rows left untouched."
+   "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o (November 2026 Daily Crime Log): fetch failed (14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: only 2 lines, below floor of 3); absence 1 of 3. Rows left untouched."
   ]
  },
  "activity": {
@@ -25759,7 +25759,7 @@
   },
   {
    "date": "2026-11-02",
-   "summary": "+12 added, 21 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
+   "summary": "+0 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
    "alarms": 1
   }
  ]

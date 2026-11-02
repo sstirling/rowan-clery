@@ -15,7 +15,7 @@
       "name": "September 2026 Daily Crime Log",
       "rows": 110,
       "sha256": "f4fdf9c631444ae1d5478db8bb21a8b0280680cc4e291b19c95d6de90b19ca8b",
-      "snapshot_written": true,
+      "snapshot_written": false,
       "status": "ok"
     },
     "1Ms5gjJX_-vnA4wUaTW-z60Hd98guINjRU5R-e5n58Ts": {
@@ -36,7 +36,7 @@
       "name": "October 2026 Daily Crime Log",
       "rows": 184,
       "sha256": "73a36a6a8431c95f1a73dbf9ba1d85126b5a38faadbfdc61ea59a6fe89d78868",
-      "snapshot_written": true,
+      "snapshot_written": false,
       "status": "ok"
     }
   },
@@ -46,23 +46,23 @@
     "status": "ok"
   },
   "merge": {
-    "added": 12,
-    "amended": 21,
-    "changed": true,
+    "added": 0,
+    "amended": 0,
+    "changed": false,
     "missing": 0,
     "quarantined": [],
     "reappeared": 0,
     "relocated": 0,
     "source_removed": 0,
     "superseded": 0,
-    "unchanged": 303,
+    "unchanged": 336,
     "unfetched": [],
     "warnings": [],
     "withdrawn": 0
   },
-  "summary": "+12 added, 21 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
+  "summary": "+0 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
   "warnings": [
     "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']",
-    "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o (July 2026 Daily Crime Log): fetch failed (14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: only 2 lines, below floor of 3); absence 1 of 3. Rows left untouched."
+    "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o (November 2026 Daily Crime Log): fetch failed (14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: only 2 lines, below floor of 3); absence 1 of 3. Rows left untouched."
   ]
 }
