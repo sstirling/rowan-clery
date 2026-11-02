@@ -2741,3 +2741,4 @@
 {"case_number": "GPD 26-037028", "change_type": "added", "date_reported": "10/30/26 11:15", "incident_uid": "5fce23f54365a012", "nature": "Public urination", "observed_date": "2026-10-31"}
 {"case_number": "GPD 26-037007", "change_type": "added", "date_reported": "10/30/26 11:15", "incident_uid": "9475993377b78a39", "nature": "Disorderly conduct", "observed_date": "2026-10-31"}
 {"case_number": "CSA 88641", "change_type": "missing", "confirmations": 2, "incident_uid": "6168a2c451a5ec48", "missing_since": "2026-10-31", "observed_date": "2026-11-01"}
+{"case_number": "CSA 88641", "change_type": "withdrawn", "confirmations": 3, "date_reported": "10/27/26 10:51", "incident_uid": "6168a2c451a5ec48", "last_known_disposition": "Incident not reported to RUPD; Addressed by University Department", "missing_since": "2026-10-31", "nature": "Simple Assault", "observed_date": "2026-11-02"}
