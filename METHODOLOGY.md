@@ -270,6 +270,32 @@ status filter and in the change feed as a `superseded_identity` event.
 sheet is a different event from a whole month disappearing. In both cases every field is
 preserved and remains readable.
 
+**A file id can change which month it holds.** On 2026-11-02 the Drive file that had held
+"July 2026 Daily Crime Log" since the archive began was renamed to "November 2026 Daily
+Crime Log", its 23 July rows deleted and its banner row rewritten. Rowan reused the
+container rather than publishing a new file, so one id now covers two months. The folder
+listing showed four files and no separate July sheet.
+
+July's 23 rows are `source_removed`, the same status June's 14 carry, and the changelog
+records `removal_mechanism: file_repurposed_for_november_2026` on each so the two kinds of
+loss stay distinguishable: June's sheet was locked behind HTTP 401, July's was overwritten
+in place. **Thirty-seven rows of the 2026 live-era log now exist only in this archive.**
+
+Row-level provenance survives the reuse because `parse.source_month()` reads each sheet's
+banner rather than its file name, so rows captured before and after carry the right month.
+Two interlocks did not survive it unaided, and both were changed:
+
+- `_absent()` exempts `withdrawn` and `superseded` rows as absent by definition. A
+  `source_removed` row belongs in that list and was not in it. Before the reuse the gap
+  was unreachable — a removed file is one that stops fetching — but a reused id fetches
+  perfectly well, so the ladder would have relabelled all 23 preserved rows `missing` and
+  then `withdrawn`, publishing the claim that Rowan withdrew 23 records one at a time.
+- The shrink guard scores a fetch against every prior row sharing the file id, so 23 July
+  rows against a handful of November ones reads as a catastrophic shrink. Retiring July to
+  `source_removed` takes those rows out of the retention denominator, which resolves it
+  for this case. Scoping the guard to `(file_id, source_month)` would resolve it for the
+  next one, and is not yet done.
+
 #### Safety interlocks
 
 The archive's integrity rests on never mistaking a fetch failure for a deletion.

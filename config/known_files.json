@@ -3,9 +3,12 @@
   "folder_id": "1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
   "files": {
     "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE": "June 2026 Daily Crime Log",
-    "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o": "July 2026 Daily Crime Log",
+    "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o": "November 2026 Daily Crime Log",
     "1Ms5gjJX_-vnA4wUaTW-z60Hd98guINjRU5R-e5n58Ts": "August 2026 Daily Crime Log",
     "1HULCgv9mk7XMkfC2DKkBaOUm5rA00aVfO83lU9489p0": "September 2026 Daily Crime Log",
     "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I": "October 2026 Daily Crime Log"
+  },
+  "_reused_ids": {
+    "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o": "Held 'July 2026 Daily Crime Log' until 2026-11-01. On 2026-11-02 Rowan renamed this file to November 2026, deleted July's 23 rows and rewrote the banner row, reusing the container rather than publishing a new file. July's rows are preserved in the archive as source_removed. Row-level month comes from each sheet's own banner via parse.source_month(), not from this name, so rows archived before and after the reuse each carry the right month."
   }
 }

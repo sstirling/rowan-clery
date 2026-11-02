@@ -486,6 +486,16 @@ class Archive:
         if row.get("status") == "superseded":
             return row, []
 
+        # A source_removed row is absent BY DEFINITION too: its whole monthly sheet is
+        # gone. Normally the file is never fetched again, so this branch never comes up --
+        # it came up on 2026-11-02, when Rowan reused July's file id for November. The id
+        # fetches perfectly well, July's 23 rows are absent from it permanently, and
+        # without this guard the ladder relabels all 23 `missing` and then `withdrawn`
+        # within three runs. That would publish the claim that Rowan withdrew 23 records
+        # one at a time, when what it actually did was replace the sheet wholesale.
+        if row.get("status") == "source_removed":
+            return row, []
+
         # Count at most one absence per calendar day, so a manual re-run cannot push a
         # row toward withdrawal faster than the confirmation window allows.
         if row.get("missing_since") == today or row.get("last_absent") == today:
