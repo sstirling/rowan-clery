@@ -2,23 +2,20 @@
   "alarms": [
     "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 27 runs — treating the source file as removed. Its rows are preserved in full."
   ],
-  "archive_rows": 2535,
+  "archive_rows": 2547,
   "date": "2026-11-02",
   "files": {
     "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o": {
-      "month": "July 2026",
-      "name": "July 2026 Daily Crime Log",
-      "rows": 23,
-      "sha256": "44c0e11ce717d32386d1a74c226b1e3f748ed4760fca6714996e1d37304b721f",
-      "snapshot_written": false,
-      "status": "ok"
+      "error": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: only 2 lines, below floor of 3",
+      "name": "November 2026 Daily Crime Log",
+      "status": "unfetched"
     },
     "1HULCgv9mk7XMkfC2DKkBaOUm5rA00aVfO83lU9489p0": {
       "month": "September 2026",
       "name": "September 2026 Daily Crime Log",
       "rows": 110,
-      "sha256": "6e3b8ed01f6e38966486aa574e6269c4c4ac40ca20a4a6479d40831f529ac4cd",
-      "snapshot_written": false,
+      "sha256": "f4fdf9c631444ae1d5478db8bb21a8b0280680cc4e291b19c95d6de90b19ca8b",
+      "snapshot_written": true,
       "status": "ok"
     },
     "1Ms5gjJX_-vnA4wUaTW-z60Hd98guINjRU5R-e5n58Ts": {
@@ -37,9 +34,9 @@
     "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I": {
       "month": "October 2026",
       "name": "October 2026 Daily Crime Log",
-      "rows": 172,
-      "sha256": "fd54a8794640d6c87836b32363f1b2e94ef9f1ba401577505be793507ef40d98",
-      "snapshot_written": false,
+      "rows": 184,
+      "sha256": "73a36a6a8431c95f1a73dbf9ba1d85126b5a38faadbfdc61ea59a6fe89d78868",
+      "snapshot_written": true,
       "status": "ok"
     }
   },
@@ -49,8 +46,8 @@
     "status": "ok"
   },
   "merge": {
-    "added": 0,
-    "amended": 0,
+    "added": 12,
+    "amended": 21,
     "changed": true,
     "missing": 0,
     "quarantined": [],
@@ -58,16 +55,14 @@
     "relocated": 0,
     "source_removed": 0,
     "superseded": 0,
-    "unchanged": 347,
+    "unchanged": 303,
     "unfetched": [],
-    "warnings": [
-      "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: 1 row(s) absent — advancing confirmation ladder"
-    ],
-    "withdrawn": 1
+    "warnings": [],
+    "withdrawn": 0
   },
-  "summary": "+0 added, 0 amended, 0 missing, 1 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
+  "summary": "+12 added, 21 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
   "warnings": [
     "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']",
-    "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: 1 row(s) absent — advancing confirmation ladder"
+    "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o (July 2026 Daily Crime Log): fetch failed (14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: only 2 lines, below floor of 3); absence 1 of 3. Rows left untouched."
   ]
 }
