@@ -249,3 +249,14 @@ student arrested,outcome,arrested,Affiliation belongs in student_flag rather tha
 # and the rest; see the note at the trespass cluster above about the combinatorial
 # problem (trespass/trespassing x notice/warning x singular/plural).
 subject issued trespass notice,outcome,trespass_notice,
+#
+# Added 2026-11-02. One token, from an October row.
+#
+# RUPD 26-034742 -- a whiteboard reported stolen, logged "Open/Active; Disposition
+# updated; Unfounded by officer; Property not stolen". The same finding as "unfounded by
+# officer", which the row also carries: the officer established the theft did not happen.
+#
+# NOT property_recovered. Nothing was recovered, because nothing was taken, and folding
+# this into that flag would count a non-theft among the recoveries and overstate how
+# often stolen property comes back.
+property not stolen,outcome,unfounded,Officer established the theft did not happen -- not a recovery

@@ -825,3 +825,56 @@ def test_an_additive_nature_update_keeps_the_offense_it_added_to(category_map):
     )
     assert replaced["categories"] == ["Burglary"]
     assert replaced["reclassified_from"] == ["Simple assault"]
+
+
+def test_the_three_tokens_that_broke_the_2026_11_02_run(category_map, disposition_map):
+    """Two comma-fused Nature tokens and a disposition, of which the traceback named one.
+
+    Each fused token is asserted alongside the standalone wording it is built from. The
+    standalone entries are the point: a new spelling that only ever arrives fused still
+    breaks the build the first time Rowan logs it alone, and that was the whole shape of
+    the 2026-10-30 run (`Eluding Police`).
+    """
+    # RUPD 26-034981.
+    assert set(
+        normalize.categorize(
+            "DWI, Possession of open alcohol in a vehicle.", category_map, strict=True
+        )["categories"]
+    ) == {"DWI", "Alcohol violation"}
+    # The trailing period is noise: fold_token strips it, so both spellings agree.
+    assert normalize.categorize(
+        "Possession of open alcohol in a vehicle", category_map, strict=True
+    )["categories"] == ["Alcohol violation"]
+
+    # RUPD 26-036090. Read from the Nature cell: the narrative does not mention the
+    # officer, but Rowan classified the row that way and the archive records that.
+    assert set(
+        normalize.categorize(
+            "Disorderly conduct, Possession of Illegal drug, Assault on Police Officer",
+            category_map,
+            strict=True,
+        )["categories"]
+    ) == {"Disorderly conduct", "Drug offense", "Assault on an officer"}
+    # The fourth wording agrees with the three already mapped.
+    for wording in ("Assault on Police Officer", "Assault on Officer", "Assault on a police officer"):
+        assert normalize.categorize(wording, category_map, strict=True)["categories"] == [
+            "Assault on an officer"
+        ]
+    assert normalize.categorize("Possession of Illegal drug", category_map, strict=True)[
+        "categories"
+    ] == ["Drug offense"]
+
+    # RUPD 26-034742 -- a whiteboard that turned out never to have been stolen. The same
+    # finding as "unfounded by officer", which the row also carries, so the flag set does
+    # not grow. Emphatically not a recovery: counting it as one would overstate how often
+    # stolen property comes back.
+    row = normalize.disposition_flags(
+        "Open/Active; Disposition updated; Unfounded by officer; Property not stolen",
+        disposition_map,
+        strict=True,
+    )
+    assert "unfounded" in row["flags"]
+    assert "property_recovered" not in row["flags"]
+    assert normalize.disposition_flags("Property not stolen", disposition_map, strict=True)[
+        "flags"
+    ] == ["unfounded"]

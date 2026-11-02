@@ -460,3 +460,25 @@ Eluding Police,offense,Obstruction,Fourth wording for this offense after "Attemp
 # semicolon form still reads as a replacement. See the second instance of this problem,
 # RUPD 26-031375 on 2026-10-21, which is still outstanding.
 "Simple Assault, Nature updated, Burglary",offense,Simple assault|Burglary,Additive amendment -- the marker added Burglary rather than withdrawing the assault
+#
+# Added 2026-11-02. Two comma-fused Nature tokens, plus the three standalone wordings
+# they are built from. The standalone lines matter as much as the fused ones: each is a
+# new spelling of an offense already in this file, and without its own entry it would
+# fail the build the first time Rowan logs it on its own.
+#
+# RUPD 26-034981 -- "RUPD arrested a non-student for DWI and possession of open alcohol
+# in a vehicle." Comma-fused. A two-offense subset of the three-offense token at
+# "DWI, possession of illegal drug, possession of open alcohol in a vehicle." above.
+Possession of open alcohol in a vehicle,offense,Alcohol violation,Shorter wording of "Possession of open container of alcohol in a vehicle" above
+"DWI, Possession of open alcohol in a vehicle.",offense,DWI|Alcohol violation,Single token naming two offenses
+# RUPD 26-036090 -- "Disorderly conduct, Possession of Illegal drug, Assault on Police
+# Officer". Comma-fused, three offenses.
+#
+# Read from the Nature cell, not the narrative. The narrative says only that RUPD
+# arrested a disorderly non-student in possession of illegal drugs and does not mention
+# the officer at all -- but Rowan wrote the token outright, and the archive's rule is to
+# record the classification the source gave. "Assault on a police officer" above was
+# added on the same basis.
+Possession of Illegal drug,offense,Drug offense,Singular of "Possession of Illegal drugs/paraphernalia" above
+Assault on Police Officer,offense,Assault on an officer,Fourth wording after "Assault on Officer" and "Assault on a police officer"
+"Disorderly conduct, Possession of Illegal drug, Assault on Police Officer",offense,Disorderly conduct|Drug offense|Assault on an officer,Single token naming three offenses
