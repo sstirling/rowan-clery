@@ -2,10 +2,16 @@
   "archive_started": "2026-10-01",
   "files": {
     "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o": {
-      "absent_count": 0,
+      "absent_count": 1,
       "first_seen": "2026-10-01",
+      "last_absent_date": "2026-11-02",
+      "last_fetch_error": {
+        "date": "2026-11-02",
+        "reason": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: only 2 lines, below floor of 3"
+      },
       "last_tab_census": "2026-10-29",
       "last_verified": "2026-11-02",
+      "missing_since": "2026-11-02",
       "month": "July 2026",
       "name": "July 2026 Daily Crime Log",
       "snapshots": [
@@ -15,7 +21,7 @@
           "sha256": "44c0e11ce717d32386d1a74c226b1e3f748ed4760fca6714996e1d37304b721f"
         }
       ],
-      "status": "present",
+      "status": "unfetched",
       "tabs": [
         "Crime Log"
       ]
@@ -23,7 +29,7 @@
     "1HULCgv9mk7XMkfC2DKkBaOUm5rA00aVfO83lU9489p0": {
       "absent_count": 0,
       "first_seen": "2026-10-01",
-      "last_tab_census": "2026-10-29",
+      "last_tab_census": "2026-11-02",
       "last_verified": "2026-11-02",
       "month": "September 2026",
       "name": "September 2026 Daily Crime Log",
@@ -72,6 +78,11 @@
           "bytes": 26360,
           "date": "2026-10-21",
           "sha256": "6e3b8ed01f6e38966486aa574e6269c4c4ac40ca20a4a6479d40831f529ac4cd"
+        },
+        {
+          "bytes": 26720,
+          "date": "2026-11-02",
+          "sha256": "f4fdf9c631444ae1d5478db8bb21a8b0280680cc4e291b19c95d6de90b19ca8b"
         }
       ],
       "status": "present",
@@ -141,7 +152,7 @@
         "date": "2026-10-05",
         "reason": "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: body is only 191 bytes"
       },
-      "last_tab_census": "2026-10-31",
+      "last_tab_census": "2026-11-02",
       "last_verified": "2026-11-02",
       "month": "October 2026",
       "name": "October 2026 Daily Crime Log",
@@ -255,6 +266,11 @@
           "bytes": 39283,
           "date": "2026-10-31",
           "sha256": "fd54a8794640d6c87836b32363f1b2e94ef9f1ba401577505be793507ef40d98"
+        },
+        {
+          "bytes": 41983,
+          "date": "2026-11-02",
+          "sha256": "73a36a6a8431c95f1a73dbf9ba1d85126b5a38faadbfdc61ea59a6fe89d78868"
         }
       ],
       "status": "present",

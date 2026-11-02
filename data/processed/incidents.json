@@ -16,7 +16,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 327,
+   "incidents": 339,
    "months_covered": 3,
    "months": [
     "2026-08",
@@ -45,7 +45,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 317,
+   "incidents": 329,
    "months_covered": 3,
    "months": [
     "2026-08",
@@ -62,8 +62,8 @@
   "default": "occurred",
   "window_start": "2026-06",
   "window_start_label": "June 2026",
-  "total": 364,
-  "shown": 351,
+  "total": 376,
+  "shown": 363,
   "excluded_no_date": 5,
   "excluded_before_window": 8,
   "lag_median_days": {
@@ -72,21 +72,21 @@
    "RUPD": 0.0
   }
  },
- "generated_utc": "2026-11-02T00:48:19+00:00",
+ "generated_utc": "2026-11-02T21:08:57+00:00",
  "archive_started": "2026-10-01",
  "source_folder": "https://drive.google.com/drive/folders/1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
  "published_era": {
   "id": "drive-2026",
   "label": "Google Sheets on Drive",
-  "count": 368,
+  "count": 380,
   "since": "June 2026"
  },
  "counts": {
-  "total_archived": 368,
-  "currently_published": 347,
+  "total_archived": 380,
+  "currently_published": 359,
   "no_longer_published": 17,
   "superseded": 4,
-  "distinct_incidents": 364,
+  "distinct_incidents": 376,
   "withdrawn": 3,
   "source_removed": 14
  },
@@ -99,15 +99,15 @@
   ],
   "warnings": [
    "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']",
-   "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: 1 row(s) absent — advancing confirmation ladder"
+   "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o (July 2026 Daily Crime Log): fetch failed (14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: only 2 lines, below floor of 3); absence 1 of 3. Rows left untouched."
   ]
  },
  "activity": {
   "window_days": 7,
   "since": "2026-10-26",
   "until": "2026-11-02",
-  "added": 59,
-  "amended": 3,
+  "added": 71,
+  "amended": 24,
   "withdrawn": 1,
   "aged_out": 0,
   "runs_in_window": 5,
@@ -1240,6 +1240,62 @@
    "flags": []
   },
   {
+   "uid": "0d79e1358e9084a0",
+   "case_number": "RUPD 26-036090",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-31T02:45:00",
+    "precision": "minute",
+    "raw": "10/31/26 2:45",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-31T02:45:00",
+    "precision": "minute",
+    "raw": "10/31/26 2:45",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 0.0,
+   "nature_raw": "Disorderly conduct, Possession of Illegal drug, Assault on Police Officer",
+   "categories": [
+    "Disorderly conduct",
+    "Drug offense",
+    "Assault on an officer"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "RUPD arrested a disorderly and uncooperative non-student who was in possession of illegal drugs.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Outside of Holly Pointe Commons",
+   "disposition_raw": "Closed; Subject arrested; Trespass warning issued",
+   "disposition_flags": [
+    "closed",
+    "arrested",
+    "trespass_notice"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-11-02",
+   "last_verified": "2026-11-02",
+   "missing_since": "",
+   "flags": []
+  },
+  {
    "uid": "10a27d0d6ba670a5",
    "case_number": "GPD 26-033674/ RUPD 26-029694 CAD",
    "agencies": [
@@ -1289,6 +1345,58 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
+   "last_verified": "2026-11-02",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "10f11bf0d3d65065",
+   "case_number": "RUPD 26-034867",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-22T10:24:00",
+    "precision": "minute",
+    "raw": "10/22/26 10:24",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-22",
+    "precision": "day",
+    "raw": "10/22/26 Unk.",
+    "ongoing": false
+   },
+   "reporting_lag_hours": null,
+   "nature_raw": "Harassment",
+   "categories": [
+    "Harassment"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Two students reported to RUPD that they were being harassed by other students.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Campus",
+   "disposition_raw": "Closed; Reporting parties provided citizen's complaint info",
+   "disposition_flags": [
+    "closed",
+    "rp_referred_to_complaint"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-11-02",
    "last_verified": "2026-11-02",
    "missing_since": "",
    "flags": []
@@ -1856,7 +1964,7 @@
    "reclassified_from": [],
    "unclassified": [],
    "unclassified_disposition": [],
-   "narrative": "Non-student was arrested for DWI and possessing an open container of alcohol in their vehicle.",
+   "narrative": "Non-student was arrested by RUPD for DWI and possessing an open container of alcohol in their vehicle.",
    "campus": "Glassboro",
    "campus_raw": "Glassboro",
    "era": "drive-2026",
@@ -1875,7 +1983,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-10-29",
    "last_verified": "2026-11-02",
    "missing_since": "",
@@ -2098,6 +2206,58 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-14",
+   "last_verified": "2026-11-02",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "199f159f7be526a5",
+   "case_number": "RUPD 26-036045",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-30T22:56:00",
+    "precision": "minute",
+    "raw": "10/30/26 22:56",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-29T16:45:00",
+    "precision": "minute",
+    "raw": "10/29/26 16:45",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 30.18,
+   "nature_raw": "Theft",
+   "categories": [
+    "Theft"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to RUPD that their watch was stolen.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Bunce Hall",
+   "disposition_raw": "Open/Active",
+   "disposition_flags": [
+    "open_active"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-11-02",
    "last_verified": "2026-11-02",
    "missing_since": "",
    "flags": []
@@ -2400,11 +2560,11 @@
    "campus_raw": "Glassboro",
    "era": "drive-2026",
    "location": "Holly Pointe Commons",
-   "disposition_raw": "Open/Active",
+   "disposition_raw": "Open/Active; Disposition updated/Inactive",
    "disposition_flags": [
-    "open_active"
+    "inactive"
    ],
-   "disposition_amended": false,
+   "disposition_amended": true,
    "month": "September 2026",
    "month_key": "2026-09",
    "school_year": "2026-27",
@@ -2413,7 +2573,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
    "missing_since": "",
@@ -2932,11 +3092,11 @@
    "campus_raw": "Glassboro",
    "era": "drive-2026",
    "location": "230 Victoria St. Apts./via phone",
-   "disposition_raw": "Open/Active",
+   "disposition_raw": "Open/Active; Disposition updated/Inactive",
    "disposition_flags": [
-    "open_active"
+    "inactive"
    ],
-   "disposition_amended": false,
+   "disposition_amended": true,
    "month": "September 2026",
    "month_key": "2026-09",
    "school_year": "2026-27",
@@ -2945,7 +3105,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
    "missing_since": "",
@@ -4966,11 +5126,11 @@
    "campus_raw": "Glassboro",
    "era": "drive-2026",
    "location": "Engineering Hall",
-   "disposition_raw": "Open/Active",
+   "disposition_raw": "Open/Active; Disposition updated; Unfounded by officer; Property not stolen",
    "disposition_flags": [
-    "open_active"
+    "unfounded"
    ],
-   "disposition_amended": false,
+   "disposition_amended": true,
    "month": "October 2026",
    "month_key": "2026-10",
    "school_year": "2026-27",
@@ -4979,7 +5139,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-10-22",
    "last_verified": "2026-11-02",
    "missing_since": "",
@@ -8122,11 +8282,11 @@
    "campus_raw": "Glassboro",
    "era": "drive-2026",
    "location": "Holly Pointe Commons",
-   "disposition_raw": "Open/Active",
+   "disposition_raw": "Open/Active; Disposition updated/Inactive",
    "disposition_flags": [
-    "open_active"
+    "inactive"
    ],
-   "disposition_amended": false,
+   "disposition_amended": true,
    "month": "September 2026",
    "month_key": "2026-09",
    "school_year": "2026-27",
@@ -8135,7 +8295,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
    "missing_since": "",
@@ -8334,11 +8494,11 @@
    "campus_raw": "Glassboro",
    "era": "drive-2026",
    "location": "Campus",
-   "disposition_raw": "Open/Active",
+   "disposition_raw": "Open/Active; Disposition updated/Inactive",
    "disposition_flags": [
-    "open_active"
+    "inactive"
    ],
-   "disposition_amended": false,
+   "disposition_amended": true,
    "month": "September 2026",
    "month_key": "2026-09",
    "school_year": "2026-27",
@@ -8347,7 +8507,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
    "missing_since": "",
@@ -8456,6 +8616,59 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
+   "last_verified": "2026-11-02",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "671603bcb1b29153",
+   "case_number": "RUPD 26-036189",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-31T22:34:00",
+    "precision": "minute",
+    "raw": "10/31/26 22:34",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-31T21:40:00",
+    "precision": "minute",
+    "raw": "10/31/26 21:40",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 0.9,
+   "nature_raw": "Simple Assault",
+   "categories": [
+    "Simple assault"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to RUPD that they were assaulted by a student and a non-student during an argument.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "114 Victoria St. Apts.",
+   "disposition_raw": "Closed; Reporting party declined police involvement",
+   "disposition_flags": [
+    "closed",
+    "rp_declined"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-11-02",
    "last_verified": "2026-11-02",
    "missing_since": "",
    "flags": []
@@ -8706,11 +8919,11 @@
    "campus_raw": "Glassboro",
    "era": "drive-2026",
    "location": "Campus lot",
-   "disposition_raw": "Open/Active",
+   "disposition_raw": "Open/Active; Disposition updated/Inactive",
    "disposition_flags": [
-    "open_active"
+    "inactive"
    ],
-   "disposition_amended": false,
+   "disposition_amended": true,
    "month": "September 2026",
    "month_key": "2026-09",
    "school_year": "2026-27",
@@ -8719,7 +8932,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
    "missing_since": "",
@@ -8833,6 +9046,57 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
+   "last_verified": "2026-11-02",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "7133d29d63163464",
+   "case_number": "RUPD 26-035978",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-30T12:04:00",
+    "precision": "minute",
+    "raw": "10/30/26 12:04",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-22",
+    "precision": "day",
+    "raw": "10/22/26 Unk.",
+    "ongoing": false
+   },
+   "reporting_lag_hours": null,
+   "nature_raw": "Motor Vehicle Theft (Electric Scooter)",
+   "categories": [
+    "Motor vehicle theft"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to RUPD that their E-scooter was stolen.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Outside of Engineering Hall",
+   "disposition_raw": "Open/Active",
+   "disposition_flags": [
+    "open_active"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-11-02",
    "last_verified": "2026-11-02",
    "missing_since": "",
    "flags": []
@@ -8975,11 +9239,11 @@
    "campus_raw": "Glassboro",
    "era": "drive-2026",
    "location": "Chestnut Hall",
-   "disposition_raw": "Open/Active",
+   "disposition_raw": "Open/Active; Disposition updated/Inactive",
    "disposition_flags": [
-    "open_active"
+    "inactive"
    ],
-   "disposition_amended": false,
+   "disposition_amended": true,
    "month": "September 2026",
    "month_key": "2026-09",
    "school_year": "2026-27",
@@ -8988,7 +9252,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
    "missing_since": "",
@@ -9008,13 +9272,13 @@
     "range_end": null
    },
    "occurred": {
-    "value": "2026-10-22T11:27:00",
+    "value": "2026-10-22T08:45:00",
     "precision": "minute",
-    "raw": "10/22/26 11:27",
+    "raw": "10/22/26 8:45",
     "ongoing": false,
     "range_end": null
    },
-   "reporting_lag_hours": 0.0,
+   "reporting_lag_hours": 2.7,
    "nature_raw": "Motor Vehicle Theft (Electric Scooter)",
    "categories": [
     "Motor vehicle theft"
@@ -9027,11 +9291,11 @@
    "campus_raw": "Glassboro",
    "era": "drive-2026",
    "location": "Outside of Willow Hall",
-   "disposition_raw": "Open/Active",
+   "disposition_raw": "Open/Active; Disposition updated; Property recovered",
    "disposition_flags": [
-    "open_active"
+    "property_recovered"
    ],
-   "disposition_amended": false,
+   "disposition_amended": true,
    "month": "October 2026",
    "month_key": "2026-10",
    "school_year": "2026-27",
@@ -9040,7 +9304,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-10-29",
    "last_verified": "2026-11-02",
    "missing_since": "",
@@ -9207,6 +9471,58 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
+   "last_verified": "2026-11-02",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "74a347d5920a23fe",
+   "case_number": "RUPD 26-035041",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-23T16:34:00",
+    "precision": "minute",
+    "raw": "10/23/26 16:34",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-15T16:00:00",
+    "precision": "minute",
+    "raw": "10/15/26 16:00",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 192.57,
+   "nature_raw": "Motor Vehicle Theft (Electric Scooter)",
+   "categories": [
+    "Motor vehicle theft"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to RUPD that their E-scooter was stolen.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Outside of Holly Pointe Commons",
+   "disposition_raw": "Open/Active",
+   "disposition_flags": [
+    "open_active"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-11-02",
    "last_verified": "2026-11-02",
    "missing_since": "",
    "flags": []
@@ -9778,11 +10094,11 @@
    "campus_raw": "Glassboro",
    "era": "drive-2026",
    "location": "220 Rowan Blvd. Apts./ Online",
-   "disposition_raw": "Open/Active",
+   "disposition_raw": "Open/Active; Disposition updated/Inactive",
    "disposition_flags": [
-    "open_active"
+    "inactive"
    ],
-   "disposition_amended": false,
+   "disposition_amended": true,
    "month": "September 2026",
    "month_key": "2026-09",
    "school_year": "2026-27",
@@ -9791,7 +10107,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
    "missing_since": "",
@@ -10092,7 +10408,7 @@
    "reclassified_from": [],
    "unclassified": [],
    "unclassified_disposition": [],
-   "narrative": "Non-student was arrested for DWI.",
+   "narrative": "Non-student was arrested by RUPD for DWI.",
    "campus": "Glassboro",
    "campus_raw": "Glassboro",
    "era": "drive-2026",
@@ -10111,7 +10427,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-10-29",
    "last_verified": "2026-11-02",
    "missing_since": "",
@@ -10237,12 +10553,13 @@
     "range_end": null
    },
    "occurred": {
-    "value": "2026-10-26",
-    "precision": "day",
-    "raw": "10/26/2026 Unk.",
-    "ongoing": false
+    "value": "2026-10-26T07:45:00",
+    "precision": "minute",
+    "raw": "10/26/2026 7:45",
+    "ongoing": false,
+    "range_end": null
    },
-   "reporting_lag_hours": null,
+   "reporting_lag_hours": 14.2,
    "nature_raw": "Motor Vehicle Theft (Electric Scooter)",
    "categories": [
     "Motor vehicle theft"
@@ -10268,7 +10585,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-10-29",
    "last_verified": "2026-11-02",
    "missing_since": "",
@@ -10701,6 +11018,60 @@
    "flags": []
   },
   {
+   "uid": "86ac5f44ea631988",
+   "case_number": "RUPD 26-034981",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-23T02:45:00",
+    "precision": "minute",
+    "raw": "10/23/26 2:45",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-23T02:45:00",
+    "precision": "minute",
+    "raw": "10/23/26 2:45",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 0.0,
+   "nature_raw": "DWI, Possession of open alcohol in a vehicle.",
+   "categories": [
+    "DWI",
+    "Alcohol violation"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "RUPD arrested a non-student for DWI and possession of open alcohol in a vehicle.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Ellis St./ High St.",
+   "disposition_raw": "Closed; Subject arrested",
+   "disposition_flags": [
+    "closed",
+    "arrested"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-11-02",
+   "last_verified": "2026-11-02",
+   "missing_since": "",
+   "flags": []
+  },
+  {
    "uid": "86b7992eb7832abc",
    "case_number": "RUPD 26-030866",
    "agencies": [
@@ -10733,11 +11104,11 @@
    "campus_raw": "Glassboro",
    "era": "drive-2026",
    "location": "Outside of Whitney Center",
-   "disposition_raw": "Open/Active",
+   "disposition_raw": "Open/Active; Disposition updated/Inactive",
    "disposition_flags": [
-    "open_active"
+    "inactive"
    ],
-   "disposition_amended": false,
+   "disposition_amended": true,
    "month": "September 2026",
    "month_key": "2026-09",
    "school_year": "2026-27",
@@ -10746,7 +11117,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
    "missing_since": "",
@@ -10833,7 +11204,7 @@
    "reclassified_from": [],
    "unclassified": [],
    "unclassified_disposition": [],
-   "narrative": "Student was arrested for Disorderly conduct.",
+   "narrative": "Student was arrested by RUPD for Disorderly conduct.",
    "campus": "Glassboro",
    "campus_raw": "Glassboro",
    "era": "drive-2026",
@@ -10852,7 +11223,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-10-29",
    "last_verified": "2026-11-02",
    "missing_since": "",
@@ -11286,6 +11657,58 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
+   "last_verified": "2026-11-02",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "8ac36e92dd64696e",
+   "case_number": "RUPD 26-034768",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-21T13:02:00",
+    "precision": "minute",
+    "raw": "10/21/26 13:02",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-17T12:00:00",
+    "precision": "minute",
+    "raw": "10/17/26 12:00",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 97.03,
+   "nature_raw": "Motor Vehicle Theft (Electric Scooter)",
+   "categories": [
+    "Motor vehicle theft"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to RUPD that their E-scooter was stolen.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Outside of Holly Pointe Commons",
+   "disposition_raw": "Open/Active",
+   "disposition_flags": [
+    "open_active"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-11-02",
    "last_verified": "2026-11-02",
    "missing_since": "",
    "flags": []
@@ -11824,6 +12247,58 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
+   "last_verified": "2026-11-02",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "96d326d681494d67",
+   "case_number": "RUPD 26-035011",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-23T11:57:00",
+    "precision": "minute",
+    "raw": "10/23/26 11:57",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-23T08:22:00",
+    "precision": "minute",
+    "raw": "10/23/26 8:22",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 3.58,
+   "nature_raw": "Motor Vehicle Theft (Electric Scooter)",
+   "categories": [
+    "Motor vehicle theft"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to RUPD that their E-scooter was stolen.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Outside of Holly Pointe Commons",
+   "disposition_raw": "Open/Active",
+   "disposition_flags": [
+    "open_active"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-11-02",
    "last_verified": "2026-11-02",
    "missing_since": "",
    "flags": []
@@ -14952,11 +15427,11 @@
    "campus_raw": "Glassboro",
    "era": "drive-2026",
    "location": "Savitz Hall",
-   "disposition_raw": "Open/Active",
+   "disposition_raw": "Open/Active; Disposition updated/Inactive",
    "disposition_flags": [
-    "open_active"
+    "inactive"
    ],
-   "disposition_amended": false,
+   "disposition_amended": true,
    "month": "September 2026",
    "month_key": "2026-09",
    "school_year": "2026-27",
@@ -14965,7 +15440,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
    "missing_since": "",
@@ -15890,13 +16365,13 @@
     "range_end": null
    },
    "occurred": {
-    "value": "2026-10-22T09:30:00",
+    "value": "2026-10-22T08:30:00",
     "precision": "minute",
-    "raw": "10/22/26 9:30",
+    "raw": "10/22/26 8:30",
     "ongoing": false,
     "range_end": null
    },
-   "reporting_lag_hours": 0.17,
+   "reporting_lag_hours": 1.17,
    "nature_raw": "Motor Vehicle Theft (Electric Scooter)",
    "categories": [
     "Motor vehicle theft"
@@ -15908,7 +16383,7 @@
    "campus": "Glassboro",
    "campus_raw": "Glassboro",
    "era": "drive-2026",
-   "location": "Chestnut Hall",
+   "location": "Chestnut Hall; Location updated; Outside of Discovery Hall",
    "disposition_raw": "Closed; Student arrested; Property recovered",
    "disposition_flags": [
     "closed",
@@ -15924,7 +16399,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-10-29",
    "last_verified": "2026-11-02",
    "missing_since": "",
@@ -15963,11 +16438,11 @@
    "campus_raw": "Glassboro",
    "era": "drive-2026",
    "location": "Online; Holly Pointe Commons",
-   "disposition_raw": "Open/Active",
+   "disposition_raw": "Open/Active; Disposition updated/Inactive",
    "disposition_flags": [
-    "open_active"
+    "inactive"
    ],
-   "disposition_amended": false,
+   "disposition_amended": true,
    "month": "September 2026",
    "month_key": "2026-09",
    "school_year": "2026-27",
@@ -15976,7 +16451,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
    "missing_since": "",
@@ -17298,11 +17773,11 @@
    "campus_raw": "Glassboro",
    "era": "drive-2026",
    "location": "Science Hall",
-   "disposition_raw": "Open/Active",
+   "disposition_raw": "Open/Active; Disposition updated/Inactive",
    "disposition_flags": [
-    "open_active"
+    "inactive"
    ],
-   "disposition_amended": false,
+   "disposition_amended": true,
    "month": "September 2026",
    "month_key": "2026-09",
    "school_year": "2026-27",
@@ -17311,7 +17786,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
    "missing_since": "",
@@ -17421,6 +17896,58 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-19",
+   "last_verified": "2026-11-02",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "e0fbb3de43694877",
+   "case_number": "RUPD 26-033276",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-09T23:51:00",
+    "precision": "minute",
+    "raw": "10/9/26 23:51",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-09T00:57:00",
+    "precision": "minute",
+    "raw": "10/9/26 0:57",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 22.9,
+   "nature_raw": "Harassment",
+   "categories": [
+    "Harassment"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to RUPD that an unknown individual made sexually harassing comments to them.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Campus (near Holly Pointe Commons)",
+   "disposition_raw": "Open/Active",
+   "disposition_flags": [
+    "open_active"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-11-02",
    "last_verified": "2026-11-02",
    "missing_since": "",
    "flags": []
@@ -18363,11 +18890,11 @@
    "campus_raw": "Glassboro",
    "era": "drive-2026",
    "location": "Outside of Holly Pointe Commons",
-   "disposition_raw": "Open/Active",
+   "disposition_raw": "Open/Active; Disposition updated/Inactive",
    "disposition_flags": [
-    "open_active"
+    "inactive"
    ],
-   "disposition_amended": false,
+   "disposition_amended": true,
    "month": "October 2026",
    "month_key": "2026-10",
    "school_year": "2026-27",
@@ -18376,7 +18903,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-10-29",
    "last_verified": "2026-11-02",
    "missing_since": "",
@@ -19398,6 +19925,59 @@
    ]
   },
   {
+   "uid": "fc2220036b13b723",
+   "case_number": "RUPD 26-035203",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-24T17:38:00",
+    "precision": "minute",
+    "raw": "10/24/26 17:38",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-24T15:00:00",
+    "precision": "minute",
+    "raw": "10/24/26 15:00",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 2.63,
+   "nature_raw": "Harassment",
+   "categories": [
+    "Harassment"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Non-student reported to RUPD being harassed by another non-student.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Lot O",
+   "disposition_raw": "Closed; Reporting party provided citizen's complaint info",
+   "disposition_flags": [
+    "closed",
+    "rp_referred_to_complaint"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-11-02",
+   "last_verified": "2026-11-02",
+   "missing_since": "",
+   "flags": []
+  },
+  {
    "uid": "fc37cbb2914ab49e",
    "case_number": "RUPD 26-035450",
    "agencies": [
@@ -19411,12 +19991,13 @@
     "range_end": null
    },
    "occurred": {
-    "value": "2026-10-26",
-    "precision": "day",
-    "raw": "10/26/2026 Unk.",
-    "ongoing": false
+    "value": "2026-10-26T16:00:00",
+    "precision": "minute",
+    "raw": "10/26/2026 16:00",
+    "ongoing": false,
+    "range_end": null
    },
-   "reporting_lag_hours": null,
+   "reporting_lag_hours": 1.07,
    "nature_raw": "Theft",
    "categories": [
     "Theft"
@@ -19442,7 +20023,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-10-29",
    "last_verified": "2026-11-02",
    "missing_since": "",
@@ -19662,6 +20243,59 @@
    "flags": []
   },
   {
+   "uid": "fe4c854761b38c9f",
+   "case_number": "RUPD 26-036199",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-10-31T23:54:00",
+    "precision": "minute",
+    "raw": "10/31/26 23:54",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-10-31T23:54:00",
+    "precision": "minute",
+    "raw": "10/31/26 23:54",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 0.0,
+   "nature_raw": "Public urination",
+   "categories": [
+    "Public urination"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "RUPD issued a summons to a student for public urination.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Lot B1",
+   "disposition_raw": "Closed; Subject issued summons",
+   "disposition_flags": [
+    "closed",
+    "summons_issued"
+   ],
+   "disposition_amended": false,
+   "month": "October 2026",
+   "month_key": "2026-10",
+   "school_year": "2026-27",
+   "occurred_month": "October 2026",
+   "occurred_month_key": "2026-10",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-11-02",
+   "last_verified": "2026-11-02",
+   "missing_since": "",
+   "flags": []
+  },
+  {
    "uid": "fe51f4cb7e64d8a7",
    "case_number": "RUPD 26-032705",
    "agencies": [
@@ -19748,11 +20382,11 @@
    "campus_raw": "Glassboro",
    "era": "drive-2026",
    "location": "Campus",
-   "disposition_raw": "Open/Active",
+   "disposition_raw": "Open/Active; Disposition updated/Inactive",
    "disposition_flags": [
-    "open_active"
+    "inactive"
    ],
-   "disposition_amended": false,
+   "disposition_amended": true,
    "month": "September 2026",
    "month_key": "2026-09",
    "school_year": "2026-27",
@@ -19761,7 +20395,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
    "missing_since": "",
@@ -23369,6 +24003,332 @@
    "missing_since": "2026-10-31",
    "nature": "Simple Assault",
    "observed_date": "2026-11-02"
+  },
+  {
+   "case_number": "RUPD 26-035079",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "narrative_raw",
+   "incident_uid": "15819afc1705b616",
+   "new": "Non-student was arrested by RUPD for DWI and possessing an open container of alcohol in their vehicle.",
+   "observed_date": "2026-11-02",
+   "old": "Non-student was arrested for DWI and possessing an open container of alcohol in their vehicle."
+  },
+  {
+   "case_number": "RUPD 26-028624",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "disposition_raw",
+   "incident_uid": "2305291ba1417ad0",
+   "new": "Open/Active; Disposition updated/Inactive",
+   "observed_date": "2026-11-02",
+   "old": "Open/Active"
+  },
+  {
+   "case_number": "RUPD 26-031485",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "disposition_raw",
+   "incident_uid": "2a449fd8ccf51ddf",
+   "new": "Open/Active; Disposition updated/Inactive",
+   "observed_date": "2026-11-02",
+   "old": "Open/Active"
+  },
+  {
+   "case_number": "RUPD 26-034742",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "disposition_raw",
+   "incident_uid": "425d5e1de288885e",
+   "new": "Open/Active; Disposition updated; Unfounded by officer; Property not stolen",
+   "observed_date": "2026-11-02",
+   "old": "Open/Active"
+  },
+  {
+   "case_number": "RUPD 26-029296/ CSA 86345",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "disposition_raw",
+   "incident_uid": "641ee3e44d3d4634",
+   "new": "Open/Active; Disposition updated/Inactive",
+   "observed_date": "2026-11-02",
+   "old": "Open/Active"
+  },
+  {
+   "case_number": "RUPD 26-029039",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "disposition_raw",
+   "incident_uid": "667dd5a76992fe65",
+   "new": "Open/Active; Disposition updated/Inactive",
+   "observed_date": "2026-11-02",
+   "old": "Open/Active"
+  },
+  {
+   "case_number": "RUPD 26-028982/ CSA 86297",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "disposition_raw",
+   "incident_uid": "6d9b9f3027a2f534",
+   "new": "Open/Active; Disposition updated/Inactive",
+   "observed_date": "2026-11-02",
+   "old": "Open/Active"
+  },
+  {
+   "case_number": "RUPD 26-028502",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "disposition_raw",
+   "incident_uid": "71bac6f2a16f5e00",
+   "new": "Open/Active; Disposition updated/Inactive",
+   "observed_date": "2026-11-02",
+   "old": "Open/Active"
+  },
+  {
+   "case_number": "RUPD 26-034875",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "date_occurred_raw",
+   "incident_uid": "71f5956961323b06",
+   "new": "10/22/26 8:45",
+   "observed_date": "2026-11-02",
+   "old": "10/22/26 11:27"
+  },
+  {
+   "case_number": "RUPD 26-034875",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "disposition_raw",
+   "incident_uid": "71f5956961323b06",
+   "new": "Open/Active; Disposition updated; Property recovered",
+   "observed_date": "2026-11-02",
+   "old": "Open/Active"
+  },
+  {
+   "case_number": "RUPD 26-029874",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "disposition_raw",
+   "incident_uid": "7e7d237a7dc73ca9",
+   "new": "Open/Active; Disposition updated/Inactive",
+   "observed_date": "2026-11-02",
+   "old": "Open/Active"
+  },
+  {
+   "case_number": "RUPD 26-035111",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "narrative_raw",
+   "incident_uid": "824bfc7a4465583e",
+   "new": "Non-student was arrested by RUPD for DWI.",
+   "observed_date": "2026-11-02",
+   "old": "Non-student was arrested for DWI."
+  },
+  {
+   "case_number": "RUPD 26-035476",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "date_occurred_raw",
+   "incident_uid": "831fe1d65b65d498",
+   "new": "10/26/2026 7:45",
+   "observed_date": "2026-11-02",
+   "old": "10/26/2026 Unk."
+  },
+  {
+   "case_number": "RUPD 26-030866",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "disposition_raw",
+   "incident_uid": "86b7992eb7832abc",
+   "new": "Open/Active; Disposition updated/Inactive",
+   "observed_date": "2026-11-02",
+   "old": "Open/Active"
+  },
+  {
+   "case_number": "RUPD 26-035211",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "narrative_raw",
+   "incident_uid": "87498121dbc1953f",
+   "new": "Student was arrested by RUPD for Disorderly conduct.",
+   "observed_date": "2026-11-02",
+   "old": "Student was arrested for Disorderly conduct."
+  },
+  {
+   "case_number": "RUPD 26-031222",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "disposition_raw",
+   "incident_uid": "c06230bdab895375",
+   "new": "Open/Active; Disposition updated/Inactive",
+   "observed_date": "2026-11-02",
+   "old": "Open/Active"
+  },
+  {
+   "case_number": "RUPD 26-034863",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "date_occurred_raw",
+   "incident_uid": "cb46c20f975ceb8f",
+   "new": "10/22/26 8:30",
+   "observed_date": "2026-11-02",
+   "old": "10/22/26 9:30"
+  },
+  {
+   "case_number": "RUPD 26-034863",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "location_raw",
+   "incident_uid": "cb46c20f975ceb8f",
+   "new": "Chestnut Hall; Location updated; Outside of Discovery Hall",
+   "observed_date": "2026-11-02",
+   "old": "Chestnut Hall"
+  },
+  {
+   "case_number": "RUPD 26-031400",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "disposition_raw",
+   "incident_uid": "ce88d6e7f03c4811",
+   "new": "Open/Active; Disposition updated/Inactive",
+   "observed_date": "2026-11-02",
+   "old": "Open/Active"
+  },
+  {
+   "case_number": "RUPD 26-030137",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "disposition_raw",
+   "incident_uid": "df4e572a2598ae98",
+   "new": "Open/Active; Disposition updated/Inactive",
+   "observed_date": "2026-11-02",
+   "old": "Open/Active"
+  },
+  {
+   "case_number": "RUPD 26-035332",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "disposition_raw",
+   "incident_uid": "eedbdbc46b85a720",
+   "new": "Open/Active; Disposition updated/Inactive",
+   "observed_date": "2026-11-02",
+   "old": "Open/Active"
+  },
+  {
+   "case_number": "RUPD 26-035450",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "date_occurred_raw",
+   "incident_uid": "fc37cbb2914ab49e",
+   "new": "10/26/2026 16:00",
+   "observed_date": "2026-11-02",
+   "old": "10/26/2026 Unk."
+  },
+  {
+   "case_number": "RUPD 26-029047",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "disposition_raw",
+   "incident_uid": "feb0a0ddfaf61e69",
+   "new": "Open/Active; Disposition updated/Inactive",
+   "observed_date": "2026-11-02",
+   "old": "Open/Active"
+  },
+  {
+   "case_number": "RUPD 26-033276",
+   "change_type": "added",
+   "date_reported": "10/9/26 23:51",
+   "incident_uid": "e0fbb3de43694877",
+   "nature": "Harassment",
+   "observed_date": "2026-11-02"
+  },
+  {
+   "case_number": "RUPD 26-034768",
+   "change_type": "added",
+   "date_reported": "10/21/26 13:02",
+   "incident_uid": "8ac36e92dd64696e",
+   "nature": "Motor Vehicle Theft (Electric Scooter)",
+   "observed_date": "2026-11-02"
+  },
+  {
+   "case_number": "RUPD 26-034867",
+   "change_type": "added",
+   "date_reported": "10/22/26 10:24",
+   "incident_uid": "10f11bf0d3d65065",
+   "nature": "Harassment",
+   "observed_date": "2026-11-02"
+  },
+  {
+   "case_number": "RUPD 26-034981",
+   "change_type": "added",
+   "date_reported": "10/23/26 2:45",
+   "incident_uid": "86ac5f44ea631988",
+   "nature": "DWI, Possession of open alcohol in a vehicle.",
+   "observed_date": "2026-11-02"
+  },
+  {
+   "case_number": "RUPD 26-035011",
+   "change_type": "added",
+   "date_reported": "10/23/26 11:57",
+   "incident_uid": "96d326d681494d67",
+   "nature": "Motor Vehicle Theft (Electric Scooter)",
+   "observed_date": "2026-11-02"
+  },
+  {
+   "case_number": "RUPD 26-035041",
+   "change_type": "added",
+   "date_reported": "10/23/26 16:34",
+   "incident_uid": "74a347d5920a23fe",
+   "nature": "Motor Vehicle Theft (Electric Scooter)",
+   "observed_date": "2026-11-02"
+  },
+  {
+   "case_number": "RUPD 26-035203",
+   "change_type": "added",
+   "date_reported": "10/24/26 17:38",
+   "incident_uid": "fc2220036b13b723",
+   "nature": "Harassment",
+   "observed_date": "2026-11-02"
+  },
+  {
+   "case_number": "RUPD 26-035978",
+   "change_type": "added",
+   "date_reported": "10/30/26 12:04",
+   "incident_uid": "7133d29d63163464",
+   "nature": "Motor Vehicle Theft (Electric Scooter)",
+   "observed_date": "2026-11-02"
+  },
+  {
+   "case_number": "RUPD 26-036045",
+   "change_type": "added",
+   "date_reported": "10/30/26 22:56",
+   "incident_uid": "199f159f7be526a5",
+   "nature": "Theft",
+   "observed_date": "2026-11-02"
+  },
+  {
+   "case_number": "RUPD 26-036090",
+   "change_type": "added",
+   "date_reported": "10/31/26 2:45",
+   "incident_uid": "0d79e1358e9084a0",
+   "nature": "Disorderly conduct, Possession of Illegal drug, Assault on Police Officer",
+   "observed_date": "2026-11-02"
+  },
+  {
+   "case_number": "RUPD 26-036189",
+   "change_type": "added",
+   "date_reported": "10/31/26 22:34",
+   "incident_uid": "671603bcb1b29153",
+   "nature": "Simple Assault",
+   "observed_date": "2026-11-02"
+  },
+  {
+   "case_number": "RUPD 26-036199",
+   "change_type": "added",
+   "date_reported": "10/31/26 23:54",
+   "incident_uid": "fe4c854761b38c9f",
+   "nature": "Public urination",
+   "observed_date": "2026-11-02"
   }
  ],
  "quality": {
@@ -23384,6 +24344,12 @@
     "uid": "0b1eaf65910f79c8",
     "case_number": "CSA 87745",
     "raw": "9/30/26 Unk.",
+    "precision": "day"
+   },
+   {
+    "uid": "10f11bf0d3d65065",
+    "case_number": "RUPD 26-034867",
+    "raw": "10/22/26 Unk.",
     "precision": "day"
    },
    {
@@ -23441,9 +24407,9 @@
     "precision": "day"
    },
    {
-    "uid": "831fe1d65b65d498",
-    "case_number": "RUPD 26-035476",
-    "raw": "10/26/2026 Unk.",
+    "uid": "7133d29d63163464",
+    "case_number": "RUPD 26-035978",
+    "raw": "10/22/26 Unk.",
     "precision": "day"
    },
    {
@@ -23523,12 +24489,6 @@
     "case_number": "RUPD 26-030311 CAD/ CSA 86846",
     "raw": "2021 Unknown",
     "precision": "year"
-   },
-   {
-    "uid": "fc37cbb2914ab49e",
-    "case_number": "RUPD 26-035450",
-    "raw": "10/26/2026 Unk.",
-    "precision": "day"
    }
   ],
   "reclassified": [
@@ -23620,11 +24580,11 @@
   "categories": [
    {
     "value": "Alcohol violation",
-    "count": 105
+    "count": 106
    },
    {
     "value": "Theft",
-    "count": 40
+    "count": 41
    },
    {
     "value": "Trespassing",
@@ -23632,10 +24592,14 @@
    },
    {
     "value": "DWI",
-    "count": 26
+    "count": 27
    },
    {
     "value": "Simple assault",
+    "count": 26
+   },
+   {
+    "value": "Motor vehicle theft",
     "count": 25
    },
    {
@@ -23644,19 +24608,15 @@
    },
    {
     "value": "Disorderly conduct",
-    "count": 22
+    "count": 23
    },
    {
-    "value": "Motor vehicle theft",
-    "count": 21
+    "value": "Harassment",
+    "count": 22
    },
    {
     "value": "Domestic violence",
     "count": 20
-   },
-   {
-    "value": "Harassment",
-    "count": 19
    },
    {
     "value": "Littering",
@@ -23672,11 +24632,11 @@
    },
    {
     "value": "Public urination",
-    "count": 14
+    "count": 15
    },
    {
     "value": "Drug offense",
-    "count": 10
+    "count": 11
    },
    {
     "value": "Stalking",
@@ -23715,15 +24675,15 @@
     "count": 3
    },
    {
+    "value": "Assault on an officer",
+    "count": 2
+   },
+   {
     "value": "Curfew violation",
     "count": 1
    },
    {
     "value": "Creating false public alarm",
-    "count": 1
-   },
-   {
-    "value": "Assault on an officer",
     "count": 1
    },
    {
@@ -23758,7 +24718,7 @@
   "school_years": [
    {
     "value": "2026-27",
-    "count": 327
+    "count": 339
    },
    {
     "value": "2025-26",
@@ -23768,7 +24728,7 @@
   "campuses": [
    {
     "value": "Glassboro",
-    "count": 356
+    "count": 368
    },
    {
     "value": "Rowan-Virtua SOM (Stratford)",
@@ -23782,7 +24742,7 @@
   "months": [
    {
     "value": "October 2026",
-    "count": 175
+    "count": 187
    },
    {
     "value": "September 2026",
@@ -23803,6 +24763,10 @@
   ],
   "locations": [
    {
+    "value": "Outside of Holly Pointe Commons",
+    "count": 19
+   },
+   {
     "value": "N. Main St./ Carpenter St.",
     "count": 19
    },
@@ -23815,19 +24779,15 @@
     "count": 17
    },
    {
-    "value": "Outside of Holly Pointe Commons",
-    "count": 15
-   },
-   {
     "value": "On-Campus Residential Housing",
     "count": 14
    },
    {
-    "value": "Rowan Blvd.",
-    "count": 11
+    "value": "Campus",
+    "count": 12
    },
    {
-    "value": "Campus",
+    "value": "Rowan Blvd.",
     "count": 11
    },
    {
@@ -23843,15 +24803,19 @@
     "count": 6
    },
    {
-    "value": "Chestnut Hall",
-    "count": 6
-   },
-   {
     "value": "Rowan Blvd. Apts.",
     "count": 5
    },
    {
     "value": "Normal Blvd./ Carpenter St.",
+    "count": 5
+   },
+   {
+    "value": "Chestnut Hall",
+    "count": 5
+   },
+   {
+    "value": "114 Victoria St. Apts.",
     "count": 5
    },
    {
@@ -23867,20 +24831,16 @@
     "count": 4
    },
    {
-    "value": "Outside of James Hall",
+    "value": "Lot O",
     "count": 4
    },
    {
-    "value": "114 Victoria St. Apts.",
+    "value": "Outside of James Hall",
     "count": 4
    },
    {
     "value": "Carpenter St./ Campus Ter.",
     "count": 4
-   },
-   {
-    "value": "Lot O",
-    "count": 3
    },
    {
     "value": "Lot B",
@@ -24071,6 +25031,10 @@
     "count": 1
    },
    {
+    "value": "Bunce Hall",
+    "count": 1
+   },
+   {
     "value": "Glassboro Town Square",
     "count": 1
    },
@@ -24247,6 +25211,10 @@
     "count": 1
    },
    {
+    "value": "Outside of Engineering Hall",
+    "count": 1
+   },
+   {
     "value": "Lot C",
     "count": 1
    },
@@ -24284,6 +25252,10 @@
    },
    {
     "value": "Lambs Rd. (Access road)",
+    "count": 1
+   },
+   {
+    "value": "Ellis St./ High St.",
     "count": 1
    },
    {
@@ -24411,6 +25383,10 @@
     "count": 1
    },
    {
+    "value": "Chestnut Hall; Location updated; Outside of Discovery Hall",
+    "count": 1
+   },
+   {
     "value": "Online; Holly Pointe Commons",
     "count": 1
    },
@@ -24436,6 +25412,10 @@
    },
    {
     "value": "White Horse Pike (at New Rd.)",
+    "count": 1
+   },
+   {
+    "value": "Campus (near Holly Pointe Commons)",
     "count": 1
    },
    {
@@ -24497,16 +25477,20 @@
    {
     "value": "E. New St./N. Main St.",
     "count": 1
+   },
+   {
+    "value": "Lot B1",
+    "count": 1
    }
   ],
   "disposition_flags": [
    {
     "value": "closed",
-    "count": 167
+    "count": 173
    },
    {
     "value": "summons_issued",
-    "count": 157
+    "count": 158
    },
    {
     "value": "glassboro_pd",
@@ -24514,11 +25498,11 @@
    },
    {
     "value": "arrested",
-    "count": 72
+    "count": 74
    },
    {
     "value": "open_active",
-    "count": 47
+    "count": 38
    },
    {
     "value": "referred_university",
@@ -24526,7 +25510,11 @@
    },
    {
     "value": "trespass_notice",
-    "count": 30
+    "count": 31
+   },
+   {
+    "value": "inactive",
+    "count": 26
    },
    {
     "value": "not_reported_to_rupd",
@@ -24534,19 +25522,15 @@
    },
    {
     "value": "rp_declined",
-    "count": 20
+    "count": 21
    },
    {
     "value": "property_recovered",
-    "count": 13
-   },
-   {
-    "value": "inactive",
-    "count": 13
+    "count": 14
    },
    {
     "value": "rp_referred_to_complaint",
-    "count": 8
+    "count": 10
    },
    {
     "value": "tro_issued",
@@ -24562,7 +25546,7 @@
    },
    {
     "value": "unfounded",
-    "count": 2
+    "count": 3
    },
    {
     "value": "no_further_action",
@@ -24608,7 +25592,7 @@
   "agencies": [
    {
     "value": "RUPD",
-    "count": 218
+    "count": 230
    },
    {
     "value": "GPD",
@@ -24626,7 +25610,7 @@
   "statuses": [
    {
     "value": "active",
-    "count": 347
+    "count": 359
    },
    {
     "value": "source_removed",
@@ -24775,7 +25759,7 @@
   },
   {
    "date": "2026-11-02",
-   "summary": "+0 added, 0 amended, 0 missing, 1 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
+   "summary": "+12 added, 21 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
    "alarms": 1
   }
  ]
