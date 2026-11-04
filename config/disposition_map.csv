@@ -260,3 +260,58 @@ subject issued trespass notice,outcome,trespass_notice,
 # this into that flag would count a non-theft among the recoveries and overstate how
 # often stolen property comes back.
 property not stolen,outcome,unfounded,Officer established the theft did not happen -- not a recovery
+#
+# Added 2026-11-04. Five tokens, from October and November rows. The traceback named
+# one; the other four were found by sweeping all 342 live rows in strict mode.
+#
+# RUPD 26-036438 -- "Building trespassing warning issued". The twelfth wording for one
+# outcome, and the second that scopes the ban to a building. "building trespass warning
+# issued" was already mapped; only the -ing differs. See the note at the trespass
+# cluster above about the combinatorial problem.
+building trespassing warning issued,outcome,trespass_notice,
+# RUPD 26-035296 -- "Open/Active; Disposition updated; Closed; Subject arrested
+# (student)". The affiliation is parenthesised this time rather than leading, but it is
+# the same token as "student arrested" and "non-student arrested" above and carries the
+# same flag for the same reason: affiliation lives in student_flag, and a separate
+# student_arrested flag would split one outcome across two series.
+subject arrested (student),outcome,arrested,Affiliation belongs in student_flag rather than a flag
+# RUPD 26-036477 -- "Closed; Subject issued citation". A non-student ticketed by RUPD for
+# an open container in a vehicle (N.J.S.A. 39:4-51b). In New Jersey the citation and the
+# summons are the same instrument -- a complaint-summons for a petty disorderly or motor
+# vehicle offense -- so this carries summons_issued rather than a citation_issued flag of
+# its own. A separate flag would split one enforcement action across two series and
+# undercount summonses, the same trap as student_arrested above. If Rowan ever uses the
+# two words for genuinely different instruments, split them then and say so here.
+subject issued citation,outcome,summons_issued,"Same instrument as a summons in New Jersey; splitting would undercount both"
+# CSA 87673 and CSA 87745 -- "Reporting party not responsive to RUPD outreach", on two
+# sexual assault reports made to a campus official rather than to police.
+#
+# Its own flag, NOT rp_declined. Declining is a choice the reporting party made and
+# communicated; this says only that RUPD's follow-up contact went unanswered, which may
+# mean the person chose not to engage, never got the message, or was unreachable. Folding
+# it into rp_declined would publish the claim that the people who reported these assaults
+# declined to pursue them. That is a different and more consequential statement than the
+# record supports, and the people it is about are sexual assault victims.
+#
+# Also not no_contact, which is "left before police arrived" -- about an individual
+# absent from a scene, not about follow-up after the report.
+reporting party not responsive to rupd outreach,outcome,rp_unresponsive,Unanswered follow-up is not the same as declining
+# CSA 87745 -- "Incident not reported to RUPD; Addressed by University Department:
+# Disposition updated; Closed; Reporting party not responsive to RUPD outreach".
+#
+# A colon where every other row in the corpus uses a semicolon, which fuses the
+# "Disposition updated" marker onto the token before it and hides it from TOKEN_SPLIT.
+# Its sibling CSA 87745's own near-twin, CSA 87673, was logged a day earlier with the
+# same five-part disposition and the same wording, separated correctly. The colon is a
+# typo, so this is mapped to behave like the semicolon form.
+#
+# Role is audit_marker so supersession still fires: without it the row keeps claiming
+# "Incident not reported to RUPD" after Rowan closed it, and the amendment goes
+# unreported. No flags, unlike "disposition updated- closed" above: in those tokens the
+# word after the marker is the NEW classification, while here the words before it are the
+# OLD one, and the replacement arrives in the tokens that follow. The referred_university
+# flag is therefore not raised -- correctly, since in the semicolon sibling that token
+# sits on the superseded side too. It is also absent from superseded_flags, which the
+# sibling does record, but build.py does not carry superseded_flags into the payload, so
+# nothing published differs between the two rows.
+addressed by university department: disposition updated,audit_marker,,Colon typo for a semicolon; see CSA 87673

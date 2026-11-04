@@ -396,6 +396,7 @@ const DISP_LABEL = {
   building_ban:"Building ban", tro_issued:"Restraining order issued", no_contact:"Left before police arrived",
   referred_prosecutor:"Referred to county prosecutor", rp_referred_to_complaint:"Citizen's complaint info given",
   rp_provided_resources:"Resources provided",
+  rp_unresponsive:"Reporting party not responsive to follow-up",
   barred: "Subject barred from campus",
   removed_from_building: "Removed from the building",
   other_agency: "Referred to another agency",

@@ -878,3 +878,68 @@ def test_the_three_tokens_that_broke_the_2026_11_02_run(category_map, dispositio
     assert normalize.disposition_flags("Property not stolen", disposition_map, strict=True)[
         "flags"
     ] == ["unfounded"]
+
+
+def test_the_five_disposition_tokens_that_broke_the_2026_11_04_run(disposition_map):
+    """Five unmapped Disposition tokens, of which the traceback named one.
+
+    All five are dispositions; this is the first run whose whole batch was. Two are
+    spelling drift, one is a new enforcement instrument, one is a new outcome, and one is
+    a mistyped separator that hides an audit marker inside a token.
+    """
+    # RUPD 26-036438 -- "Building trespassing warning issued". The twelfth wording for
+    # this one outcome; "building trespass warning issued" was already mapped, and only
+    # the -ing differs.
+    assert normalize.disposition_flags(
+        "Building trespassing warning issued", disposition_map, strict=True
+    )["flags"] == ["trespass_notice"]
+
+    # RUPD 26-035296 -- "Subject arrested (student)". Follows "student arrested" and
+    # "non-student arrested": the affiliation belongs in student_flag, not in a flag of
+    # its own, or arrests split across two series and undercount in both.
+    for wording in ("Subject arrested (student)", "Student arrested", "Non-student arrested"):
+        assert normalize.disposition_flags(wording, disposition_map, strict=True)["flags"] == [
+            "arrested"
+        ]
+
+    # RUPD 26-036477 -- "Closed; Subject issued citation", a non-student ticketed for an
+    # open container in a vehicle. In New Jersey the citation and the summons are the same
+    # instrument, so this carries summons_issued rather than a flag of its own.
+    assert set(
+        normalize.disposition_flags("Closed; Subject issued citation", disposition_map, strict=True)[
+            "flags"
+        ]
+    ) == {"closed", "summons_issued"}
+
+    # CSA 87673 and CSA 87745 -- "Reporting party not responsive to RUPD outreach". Its
+    # own flag, NOT rp_declined: declining is a choice the reporting party communicated,
+    # while this says only that RUPD's follow-up went unanswered. Both rows are sexual
+    # assault reports, and folding them together would publish the claim that the people
+    # who made them declined to pursue the case.
+    unresponsive = normalize.disposition_flags(
+        "Reporting party not responsive to RUPD outreach", disposition_map, strict=True
+    )
+    assert unresponsive["flags"] == ["rp_unresponsive"]
+    assert "rp_declined" not in unresponsive["flags"]
+
+    # CSA 87745 -- a colon where every other row uses a semicolon, which fuses the
+    # "Disposition updated" marker to the token before it. Its sibling CSA 87673, logged
+    # a day earlier with the same disposition and the same wording, used the semicolon.
+    # The fused token is therefore an audit_marker carrying no flags of its own, so both
+    # rows publish the same outcome.
+    colon = normalize.disposition_flags(
+        "Incident not reported to RUPD; Addressed by University Department: Disposition updated; "
+        "Closed; Reporting party not responsive to RUPD outreach",
+        disposition_map,
+        strict=True,
+    )
+    semicolon = normalize.disposition_flags(
+        "Incident not reported to RUPD; Addressed by University Department; Disposition updated; "
+        "Closed; Reporting party not responsive to RUPD outreach",
+        disposition_map,
+        strict=True,
+    )
+    assert colon["flags"] == semicolon["flags"] == ["closed", "rp_unresponsive"]
+    # The marker fires in both, so neither row still claims to be unreported to RUPD.
+    assert colon["disposition_amended"] and semicolon["disposition_amended"]
+    assert "not_reported_to_rupd" not in colon["flags"]
