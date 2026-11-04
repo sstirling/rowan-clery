@@ -8,8 +8,8 @@
   ],
   "warnings": [
     "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']",
-    "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: 23 of 29 rows absent (retention 21%) \u2014 quarantined, no absence inferred for this file (additions and amendments still apply)",
-    "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: 2 row(s) absent \u2014 advancing confirmation ladder"
+    "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: 2 row(s) absent \u2014 advancing confirmation ladder",
+    "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: 23 of 29 rows absent (retention 21%) \u2014 quarantined, no absence inferred for this file (additions and amendments still apply)"
   ],
   "counts": {
     "total_archived": 390,
