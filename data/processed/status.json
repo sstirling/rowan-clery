@@ -3,20 +3,21 @@
   "last_successful_run": "2026-11-04",
   "staleness_days": 0,
   "alarms": [
-    "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 29 runs \u2014 treating the source file as removed. Its rows are preserved in full."
+    "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 29 runs \u2014 treating the source file as removed. Its rows are preserved in full.",
+    "Quarantined file(s), no absence inferred for them (additions and amendments still apply): ['14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o']"
   ],
   "warnings": [
     "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']",
-    "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: file reappeared after being absent",
+    "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: 23 of 29 rows absent (retention 21%) \u2014 quarantined, no absence inferred for this file (additions and amendments still apply)",
     "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: 2 row(s) absent \u2014 advancing confirmation ladder"
   ],
   "counts": {
     "total_archived": 390,
-    "currently_published": 344,
-    "no_longer_published": 40,
+    "currently_published": 367,
+    "no_longer_published": 17,
     "superseded": 6,
     "distinct_incidents": 384,
     "withdrawn": 3,
-    "source_removed": 37
+    "source_removed": 14
   }
 }

@@ -74,7 +74,7 @@
    "RUPD": 0.0
   }
  },
- "generated_utc": "2026-11-04T20:48:59+00:00",
+ "generated_utc": "2026-11-04T20:01:59+00:00",
  "archive_started": "2026-10-01",
  "source_folder": "https://drive.google.com/drive/folders/1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
  "published_era": {
@@ -85,23 +85,24 @@
  },
  "counts": {
   "total_archived": 390,
-  "currently_published": 344,
-  "no_longer_published": 40,
+  "currently_published": 367,
+  "no_longer_published": 17,
   "superseded": 6,
   "distinct_incidents": 384,
   "withdrawn": 3,
-  "source_removed": 37
+  "source_removed": 14
  },
  "status": {
   "last_run": "2026-11-04",
   "last_successful_run": "2026-11-04",
   "staleness_days": 0,
   "alarms": [
-   "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 29 runs — treating the source file as removed. Its rows are preserved in full."
+   "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 29 runs — treating the source file as removed. Its rows are preserved in full.",
+   "Quarantined file(s), no absence inferred for them (additions and amendments still apply): ['14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o']"
   ],
   "warnings": [
    "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']",
-   "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: file reappeared after being absent",
+   "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: 23 of 29 rows absent (retention 21%) — quarantined, no absence inferred for this file (additions and amendments still apply)",
    "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: 2 row(s) absent — advancing confirmation ladder"
   ]
  },
@@ -112,7 +113,7 @@
   "added": 81,
   "amended": 25,
   "withdrawn": 1,
-  "aged_out": 23,
+  "aged_out": 0,
   "runs_in_window": 7,
   "checked_total": 29,
   "staleness_days": 0
@@ -701,11 +702,11 @@
    "occurred_month_key": "2026-07",
    "occurred_school_year": "2025-26",
    "occurred_excluded": null,
-   "status": "source_removed",
+   "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
-   "missing_since": "2026-11-02",
+   "missing_since": "",
    "flags": []
   },
   {
@@ -1669,11 +1670,11 @@
    "occurred_month_key": "2026-07",
    "occurred_school_year": "2025-26",
    "occurred_excluded": null,
-   "status": "source_removed",
+   "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
-   "missing_since": "2026-11-02",
+   "missing_since": "",
    "flags": []
   },
   {
@@ -2527,11 +2528,11 @@
    "occurred_month_key": "2026-07",
    "occurred_school_year": "2025-26",
    "occurred_excluded": null,
-   "status": "source_removed",
+   "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
-   "missing_since": "2026-11-02",
+   "missing_since": "",
    "flags": []
   },
   {
@@ -2948,11 +2949,11 @@
    "occurred_month_key": null,
    "occurred_school_year": null,
    "occurred_excluded": "no_date",
-   "status": "source_removed",
+   "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
-   "missing_since": "2026-11-02",
+   "missing_since": "",
    "flags": []
   },
   {
@@ -3378,11 +3379,11 @@
    "occurred_month_key": "2026-07",
    "occurred_school_year": "2025-26",
    "occurred_excluded": null,
-   "status": "source_removed",
+   "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
-   "missing_since": "2026-11-02",
+   "missing_since": "",
    "flags": []
   },
   {
@@ -4294,11 +4295,11 @@
    "occurred_month_key": "2026-07",
    "occurred_school_year": "2025-26",
    "occurred_excluded": null,
-   "status": "source_removed",
+   "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
-   "missing_since": "2026-11-02",
+   "missing_since": "",
    "flags": []
   },
   {
@@ -4672,11 +4673,11 @@
    "occurred_month_key": null,
    "occurred_school_year": null,
    "occurred_excluded": "no_date",
-   "status": "source_removed",
+   "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
-   "missing_since": "2026-11-02",
+   "missing_since": "",
    "flags": []
   },
   {
@@ -10436,11 +10437,11 @@
    "occurred_month_key": "2026-07",
    "occurred_school_year": "2025-26",
    "occurred_excluded": null,
-   "status": "source_removed",
+   "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
-   "missing_since": "2026-11-02",
+   "missing_since": "",
    "flags": []
   },
   {
@@ -10650,11 +10651,11 @@
    "occurred_month_key": "2026-07",
    "occurred_school_year": "2025-26",
    "occurred_excluded": null,
-   "status": "source_removed",
+   "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
-   "missing_since": "2026-11-02",
+   "missing_since": "",
    "flags": []
   },
   {
@@ -10914,11 +10915,11 @@
    "occurred_month_key": "2026-07",
    "occurred_school_year": "2025-26",
    "occurred_excluded": null,
-   "status": "source_removed",
+   "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
-   "missing_since": "2026-11-02",
+   "missing_since": "",
    "flags": []
   },
   {
@@ -11662,11 +11663,11 @@
    "occurred_month_key": "2026-07",
    "occurred_school_year": "2025-26",
    "occurred_excluded": null,
-   "status": "source_removed",
+   "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
-   "missing_since": "2026-11-02",
+   "missing_since": "",
    "flags": []
   },
   {
@@ -12252,11 +12253,11 @@
    "occurred_month_key": "2026-07",
    "occurred_school_year": "2025-26",
    "occurred_excluded": null,
-   "status": "source_removed",
+   "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
-   "missing_since": "2026-11-02",
+   "missing_since": "",
    "flags": []
   },
   {
@@ -13537,11 +13538,11 @@
    "occurred_month_key": "2026-07",
    "occurred_school_year": "2025-26",
    "occurred_excluded": null,
-   "status": "source_removed",
+   "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
-   "missing_since": "2026-11-02",
+   "missing_since": "",
    "flags": []
   },
   {
@@ -13695,11 +13696,11 @@
    "occurred_month_key": "2026-07",
    "occurred_school_year": "2025-26",
    "occurred_excluded": null,
-   "status": "source_removed",
+   "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
-   "missing_since": "2026-11-02",
+   "missing_since": "",
    "flags": []
   },
   {
@@ -14330,11 +14331,11 @@
    "occurred_month_key": "2026-07",
    "occurred_school_year": "2025-26",
    "occurred_excluded": null,
-   "status": "source_removed",
+   "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
-   "missing_since": "2026-11-02",
+   "missing_since": "",
    "flags": []
   },
   {
@@ -14649,11 +14650,11 @@
    "occurred_month_key": "2026-07",
    "occurred_school_year": "2025-26",
    "occurred_excluded": null,
-   "status": "source_removed",
+   "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
-   "missing_since": "2026-11-02",
+   "missing_since": "",
    "flags": []
   },
   {
@@ -15132,11 +15133,11 @@
    "occurred_month_key": "2026-07",
    "occurred_school_year": "2025-26",
    "occurred_excluded": null,
-   "status": "source_removed",
+   "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
-   "missing_since": "2026-11-02",
+   "missing_since": "",
    "flags": []
   },
   {
@@ -15558,11 +15559,11 @@
    "occurred_month_key": "2026-07",
    "occurred_school_year": "2025-26",
    "occurred_excluded": null,
-   "status": "source_removed",
+   "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
-   "missing_since": "2026-11-02",
+   "missing_since": "",
    "flags": []
   },
   {
@@ -15717,11 +15718,11 @@
    "occurred_month_key": "2026-07",
    "occurred_school_year": "2025-26",
    "occurred_excluded": null,
-   "status": "source_removed",
+   "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
-   "missing_since": "2026-11-02",
+   "missing_since": "",
    "flags": []
   },
   {
@@ -16142,11 +16143,11 @@
    "occurred_month_key": "2026-07",
    "occurred_school_year": "2025-26",
    "occurred_excluded": null,
-   "status": "source_removed",
+   "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
-   "missing_since": "2026-11-02",
+   "missing_since": "",
    "flags": []
   },
   {
@@ -17582,11 +17583,11 @@
    "occurred_month_key": "2026-06",
    "occurred_school_year": "2025-26",
    "occurred_excluded": null,
-   "status": "source_removed",
+   "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
-   "missing_since": "2026-11-02",
+   "missing_since": "",
    "flags": []
   },
   {
@@ -18594,11 +18595,11 @@
    "occurred_month_key": null,
    "occurred_school_year": null,
    "occurred_excluded": "before_window",
-   "status": "source_removed",
+   "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
-   "missing_since": "2026-11-02",
+   "missing_since": "",
    "flags": []
   },
   {
@@ -19549,11 +19550,11 @@
    "occurred_month_key": "2026-07",
    "occurred_school_year": "2025-26",
    "occurred_excluded": null,
-   "status": "source_removed",
+   "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
    "last_verified": "2026-11-02",
-   "missing_since": "2026-11-02",
+   "missing_since": "",
    "flags": []
   },
   {
@@ -24872,351 +24873,6 @@
    "observed_date": "2026-11-02"
   },
   {
-   "case_number": "RUPD 26-020892/ CSA 8482506",
-   "change_type": "source_removed",
-   "corrected_on": "2026-11-04",
-   "date_reported": "7/1/26 14:07",
-   "incident_uid": "e71c2d3c4fb2e19d",
-   "last_known_disposition": "Closed; Subject Issued Summons",
-   "nature": "Criminal Mischief",
-   "observed_date": "2026-11-02",
-   "previous_status": "active",
-   "removal_mechanism": "file_repurposed_for_november_2026",
-   "source": "july-repurposing-backfill",
-   "source_file_id": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o",
-   "source_month": "July 2026"
-  },
-  {
-   "case_number": "RUPD 26-020839",
-   "change_type": "source_removed",
-   "corrected_on": "2026-11-04",
-   "date_reported": "7/1/26 1:58",
-   "incident_uid": "11d43be84a9d1cb7",
-   "last_known_disposition": "Closed; Subject Issued Summons",
-   "nature": "Trespassing (Defiant)",
-   "observed_date": "2026-11-02",
-   "previous_status": "active",
-   "removal_mechanism": "file_repurposed_for_november_2026",
-   "source": "july-repurposing-backfill",
-   "source_file_id": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o",
-   "source_month": "July 2026"
-  },
-  {
-   "case_number": "RUPD 26-021903",
-   "change_type": "source_removed",
-   "corrected_on": "2026-11-04",
-   "date_reported": "7/10/26 11:36",
-   "incident_uid": "d652fdf22877e526",
-   "last_known_disposition": "Open/Active; Disposition updated/Inactive",
-   "nature": "Motor Vehicle Theft (Electric Scooter); Criminal Mischief (Lock)",
-   "observed_date": "2026-11-02",
-   "previous_status": "active",
-   "removal_mechanism": "file_repurposed_for_november_2026",
-   "source": "july-repurposing-backfill",
-   "source_file_id": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o",
-   "source_month": "July 2026"
-  },
-  {
-   "case_number": "RUPD 26-022299",
-   "change_type": "source_removed",
-   "corrected_on": "2026-11-04",
-   "date_reported": "7/13/26 14:59",
-   "incident_uid": "919a3d3ab24af67a",
-   "last_known_disposition": "Closed; Reporting party declined police involvement",
-   "nature": "Harassment",
-   "observed_date": "2026-11-02",
-   "previous_status": "active",
-   "removal_mechanism": "file_repurposed_for_november_2026",
-   "source": "july-repurposing-backfill",
-   "source_file_id": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o",
-   "source_month": "July 2026"
-  },
-  {
-   "case_number": "RUPD 26-022431",
-   "change_type": "source_removed",
-   "corrected_on": "2026-11-04",
-   "date_reported": "7/14/26 21:42",
-   "incident_uid": "a2ee8b5667c5c424",
-   "last_known_disposition": "Closed; Subject Arrested",
-   "nature": "Alcohol Violation (DWI)",
-   "observed_date": "2026-11-02",
-   "previous_status": "active",
-   "removal_mechanism": "file_repurposed_for_november_2026",
-   "source": "july-repurposing-backfill",
-   "source_file_id": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o",
-   "source_month": "July 2026"
-  },
-  {
-   "case_number": "RUPD 26-022631",
-   "change_type": "source_removed",
-   "corrected_on": "2026-11-04",
-   "date_reported": "7/16/26 16:02",
-   "incident_uid": "ad2c2a50dcd6b78a",
-   "last_known_disposition": "Closed; Subject warned",
-   "nature": "Trespassing",
-   "observed_date": "2026-11-02",
-   "previous_status": "active",
-   "removal_mechanism": "file_repurposed_for_november_2026",
-   "source": "july-repurposing-backfill",
-   "source_file_id": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o",
-   "source_month": "July 2026"
-  },
-  {
-   "case_number": "RUPD 26-022577",
-   "change_type": "source_removed",
-   "corrected_on": "2026-11-04",
-   "date_reported": "7/16/26 3:28",
-   "incident_uid": "88a99d3138bc6999",
-   "last_known_disposition": "Open/Active; Disposition updated/Inactive",
-   "nature": "Motor Vehicle Theft (Electric Scooter) - Attempted",
-   "observed_date": "2026-11-02",
-   "previous_status": "active",
-   "removal_mechanism": "file_repurposed_for_november_2026",
-   "source": "july-repurposing-backfill",
-   "source_file_id": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o",
-   "source_month": "July 2026"
-  },
-  {
-   "case_number": "RUPD 26-022586",
-   "change_type": "source_removed",
-   "corrected_on": "2026-11-04",
-   "date_reported": "7/16/26 7:16",
-   "incident_uid": "b046ab4e3ab53e8b",
-   "last_known_disposition": "Closed; Reporting party declined police involvement",
-   "nature": "Domestic Violence (Harassment)",
-   "observed_date": "2026-11-02",
-   "previous_status": "active",
-   "removal_mechanism": "file_repurposed_for_november_2026",
-   "source": "july-repurposing-backfill",
-   "source_file_id": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o",
-   "source_month": "July 2026"
-  },
-  {
-   "case_number": "RUPD 26-022823",
-   "change_type": "source_removed",
-   "corrected_on": "2026-11-04",
-   "date_reported": "7/18/26 14:00",
-   "incident_uid": "833c8139aa341c76",
-   "last_known_disposition": "Closed; Subject Arrested",
-   "nature": "Weapons Law Violation (Spring-loaded knife)",
-   "observed_date": "2026-11-02",
-   "previous_status": "active",
-   "removal_mechanism": "file_repurposed_for_november_2026",
-   "source": "july-repurposing-backfill",
-   "source_file_id": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o",
-   "source_month": "July 2026"
-  },
-  {
-   "case_number": "RUPD 26-021098/ CSA 84189",
-   "change_type": "source_removed",
-   "corrected_on": "2026-11-04",
-   "date_reported": "7/2/26 22:44",
-   "incident_uid": "055094e25fcf7e62",
-   "last_known_disposition": "Closed; Subject Arrested",
-   "nature": "Domestic Violence; Assault (Simple)",
-   "observed_date": "2026-11-02",
-   "previous_status": "active",
-   "removal_mechanism": "file_repurposed_for_november_2026",
-   "source": "july-repurposing-backfill",
-   "source_file_id": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o",
-   "source_month": "July 2026"
-  },
-  {
-   "case_number": "RUPD 26-023038",
-   "change_type": "source_removed",
-   "corrected_on": "2026-11-04",
-   "date_reported": "7/21/26 2:01",
-   "incident_uid": "267760e3991d52b5",
-   "last_known_disposition": "Open/Active; Disposition updated/Inactive",
-   "nature": "Criminal Mischief- Graffiti",
-   "observed_date": "2026-11-02",
-   "previous_status": "active",
-   "removal_mechanism": "file_repurposed_for_november_2026",
-   "source": "july-repurposing-backfill",
-   "source_file_id": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o",
-   "source_month": "July 2026"
-  },
-  {
-   "case_number": "RUPD 26-023225",
-   "change_type": "source_removed",
-   "corrected_on": "2026-11-04",
-   "date_reported": "7/22/26 11:38",
-   "incident_uid": "3c33c8a9b1f8249f",
-   "last_known_disposition": "Open/Active; Disposition updated/Inactive",
-   "nature": "Theft- Workstation",
-   "observed_date": "2026-11-02",
-   "previous_status": "active",
-   "removal_mechanism": "file_repurposed_for_november_2026",
-   "source": "july-repurposing-backfill",
-   "source_file_id": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o",
-   "source_month": "July 2026"
-  },
-  {
-   "case_number": "RUPD 26-023387",
-   "change_type": "source_removed",
-   "corrected_on": "2026-11-04",
-   "date_reported": "7/23/26 12:43",
-   "incident_uid": "c3502ae70074ab3a",
-   "last_known_disposition": "Open/Active; Disposition updated; Closed; Investigation Completed; Unsolved",
-   "nature": "Theft- iPhone",
-   "observed_date": "2026-11-02",
-   "previous_status": "active",
-   "removal_mechanism": "file_repurposed_for_november_2026",
-   "source": "july-repurposing-backfill",
-   "source_file_id": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o",
-   "source_month": "July 2026"
-  },
-  {
-   "case_number": "RUPD 26-023461",
-   "change_type": "source_removed",
-   "corrected_on": "2026-11-04",
-   "date_reported": "7/24/26 0:46",
-   "incident_uid": "b66bb986593886fe",
-   "last_known_disposition": "Closed; Subject Issued Summons",
-   "nature": "Littering",
-   "observed_date": "2026-11-02",
-   "previous_status": "active",
-   "removal_mechanism": "file_repurposed_for_november_2026",
-   "source": "july-repurposing-backfill",
-   "source_file_id": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o",
-   "source_month": "July 2026"
-  },
-  {
-   "case_number": "RUPD 26-023470",
-   "change_type": "source_removed",
-   "corrected_on": "2026-11-04",
-   "date_reported": "7/24/26 1:29",
-   "incident_uid": "2d8b15decd8edf13",
-   "last_known_disposition": "Closed; Subject Issued Summons; Trespassing Notice/Warning Issued",
-   "nature": "Trespassing (Defiant)",
-   "observed_date": "2026-11-02",
-   "previous_status": "active",
-   "removal_mechanism": "file_repurposed_for_november_2026",
-   "source": "july-repurposing-backfill",
-   "source_file_id": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o",
-   "source_month": "July 2026"
-  },
-  {
-   "case_number": "RUPD 26-024000",
-   "change_type": "source_removed",
-   "corrected_on": "2026-11-04",
-   "date_reported": "7/27/26 14:11",
-   "incident_uid": "a6cf8247a1d5df2b",
-   "last_known_disposition": "Closed; Trespassing Notice/Warning Issued",
-   "nature": "Trespassing",
-   "observed_date": "2026-11-02",
-   "previous_status": "active",
-   "removal_mechanism": "file_repurposed_for_november_2026",
-   "source": "july-repurposing-backfill",
-   "source_file_id": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o",
-   "source_month": "July 2026"
-  },
-  {
-   "case_number": "RUPD 26-024001",
-   "change_type": "source_removed",
-   "corrected_on": "2026-11-04",
-   "date_reported": "7/27/26 14:22",
-   "incident_uid": "7e8843020cdf2a96",
-   "last_known_disposition": "Closed; Subject Arrested",
-   "nature": "Alcohol Violation (DWI)",
-   "observed_date": "2026-11-02",
-   "previous_status": "active",
-   "removal_mechanism": "file_repurposed_for_november_2026",
-   "source": "july-repurposing-backfill",
-   "source_file_id": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o",
-   "source_month": "July 2026"
-  },
-  {
-   "case_number": "RUPD 26-024138",
-   "change_type": "source_removed",
-   "corrected_on": "2026-11-04",
-   "date_reported": "7/28/26 15:54",
-   "incident_uid": "2021d5297bf69ef6",
-   "last_known_disposition": "Closed; Subject Issued Summons",
-   "nature": "Disorderly Conduct",
-   "observed_date": "2026-11-02",
-   "previous_status": "active",
-   "removal_mechanism": "file_repurposed_for_november_2026",
-   "source": "july-repurposing-backfill",
-   "source_file_id": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o",
-   "source_month": "July 2026"
-  },
-  {
-   "case_number": "RUPD 26-024105",
-   "change_type": "source_removed",
-   "corrected_on": "2026-11-04",
-   "date_reported": "7/28/26 9:41",
-   "incident_uid": "817b5f7cb5bf967b",
-   "last_known_disposition": "Closed; Subject Arrested",
-   "nature": "Possession of CDS (Illegal Drug) Paraphernalia",
-   "observed_date": "2026-11-02",
-   "previous_status": "active",
-   "removal_mechanism": "file_repurposed_for_november_2026",
-   "source": "july-repurposing-backfill",
-   "source_file_id": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o",
-   "source_month": "July 2026"
-  },
-  {
-   "case_number": "RUPD 26-024281",
-   "change_type": "source_removed",
-   "corrected_on": "2026-11-04",
-   "date_reported": "7/29/26 17:25",
-   "incident_uid": "f086654df522d1c0",
-   "last_known_disposition": "Open/Active; Disposition updated/Inactive",
-   "nature": "Theft (Bicycle); Criminal Mischief (Lock)",
-   "observed_date": "2026-11-02",
-   "previous_status": "active",
-   "removal_mechanism": "file_repurposed_for_november_2026",
-   "source": "july-repurposing-backfill",
-   "source_file_id": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o",
-   "source_month": "July 2026"
-  },
-  {
-   "case_number": "RUPD 26-021138",
-   "change_type": "source_removed",
-   "corrected_on": "2026-11-04",
-   "date_reported": "7/3/26 10:07",
-   "incident_uid": "bdd4d2e51f751fec",
-   "last_known_disposition": "Closed; Subject Arrested; Trespassing Notice/Warning Issued",
-   "nature": "Obstruction; Trespassing",
-   "observed_date": "2026-11-02",
-   "previous_status": "active",
-   "removal_mechanism": "file_repurposed_for_november_2026",
-   "source": "july-repurposing-backfill",
-   "source_file_id": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o",
-   "source_month": "July 2026"
-  },
-  {
-   "case_number": "RUPD 26-021711",
-   "change_type": "source_removed",
-   "corrected_on": "2026-11-04",
-   "date_reported": "7/9/26 0:09",
-   "incident_uid": "38e5c6fcd43954eb",
-   "last_known_disposition": "Closed; Subject Issued Summons",
-   "nature": "Possession of CDS (Prohibited Drug/Paraphernalia)",
-   "observed_date": "2026-11-02",
-   "previous_status": "active",
-   "removal_mechanism": "file_repurposed_for_november_2026",
-   "source": "july-repurposing-backfill",
-   "source_file_id": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o",
-   "source_month": "July 2026"
-  },
-  {
-   "case_number": "RUPD 26-021816",
-   "change_type": "source_removed",
-   "corrected_on": "2026-11-04",
-   "date_reported": "7/9/26 21:26",
-   "incident_uid": "bfd6312c6f1f0d4d",
-   "last_known_disposition": "Closed; Trespassing Notice/Warning Issued",
-   "nature": "Trespassing",
-   "observed_date": "2026-11-02",
-   "previous_status": "active",
-   "removal_mechanism": "file_repurposed_for_november_2026",
-   "source": "july-repurposing-backfill",
-   "source_file_id": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o",
-   "source_month": "July 2026"
-  },
-  {
    "change_type": "superseded_identity",
    "incident_uid": "0b1eaf65910f79c8",
    "new_case_number": "CSA 87745/ RUPD 26-033587",
@@ -26671,11 +26327,11 @@
   "statuses": [
    {
     "value": "active",
-    "count": 342
+    "count": 365
    },
    {
     "value": "source_removed",
-    "count": 37
+    "count": 14
    },
    {
     "value": "superseded",
@@ -26834,8 +26490,8 @@
   },
   {
    "date": "2026-11-04",
-   "summary": "+10 added, 1 amended, 2 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 2 superseded",
-   "alarms": 1
+   "summary": "+0 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
+   "alarms": 2
   }
  ]
 }

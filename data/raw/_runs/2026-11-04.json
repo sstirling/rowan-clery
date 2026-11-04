@@ -1,6 +1,7 @@
 {
   "alarms": [
-    "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 29 runs — treating the source file as removed. Its rows are preserved in full."
+    "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 29 runs — treating the source file as removed. Its rows are preserved in full.",
+    "Quarantined file(s), no absence inferred for them (additions and amendments still apply): ['14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o']"
   ],
   "archive_rows": 2557,
   "date": "2026-11-04",
@@ -10,7 +11,7 @@
       "name": "November 2026 Daily Crime Log",
       "rows": 6,
       "sha256": "a3122efa24da2e81ee428d035ac03eda0c6bb8fa4e2399d28be4cb03b356e0e8",
-      "snapshot_written": true,
+      "snapshot_written": false,
       "status": "ok"
     },
     "1HULCgv9mk7XMkfC2DKkBaOUm5rA00aVfO83lU9489p0": {
@@ -39,7 +40,7 @@
       "name": "October 2026 Daily Crime Log",
       "rows": 184,
       "sha256": "7737858d820c81ca72963749a7266861e7aad48a7a99d7aea44ff34b5a3d6606",
-      "snapshot_written": true,
+      "snapshot_written": false,
       "status": "ok"
     }
   },
@@ -49,26 +50,29 @@
     "status": "ok"
   },
   "merge": {
-    "added": 10,
-    "amended": 1,
-    "changed": true,
-    "missing": 2,
-    "quarantined": [],
+    "added": 0,
+    "amended": 0,
+    "changed": false,
+    "missing": 0,
+    "quarantined": [
+      "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o"
+    ],
     "reappeared": 0,
     "relocated": 0,
     "source_removed": 0,
-    "superseded": 2,
-    "unchanged": 331,
+    "superseded": 0,
+    "unchanged": 342,
     "unfetched": [],
     "warnings": [
+      "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: 23 of 29 rows absent (retention 21%) — quarantined, no absence inferred for this file (additions and amendments still apply)",
       "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: 2 row(s) absent — advancing confirmation ladder"
     ],
     "withdrawn": 0
   },
-  "summary": "+10 added, 1 amended, 2 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 2 superseded",
+  "summary": "+0 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
   "warnings": [
     "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']",
-    "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: file reappeared after being absent",
+    "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: 23 of 29 rows absent (retention 21%) — quarantined, no absence inferred for this file (additions and amendments still apply)",
     "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: 2 row(s) absent — advancing confirmation ladder"
   ]
 }

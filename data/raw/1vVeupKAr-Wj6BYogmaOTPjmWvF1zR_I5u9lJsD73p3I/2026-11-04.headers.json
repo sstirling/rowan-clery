@@ -2,7 +2,7 @@
   "byte_length": 42317,
   "content_disposition": "attachment; filename=\"October2026DailyCrimeLog-CrimeLog.csv\"; filename*=UTF-8''October 2026 Daily Crime Log - Crime Log.csv",
   "content_type": "text/csv; charset=utf-8",
-  "fetched_at_utc": "2026-11-04T20:47:04+00:00",
+  "fetched_at_utc": "2026-11-04T03:32:00+00:00",
   "sha256": "7737858d820c81ca72963749a7266861e7aad48a7a99d7aea44ff34b5a3d6606",
   "status": 200
 }
