@@ -43,25 +43,59 @@ if (staleDays !== null && staleDays > 2) {
     The last successful run was ${esc(D.status.last_successful_run)}. The scraper may be broken — check the workflow.</div>`);
 }
 
-// A whole sheet ageing out is routine and gets no alarm. A single row disappearing from a
-// sheet Rowan is still publishing is not routine, and federal guidance says to update a
-// crime log entry rather than remove it — so that one keeps a notice.
+/* ---- run status ----
+   Fetch quarantines, pinned files missing from a listing, retry notices, stale captures.
+   This used to be a `warn` banner above the content, one bullet per alarm, in the same
+   yellow as the withdrawn-record finding below it — so the plumbing and the journalism
+   shouted in the same voice, every single day. An alarm that fires daily stops being
+   read, which is how June's 401 went unnoticed for twenty runs. It collapses to one
+   quiet line here and opens on click. Nothing is filtered out: the panel shows every
+   alarm and every warning the run recorded, which is the opposite of the old block —
+   that one hid the source-file-removed alarm on the grounds that a callout explained
+   rolling-window expiry, and then June and July turned out not to have aged out at all. */
+const runAlarms = D.status.alarms || [];
+const runWarnings = D.status.warnings || [];
+const noticeCount = runAlarms.length + runWarnings.length;
+const lastRun = esc(D.status.last_run || "unknown");
+const section = (title, items) => items.length
+  ? `<h4>${esc(title)}</h4><ul>${items.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : "";
+
+banners.push(`<details class="runstatus">
+  <summary>
+    <span class="dot${noticeCount ? "" : " clear"}" aria-hidden="true"></span>
+    <span class="lbl">${noticeCount
+      ? `Archive status — ${noticeCount} notice${noticeCount === 1 ? "" : "s"} from the ${lastRun} run`
+      : `Archive status — the ${lastRun} run was clean`}</span>
+    <span class="caret" aria-hidden="true">Details</span>
+  </summary>
+  <div class="body">
+    ${section("Alarms", runAlarms)}
+    ${section("Warnings", runWarnings)}
+    ${noticeCount ? "" : `<p>Every pinned sheet fetched, and no record moved unexpectedly.</p>`}
+    <p class="last">Last run ${lastRun} · last successful run
+      ${esc(D.status.last_successful_run || "unknown")}. These are notes on how the
+      capture went, not on what Rowan logged. Nothing here changes a count: when a fetch
+      is refused the existing rows are left exactly as they were.</p>
+  </div>
+</details>`);
+
+// A whole sheet ageing out is routine and gets no notice. A single row disappearing from
+// a sheet Rowan is still publishing is not routine, and federal guidance says to update a
+// crime log entry rather than remove it — so that one keeps a banner, and keeps the
+// prominent position the run alarms just lost. Deliberately NOT `warn` yellow: that is
+// the colour this site uses for "a process needs attention", and a record pulled from a
+// live log is not a process problem, it is the finding.
 const pulled = D.incidents.filter(i => i.status === "withdrawn");
 if (pulled.length) {
   const months = [...new Set(pulled.map(i => i.month))].map(esc).join(", ");
-  banners.push(`<div class="banner warn">
+  banners.push(`<div class="banner finding">
     <strong>${pulled.length} record${pulled.length === 1 ? " has" : "s have"} been removed from a
     sheet Rowan is still publishing.</strong> ${months}. That is different from a month ageing
     out of the rolling window: these rows were taken out of a log that remains online. Every
     field is preserved here and the rows are listed below, struck through.
-    Worth putting to the Clery Compliance Office.</div>`);
-}
-
-// Anything else the run flagged, minus the rolling-window expiry it explains below.
-const otherAlarms = (D.status.alarms || []).filter(a => !/treating the source file as removed/.test(a));
-if (otherAlarms.length) {
-  banners.push(`<div class="banner warn"><strong>From the last run</strong>
-    <ul>${otherAlarms.map(a => `<li>${esc(a)}</li>`).join("")}</ul></div>`);
+    Worth putting to the Clery Compliance Office.
+    <a href="#tbl" class="jump" data-jump-status="withdrawn">Show ${pulled.length === 1
+      ? "the record" : `all ${pulled.length}`} in the table</a></div>`);
 }
 
 const agedOut = D.incidents.filter(i => i.status === AGED_OUT).length;
@@ -442,6 +476,19 @@ FILTERS.forEach(([sel, facet, all]) => {
   $(sel).onchange = render;
 });
 if ($("#q")) $("#q").oninput = render;
+
+/* The finding banner's "show in the table" link drives the status filter rather than
+   just dropping an anchor, so the reader lands on the struck-through rows themselves
+   instead of on a table of 2,500 that happens to contain them. Delegated, because the
+   banner HTML is injected before this runs. */
+document.addEventListener("click", ev => {
+  const a = ev.target.closest("a[data-jump-status]");
+  if (!a || !$("#f-status")) return;
+  ev.preventDefault();
+  $("#f-status").value = a.dataset.jumpStatus;
+  render();
+  $("#tbl").scrollIntoView({ behavior: "smooth", block: "start" });
+});
 
 let sortKey = "reported", sortDir = -1;
 document.querySelectorAll("#tbl th").forEach(th => th.onclick = () => {

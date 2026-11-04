@@ -432,3 +432,89 @@ def test_accent_is_only_ever_a_fill_behind_dark_text(theme):
         if theme == "dark" else light
     ratio = contrast(palette["--accent-ink"], palette["--accent"])
     assert ratio >= 4.5, f"{theme}: accent-ink on accent is only {ratio:.2f}:1"
+
+
+def test_operational_run_notices_are_not_a_banner():
+    """The run's alarms and warnings must reach the collapsed panel, not a warn banner.
+
+    They used to be a `.banner warn` above the content, in the same yellow as the
+    withdrawn-record finding, so a quarantine that fires every day shouted as loudly as
+    the one editorial finding on the page. That is how June's 401 went unnoticed for
+    twenty runs: the reader learns to skip the yellow box.
+
+    Asserted against the source rather than the built page because whether any notice
+    exists depends on how today's fetch went, and this has to hold on a clean run too.
+    """
+    js = (SITE / "js" / "index.js").read_text()
+    panel = js.split("const runAlarms", 1)
+    assert len(panel) == 2, "index.js no longer builds the run-status panel"
+
+    # Neither collection may be interpolated into a banner of any kind.
+    for source in ("D.status.alarms", "D.status.warnings"):
+        for match in re.finditer(re.escape(source), js):
+            line = js[js.rfind("\n", 0, match.start()) + 1:js.find("\n", match.end())]
+            assert "banner" not in line, f"{source} is still being put in a banner: {line.strip()}"
+
+    assert 'class="runstatus"' in js
+    # The old block dropped the source-file-removed alarm on the grounds that a callout
+    # explained rolling-window expiry. June and July did not age out, so that filter was
+    # hiding a real removal behind an explanation of a different one.
+    assert "treating the source file as removed" not in js, (
+        "the run panel is filtering an alarm out again"
+    )
+
+
+def test_a_record_pulled_from_a_live_sheet_keeps_its_own_register():
+    """The finding is styled as a finding, not as a system warning, and ships styled.
+
+    Guards the specific breakage of emitting a class the stylesheet has no rule for:
+    the banner still renders, with no left rule and no background, reading as plain body
+    text in the middle of a stack of boxes.
+    """
+    js = (SITE / "js" / "index.js").read_text()
+    assert 'class="banner finding"' in js
+    assert "Worth putting to the Clery Compliance Office" in js
+
+    css = (SITE / "css" / "chrome.css").read_text()
+    for rule in (".banner.finding", "details.runstatus"):
+        assert rule in css, f"{rule} is emitted by index.js but has no rule in chrome.css"
+
+    # Both have to survive inlining, or the page serves unstyled components.
+    html = read("index.html")
+    assert ".banner.finding" in html and "details.runstatus" in html
+    assert 'class="runstatus"' in html
+
+
+def test_the_jump_link_targets_a_control_and_a_mount_that_exist():
+    """The finding's "show in the table" link drives #f-status and scrolls to #tbl."""
+    js = (SITE / "js" / "index.js").read_text()
+    assert 'data-jump-status="withdrawn"' in js
+    assert "a[data-jump-status]" in js
+    page = (SITE / "pages" / "index.html").read_text()
+    assert 'id="f-status"' in page and 'id="tbl"' in page
+    # `withdrawn` has to be a status the filter can actually be set to.
+    assert "withdrawn:" in js, "STATUS_LABEL has no withdrawn entry for the filter to show"
+
+
+def test_the_ok_token_clears_contrast_in_both_themes():
+    """`--ok` carries text, so 4.5:1, and it is defined per theme.
+
+    It was #1baf7a in both: 2.74:1 on the light surface, which failed as the change
+    feed's "new value" text in audit.css and failed again as the run-status panel's clean
+    dot, where a non-text indicator needs 3:1. The light value is darker now and the dark
+    block pins the brighter green, because one green cannot clear both backgrounds.
+    """
+    css = (SITE / "css" / "chrome.css").read_text(encoding="utf-8")
+    light_block = css.split(":root {", 1)[1].split("\n}", 1)[0]
+    dark_block = css.split(':root[data-theme="dark"] {', 1)[1].split("\n}", 1)[0]
+
+    def token(block, name):
+        match = re.search(rf"--{name}:\s*(#[0-9a-fA-F]{{6}})", block)
+        assert match, f"--{name} is not defined in that block"
+        return match.group(1)
+
+    for block, label in ((light_block, "light"), (dark_block, "dark")):
+        ok = token(block, "ok")
+        for surface in ("surface-0", "surface-1", "surface-2"):
+            ratio = contrast(ok, token(block, surface))
+            assert ratio >= 4.5, f"{label} --ok {ok} on {surface} is only {ratio:.2f}:1"

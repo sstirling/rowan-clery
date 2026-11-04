@@ -18,7 +18,12 @@
   --s5: #e87ba4; --s6: #008300; --s7: #4a3aa7; --s8: #e34948;
   --alarm:  #c0392b;
   --warn:   #b06a00;
-  --ok:     #1baf7a;
+  /* Darkened from #1baf7a, which measured 2.74:1 on surface-1 — under the 4.5:1 floor it
+     has to clear, because audit.css sets the change feed's "new value" text in it. The
+     run-status panel's clean dot uses it too, and a non-text indicator needs 3:1, which
+     the old value also missed. Now 5.21:1 at worst on light. The dark block keeps the
+     brighter green: this one measures 3.25:1 there, which fails the other way. */
+  --ok:     #0e7a52;
   --grid:   #e4e4e0;
   --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
   /* The Whit sets headlines in Merriweather and body in Frank Ruhl Libre. Those are
@@ -42,6 +47,8 @@
   --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500;
   --s5:#d55181; --s6:#008300; --s7:#9085e9; --s8:#e66767;
   --alarm:#ef6f61; --warn:#e0a33c; --grid:#2c2c29;
+  /* Pinned rather than inherited; see the note on the light --ok. 6.19:1 here. */
+  --ok:#1baf7a;
 }
 
 * { box-sizing: border-box; }
@@ -144,6 +151,68 @@ button.copy.done { background: var(--accent); border-color: var(--accent); color
 .banner.note  { background: var(--surface-2); border-color: var(--border); color: var(--text-2); }
 .banner strong { color: var(--text-1); }
 .banner ul { margin: 6px 0 0; padding-left: 18px; }
+
+/* The editorial findings keep a banner, in the accent rule The Whit uses for pull
+   quotes rather than in `warn` yellow. Yellow is this site's colour for "a process
+   needs attention"; a record pulled from a live crime log is not a process problem.
+   Accent is 1.59:1 on white, so it is a rule here and never the text. */
+.banner.finding {
+  background: var(--surface-1); border-color: var(--border);
+  border-left: 3px solid var(--accent); color: var(--text-2);
+}
+/* Deliberately darker than the site's `a`, which is var(--s1) and measures 4.30:1 on
+   the light surfaces — under the 4.5:1 floor. --s1 is a chart series colour and cannot
+   be darkened without moving the bars, so this link carries its own value: 5.10:1 at
+   worst on light. Dark mode keeps the inherited accent at 10.69:1. The site-wide link
+   colour has the same shortfall and is NOT fixed here; that needs a --link token. */
+.banner.finding a.jump {
+  display: inline-block; margin-top: 7px; font-size: 12.5px; font-weight: 600;
+  color: #236cc4;
+}
+:root[data-theme="dark"] .banner.finding a.jump { color: var(--accent); }
+
+/* ---- run status ----
+   How the capture went: quarantines, pinned files missing from a listing, fetch retries.
+   One quiet line that opens on click, because this is plumbing and it used to shout in
+   the same yellow as the journalism above it, every day. Built on <details>, so it works
+   with no JS beyond the string that writes it and stays keyboard-reachable. */
+details.runstatus { margin-bottom: 14px; font-size: 12.5px; }
+details.runstatus > summary {
+  cursor: pointer; list-style: none; color: var(--text-3);
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  width: fit-content; max-width: 100%;
+  padding: 6px 12px; background: var(--surface-1);
+  border: 1px solid var(--border); border-radius: 999px;
+  transition: color .12s, border-color .12s;
+}
+details.runstatus > summary::-webkit-details-marker { display: none; }
+details.runstatus > summary::marker { content: ""; }
+details.runstatus > summary:hover { color: var(--text-1); border-color: var(--text-3); }
+details.runstatus > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+details.runstatus > summary .lbl { min-width: 0; }
+/* Amber, not the `warn` banner's fill: a 7px dot carries no text, so it signals without
+   tinting a whole box. Green when the run was clean, so a reader can tell the two apart
+   at a glance without opening it. */
+details.runstatus > summary .dot {
+  flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--warn);
+}
+details.runstatus > summary .dot.clear { background: var(--ok); }
+details.runstatus > summary .caret { color: var(--text-3); text-decoration: underline; }
+details.runstatus[open] > summary { border-radius: 10px 10px 0 0; }
+details.runstatus .body {
+  padding: 12px 14px; background: var(--surface-1); color: var(--text-2);
+  border: 1px solid var(--border); border-top: none; border-radius: 0 10px 10px 10px;
+}
+details.runstatus .body h4 { margin: 0 0 5px; font-size: 12px; color: var(--text-1); }
+details.runstatus .body ul { margin: 0 0 11px; padding-left: 17px; }
+details.runstatus .body ul:last-child { margin-bottom: 0; }
+details.runstatus .body li { margin: 3px 0; overflow-wrap: anywhere; }
+details.runstatus .body p { margin: 0 0 9px; }
+details.runstatus .body p.last { margin: 0; color: var(--text-3); font-size: 12px; }
+@media (max-width: 520px) {
+  details.runstatus > summary { border-radius: 10px; }
+  details.runstatus[open] > summary { border-radius: 10px 10px 0 0; }
+}
 
 /* Shared by charts, the audit panel and the incident table, so it lives here. */
 .empty { color: var(--text-3); font-size: 13px; font-style: italic; padding: 10px 0; }
