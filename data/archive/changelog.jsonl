@@ -2792,3 +2792,5 @@
 {"case_number": "CSA 87745/ RUPD 26-033587", "change_type": "added", "date_reported": "10/8/26 15:29", "incident_uid": "4e4e99b29fa9d8b9", "nature": "Sexual Assault-Rape", "observed_date": "2026-11-04"}
 {"case_number": "RUPD 26-034653", "change_type": "added", "date_reported": "10/20/26 16:46", "incident_uid": "a77a79374317f1ef", "nature": "Harassment", "observed_date": "2026-11-04"}
 {"case_number": "GEN 88694/ RUPD 26-035988", "change_type": "added", "date_reported": "10/27/26 11:49", "incident_uid": "d591b834ec8290ad", "nature": "Sexual Assault-Rape", "observed_date": "2026-11-04"}
+{"case_number": "RUPD 26-0345653", "change_type": "missing", "confirmations": 2, "incident_uid": "3e1a1d24f35d915e", "missing_since": "2026-11-04", "observed_date": "2026-11-05"}
+{"case_number": "GEN 88642", "change_type": "missing", "confirmations": 2, "incident_uid": "b0037a94b2cbbae3", "missing_since": "2026-11-04", "observed_date": "2026-11-05"}
