@@ -12,11 +12,11 @@
     "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: 23 of 29 rows absent (retention 21%) \u2014 quarantined, no absence inferred for this file (additions and amendments still apply)"
   ],
   "counts": {
-    "total_archived": 390,
-    "currently_published": 367,
+    "total_archived": 394,
+    "currently_published": 371,
     "no_longer_published": 17,
     "superseded": 6,
-    "distinct_incidents": 384,
+    "distinct_incidents": 388,
     "withdrawn": 3,
     "source_removed": 14
   }
