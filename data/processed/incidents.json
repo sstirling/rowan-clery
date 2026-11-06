@@ -16,7 +16,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 347,
+   "incidents": 351,
    "months_covered": 4,
    "months": [
     "2026-08",
@@ -46,7 +46,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 334,
+   "incidents": 338,
    "months_covered": 4,
    "months": [
     "2026-08",
@@ -64,8 +64,8 @@
   "default": "occurred",
   "window_start": "2026-06",
   "window_start_label": "June 2026",
-  "total": 384,
-  "shown": 368,
+  "total": 388,
+  "shown": 372,
   "excluded_no_date": 7,
   "excluded_before_window": 9,
   "lag_median_days": {
@@ -74,49 +74,49 @@
    "RUPD": 0.0
   }
  },
- "generated_utc": "2026-11-06T22:24:13+00:00",
+ "generated_utc": "2026-11-05T17:27:39+00:00",
  "archive_started": "2026-10-01",
  "source_folder": "https://drive.google.com/drive/folders/1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
  "published_era": {
   "id": "drive-2026",
   "label": "Google Sheets on Drive",
-  "count": 390,
+  "count": 394,
   "since": "June 2026"
  },
  "counts": {
-  "total_archived": 390,
-  "currently_published": 367,
+  "total_archived": 394,
+  "currently_published": 371,
   "no_longer_published": 17,
   "superseded": 6,
-  "distinct_incidents": 384,
+  "distinct_incidents": 388,
   "withdrawn": 3,
   "source_removed": 14
  },
  "status": {
-  "last_run": "2026-11-04",
-  "last_successful_run": "2026-11-04",
-  "staleness_days": 2,
+  "last_run": "2026-11-05",
+  "last_successful_run": "2026-11-05",
+  "staleness_days": 0,
   "alarms": [
-   "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 29 runs — treating the source file as removed. Its rows are preserved in full.",
+   "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 30 runs — treating the source file as removed. Its rows are preserved in full.",
    "Quarantined file(s), no absence inferred for them (additions and amendments still apply): ['14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o']"
   ],
   "warnings": [
    "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']",
-   "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: 23 of 29 rows absent (retention 21%) — quarantined, no absence inferred for this file (additions and amendments still apply)",
-   "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: 2 row(s) absent — advancing confirmation ladder"
+   "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: 2 row(s) absent — advancing confirmation ladder",
+   "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: 23 of 29 rows absent (retention 21%) — quarantined, no absence inferred for this file (additions and amendments still apply)"
   ]
  },
  "activity": {
   "window_days": 7,
-  "since": "2026-10-30",
-  "until": "2026-11-06",
-  "added": 52,
-  "amended": 22,
+  "since": "2026-10-29",
+  "until": "2026-11-05",
+  "added": 85,
+  "amended": 25,
   "withdrawn": 1,
   "aged_out": 0,
-  "runs_in_window": 6,
-  "checked_total": 29,
-  "staleness_days": 2
+  "runs_in_window": 8,
+  "checked_total": 30,
+  "staleness_days": 0
  },
  "incidents": [
   {
@@ -170,7 +170,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-11-04",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -224,7 +224,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-25",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -277,7 +277,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -330,7 +330,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -384,7 +384,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -437,7 +437,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -490,7 +490,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -543,7 +543,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -597,7 +597,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -650,7 +650,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -758,7 +758,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -812,7 +812,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -865,7 +865,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -974,7 +974,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-14",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -1027,7 +1027,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -1134,7 +1134,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -1188,7 +1188,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -1241,7 +1241,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -1296,7 +1296,7 @@
    "status": "active",
    "revision": 3,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -1352,7 +1352,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-11-02",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -1406,7 +1406,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -1458,7 +1458,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-11-02",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -1511,7 +1511,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -1620,7 +1620,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -1726,7 +1726,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -1779,7 +1779,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -1832,7 +1832,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -1884,7 +1884,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -1939,7 +1939,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-15",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -1992,7 +1992,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -2046,7 +2046,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -2098,7 +2098,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-11-04",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -2157,7 +2157,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -2210,7 +2210,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -2263,7 +2263,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-08",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -2319,7 +2319,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-14",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -2371,7 +2371,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-11-02",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -2478,7 +2478,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -2584,7 +2584,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -2638,7 +2638,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -2690,7 +2690,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -2742,7 +2742,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-13",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -2795,7 +2795,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -2848,7 +2848,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -2901,7 +2901,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -3004,7 +3004,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -3060,7 +3060,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -3116,7 +3116,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-19",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -3170,7 +3170,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -3222,7 +3222,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -3276,7 +3276,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -3328,7 +3328,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-15",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -3438,7 +3438,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -3491,7 +3491,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -3544,7 +3544,59 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "311c5a786451120c",
+   "case_number": "RUPD 26-036700",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-11-03T20:51:00",
+    "precision": "minute",
+    "raw": "11/3/26 20:51",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-11-03T19:00:00",
+    "precision": "minute",
+    "raw": "11/3/26 19:00",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 1.85,
+   "nature_raw": "Motor Vehicle Theft (Electric Scooter)",
+   "categories": [
+    "Motor vehicle theft"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to RUPD that their E-scooter was stolen.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Outside of Mimosa Hall",
+   "disposition_raw": "Open/Active",
+   "disposition_flags": [
+    "open_active"
+   ],
+   "disposition_amended": false,
+   "month": "November 2026",
+   "month_key": "2026-11",
+   "school_year": "2026-27",
+   "occurred_month": "November 2026",
+   "occurred_month_key": "2026-11",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-11-05",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -3597,7 +3649,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -3652,7 +3704,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-15",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -3705,7 +3757,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -3760,7 +3812,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -3813,7 +3865,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-20",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -3866,7 +3918,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -3920,7 +3972,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -3974,7 +4026,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -4028,7 +4080,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-14",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -4081,7 +4133,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -4134,7 +4186,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -4192,7 +4244,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -4245,7 +4297,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -4351,7 +4403,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-20",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -4405,7 +4457,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-25",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -4461,7 +4513,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -4514,7 +4566,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-22",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -4571,7 +4623,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-11-04",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -4625,7 +4677,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -4781,7 +4833,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-13",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -4834,7 +4886,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -4888,7 +4940,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -4941,7 +4993,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-20",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -4994,7 +5046,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -5047,7 +5099,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -5100,7 +5152,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -5153,7 +5205,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-20",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -5209,7 +5261,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-14",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -5261,7 +5313,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-14",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -5313,7 +5365,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-22",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -5366,7 +5418,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -5419,7 +5471,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -5474,7 +5526,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -5528,7 +5580,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -5581,7 +5633,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -5634,7 +5686,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -5685,7 +5737,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-16",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -5738,7 +5790,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -5791,7 +5843,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -5843,7 +5895,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -5950,7 +6002,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -6003,7 +6055,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -6055,7 +6107,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-22",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -6109,7 +6161,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -6162,7 +6214,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -6215,7 +6267,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -6272,7 +6324,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -6328,7 +6380,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -6381,7 +6433,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-11-04",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -6436,7 +6488,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -6489,7 +6541,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -6542,7 +6594,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -6595,7 +6647,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-20",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -6648,7 +6700,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -6701,7 +6753,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -6756,7 +6808,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -6809,7 +6861,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -6862,7 +6914,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -6920,7 +6972,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -6973,7 +7025,59 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-20",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "53d8f09af6a9e8b7",
+   "case_number": "RUPD 26-036553",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-11-03T20:51:00",
+    "precision": "minute",
+    "raw": "11/3/26 20:51",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-11-03T19:00:00",
+    "precision": "minute",
+    "raw": "11/3/26 19:00",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 1.85,
+   "nature_raw": "Motor Vehicle Theft (Electric Scooter)",
+   "categories": [
+    "Motor vehicle theft"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to RUPD that their E-scooter was stolen.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Outside of Mimosa Hall",
+   "disposition_raw": "Open/Active",
+   "disposition_flags": [
+    "open_active"
+   ],
+   "disposition_amended": false,
+   "month": "November 2026",
+   "month_key": "2026-11",
+   "school_year": "2026-27",
+   "occurred_month": "November 2026",
+   "occurred_month_key": "2026-11",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-11-05",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -7026,7 +7130,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-13",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -7079,7 +7183,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -7132,7 +7236,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -7185,7 +7289,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -7238,7 +7342,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -7291,7 +7395,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -7343,7 +7447,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-25",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -7397,7 +7501,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-20",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -7450,7 +7554,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -7503,7 +7607,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -7557,7 +7661,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-16",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -7615,7 +7719,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -7668,7 +7772,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-19",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -7721,7 +7825,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -7773,7 +7877,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-22",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -7827,7 +7931,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -7880,7 +7984,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -7934,7 +8038,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -7987,7 +8091,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": [
     "near_duplicate"
@@ -8045,7 +8149,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -8098,7 +8202,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -8151,7 +8255,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -8204,7 +8308,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -8257,7 +8361,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -8363,7 +8467,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -8416,7 +8520,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -8469,7 +8573,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -8522,7 +8626,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -8575,7 +8679,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -8629,7 +8733,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -8682,7 +8786,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-21",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -8734,7 +8838,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -8787,7 +8891,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -8841,7 +8945,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -8894,7 +8998,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-11-02",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -8947,7 +9051,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-20",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -9000,7 +9104,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -9053,7 +9157,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -9106,7 +9210,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-11-04",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -9159,7 +9263,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -9212,7 +9316,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -9270,7 +9374,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -9324,7 +9428,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -9375,7 +9479,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-11-02",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -9428,7 +9532,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -9480,7 +9584,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-19",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -9532,7 +9636,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -9584,7 +9688,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -9637,7 +9741,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-20",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -9690,7 +9794,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -9749,7 +9853,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -9801,7 +9905,60 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-11-02",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "74ae02d7430ec2bf",
+   "case_number": "RUPD 26-036502",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-11-03T11:38:00",
+    "precision": "minute",
+    "raw": "11/3/26 11:38",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-11-03T11:38:00",
+    "precision": "minute",
+    "raw": "11/3/26 11:38",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 0.0,
+   "nature_raw": "Criminal Mischief",
+   "categories": [
+    "Criminal mischief"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "RUPD issued a citation to a student for causing damage to property while operating a vehicle.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Edgewood Park Apts. Lot",
+   "disposition_raw": "Closed; Subject issued citation",
+   "disposition_flags": [
+    "closed",
+    "summons_issued"
+   ],
+   "disposition_amended": false,
+   "month": "November 2026",
+   "month_key": "2026-11",
+   "school_year": "2026-27",
+   "occurred_month": "November 2026",
+   "occurred_month_key": "2026-11",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-11-05",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -9854,7 +10011,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -9961,7 +10118,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-08",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -10015,7 +10172,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -10068,7 +10225,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-08",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -10121,7 +10278,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-20",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -10173,7 +10330,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -10228,7 +10385,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -10282,7 +10439,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -10335,7 +10492,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-25",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -10387,7 +10544,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -10493,7 +10650,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-13",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -10546,7 +10703,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -10601,7 +10758,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -10707,7 +10864,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -10760,7 +10917,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -10813,7 +10970,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -10865,7 +11022,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -10972,7 +11129,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -11026,7 +11183,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -11078,7 +11235,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -11130,7 +11287,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -11184,7 +11341,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -11237,7 +11394,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-20",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -11291,7 +11448,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -11345,7 +11502,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-11-02",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -11397,7 +11554,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -11450,7 +11607,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -11503,7 +11660,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -11560,7 +11717,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -11614,7 +11771,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-20",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -11719,7 +11876,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -11771,7 +11928,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-19",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -11935,7 +12092,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -11987,7 +12144,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-11-02",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -12040,7 +12197,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-20",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -12094,7 +12251,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -12148,7 +12305,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -12203,7 +12360,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -12310,7 +12467,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -12363,7 +12520,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -12419,7 +12576,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -12472,7 +12629,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -12525,7 +12682,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -12578,7 +12735,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-11-04",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -12630,7 +12787,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-11-02",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -12684,7 +12841,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-13",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -12738,7 +12895,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -12792,7 +12949,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": [
     "near_duplicate"
@@ -12848,7 +13005,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -12955,7 +13112,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -13008,7 +13165,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -13063,7 +13220,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-19",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -13116,7 +13273,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -13169,7 +13326,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-13",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -13221,7 +13378,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-30",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -13277,7 +13434,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-15",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -13330,7 +13487,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -13383,7 +13540,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -13436,7 +13593,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -13488,7 +13645,7 @@
    "status": "active",
    "revision": 3,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -13594,7 +13751,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -13646,7 +13803,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -13752,7 +13909,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -13804,7 +13961,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-11-04",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -13857,7 +14014,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -13963,7 +14120,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -14016,7 +14173,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -14069,7 +14226,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -14122,7 +14279,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -14175,7 +14332,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -14229,7 +14386,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -14281,7 +14438,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-22",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -14387,7 +14544,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -14440,7 +14597,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -14493,7 +14650,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-08",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -14546,7 +14703,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-08",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -14707,7 +14864,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -14760,7 +14917,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-08",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -14816,7 +14973,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-19",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -14869,7 +15026,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -14921,7 +15078,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -14974,7 +15131,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -15027,7 +15184,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -15188,7 +15345,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-13",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -15241,7 +15398,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-20",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -15294,7 +15451,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -15347,7 +15504,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -15399,7 +15556,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-21",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -15452,7 +15609,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -15507,7 +15664,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -15615,7 +15772,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -15668,7 +15825,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -15774,7 +15931,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -15826,7 +15983,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -15880,7 +16037,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -15933,7 +16090,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -15987,7 +16144,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -16040,7 +16197,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -16092,7 +16249,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-22",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -16199,7 +16356,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -16252,7 +16409,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -16305,7 +16462,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -16358,7 +16515,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -16410,7 +16567,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -16462,7 +16619,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -16515,7 +16672,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -16569,7 +16726,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -16677,7 +16834,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -16731,7 +16888,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -16785,7 +16942,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -16837,7 +16994,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -16943,7 +17100,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -16996,7 +17153,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -17049,7 +17206,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -17104,7 +17261,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-20",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -17158,7 +17315,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -17211,7 +17368,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -17265,7 +17422,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -17321,7 +17478,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -17373,7 +17530,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -17427,7 +17584,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-11-04",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -17480,7 +17637,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -17534,7 +17691,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -17638,7 +17795,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-13",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -17691,7 +17848,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-08",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -17745,7 +17902,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -17799,7 +17956,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-13",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -17852,7 +18009,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -17905,7 +18062,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -17960,7 +18117,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -18013,7 +18170,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -18066,7 +18223,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": [
     "near_duplicate"
@@ -18121,7 +18278,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-15",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -18174,7 +18331,59 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-08",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "df2a215961b3c765",
+   "case_number": "RUPD 26-036538",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-11-03T17:28:00",
+    "precision": "minute",
+    "raw": "11/3/26 17:28",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-11-03T15:30:00",
+    "precision": "minute",
+    "raw": "11/3/26 15:30",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 1.97,
+   "nature_raw": "Motor Vehicle Theft (Electric Scooter)",
+   "categories": [
+    "Motor vehicle theft"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to RUPD that their E-scooter was stolen.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Outside of Winans Hall",
+   "disposition_raw": "Open/Active",
+   "disposition_flags": [
+    "open_active"
+   ],
+   "disposition_amended": false,
+   "month": "November 2026",
+   "month_key": "2026-11",
+   "school_year": "2026-27",
+   "occurred_month": "November 2026",
+   "occurred_month_key": "2026-11",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-11-05",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -18226,7 +18435,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -18279,7 +18488,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-08",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -18334,7 +18543,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-19",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -18386,7 +18595,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-11-02",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -18437,7 +18646,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-11-04",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -18544,7 +18753,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -18652,7 +18861,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -18704,7 +18913,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -18756,7 +18965,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -18809,7 +19018,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -18862,7 +19071,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -18966,7 +19175,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -19073,7 +19282,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -19181,7 +19390,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-20",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -19233,7 +19442,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-07",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -19286,7 +19495,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -19394,7 +19603,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -19447,7 +19656,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -19500,7 +19709,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -19606,7 +19815,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -19712,7 +19921,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -19765,7 +19974,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -19818,7 +20027,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -19873,7 +20082,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -19926,7 +20135,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -19980,7 +20189,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -20033,7 +20242,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -20140,7 +20349,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -20193,7 +20402,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -20301,7 +20510,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -20353,7 +20562,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-13",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -20407,7 +20616,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": [
     "near_duplicate"
@@ -20462,7 +20671,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-11-02",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -20514,7 +20723,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-29",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -20567,7 +20776,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-11-04",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -20619,7 +20828,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-30",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -20673,7 +20882,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-22",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -20726,7 +20935,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-31",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -20780,7 +20989,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -20833,7 +21042,7 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-11-02",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   },
@@ -20939,7 +21148,7 @@
    "status": "active",
    "revision": 2,
    "first_seen_by_archive": "2026-10-01",
-   "last_verified": "2026-11-04",
+   "last_verified": "2026-11-05",
    "missing_since": "",
    "flags": []
   }
@@ -24997,6 +25206,54 @@
    "incident_uid": "d591b834ec8290ad",
    "nature": "Sexual Assault-Rape",
    "observed_date": "2026-11-04"
+  },
+  {
+   "case_number": "RUPD 26-0345653",
+   "change_type": "missing",
+   "confirmations": 2,
+   "incident_uid": "3e1a1d24f35d915e",
+   "missing_since": "2026-11-04",
+   "observed_date": "2026-11-05"
+  },
+  {
+   "case_number": "GEN 88642",
+   "change_type": "missing",
+   "confirmations": 2,
+   "incident_uid": "b0037a94b2cbbae3",
+   "missing_since": "2026-11-04",
+   "observed_date": "2026-11-05"
+  },
+  {
+   "case_number": "RUPD 26-036502",
+   "change_type": "added",
+   "date_reported": "11/3/26 11:38",
+   "incident_uid": "74ae02d7430ec2bf",
+   "nature": "Criminal Mischief",
+   "observed_date": "2026-11-05"
+  },
+  {
+   "case_number": "RUPD 26-036538",
+   "change_type": "added",
+   "date_reported": "11/3/26 17:28",
+   "incident_uid": "df2a215961b3c765",
+   "nature": "Motor Vehicle Theft (Electric Scooter)",
+   "observed_date": "2026-11-05"
+  },
+  {
+   "case_number": "RUPD 26-036553",
+   "change_type": "added",
+   "date_reported": "11/3/26 20:51",
+   "incident_uid": "53d8f09af6a9e8b7",
+   "nature": "Motor Vehicle Theft (Electric Scooter)",
+   "observed_date": "2026-11-05"
+  },
+  {
+   "case_number": "RUPD 26-036700",
+   "change_type": "added",
+   "date_reported": "11/3/26 20:51",
+   "incident_uid": "311c5a786451120c",
+   "nature": "Motor Vehicle Theft (Electric Scooter)",
+   "observed_date": "2026-11-05"
   }
  ],
  "quality": {
@@ -25288,6 +25545,10 @@
     "count": 31
    },
    {
+    "value": "Motor vehicle theft",
+    "count": 28
+   },
+   {
     "value": "DWI",
     "count": 27
    },
@@ -25296,12 +25557,8 @@
     "count": 26
    },
    {
-    "value": "Motor vehicle theft",
-    "count": 25
-   },
-   {
     "value": "Criminal mischief",
-    "count": 25
+    "count": 26
    },
    {
     "value": "Harassment",
@@ -25415,7 +25672,7 @@
   "school_years": [
    {
     "value": "2026-27",
-    "count": 347
+    "count": 351
    },
    {
     "value": "2025-26",
@@ -25425,7 +25682,7 @@
   "campuses": [
    {
     "value": "Glassboro",
-    "count": 376
+    "count": 380
    },
    {
     "value": "Rowan-Virtua SOM (Stratford)",
@@ -25459,7 +25716,7 @@
    },
    {
     "value": "November 2026",
-    "count": 6
+    "count": 10
    }
   ],
   "locations": [
@@ -25542,6 +25799,10 @@
    {
     "value": "Carpenter St./ Campus Ter.",
     "count": 4
+   },
+   {
+    "value": "Outside of Mimosa Hall",
+    "count": 3
    },
    {
     "value": "Lot B",
@@ -25924,6 +26185,10 @@
     "count": 1
    },
    {
+    "value": "Edgewood Park Apts. Lot",
+    "count": 1
+   },
+   {
     "value": "N. Main St./ College Ave.",
     "count": 1
    },
@@ -26124,6 +26389,10 @@
     "count": 1
    },
    {
+    "value": "Outside of Winans Hall",
+    "count": 1
+   },
+   {
     "value": "Campus (near Holly Pointe Commons)",
     "count": 1
    },
@@ -26180,10 +26449,6 @@
     "count": 1
    },
    {
-    "value": "Outside of Mimosa Hall",
-    "count": 1
-   },
-   {
     "value": "N. Main St./ E. New St.",
     "count": 1
    },
@@ -26199,11 +26464,11 @@
   "disposition_flags": [
    {
     "value": "closed",
-    "count": 180
+    "count": 181
    },
    {
     "value": "summons_issued",
-    "count": 159
+    "count": 160
    },
    {
     "value": "glassboro_pd",
@@ -26215,7 +26480,7 @@
    },
    {
     "value": "open_active",
-    "count": 39
+    "count": 42
    },
    {
     "value": "referred_university",
@@ -26309,7 +26574,7 @@
   "agencies": [
    {
     "value": "RUPD",
-    "count": 238
+    "count": 242
    },
    {
     "value": "GPD",
@@ -26327,7 +26592,7 @@
   "statuses": [
    {
     "value": "active",
-    "count": 365
+    "count": 369
    },
    {
     "value": "source_removed",
@@ -26491,6 +26756,11 @@
   {
    "date": "2026-11-04",
    "summary": "+0 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
+   "alarms": 2
+  },
+  {
+   "date": "2026-11-05",
+   "summary": "+4 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
    "alarms": 2
   }
  ]
