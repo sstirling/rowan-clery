@@ -19,6 +19,15 @@ from . import fetch, parse, snapshot
 # hiccup than a deletion.
 FILE_REMOVAL_CONFIRMATIONS = 3
 
+#: Consecutive runs a file must report a different banner month before the rows from the
+#: month it used to hold are retired. Two, not three: unlike an absence — which can be a
+#: transient 401 or a Drive hiccup — a changed banner is a positive observation of new
+#: content, and the shrink guard stops scoring the old month against the new fetch from
+#: run one regardless, so the ladder is not holding back a false alarm while it counts.
+#: It exists only so that one mistyped banner cannot retire a month, and a typo Rowan
+#: fixes the next day costs nothing. The corpus brake is the second opinion behind it.
+MONTH_CHANGE_CONFIRMATIONS = 2
+
 # The expensive conclusive tab census runs only when a file changed, or weekly.
 TAB_CENSUS_INTERVAL_DAYS = 7
 
@@ -45,7 +54,9 @@ def run(
 
     store = snapshot.RawStore(data_dir)
     manifest = store.load_manifest()
-    archived_by_file = archive_mod.Archive(data_dir).rows_per_file()
+    _archive_before = archive_mod.Archive(data_dir)
+    archived_by_file = _archive_before.rows_per_file()
+    archived_months = _archive_before.months_per_file()
     manifest.setdefault("archive_started", today)
 
     report: dict = {
@@ -91,6 +102,7 @@ def run(
     fetched_ok: set[str] = set()
     file_meta: dict[str, dict[str, str]] = {}
     removed_files: set[str] = set()
+    repurposed_files: set[str] = set()
 
     for file_id in targets:
         name = discovered.get(file_id, {}).get("name") or pinned.get(file_id, "")
@@ -123,6 +135,45 @@ def run(
             report["warnings"].append(f"{file_id}: file reappeared after being absent")
         entry["absent_count"] = 0
 
+        # Does this file still hold the month its archived rows came from? Compared
+        # against the ARCHIVE rather than against the manifest's own `month`, which
+        # store.store() overwrites a line below — a manifest comparison would see the
+        # change once and never again, and the ladder would never climb past one.
+        # `month` is "" when the banner does not match the expected shape — Rowan
+        # reformatting that line, not changing it. Without this guard an unreadable
+        # banner makes EVERY archived month look stale and retires the whole file two
+        # runs later, which is the exact destructive outcome the ladder exists to stop.
+        stale_months = (
+            {m for m in archived_months.get(file_id, set()) if m and m != month}
+            if month
+            else set()
+        )
+        if not month and archived_months.get(file_id):
+            report["warnings"].append(
+                f"{file_id} ({name}): banner row did not parse as a month label; "
+                "leaving its rows alone and not testing for a reused file."
+            )
+        if stale_months:
+            entry["month_change_count"] = int(entry.get("month_change_count") or 0) + 1
+            seen_count = entry["month_change_count"]
+            if seen_count >= MONTH_CHANGE_CONFIRMATIONS:
+                repurposed_files.add(file_id)
+                report["alarms"].append(
+                    f"{file_id} ({name}): now banners as {month}, but the archive holds "
+                    f"{', '.join(sorted(stale_months))} under this id — confirmed over "
+                    f"{seen_count} runs. Retiring those rows as source_removed; every "
+                    "field is preserved."
+                )
+            else:
+                report["warnings"].append(
+                    f"{file_id} ({name}): banners as {month} but the archive holds "
+                    f"{', '.join(sorted(stale_months))} under this id; "
+                    f"confirmation {seen_count} of {MONTH_CHANGE_CONFIRMATIONS}. "
+                    "Those rows are left untouched and are not scored against this fetch."
+                )
+        elif entry.get("month_change_count"):
+            entry["month_change_count"] = 0
+
         changed = store.store(manifest, file_id, name, month, result, today)
         file_meta[file_id] = {"name": name, "month": month}
         observed[file_id] = incidents
@@ -149,7 +200,8 @@ def run(
     # ---- 3. merge ------------------------------------------------------------
     arch = archive_mod.Archive(data_dir)
     rows, events, merge_report = arch.merge(
-        observed, fetched_ok, file_meta, removed_files=removed_files, today=today
+        observed, fetched_ok, file_meta, removed_files=removed_files, today=today,
+        repurposed_files=repurposed_files,
     )
     arch.write(rows)
     arch.append_changelog(events)

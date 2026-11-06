@@ -315,3 +315,15 @@ reporting party not responsive to rupd outreach,outcome,rp_unresponsive,Unanswer
 # sibling does record, but build.py does not carry superseded_flags into the payload, so
 # nothing published differs between the two rows.
 addressed by university department: disposition updated,audit_marker,,Colon typo for a semicolon; see CSA 87673
+#
+# Added 2026-11-06. Two tokens, both from one November row (RUPD 26-036423, logged
+# "Closed; Subject issued building trespass warning; Addresses by University Department").
+#
+# "Addresses" is a typo for "Addressed". fold_token collapses whitespace, case and a
+# trailing period, and cannot bridge a changed word, so the variant needs its own row --
+# the same reason "Assault on a police officer" sits beside "Assault on Officer".
+addresses by university department,outcome,referred_university,Typo for "Addressed by university department" above
+# The thirteenth wording for one outcome, and the third that scopes the warning to a
+# building, after "building trespass warning issued" and "building trespassing warning
+# issued". See the note at the trespass cluster above about the combinatorial problem.
+subject issued building trespass warning,outcome,trespass_notice,

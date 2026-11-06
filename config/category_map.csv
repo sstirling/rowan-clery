@@ -482,3 +482,33 @@ Possession of open alcohol in a vehicle,offense,Alcohol violation,Shorter wordin
 Possession of Illegal drug,offense,Drug offense,Singular of "Possession of Illegal drugs/paraphernalia" above
 Assault on Police Officer,offense,Assault on an officer,Fourth wording after "Assault on Officer" and "Assault on a police officer"
 "Disorderly conduct, Possession of Illegal drug, Assault on Police Officer",offense,Disorderly conduct|Drug offense|Assault on an officer,Single token naming three offenses
+#
+# Added 2026-11-06. Three tokens, from October and November rows. The traceback named
+# one; the others came from a strict sweep of all 349 live rows.
+#
+# RUPD 26-036700 -- "Motor Vehicle Theft (Electric Scooter), Theft". Comma-fused.
+#
+# The standalone "Motor Vehicle Theft (Electric Scooter)" is already here, filed as
+# Motor vehicle theft because New Jersey classes e-scooters as motor vehicles. The fused
+# form has to agree, or one offense lands in a different series depending on whether
+# Rowan typed a comma or a semicolon that day.
+#
+# Carries Theft as well. The narrative is "their E-scooter and lock were stolen" -- two
+# items, and Rowan named two offenses. Not the "Obstruction, Eluding Police" case, where
+# both halves were one offense under two names.
+"Motor Vehicle Theft (Electric Scooter), Theft",offense,Motor vehicle theft|Theft,Scooter and its lock -- two items taken
+# RUPD 26-035942 -- "DWI, Possession of open container of alcohol in vehicle". The fourth
+# comma-fused DWI/open-container pairing, after "Alcohol Violations (Open Container in
+# Vehicle, DWI)", "Alcohol Violation (DWI), Possession of CDS (Illegal Drug)" and "DWI,
+# Possession of open alcohol in a vehicle.". Both halves were already mapped alone.
+"DWI, Possession of open container of alcohol in vehicle",offense,DWI|Alcohol violation,Single token naming two offenses
+# RUPD 26-035935 -- "Possession of open container of marijuana in vehicle". The seventh
+# spelling of the open-container drug token, and the first to say "marijuana" instead of
+# "CDS (Prohibited Drug)".
+#
+# Drug offense, following its six siblings above. The reasoning is unchanged: the UCR
+# definitions Clery rests on count liquor and drug violations as separate offenses, so
+# filing cannabis as Alcohol violation would inflate one series and undercount the
+# other. Rowan simply used the plain word this time for the substance the CDS tokens
+# already name -- it is a wording change, not a new kind of offense.
+Possession of open container of marijuana in vehicle,offense,Drug offense,Plainer wording of the CDS open-container tokens above

@@ -12,7 +12,7 @@ import pathlib
 
 import pytest
 
-from rowan_clery import fetch, pipeline
+from rowan_clery import fetch, parse, pipeline
 from rowan_clery.archive import Archive
 from tests.conftest import CURRENT_SHEETS, FIXTURE_DIR, REAL_SHEETS, TOTAL_INCIDENTS
 
@@ -230,3 +230,131 @@ def test_unexpected_second_tab_raises_an_alarm(project, monkeypatch):
     monkeypatch.setattr(pipeline.fetch, "sheet_tab_names", lambda fid: ["Crime Log", "Summary"])
     report = pipeline.run(data, config, today="2026-10-01")
     assert any("NOT being archived" in a for a in report["alarms"])
+
+
+#: A file id Rowan reuses mid-test. Five rows, because the corpus brake needs a drop of
+#: more than MAX_CORPUS_DROP_ROWS before it fires and this test is about the ladder, not
+#: the brake. tests/test_archive.py covers the brake on the real 23-row July fixture.
+REUSED = "1ReUsEdFiLeIdFoRpIpElInEtEsTiNgOnLy00000000"
+
+_SHEET_HEAD = (
+    b"Case Number,Date/Time Reported,Date/Time Occurred,Nature,Incident Narrative,Campus,Location,Disposition\r\n"
+    b"RUPD 26-030001,10/1/26 1:00,10/1/26 1:00,Theft,Student reported a stolen laptop.,Glassboro,Mimosa Hall,Open/Active\r\n"
+    b"RUPD 26-030002,10/2/26 2:00,10/2/26 2:00,Criminal mischief,Student reported a damaged door.,Glassboro,Holly Pointe Commons,Open/Active\r\n"
+    b"RUPD 26-030003,10/3/26 3:00,10/3/26 3:00,Harassment,Student reported harassing messages.,Glassboro,Rowan Blvd.,Closed\r\n"
+    b"RUPD 26-030004,10/4/26 4:00,10/4/26 4:00,Trespassing,Non-student found in a residence hall.,Glassboro,Chestnut Hall,Closed\r\n"
+    b"RUPD 26-030005,10/5/26 5:00,10/5/26 5:00,Simple Assault,Students reported a fight.,Glassboro,Student Center,Open/Active\r\n"
+)
+OCTOBER_BODY = b'"Rowan University Daily Crime Log, October 2026",,,,,,,\r\n' + _SHEET_HEAD
+#: Same container, same rows, new banner — the shape of what Rowan did to July's sheet,
+#: minus the deletion, so the only thing that changes is which month the file claims.
+NOVEMBER_BODY = b'"Rowan University Daily Crime Log, November 2026",,,,,,,\r\n' + (
+    b"Case Number,Date/Time Reported,Date/Time Occurred,Nature,Incident Narrative,Campus,Location,Disposition\r\n"
+    b"RUPD 26-036207,11/1/26 0:24,11/1/26 0:24,Trespassing,Non-student warned.,Glassboro,Holly Pointe Commons,Closed\r\n"
+    b"RUPD 26-036301,11/2/26 9:10,11/2/26 8:55,Theft,Student reported a stolen bicycle.,Glassboro,Mimosa Hall,Open/Active\r\n"
+)
+
+
+class RepurposingSource(StubSource):
+    """Serves one extra file whose banner month flips partway through the test."""
+
+    def __init__(self, **kw):
+        super().__init__(**kw)
+        self.body = OCTOBER_BODY
+
+    def list_folder(self, folder_id):
+        listing = super().list_folder(folder_id)
+        listing[REUSED] = {"name": "October 2026 Daily Crime Log", "modified_hint": "Nov 2"}
+        return listing
+
+    def fetch_csv(self, file_id):
+        if file_id != REUSED:
+            return super().fetch_csv(file_id)
+        import hashlib
+        return fetch.FetchResult(
+            body=self.body, status=200, content_type="text/csv",
+            content_disposition="attachment; filename*=UTF-8''X - Crime Log.csv",
+            fetched_at="2026-10-01T00:00:00+00:00",
+            sha256=hashlib.sha256(self.body).hexdigest(), byte_length=len(self.body),
+        )
+
+
+def test_a_reused_file_retires_its_old_month_after_two_confirmations(project, monkeypatch):
+    """The whole point: CI fixes this itself, so no merge can revert the fix.
+
+    This was hand-applied twice and lost twice — once to an uncommitted working tree and
+    once to a merge that resolved `data/archive/incidents.csv` in favour of CI's own
+    regeneration of it. A correction that only exists as a committed data file cannot
+    survive a pipeline that rewrites that file twice a day. This one is recomputed from
+    the banner on every run, so losing it costs at most two runs.
+    """
+    data, config = project
+    source = RepurposingSource().install(monkeypatch)
+
+    pipeline.run(data, config, today="2026-11-01")
+    archive = Archive(data)
+    october_uids = {
+        uid for uid, row in archive.load().items() if row.get("source_file_id") == REUSED
+    }
+    assert len(october_uids) == 5
+    assert all(archive.load()[uid]["source_month"] == "October 2026" for uid in october_uids)
+
+    # Rowan renames the container and rewrites the banner.
+    source.body = NOVEMBER_BODY
+
+    # Run one of the ladder: a warning, and the rows are left strictly alone.
+    report = pipeline.run(data, config, today="2026-11-02")
+    assert any("confirmation 1 of 2" in w for w in report["warnings"]), report["warnings"]
+    assert not any(REUSED in a for a in report["alarms"])
+    rows = archive.load()
+    assert all(rows[uid]["status"] == "active" for uid in october_uids)
+    # No quarantine: the old month was never accountable for the new fetch.
+    assert REUSED not in report["merge"]["quarantined"]
+
+    # Run two: confirmed, so the month retires and says why.
+    report = pipeline.run(data, config, today="2026-11-03")
+    assert any("Retiring those rows as source_removed" in a for a in report["alarms"]), report["alarms"]
+    rows = archive.load()
+    assert all(rows[uid]["status"] == "source_removed" for uid in october_uids)
+    assert october_uids <= set(rows), "every row of the replaced month is preserved"
+    assert all(rows[uid]["nature_raw"] for uid in october_uids), "fields preserved in full"
+
+    # Never withdrawn: that status is reserved for a row pulled from a sheet Rowan still
+    # publishes, and this is a sheet that stopped existing.
+    assert report["merge"]["withdrawn"] == 0
+    events = [json.loads(l) for l in (data / "archive" / "changelog.jsonl").read_text().splitlines()]
+    retired = [e for e in events if e.get("removal_mechanism") == "file_repurposed"]
+    assert len(retired) == 5
+
+    # Run three: settled. Nothing is re-logged and the alarm stops.
+    report = pipeline.run(data, config, today="2026-11-04")
+    assert not any("Retiring those rows" in a for a in report["alarms"])
+    assert report["merge"]["source_removed"] == 0
+
+
+def test_an_unreadable_banner_never_retires_a_month(project, monkeypatch):
+    """`parse.source_month()` returns "" when the banner does not match its pattern.
+
+    That is Rowan reformatting the line, not changing which month the file holds. Without
+    a guard, "" compares unequal to every archived month, so every row in the file looks
+    like it belongs to a month the file has stopped holding — and two runs later the
+    whole file retires. This is the one way the ladder could destroy a month on its own,
+    so it gets its own test rather than relying on the confirmation count.
+    """
+    data, config = project
+    source = RepurposingSource().install(monkeypatch)
+    pipeline.run(data, config, today="2026-11-01")
+    archive = Archive(data)
+    uids = {uid for uid, row in archive.load().items() if row.get("source_file_id") == REUSED}
+    assert len(uids) == 5
+
+    # Same rows, same month, banner rewritten into a shape source_month cannot read.
+    source.body = b'"Rowan University Crime Log for the month of October 2026",,,,,,,\r\n' + _SHEET_HEAD
+    assert parse.source_month(source.body) == "", "fixture no longer exercises the guard"
+
+    for day in ("2026-11-02", "2026-11-03", "2026-11-04"):
+        report = pipeline.run(data, config, today=day)
+        assert not any("Retiring those rows" in a for a in report["alarms"]), day
+        rows = archive.load()
+        assert all(rows[uid]["status"] == "active" for uid in uids), f"{day}: a month was retired"
+    assert any("did not parse as a month label" in w for w in report["warnings"])

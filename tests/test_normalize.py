@@ -943,3 +943,55 @@ def test_the_five_disposition_tokens_that_broke_the_2026_11_04_run(disposition_m
     # The marker fires in both, so neither row still claims to be unreported to RUPD.
     assert colon["disposition_amended"] and semicolon["disposition_amended"]
     assert "not_reported_to_rupd" not in colon["flags"]
+
+
+def test_the_five_tokens_that_broke_the_2026_11_06_run(category_map, disposition_map):
+    """Three Nature tokens and two dispositions, of which the traceback named one.
+
+    Every one is settled by an entry already in the maps. None of them needed a new
+    editorial call, which is the argument for sweeping the whole feed rather than adding
+    the token the traceback happened to name.
+    """
+    # RUPD 26-036700 -- "Motor Vehicle Theft (Electric Scooter), Theft", comma-fused.
+    # The standalone token is already mapped to Motor vehicle theft on the grounds that
+    # New Jersey classes e-scooters as motor vehicles, so the fused form must agree or
+    # the same offense lands in two different series depending on the separator Rowan
+    # typed. It carries Theft as well because the narrative has two items taken -- the
+    # scooter and its lock -- and Rowan named both offenses.
+    scooter = normalize.categorize(
+        "Motor Vehicle Theft (Electric Scooter), Theft", category_map, strict=True
+    )
+    assert set(scooter["categories"]) == {"Motor vehicle theft", "Theft"}
+    assert normalize.categorize(
+        "Motor Vehicle Theft (Electric Scooter)", category_map, strict=True
+    )["categories"] == ["Motor vehicle theft"]
+
+    # RUPD 26-035942 -- the fourth comma-fused DWI/open-container pairing. Both halves
+    # were already mapped standalone; only this combination was new.
+    assert set(
+        normalize.categorize(
+            "DWI, Possession of open container of alcohol in vehicle", category_map, strict=True
+        )["categories"]
+    ) == {"DWI", "Alcohol violation"}
+
+    # RUPD 26-035935 -- "Possession of open container of marijuana in vehicle". Drug
+    # offense, not Alcohol violation, following its CDS siblings: the UCR definitions
+    # Clery rests on count liquor and drug violations separately, so filing cannabis as
+    # alcohol would inflate one series and undercount the other. "marijuana" is simply a
+    # plainer word for the CDS the existing tokens name.
+    assert normalize.categorize(
+        "Possession of open container of marijuana in vehicle", category_map, strict=True
+    )["categories"] == ["Drug offense"]
+    assert normalize.categorize(
+        "Possession of open container CDS (prohibited drug) in vehicle", category_map, strict=True
+    )["categories"] == ["Drug offense"]
+
+    # RUPD 26-036423 -- two dispositions on one row. "Addresses" is a typo for
+    # "Addressed", which fold_token cannot bridge, and the trespass token is the
+    # thirteenth wording of one outcome.
+    row = normalize.disposition_flags(
+        "Closed; Subject issued building trespass warning; Addresses by University Department",
+        disposition_map,
+        strict=True,
+    )
+    assert set(row["flags"]) == {"closed", "trespass_notice", "referred_university"}

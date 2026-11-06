@@ -86,6 +86,10 @@ FIELD_MAP = {
 # itself, but it is not a deletion.
 WITHDRAWAL_CONFIRMATIONS = 3
 
+#: Statuses that still make a row this file's responsibility. A row already retired, or
+#: superseded by a corrected record, says nothing about which month the file now holds.
+LIVE_FOR_MONTH_CHECK = ("active", "missing", "withdrawn")
+
 # Per-file shrink guards. Exceeding either sends the file to quarantine: its raw snapshot
 # is still written (it is evidence), the file becomes ABSENCE-BLIND (see the comment in
 # merge() — additions and amendments still apply; only inferred absence is suppressed) and
@@ -125,6 +129,33 @@ IDENTITY_CORROBORANTS = ("date_occurred_raw", "nature_raw", "campus_raw", "locat
 def case_references(case_number: str) -> set[str]:
     """The set of numeric references a case-number cell names."""
     return set(CASE_REFERENCE.findall(case_number or ""))
+
+
+def _is_renumbering(mine: set[str], theirs: set[str]) -> bool:
+    """Could `theirs` be `mine` after Rowan edited the case-number cell?
+
+    The original rule was a strict superset, which is what an APPENDED reference looks
+    like: "RUPD 26-034005" -> "RUPD 26-034005/ CSA 88071". It missed a reference being
+    REPLACED, and on 2026-11-06 that mattered. Rowan had logged two November incidents
+    under one number -- GEN 88955 for both an 11:27 rape report and a 15:15 fondling
+    report -- then corrected the second to GEN 88975. The sets {88955} and {88975} do not
+    overlap at all, so nothing could match, and the old row was walking the confirmation
+    ladder toward `withdrawn`. Publishing that would have claimed Rowan pulled a sexual
+    assault record from a sheet it still publishes, which is a Clery compliance finding
+    and was not true.
+
+    A strict SUBSET is deliberately not accepted. That is a reference being dropped
+    rather than added or swapped, and a shortened case number is the shape most likely to
+    collide with a genuinely different incident.
+
+    Returning True is NOT sufficient on its own, and a swap is held to a higher standard
+    than an append. See `_match_identity_forks`: nesting used to be the only thing telling
+    a renumbering apart from a distinct case that merely shares a timestamp, so a swap
+    additionally has to be a one-for-one exchange in its bucket.
+    """
+    if not mine or not theirs:
+        return False
+    return not theirs < mine
 
 
 @dataclasses.dataclass
@@ -184,6 +215,21 @@ class Archive:
         for row in self.load().values():
             counts[row.get("source_file_id", "")] = counts.get(row.get("source_file_id", ""), 0) + 1
         return counts
+
+    def months_per_file(self) -> dict[str, set[str]]:
+        """Which months each source file still has live rows for.
+
+        One file id is normally one month forever. On 2026-11-02 Rowan renamed the July
+        sheet to November, deleted July's 23 rows and rewrote the banner, reusing the
+        container rather than publishing a new file — so a file id can in fact change
+        which month it holds, and the pipeline has to be able to see that it did.
+        """
+        months: dict[str, set[str]] = {}
+        for row in self.load().values():
+            if row.get("status") not in LIVE_FOR_MONTH_CHECK:
+                continue
+            months.setdefault(row.get("source_file_id", ""), set()).add(row.get("source_month", ""))
+        return months
 
     def write(self, rows: dict[str, dict[str, str]]) -> None:
         self.dir.mkdir(parents=True, exist_ok=True)
@@ -248,6 +294,7 @@ class Archive:
         removed_files: set[str] | None = None,
         today: str | None = None,
         confirm_withdrawals: bool = True,
+        repurposed_files: set[str] | None = None,
     ) -> tuple[dict[str, dict[str, str]], list[dict], MergeReport]:
         """Merge one run's observations into the archive.
 
@@ -282,13 +329,46 @@ class Archive:
         # merge a post-hoc reconciliation would need in order to see them.
         forks, ambiguous = self._match_identity_forks(existing, observed, fetched_ok)
 
+        # Rows belonging to a month their own file no longer holds. Rowan reuses a Drive
+        # container rather than publishing a new sheet: on 2026-11-02 the July file was
+        # renamed, emptied and re-bannered as November. The month comes from each sheet's
+        # own banner via parse.source_month(), so the fetch tells us which month the file
+        # speaks for now, and every archived row from any OTHER month is a cohort this
+        # file has stopped accounting for.
+        #
+        # They are held out of everything below. Scoring November's fetch against July's
+        # 23 rows is what drove retention to 0% and quarantined the file on every run,
+        # and running them through the absence ladder would publish the claim that Rowan
+        # withdrew 23 records one at a time when it actually replaced a sheet wholesale.
+        stale_uids: set[str] = set()
+        retire_uids: set[str] = set()
+        repurposed_files = repurposed_files or set()
+        for file_id in fetched_ok:
+            fetched_month = (file_meta or {}).get(file_id, {}).get("month", "")
+            if not fetched_month:
+                continue
+            cohort = {
+                uid
+                for uid, row in existing.items()
+                if row.get("source_file_id") == file_id
+                and row.get("status") in LIVE_FOR_MONTH_CHECK
+                and row.get("source_month")
+                and row.get("source_month") != fetched_month
+            }
+            stale_uids |= cohort
+            # Retiring them is the pipeline's call, not this method's: it is gated on a
+            # confirmation ladder so that one mistyped banner cannot retire a month.
+            if file_id in repurposed_files:
+                retire_uids |= cohort
+
         # Per-file shrink guards. Quarantine makes a file ABSENCE-BLIND: its rows can
         # still be added and amended, but nothing it fails to mention is treated as
         # missing. Discarding its observations outright would also throw away genuinely
         # new rows — that cost 9 December 2021 incidents before this was fixed. Additions
         # are never destructive; only inferred absence is.
         quarantined_files = self._check_shrink(
-            existing, observed_by_file, fetched_ok, report, explained=set(forks)
+            existing, observed_by_file, fetched_ok, report,
+            explained=set(forks) | stale_uids,
         )
         trusted = fetched_ok - quarantined_files
 
@@ -307,6 +387,15 @@ class Archive:
             elif row.get("source_file_id") in removed_files:
                 row, row_events = self._apply_source_removed(row, today, report)
                 events.extend(row_events)
+            elif uid in retire_uids:
+                row, row_events = self._apply_repurposed(row, today, report)
+                events.extend(row_events)
+            elif uid in stale_uids:
+                # The month change is not confirmed yet. The file no longer speaks to
+                # this row either way, so it is left exactly as it stands — not verified,
+                # not absent. Deliberately NOT `last_verified = today`: nothing observed
+                # this row today, and the archive may not claim otherwise.
+                pass
             elif confirm_withdrawals:
                 row, row_events = self._apply_absent(row, trusted, today, report)
                 events.extend(row_events)
@@ -337,7 +426,15 @@ class Archive:
         # Rows whose whole source file was confirmed gone are exempt from the corpus
         # brake below: that transition has already cleared the file-level confirmation
         # ladder, so it is explained loss. The brake exists to catch UNEXPLAINED loss.
-        exempt = {uid for uid, row in new_rows.items() if row.get("status") == "source_removed"}
+        #
+        # Month-repurposing retirements are NOT exempt, even though they also end as
+        # `source_removed` and also clear a ladder. That ladder rests on a single parsed
+        # banner line, and a banner is a cell Rowan types by hand; the brake is the
+        # second opinion. July's 23 rows are 0.9% of the corpus and pass it. A reuse big
+        # enough to trip it is a change too large to make unattended.
+        exempt = {
+            uid for uid, row in new_rows.items() if row.get("status") == "source_removed"
+        } - retire_uids
         self._assert_invariants(existing, new_rows, exempt=exempt)
         return new_rows, events, report
 
@@ -572,6 +669,44 @@ class Archive:
             }
         ]
 
+    def _apply_repurposed(
+        self, row: dict[str, str], today: str, report: MergeReport
+    ) -> tuple[dict[str, str], list[dict]]:
+        """The row's month is gone because its file was reused for a different month.
+
+        `source_removed` is the right status: the monthly sheet this row belonged to is
+        no longer published anywhere. It got there by being overwritten rather than by
+        being deleted or locked, and `removal_mechanism` keeps that difference instead of
+        flattening it — June 2026 went the other way, locked behind an HTTP 401 with its
+        file still in the folder, and the two are not the same act.
+
+        Emphatically NOT `withdrawn`. That status means Rowan took one row out of a sheet
+        it still publishes, which is a possible Clery compliance issue and is reported as
+        one. Laddering 23 rows through it would publish the claim that Rowan withdrew
+        them one at a time, when what it did was replace a sheet wholesale.
+        """
+        if row.get("status") == "source_removed":
+            return row, []
+        previous = row.get("status", "")
+        row["status"] = "source_removed"
+        row["missing_since"] = row.get("missing_since") or today
+        report.source_removed += 1
+        return row, [
+            {
+                "observed_date": today,
+                "incident_uid": row["incident_uid"],
+                "change_type": "source_removed",
+                "source_file_id": row.get("source_file_id", ""),
+                "source_month": row.get("source_month", ""),
+                "removal_mechanism": "file_repurposed",
+                "previous_status": previous,
+                "case_number": row.get("case_number_raw", ""),
+                "date_reported": row.get("date_reported_raw", ""),
+                "nature": row.get("nature_raw", ""),
+                "last_known_disposition": row.get("disposition_raw", ""),
+            }
+        ]
+
     def _flag_absent(
         self, row: dict[str, str], trusted: set[str], today: str, report: MergeReport
     ) -> tuple[dict[str, str], list[dict]]:
@@ -672,6 +807,29 @@ class Archive:
             # setdefault, so a row observed this run keeps the fresher copy above.
             candidates.setdefault(key, {}).setdefault(row["incident_uid"], row)
 
+        # Per bucket: how many archived rows went absent, and how many rows arrived that
+        # the archive had never seen. A renumbering is 1 and 1.
+        gone_per_bucket: dict[tuple, int] = {}
+        fresh_per_bucket: dict[tuple, int] = {}
+        for uid, row in existing.items():
+            if uid in observed or row.get("status") not in ("active", "missing"):
+                continue
+            if row.get("source_file_id") not in fetched_ok:
+                continue
+            key = bucket(row.get("source_file_id", ""), row.get("date_reported_raw", ""))
+            gone_per_bucket[key] = gone_per_bucket.get(key, 0) + 1
+        for record in observed.values():
+            if record["incident_uid"] in existing:
+                continue
+            key = bucket(
+                record.get("source_file_id", ""), record.get("Date/Time Reported", "")
+            )
+            fresh_per_bucket[key] = fresh_per_bucket.get(key, 0) + 1
+        one_for_one = {
+            key: gone_per_bucket.get(key) == 1 and fresh_per_bucket.get(key) == 1
+            for key in set(gone_per_bucket) | set(fresh_per_bucket)
+        }
+
         forks: dict[str, dict[str, str]] = {}
         ambiguous: set[str] = set()
 
@@ -690,9 +848,27 @@ class Archive:
                 other
                 for other in candidates.get(key, {}).values()
                 if other["incident_uid"] != uid
-                and mine < case_references(other.get("case_number_raw", ""))
+                and _is_renumbering(mine, case_references(other.get("case_number_raw", "")))
                 and all(row.get(f, "") == other.get(f, "") for f in IDENTITY_CORROBORANTS)
             ]
+
+            # An APPENDED reference nests, and nesting is evidence in itself: the new
+            # number still contains the old one. A SWAPPED reference carries no such
+            # evidence, and before this rule existed nesting was the only thing telling a
+            # renumbering apart from a distinct case that happens to share a timestamp --
+            # which Rowan produces in bulk, entering Glassboro PD batches of up to 15
+            # incidents under one transcription time.
+            #
+            # So a swap has to be a one-for-one exchange in its bucket: exactly one row
+            # gone, exactly one row that was not in the archive before. A batch is
+            # many-for-many and links nothing, which is the behaviour
+            # test_a_gpd_batch_sharing_one_timestamp_is_never_linked pins.
+            nesting = [
+                m for m in matches
+                if mine < case_references(m.get("case_number_raw", ""))
+            ]
+            if not nesting and matches and not one_for_one.get(key, False):
+                continue
 
             if len(matches) == 1:
                 forks[uid] = matches[0]
@@ -760,11 +936,19 @@ class Archive:
     ) -> set[str]:
         """Quarantine any file that lost more rows than a routine correction would.
 
-        `explained` holds uids whose absence already has an account — currently the old
-        halves of identity amendments. They are discounted from the drop count for the
-        same reason `source_removed` rows are exempt from the corpus brake: this guard
-        exists to catch UNEXPLAINED loss, and counting an amendment as a disappearance is
-        what quarantined October 2026 on every run.
+        `explained` holds uids whose absence already has an account, and they leave both
+        the numerator and the denominator. Two kinds arrive here:
+
+        - the old halves of identity amendments, so a sheet Rowan is actively correcting
+          cannot fail the retention test for being corrected. Counting an amendment as a
+          disappearance is what quarantined October 2026 on every run.
+        - rows from a month this file no longer holds. November's fetch cannot be asked
+          to account for July's 23 rows; scoring it that way put retention at 0% and
+          quarantined the file every run from 2026-11-02 on, and an alarm that fires
+          daily stops being read.
+
+        Both discount for the same reason `source_removed` rows are exempt from the
+        corpus brake: this guard exists to catch UNEXPLAINED loss.
         """
         explained = explained or set()
         quarantined: set[str] = set()

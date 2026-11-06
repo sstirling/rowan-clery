@@ -30,9 +30,12 @@ def parsed(all_sheets):
     return {fid: parse.parse_and_key(body, fid) for fid, body in all_sheets.items()}
 
 
-def commit(archive, observed, fetched_ok, today, file_meta=None):
+def commit(archive, observed, fetched_ok, today, file_meta=None, repurposed_files=None):
     """Run one full merge cycle and persist it, as the real pipeline does."""
-    rows, events, report = archive.merge(observed, fetched_ok, file_meta or {}, today=today)
+    rows, events, report = archive.merge(
+        observed, fetched_ok, file_meta or {}, today=today,
+        repurposed_files=repurposed_files,
+    )
     archive.write(rows)
     archive.append_changelog(events)
     return rows, events, report
@@ -668,64 +671,124 @@ NOVEMBER_SHEET = (
 )
 
 
-def test_a_repurposed_file_quarantines_until_its_old_month_is_retired(archive, parsed):
-    """Rowan reused July's file for November on 2026-11-02, and the guard cannot see that.
+#: A five-row October sheet under its own file id. Small on purpose: the corpus brake
+#: needs a drop of MORE than MAX_CORPUS_DROP_ROWS rows before it can fire, so retiring
+#: five lets this test exercise the mechanism without the brake standing in the way. The
+#: brake gets its own test below, on the real 23-row July fixture.
+REUSED = "1ReUsEdFiLeIdFoRtEsTiNgOnLy00000000000000000"
 
-    `_check_shrink` scores a fetch against every prior row carrying the same file id, so
-    23 July rows against two November ones reads as a catastrophic shrink. Nothing is lost
-    -- quarantine is absence-blind -- but the alarm fires on every subsequent run and a
-    reappearance resets the absence ladder, so it never clears on its own. An alarm that
-    fires daily is how June's 401 went unnoticed for twenty runs.
+OCTOBER_SHEET = (
+    b'"Rowan University Daily Crime Log, October 2026",,,,,,,\r\n'
+    b"Case Number,Date/Time Reported,Date/Time Occurred,Nature,Incident Narrative,Campus,Location,Disposition\r\n"
+    b"RUPD 26-030001,10/1/26 1:00,10/1/26 1:00,Theft,Student reported a stolen laptop.,Glassboro,Mimosa Hall,Open/Active\r\n"
+    b"RUPD 26-030002,10/2/26 2:00,10/2/26 2:00,Criminal mischief,Student reported a damaged door.,Glassboro,Holly Pointe Commons,Open/Active\r\n"
+    b"RUPD 26-030003,10/3/26 3:00,10/3/26 3:00,Harassment,Student reported harassing messages.,Glassboro,Rowan Blvd.,Closed\r\n"
+    b"RUPD 26-030004,10/4/26 4:00,10/4/26 4:00,Trespassing,Non-student found in a residence hall.,Glassboro,Chestnut Hall,Closed; Subject arrested\r\n"
+    b"RUPD 26-030005,10/5/26 5:00,10/5/26 5:00,Simple Assault,Students reported a fight.,Glassboro,Student Center,Open/Active\r\n"
+)
 
-    Retiring the old month to `source_removed` is what resolves it: that status is outside
-    the retention denominator, so the November rows are scored on their own. This test
-    pins both halves, because the first half is the reason the migration exists.
+
+def test_a_repurposed_file_is_scored_on_the_month_it_now_holds(archive, parsed):
+    """Rowan reused July's file for November on 2026-11-02. The merge handles it unaided.
+
+    `_check_shrink` used to score a fetch against every prior row carrying the same file
+    id, so 23 July rows against two November ones read as a catastrophic shrink: 0%
+    retention, quarantined on every run, and because a reappearance resets the absence
+    ladder it never cleared on its own. An alarm that fires daily is how June's 401 went
+    unnoticed for twenty runs.
+
+    The month comes from each sheet's own banner, so the merge can tell that July's rows
+    belong to a month this file has stopped holding and hold them out of the denominator.
+    No hand migration: a hand-applied archive fix cannot survive, because CI regenerates
+    the whole archive every run and the merge resolves against it -- which is exactly how
+    the first two attempts at this were lost.
     """
-    commit(archive, parsed, set(parsed), "2026-11-01")
-    july_uids = {r["incident_uid"] for r in parsed[JULY]}
-    assert len(july_uids) == 23
+    october = parse.parse_and_key(OCTOBER_SHEET, REUSED)
+    was_october = {REUSED: {"name": "October 2026 Daily Crime Log", "month": "October 2026"}}
+    base = dict(parsed) | {REUSED: october}
+    commit(archive, base, set(base), "2026-11-01", was_october)
+    october_uids = {r["incident_uid"] for r in october}
+    assert len(october_uids) == 5
 
-    november = parse.parse_and_key(NOVEMBER_SHEET, JULY)
-    observed = dict(parsed) | {JULY: november}
+    # The same file id now banners as November and holds different rows entirely.
+    november = parse.parse_and_key(NOVEMBER_SHEET, REUSED)
+    observed = dict(parsed) | {REUSED: november}
+    meta = {REUSED: {"name": "November 2026 Daily Crime Log", "month": "November 2026"}}
 
-    # Before the migration: the reused file is quarantined, and no November row lands.
-    rows, _, report = archive.merge(observed, set(observed), {}, today="2026-11-03")
-    assert JULY in report.quarantined
-    assert all(rows[uid]["status"] == "active" for uid in july_uids), "quarantine mutates nothing"
-
-    # The migration: exactly what scripts/retire_repurposed_july.py writes.
-    live = archive.load()
-    for uid in july_uids:
-        live[uid]["status"] = "source_removed"
-        live[uid]["missing_since"] = "2026-11-02"
-    archive.write(live)
-
-    # After it: the file is scored on its November rows alone and clears the guard.
-    rows, events, report = commit(archive, observed, set(observed), "2026-11-04")
-    assert JULY not in report.quarantined
+    # Run one: the change is not confirmed, so nothing retires -- but the quarantine is
+    # gone immediately, because it was always a false alarm.
+    rows, events, report = commit(archive, observed, set(observed), "2026-11-03", meta)
     assert report.quarantined == []
-
-    # July is preserved in full, and November is finally archived.
-    assert july_uids <= set(rows)
-    assert all(rows[uid]["status"] == "source_removed" for uid in july_uids)
+    # October's rows are held: not verified, not absent. The file stopped speaking to
+    # them, so the archive has no observation either way and may not invent one.
+    assert all(rows[uid]["status"] == "active" for uid in october_uids)
+    assert report.missing == 0 and report.withdrawn == 0
+    assert all(rows[uid]["last_verified"] == "2026-11-01" for uid in october_uids)
+    # November lands on the first run rather than waiting for the retirement.
     added = {e["case_number"] for e in events if e["change_type"] == "added"}
     assert {"RUPD 26-036207", "RUPD 26-036301"} <= added
 
-    # The November rows carry November's month, read from the banner rather than the
-    # file's name, so a reused container does not mislabel what it now holds.
-    for row in november:
-        assert rows[row["incident_uid"]]["source_month"] in ("", "November 2026")
+    # Run two: the pipeline has confirmed it, so the old month retires.
+    rows, events, report = commit(
+        archive, observed, set(observed), "2026-11-04", meta, repurposed_files={REUSED}
+    )
+    assert report.source_removed == 5
+    assert all(rows[uid]["status"] == "source_removed" for uid in october_uids)
+    assert october_uids <= set(rows), "every row of the replaced month is preserved"
 
-    # And the retirement STICKS. Without the source_removed guard in _absent(), this
-    # merge relabels all 23 `missing` and emits 23 `missing` events, because the file
-    # now fetches fine and the rows are absent from it forever.
-    assert report.missing == 0
+    # The mechanism is recorded rather than flattened: June's sheet was locked behind a
+    # 401 with the file still in the folder, and that is not the same act as this one.
+    retired = [e for e in events if e["change_type"] == "source_removed"]
+    assert len(retired) == 5
+    assert all(e["removal_mechanism"] == "file_repurposed" for e in retired)
+    assert all(e["source_month"] == "October 2026" for e in retired)
+    # Not withdrawn. That status means Rowan pulled one row from a sheet it still
+    # publishes, and reporting five of those would be a false compliance finding.
     assert not [e for e in events if e["change_type"] in ("missing", "withdrawn")]
 
-    # A third run must not re-log them either.
-    rows, events, report = commit(archive, observed, set(observed), "2026-11-05")
-    assert all(rows[uid]["status"] == "source_removed" for uid in july_uids)
+    # The new rows carry November's month, read from the banner rather than the file's
+    # name, so a reused container does not mislabel what it now holds.
+    for row in november:
+        assert rows[row["incident_uid"]]["source_month"] == "November 2026"
+
+    # And it sticks: a third run logs nothing at all.
+    rows, events, report = commit(
+        archive, observed, set(observed), "2026-11-05", meta, repurposed_files={REUSED}
+    )
+    assert all(rows[uid]["status"] == "source_removed" for uid in october_uids)
     assert events == []
+
+
+def test_a_repurposed_month_still_has_to_clear_the_corpus_brake(archive, parsed):
+    """The retirement is gated on one parsed banner line, so the brake stays armed.
+
+    `source_removed` rows are normally exempt from the corpus brake, because that
+    transition has already cleared the file-level absence ladder. A month-repurposing
+    retirement has not: it rests on a banner, which is a cell Rowan types by hand. July's
+    23 rows are a small share of the corpus and pass. A reuse large enough to trip the
+    brake is a change too large to make unattended, and must stop the run instead.
+    """
+    was_july = {JULY: {"name": "July 2026 Daily Crime Log", "month": "July 2026"}}
+    commit(archive, parsed, set(parsed), "2026-11-01", was_july)
+
+    # Cut the corpus down so July's 23 rows are a large enough share to trip the brake:
+    # 23 of 63 is 37%, well past both MAX_CORPUS_DROP_FRACTION and MAX_CORPUS_DROP_ROWS.
+    # In the live archive the same retirement is 23 of about 2,500 — under 1%, so it
+    # passes, which is the point. The brake is a ceiling, not a veto.
+    live = archive.load()
+    july = {uid: row for uid, row in live.items() if row.get("source_file_id") == JULY}
+    others = [uid for uid in live if uid not in july][:40]
+    archive.write(july | {uid: live[uid] for uid in others})
+
+    # Only the reused file is fetched this run, so the rows just cut from the corpus are
+    # not handed straight back by the same merge.
+    november = parse.parse_and_key(NOVEMBER_SHEET, JULY)
+    meta = {JULY: {"name": "November 2026 Daily Crime Log", "month": "November 2026"}}
+
+    with pytest.raises(arch.ArchiveIntegrityError, match="Refusing to apply"):
+        archive.merge(
+            {JULY: november}, {JULY}, meta, today="2026-11-04", repurposed_files={JULY}
+        )
 
 
 def test_source_removed_rows_are_absent_by_definition(archive, parsed):
@@ -754,3 +817,56 @@ def test_source_removed_rows_are_absent_by_definition(archive, parsed):
         assert report.missing == 0, f"{day}: a removed sheet's rows were re-logged"
         assert report.withdrawn == 0, f"{day}: a removed sheet's rows reached withdrawal"
         assert all(rows[uid]["status"] == "source_removed" for uid in august_uids)
+
+
+def test_a_replaced_case_number_links_as_an_amendment(archive, parsed):
+    """Rowan swapped a number rather than appending one, on a sexual assault record.
+
+    It had logged two November incidents under GEN 88955 -- an 11:27 rape report and a
+    15:15 fondling report -- then corrected the second to GEN 88975. The reference sets
+    {88955} and {88975} do not overlap, so the old strict-superset rule could not match
+    them and the fondling row walked the ladder toward `withdrawn`. Publishing that would
+    have claimed Rowan pulled a sexual assault record from a sheet it still publishes: a
+    Clery compliance finding, and false.
+    """
+    commit(archive, parsed, set(parsed), "2026-10-01")
+    original = parsed[SEPT][0]
+    old_uid = original["incident_uid"]
+
+    renumbered = fork(original, "GEN 88975")
+    observed = dict(parsed) | {SEPT: parsed[SEPT][1:] + [renumbered]}
+    rows, events, report = commit(archive, observed, set(parsed), "2026-10-02")
+
+    assert report.superseded == 1
+    assert rows[old_uid]["status"] == "superseded"
+    assert rows[old_uid]["superseded_by"] == renumbered["incident_uid"]
+    # Never withdrawn: the incident was renumbered, not pulled from the sheet.
+    assert report.withdrawn == 0 and report.missing == 0
+    assert not [e for e in events if e["change_type"] in ("missing", "withdrawn")]
+
+
+def test_a_swapped_number_inside_a_batch_links_nothing(archive, parsed):
+    """The guard that makes the relaxed rule safe.
+
+    A nesting reference is evidence on its own -- the new number still contains the old
+    one. A swapped reference carries no such evidence, so it is only accepted as a
+    one-for-one exchange: exactly one row gone from the bucket, exactly one row in it the
+    archive had never seen. Two rows leaving and two arriving under one timestamp is a
+    Glassboro PD batch, not a renumbering, and must link nothing.
+    """
+    commit(archive, parsed, set(parsed), "2026-10-01")
+    stamp = parsed[SEPT][0]["Date/Time Reported"]
+
+    # Two rows share one timestamp, and both numbers are swapped in the same run.
+    pair = [dict(parsed[SEPT][i], **{"Date/Time Reported": stamp}) for i in (0, 1)]
+    pair = [dict(r, incident_uid=parse.incident_uid(r["Case Number"], stamp)) for r in pair]
+    seeded = dict(parsed) | {SEPT: parsed[SEPT][2:] + pair}
+    commit(archive, seeded, set(parsed), "2026-10-02")
+
+    swapped = [fork(r, f"GEN 9900{i}") for i, r in enumerate(pair)]
+    observed = dict(parsed) | {SEPT: parsed[SEPT][2:] + swapped}
+    rows, _, report = commit(archive, observed, set(parsed), "2026-10-03")
+
+    assert report.superseded == 0, "a batch must never be linked by a swapped number"
+    for r in pair:
+        assert rows[r["incident_uid"]]["status"] != "superseded"

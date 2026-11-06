@@ -290,11 +290,61 @@ Two interlocks did not survive it unaided, and both were changed:
   was unreachable — a removed file is one that stops fetching — but a reused id fetches
   perfectly well, so the ladder would have relabelled all 23 preserved rows `missing` and
   then `withdrawn`, publishing the claim that Rowan withdrew 23 records one at a time.
-- The shrink guard scores a fetch against every prior row sharing the file id, so 23 July
-  rows against a handful of November ones reads as a catastrophic shrink. Retiring July to
-  `source_removed` takes those rows out of the retention denominator, which resolves it
-  for this case. Scoping the guard to `(file_id, source_month)` would resolve it for the
-  next one, and is not yet done.
+- The shrink guard scored a fetch against every prior row sharing the file id, so 23 July
+  rows against a handful of November ones read as a catastrophic shrink: 0% retention,
+  quarantined on every run, and because a reappearance resets the absence ladder it never
+  cleared on its own. It is now scoped to the month the file currently banners, so rows
+  from a month the file has stopped holding are out of the denominator from the first run.
+
+**The pipeline retires a replaced month itself.** This was first fixed by hand, with
+`scripts/retire_repurposed_july.py`, and the fix was lost twice: once in an uncommitted
+working tree, and once to a merge that resolved `data/archive/incidents.csv` in favour of
+CI's own regeneration of it. A correction that exists only as a committed data file cannot
+survive a pipeline that rewrites that file twice a day. So the rule is computed, not
+stored:
+
+- Each run compares the month a file banners against the months its archived rows carry.
+- A mismatch advances a per-file counter in the manifest. Two consecutive runs confirm it
+  (`MONTH_CHANGE_CONFIRMATIONS`), because a banner is a cell Rowan types by hand and a typo
+  corrected the next day should cost nothing. The counter resets if the banner goes back.
+- On confirmation the old month's rows become `source_removed` with
+  `removal_mechanism: file_repurposed`. Every field is preserved; only `status` and
+  `missing_since` change.
+- Until it confirms, those rows are held: not verified, not absent. The file has stopped
+  speaking to them, so the archive records no observation either way.
+- The corpus brake stays **armed** for this transition, unlike for a file-removal
+  retirement. That one has already cleared a three-run absence ladder; this one rests on a
+  single parsed line. July's 23 rows are under 1% of the corpus and pass. A reuse large
+  enough to trip the brake stops the run instead of applying unattended.
+
+Because every run recomputes it from the banner, losing the change to a merge costs at
+most two runs rather than requiring the correction to be made again by hand.
+
+**A case number can be replaced, not just appended.** The usual amendment adds a
+reference — `RUPD 26-034005` becomes `RUPD 26-034005/ CSA 88071` — and the matcher linked
+those by requiring the new cell to name a superset of the old one's references. On
+2026-11-06 Rowan did something else: it had logged two November incidents under
+`GEN 88955`, an 11:27 rape report and a 15:15 fondling report, and corrected the second to
+`GEN 88975`. `{88955}` and `{88975}` do not overlap, so nothing could match, and the old
+row was walking the confirmation ladder toward `withdrawn` — which would have published
+the claim that Rowan pulled a sexual assault record from a sheet it still publishes.
+
+A swapped reference is now accepted, but held to a higher standard than an appended one,
+because nesting is evidence in itself and a swap carries none:
+
+- **Appended** (the new set is a strict superset): linked on the existing terms — same
+  file, same raw `Date/Time Reported`, agreement on every `IDENTITY_CORROBORANTS` field,
+  exactly one candidate.
+- **Swapped** (the sets differ without nesting): all of the above, **and** the exchange
+  must be one-for-one in its bucket — exactly one row gone, exactly one row the archive
+  had never seen. Rowan enters Glassboro PD cases in batches of up to 15 under a single
+  transcription timestamp, and those share a reported time while being wholly distinct
+  incidents. Many-for-many links nothing.
+- A strict **subset** is never accepted. That is a reference being dropped, and a
+  shortened case number is the shape most likely to collide with a different incident.
+
+Run against the full archive and the live feed, this links exactly one pair and sends
+nothing to review.
 
 #### Safety interlocks
 
