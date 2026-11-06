@@ -9,9 +9,10 @@
         "date": "2026-11-03",
         "reason": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: only 2 lines, below floor of 3"
       },
-      "last_tab_census": "2026-11-05",
-      "last_verified": "2026-11-05",
+      "last_tab_census": "2026-11-06",
+      "last_verified": "2026-11-06",
       "month": "November 2026",
+      "month_change_count": 1,
       "name": "November 2026 Daily Crime Log",
       "snapshots": [
         {
@@ -28,6 +29,11 @@
           "bytes": 2476,
           "date": "2026-11-05",
           "sha256": "513316d837378dae0f90928abed703be6c11018d99cd05cfbecc17c5316eac7e"
+        },
+        {
+          "bytes": 2830,
+          "date": "2026-11-06",
+          "sha256": "e5282a372e5981e7097acdc2e0e5b53e34bfc8b1f459330bd56664e9729f1954"
         }
       ],
       "status": "present",
@@ -39,7 +45,7 @@
       "absent_count": 0,
       "first_seen": "2026-10-01",
       "last_tab_census": "2026-11-02",
-      "last_verified": "2026-11-05",
+      "last_verified": "2026-11-06",
       "month": "September 2026",
       "name": "September 2026 Daily Crime Log",
       "snapshots": [
@@ -103,7 +109,7 @@
       "absent_count": 0,
       "first_seen": "2026-10-01",
       "last_tab_census": "2026-11-05",
-      "last_verified": "2026-11-05",
+      "last_verified": "2026-11-06",
       "month": "August 2026",
       "name": "August 2026 Daily Crime Log",
       "snapshots": [
@@ -129,11 +135,11 @@
       ]
     },
     "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE": {
-      "absent_count": 30,
+      "absent_count": 31,
       "first_seen": "2026-10-01",
-      "last_absent_date": "2026-11-05",
+      "last_absent_date": "2026-11-06",
       "last_fetch_error": {
-        "date": "2026-11-05",
+        "date": "2026-11-06",
         "reason": "https://docs.google.com/spreadsheets/d/1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE/export?format=csv failed after 4 attempts: HTTP Error 401: Unauthorized"
       },
       "last_tab_census": "2026-10-01",
@@ -161,8 +167,8 @@
         "date": "2026-10-05",
         "reason": "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: body is only 191 bytes"
       },
-      "last_tab_census": "2026-11-04",
-      "last_verified": "2026-11-05",
+      "last_tab_census": "2026-11-06",
+      "last_verified": "2026-11-06",
       "month": "October 2026",
       "name": "October 2026 Daily Crime Log",
       "snapshots": [
@@ -285,6 +291,11 @@
           "bytes": 42317,
           "date": "2026-11-04",
           "sha256": "7737858d820c81ca72963749a7266861e7aad48a7a99d7aea44ff34b5a3d6606"
+        },
+        {
+          "bytes": 42866,
+          "date": "2026-11-06",
+          "sha256": "e441d073d19e8edfe0697ef39cfb6a521feb596ac077172bae0f2aa7ab9efdcb"
         }
       ],
       "status": "present",
