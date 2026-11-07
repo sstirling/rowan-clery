@@ -1,0 +1,74 @@
+{
+  "alarms": [
+    "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o (November 2026 Daily Crime Log): now banners as November 2026, but the archive holds July 2026 under this id — confirmed over 2 runs. Retiring those rows as source_removed; every field is preserved.",
+    "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 32 runs — treating the source file as removed. Its rows are preserved in full."
+  ],
+  "archive_rows": 2566,
+  "date": "2026-11-07",
+  "files": {
+    "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o": {
+      "month": "November 2026",
+      "name": "November 2026 Daily Crime Log",
+      "rows": 11,
+      "sha256": "e5282a372e5981e7097acdc2e0e5b53e34bfc8b1f459330bd56664e9729f1954",
+      "snapshot_written": false,
+      "status": "ok"
+    },
+    "1HULCgv9mk7XMkfC2DKkBaOUm5rA00aVfO83lU9489p0": {
+      "month": "September 2026",
+      "name": "September 2026 Daily Crime Log",
+      "rows": 110,
+      "sha256": "f4fdf9c631444ae1d5478db8bb21a8b0280680cc4e291b19c95d6de90b19ca8b",
+      "snapshot_written": false,
+      "status": "ok"
+    },
+    "1Ms5gjJX_-vnA4wUaTW-z60Hd98guINjRU5R-e5n58Ts": {
+      "month": "August 2026",
+      "name": "August 2026 Daily Crime Log",
+      "rows": 42,
+      "sha256": "33a2600fb1515642596b4a69137b236ce19c1dfc5441ab8d579af704a1ca646c",
+      "snapshot_written": false,
+      "status": "ok"
+    },
+    "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE": {
+      "error": "https://docs.google.com/spreadsheets/d/1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE/export?format=csv failed after 4 attempts: HTTP Error 401: Unauthorized",
+      "name": "June 2026 Daily Crime Log",
+      "status": "removed"
+    },
+    "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I": {
+      "month": "October 2026",
+      "name": "October 2026 Daily Crime Log",
+      "rows": 186,
+      "sha256": "e441d073d19e8edfe0697ef39cfb6a521feb596ac077172bae0f2aa7ab9efdcb",
+      "snapshot_written": false,
+      "status": "ok"
+    }
+  },
+  "folder_id": "1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
+  "listing": {
+    "count": 4,
+    "status": "ok"
+  },
+  "merge": {
+    "added": 0,
+    "amended": 0,
+    "changed": true,
+    "missing": 1,
+    "quarantined": [],
+    "reappeared": 0,
+    "relocated": 0,
+    "source_removed": 23,
+    "superseded": 0,
+    "unchanged": 349,
+    "unfetched": [],
+    "warnings": [
+      "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: 1 row(s) absent — advancing confirmation ladder"
+    ],
+    "withdrawn": 0
+  },
+  "summary": "+0 added, 0 amended, 1 missing, 0 withdrawn, 23 source-removed, 0 reappeared, 0 superseded",
+  "warnings": [
+    "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']",
+    "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: 1 row(s) absent — advancing confirmation ladder"
+  ]
+}
