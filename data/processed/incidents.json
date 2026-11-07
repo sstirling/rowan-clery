@@ -74,7 +74,7 @@
    "RUPD": 0.0
   }
  },
- "generated_utc": "2026-11-07T00:59:48+00:00",
+ "generated_utc": "2026-11-07T15:42:39+00:00",
  "archive_started": "2026-10-01",
  "source_folder": "https://drive.google.com/drive/folders/1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
  "published_era": {
@@ -97,7 +97,6 @@
   "last_successful_run": "2026-11-07",
   "staleness_days": 0,
   "alarms": [
-   "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o (November 2026 Daily Crime Log): now banners as November 2026, but the archive holds July 2026 under this id — confirmed over 2 runs. Retiring those rows as source_removed; every field is preserved.",
    "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 32 runs — treating the source file as removed. Its rows are preserved in full."
   ],
   "warnings": [
@@ -27451,8 +27450,8 @@
   },
   {
    "date": "2026-11-07",
-   "summary": "+0 added, 0 amended, 1 missing, 0 withdrawn, 23 source-removed, 0 reappeared, 0 superseded",
-   "alarms": 2
+   "summary": "+0 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
+   "alarms": 1
   }
  ]
 }

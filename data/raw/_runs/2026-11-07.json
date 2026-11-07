@@ -1,6 +1,5 @@
 {
   "alarms": [
-    "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o (November 2026 Daily Crime Log): now banners as November 2026, but the archive holds July 2026 under this id — confirmed over 2 runs. Retiring those rows as source_removed; every field is preserved.",
     "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 32 runs — treating the source file as removed. Its rows are preserved in full."
   ],
   "archive_rows": 2566,
@@ -52,12 +51,12 @@
   "merge": {
     "added": 0,
     "amended": 0,
-    "changed": true,
-    "missing": 1,
+    "changed": false,
+    "missing": 0,
     "quarantined": [],
     "reappeared": 0,
     "relocated": 0,
-    "source_removed": 23,
+    "source_removed": 0,
     "superseded": 0,
     "unchanged": 349,
     "unfetched": [],
@@ -66,7 +65,7 @@
     ],
     "withdrawn": 0
   },
-  "summary": "+0 added, 0 amended, 1 missing, 0 withdrawn, 23 source-removed, 0 reappeared, 0 superseded",
+  "summary": "+0 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
   "warnings": [
     "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']",
     "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: 1 row(s) absent — advancing confirmation ladder"
