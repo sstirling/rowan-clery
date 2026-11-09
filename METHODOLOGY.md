@@ -378,12 +378,12 @@ The archive's integrity rests on never mistaking a fetch failure for a deletion.
 Regenerated from the archive every run; delete `data/processed/` and it rebuilds
 identically.
 
-- **Offenses** are mapped token-by-token via `config/category_map.csv` — 283 distinct
+- **Offenses** are mapped token-by-token via `config/category_map.csv` — 288 distinct
   tokens across both publication eras, resolving to 44 canonical categories as of
-  2026-11-04. Expect both figures to climb: Rowan types these cells by hand, so new
+  2026-11-09. Expect both figures to climb: Rowan types these cells by hand, so new
   wordings arrive about monthly. An unmapped token **fails the build** rather than
   falling into a silent "Other" bucket. Dispositions work the same way through
-  `config/disposition_map.csv` (118 tokens → 30 outcome flags).
+  `config/disposition_map.csv` (124 tokens → 31 outcome flags).
 - **Token lookup ignores capitalisation and spacing.** Rowan types these cells by hand,
   so the same offense arrives as `Improper Behavior` one month and `Improper behavior`
   the next. Tokens are folded (whitespace collapsed, lowercased, trailing period
@@ -399,9 +399,31 @@ identically.
   by those after. "Theft; Nature updated; Motor Vehicle Theft" is a motor vehicle theft;
   counting it as a theft would report the classification RUPD withdrew. The superseded
   value is retained and shown as a reclassification.
-- **Dispositions** become a set of boolean flags via `config/disposition_map.csv`
-  (41 tokens), because rows routinely carry several outcomes at once. The same
+- **Dispositions** become a set of boolean flags via `config/disposition_map.csv`,
+  because rows routinely carry several outcomes at once. The same
   supersession rule applies: "Open/Active; Disposition updated; Closed" is closed.
+- **A marker mid-string can swallow a fact that was never withdrawn.** The split is
+  positional — everything before the last marker is treated as superseded — and Rowan
+  does not always put the marker where that reading holds. On 2026-11-09 a November
+  sexual assault record (`GEN 88975/ RUPD 26-036498`) read:
+
+  > Incident not reported to RUPD; Addressed by University Department; Disposition
+  > updated; Closed; Incident was Unfounded by Detective
+
+  The page shows that row as closed and unfounded. "Not reported to campus police" and
+  "Referred to a university department" fall on the superseded side and disappear, even
+  though neither is a disposition Rowan retracted: the first describes how the report
+  arrived, and the second is a parallel university process, not a police outcome. The
+  superseded flags **are** computed and kept in `normalize.disposition_flags`, but
+  `build.py` does not carry them into the payload, so the page cannot show them either.
+  Both halves of that are open. Until then the `Disposition` column on the site's record
+  detail carries Rowan's full unedited string, which is the evidence.
+- **The map never infers who a person is.** `juvenile_involved` is set only from a token
+  that says so in Rowan's own words. "Subject issued one citation and notified a
+  guardian" (2026-11-09) gets `guardian_notified` and no juvenile flag: Rowan notifies
+  the parents of students under 21 for alcohol violations, which federal law provides
+  for separately from juvenile status (20 U.S.C. 1232g(i)), and a juvenile is under 18.
+  Reading "guardian" as "juvenile" would file college sophomores in the juvenile series.
 - **Agencies** are derived from case-number prefixes (RUPD, CSA, GPD, GEN, LLEA), using
   the vocabulary Rowan publishes.
 

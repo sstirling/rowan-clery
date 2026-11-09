@@ -327,3 +327,37 @@ addresses by university department,outcome,referred_university,Typo for "Address
 # building, after "building trespass warning issued" and "building trespassing warning
 # issued". See the note at the trespass cluster above about the combinatorial problem.
 subject issued building trespass warning,outcome,trespass_notice,
+#
+# Added 2026-11-09. Four tokens, from one October and three November rows. The traceback
+# named one; the rest were found by sweeping all 368 live rows in strict mode.
+#
+# GEN 88975/ RUPD 26-036498 -- the token the traceback named, on the November sexual
+# assault record renumbered from GEN 88955 a week earlier. "by Detective" earns no flag
+# of its own: "unfounded by officer" already folds to plain `unfounded`, so the map does
+# not record who reached the finding in either case. A sworn officer's unfounded
+# determination is the only basis on which Clery lets a reported crime be withheld from
+# the statistics (34 CFR 668.46(c)(2)(iii)), and the count of those has to be disclosed,
+# so the flag matters -- the rank does not.
+incident was unfounded by detective,outcome,unfounded,Same finding as "unfounded by officer"; the rank is not carried
+# RUPD 26-036865 -- "Subject issued citation and trespass warning". Two outcomes fused
+# with "and", like "subject issued summons and trespass notice" and "closed - juvenile
+# subject issued station house adjustment and trespass notice" before it. Both halves
+# are mapped alone; only the pairing was new.
+subject issued citation and trespass warning,outcome,summons_issued|trespass_notice,Single token naming two outcomes
+# RUPD 26-036907 -- "Subject issued one citation and notified a guardian", the underage
+# drinking row. Mapped to both outcomes it names, following "closed two non-student
+# juveniles charged": a parent being told is an action Rowan published that no existing
+# flag records, and folding it into summons_issued would lose it.
+#
+# NOT juvenile_involved. Rowan notifies the parents of students under 21 for alcohol
+# violations, which federal law provides for separately from juvenile status
+# (20 USC 1232g(i)); a juvenile is under 18. This map only ever takes juvenile_involved
+# from a token that says so itself -- see the note at "closed two non-student juveniles
+# charged" -- so inferring it from "guardian" would file college sophomores in the
+# juvenile series.
+subject issued one citation and notified a guardian,outcome,summons_issued|guardian_notified,"Two outcomes; guardian notification is not juvenile status"
+# RUPD 26-036099 -- "Subject referred to Dean of Students". The dean's office named
+# without the "Closed" prefix that "closed referred to dean of students" carries, and
+# the fourth route to referred_university after that one, "addressed by university
+# dept" and "closed referred to dean of students".
+subject referred to dean of students,outcome,referred_university,

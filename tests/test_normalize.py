@@ -995,3 +995,79 @@ def test_the_five_tokens_that_broke_the_2026_11_06_run(category_map, disposition
         strict=True,
     )
     assert set(row["flags"]) == {"closed", "trespass_notice", "referred_university"}
+
+
+def test_the_six_tokens_that_broke_the_2026_11_09_run(category_map, disposition_map):
+    """Two Nature tokens and four dispositions. The traceback named one.
+
+    Five are settled by entries already in the maps. The sixth, a guardian
+    notification, is the only new editorial call in the batch.
+    """
+    # RUPD 26-036907 -- one row carrying three of the six tokens. Rowan wrote the
+    # Nature as a proper semicolon-separated pair, so both halves tokenize cleanly and
+    # both were simply absent.
+    pair = normalize.categorize(
+        "Underage consumption of alcohol; Possession of open alcohol container",
+        category_map,
+        strict=True,
+    )
+    assert pair["categories"] == ["Alcohol violation"]
+    # Both already exist in longer wordings: "Alcohol Violation (Underage Consumption)"
+    # and "Open alcohol container". Same offense, so the pair collapses to one category
+    # rather than double-counting a single incident in the Alcohol violation series.
+    assert normalize.categorize(
+        "Underage consumption of alcohol", category_map, strict=True
+    )["categories"] == ["Alcohol violation"]
+    assert normalize.categorize(
+        "Possession of open alcohol container", category_map, strict=True
+    )["categories"] == ["Alcohol violation"]
+
+    # The disposition on that same row. "notified a guardian" gets its own flag:
+    # following the rule set when "closed two non-student juveniles charged" was added,
+    # a token is mapped to every outcome it names, and a parent being told is an action
+    # Rowan published that no existing flag records.
+    guardian = normalize.disposition_flags(
+        "Closed; Subject issued one citation and notified a guardian",
+        disposition_map,
+        strict=True,
+    )
+    assert set(guardian["flags"]) == {"closed", "summons_issued", "guardian_notified"}
+    # NOT juvenile_involved. Rowan notifies the parents of students under 21 for alcohol
+    # violations; a juvenile is under 18. The map only ever takes juvenile_involved from
+    # a token that says so itself, so inferring it from "guardian" would file college
+    # sophomores in the juvenile series.
+    assert "juvenile_involved" not in guardian["flags"]
+
+    # RUPD 26-036865 -- two outcomes fused with "and", like "subject issued summons and
+    # trespass notice" before it. Both halves are mapped alone.
+    assert set(
+        normalize.disposition_flags(
+            "Closed; Subject issued citation and trespass warning", disposition_map, strict=True
+        )["flags"]
+    ) == {"closed", "summons_issued", "trespass_notice"}
+
+    # RUPD 26-036099 -- "Subject referred to Dean of Students", the dean's office named
+    # without the "Closed" prefix that "closed referred to dean of students" carries.
+    assert normalize.disposition_flags(
+        "Subject referred to Dean of Students", disposition_map, strict=True
+    )["flags"] == ["referred_university"]
+
+    # GEN 88975/ RUPD 26-036498 -- the token the traceback named, on the November
+    # sexual assault record that was renumbered from GEN 88955. "by Detective" earns no
+    # flag of its own: the map already folds "unfounded by officer" to plain `unfounded`,
+    # so who made the determination is not carried either way.
+    fondling = normalize.disposition_flags(
+        "Incident not reported to RUPD; Addressed by University Department; "
+        "Disposition updated; Closed; Incident was Unfounded by Detective",
+        disposition_map,
+        strict=True,
+    )
+    assert "unfounded" in fondling["flags"]
+    assert normalize.disposition_flags(
+        "Incident was Unfounded by Detective", disposition_map, strict=True
+    )["flags"] == ["unfounded"]
+    # Rowan put "Disposition updated" in the MIDDLE of that string, so the two tokens
+    # before it are read as withdrawn and never reach the page. Documenting the
+    # behaviour, not endorsing it: see the note in METHODOLOGY.md.
+    assert set(fondling["flags"]) == {"closed", "unfounded"}
+    assert set(fondling["superseded_flags"]) == {"not_reported_to_rupd", "referred_university"}

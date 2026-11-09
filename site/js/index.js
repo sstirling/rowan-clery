@@ -437,6 +437,7 @@ const DISP_LABEL = {
   station_house_adjustment: "Juvenile station house adjustment",
   title_ix: "Title IX / equity office",
   unfounded: "Determined unfounded",
+  guardian_notified: "Parent or guardian notified",
 };
 
 function drawAll() {

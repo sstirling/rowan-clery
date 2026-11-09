@@ -512,3 +512,13 @@ Assault on Police Officer,offense,Assault on an officer,Fourth wording after "As
 # other. Rowan simply used the plain word this time for the substance the CDS tokens
 # already name -- it is a wording change, not a new kind of offense.
 Possession of open container of marijuana in vehicle,offense,Drug offense,Plainer wording of the CDS open-container tokens above
+#
+# Added 2026-11-09. Two tokens, both from one November row (RUPD 26-036907, logged
+# "Underage consumption of alcohol; Possession of open alcohol container"). Rowan used
+# proper semicolons here, so both halves tokenized cleanly and both were simply missing.
+#
+# Both already exist in longer wordings -- "Alcohol Violation (Underage Consumption)"
+# and "Open alcohol container" -- and both resolve to Alcohol violation, so the row
+# counts once in that series rather than twice for one incident.
+Underage consumption of alcohol,offense,Alcohol violation,Plainer wording of "Alcohol Violation (Underage Consumption)" above
+Possession of open alcohol container,offense,Alcohol violation,"Same offense as ""Open alcohol container"" above, with the possession verb restored"
