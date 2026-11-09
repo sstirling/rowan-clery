@@ -2,15 +2,15 @@
   "alarms": [
     "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 34 runs — treating the source file as removed. Its rows are preserved in full."
   ],
-  "archive_rows": 2566,
+  "archive_rows": 2587,
   "date": "2026-11-09",
   "files": {
     "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o": {
       "month": "November 2026",
       "name": "November 2026 Daily Crime Log",
-      "rows": 11,
-      "sha256": "e5282a372e5981e7097acdc2e0e5b53e34bfc8b1f459330bd56664e9729f1954",
-      "snapshot_written": false,
+      "rows": 29,
+      "sha256": "061865f80edf51068c55acdde6442660acd864ba5496c4342601c932df9d7bd0",
+      "snapshot_written": true,
       "status": "ok"
     },
     "1HULCgv9mk7XMkfC2DKkBaOUm5rA00aVfO83lU9489p0": {
@@ -37,9 +37,9 @@
     "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I": {
       "month": "October 2026",
       "name": "October 2026 Daily Crime Log",
-      "rows": 186,
-      "sha256": "e441d073d19e8edfe0697ef39cfb6a521feb596ac077172bae0f2aa7ab9efdcb",
-      "snapshot_written": false,
+      "rows": 187,
+      "sha256": "208b0309f132c484b5e8ff58bf0c25ea44e7d9e1e6d34074e96f2eed46528807",
+      "snapshot_written": true,
       "status": "ok"
     }
   },
@@ -49,23 +49,23 @@
     "status": "ok"
   },
   "merge": {
-    "added": 0,
-    "amended": 0,
+    "added": 21,
+    "amended": 2,
     "changed": true,
-    "missing": 0,
+    "missing": 1,
     "quarantined": [],
     "reappeared": 0,
     "relocated": 0,
     "source_removed": 0,
-    "superseded": 0,
-    "unchanged": 349,
+    "superseded": 1,
+    "unchanged": 345,
     "unfetched": [],
     "warnings": [
       "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: 1 row(s) absent — advancing confirmation ladder"
     ],
-    "withdrawn": 1
+    "withdrawn": 0
   },
-  "summary": "+0 added, 0 amended, 0 missing, 1 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
+  "summary": "+21 added, 2 amended, 1 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 1 superseded",
   "warnings": [
     "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']",
     "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: 1 row(s) absent — advancing confirmation ladder"

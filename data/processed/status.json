@@ -10,11 +10,11 @@
     "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: 1 row(s) absent \u2014 advancing confirmation ladder"
   ],
   "counts": {
-    "total_archived": 399,
-    "currently_published": 349,
+    "total_archived": 420,
+    "currently_published": 369,
     "no_longer_published": 43,
-    "superseded": 7,
-    "distinct_incidents": 392,
+    "superseded": 8,
+    "distinct_incidents": 412,
     "withdrawn": 6,
     "source_removed": 37
   }
