@@ -522,3 +522,12 @@ Possession of open container of marijuana in vehicle,offense,Drug offense,Plaine
 # counts once in that series rather than twice for one incident.
 Underage consumption of alcohol,offense,Alcohol violation,Plainer wording of "Alcohol Violation (Underage Consumption)" above
 Possession of open alcohol container,offense,Alcohol violation,"Same offense as ""Open alcohol container"" above, with the possession verb restored"
+#
+# Added 2026-11-11. One token, from an October row (GEN 88817, logged as "Domestic
+# Violence, Harassment, Stalking").
+#
+# Comma-fused, like the five-offense token on RUPD 26-035474/ CSA 88642 above, which
+# names these same three among its five. Stalking keeps its own category: Clery counts
+# it as a VAWA offense separately from Harassment, so folding the two would undercount
+# one series and inflate the other.
+"Domestic Violence, Harassment, Stalking",offense,Domestic violence|Harassment|Stalking,Single token naming three offenses

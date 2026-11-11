@@ -378,12 +378,12 @@ The archive's integrity rests on never mistaking a fetch failure for a deletion.
 Regenerated from the archive every run; delete `data/processed/` and it rebuilds
 identically.
 
-- **Offenses** are mapped token-by-token via `config/category_map.csv` — 288 distinct
+- **Offenses** are mapped token-by-token via `config/category_map.csv` — 289 distinct
   tokens across both publication eras, resolving to 44 canonical categories as of
-  2026-11-09. Expect both figures to climb: Rowan types these cells by hand, so new
+  2026-11-11. Expect both figures to climb: Rowan types these cells by hand, so new
   wordings arrive about monthly. An unmapped token **fails the build** rather than
   falling into a silent "Other" bucket. Dispositions work the same way through
-  `config/disposition_map.csv` (124 tokens → 31 outcome flags).
+  `config/disposition_map.csv` (125 tokens → 31 outcome flags).
 - **Token lookup ignores capitalisation and spacing.** Rowan types these cells by hand,
   so the same offense arrives as `Improper Behavior` one month and `Improper behavior`
   the next. Tokens are folded (whitespace collapsed, lowercased, trailing period
@@ -426,6 +426,47 @@ identically.
   Reading "guardian" as "juvenile" would file college sophomores in the juvenile series.
 - **Agencies** are derived from case-number prefixes (RUPD, CSA, GPD, GEN, LLEA), using
   the vocabulary Rowan publishes.
+
+### What counts as a record being pulled from a live sheet
+
+The site's one editorial finding is the claim that Rowan removed a record from a sheet it
+still publishes. On **2026-11-11** that claim was wrong six times out of six. All six rows
+had a counterpart in the live sheet at the same file and the same reported minute — three
+of them sex offenses — and every one was an amendment the matcher had failed to recognise.
+Four causes, all now closed:
+
+1. **The matcher only landed on 2026-10-25.** Two records (a sex offense and a domestic
+   violence case) completed the three-run ladder before it existed. Because the old half
+   of a match had to be `active` or `missing`, a `withdrawn` row could never be re-tested
+   and neither could ever heal. `MATCHABLE_AS_OLD` now includes `withdrawn`: a withdrawal
+   is a claim this pipeline made, not an observation, and it has to stay revisable.
+2. **The occurred date was a hard corroborant.** Rowan corrects it in the same edit that
+   extends a case number — it rests on what a reporting party recalls, and for a delayed
+   sex-offense report it is the least stable field in the row. It is now ignored **only
+   for an appended number**, where the nesting is independent evidence. Measured across
+   the whole archive, relaxing it for appends links exactly one extra pair; relaxing it
+   for swaps as well links 76 more, nearly all Glassboro PD citations batched under one
+   transcription timestamp. That asymmetry is the whole argument.
+3. **An amendment marker read as a contradiction.** `Simple Assault` against
+   `Simple Assault, Nature updated, Burglary` failed as opaque strings, so Rowan's own
+   words for "I amended this row" counted as evidence that the rows were different
+   incidents. `_amends_inline` now compares against the text before the marker.
+4. **A seven-digit case core yielded no references at all.** `RUPD 26-0345653` (a typo for
+   `RUPD 26-034653`) matched neither branch of `CASE_REFERENCE`, and the matcher bails on
+   an empty set, so the row was invisible to every identity rule at once. The core now
+   allows seven digits; over the whole archive that changes two cells and nothing else.
+
+**And the finding is no longer published on suspicion.** A match that the rules cannot
+confirm — a swapped number with an edited occurred date, say — is neither merged nor
+laddered. The row is flagged `possible_duplicate_identity`, taken off the absence ladder,
+listed under "Possible duplicate identities" on the Data & changes page, and **excluded
+from the finding banner**. A `possible_renumbering` changelog event records the pair once,
+on the run that first raises it, so a reviewer does not have to re-derive which live case
+number the row might have become. Three records sit in that state as of 2026-11-11.
+
+Quarantine still overrides all of it. A supersession is an inference from absence, and a
+quarantined file's absences are what this archive refuses to read anything into, so
+confirmed matches, unconfirmed ones and ambiguity flags are all dropped for it.
 
 ## Known problems in the source
 

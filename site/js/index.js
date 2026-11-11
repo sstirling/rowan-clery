@@ -85,7 +85,17 @@ banners.push(`<details class="runstatus">
 // prominent position the run alarms just lost. Deliberately NOT `warn` yellow: that is
 // the colour this site uses for "a process needs attention", and a record pulled from a
 // live log is not a process problem, it is the finding.
-const pulled = D.incidents.filter(i => i.status === "withdrawn");
+// A withdrawal the pipeline could not separate from a renumbering is NOT a finding.
+// On 2026-11-11 six of the six rows in this banner turned out to be amendments, three
+// of them sex offenses, so the test for publishing one is now deliberately strict:
+// `possible_duplicate_identity` means a plausible replacement exists in the live sheet
+// and no rule can confirm it. Those are listed under "Possible duplicate identities" on
+// the Data & changes page instead of being asserted here.
+const UNRESOLVED = "possible_duplicate_identity";
+const pulled = D.incidents.filter(
+  i => i.status === "withdrawn" && !(i.flags || []).includes(UNRESOLVED));
+const unresolved = D.incidents.filter(
+  i => i.status === "withdrawn" && (i.flags || []).includes(UNRESOLVED));
 if (pulled.length) {
   const months = [...new Set(pulled.map(i => i.month))].map(esc).join(", ");
   banners.push(`<div class="banner finding">
@@ -96,6 +106,18 @@ if (pulled.length) {
     Worth putting to the Clery Compliance Office.
     <a href="#tbl" class="jump" data-jump-status="withdrawn">Show ${pulled.length === 1
       ? "the record" : `all ${pulled.length}`} in the table</a></div>`);
+}
+
+if (unresolved.length) {
+  banners.push(`<div class="callout">
+    <strong>${unresolved.length} record${unresolved.length === 1 ? " is" : "s are"} absent from
+    the source with an unconfirmed explanation.</strong> Each has a possible replacement in the
+    live sheet under a different case number that the matching rules will not confirm, so
+    ${unresolved.length === 1 ? "it is" : "they are"} neither merged nor reported as removed.
+    Listed on the <a href="changes.html">Data &amp; changes</a> page under possible duplicate
+    identities.
+    <a href="#tbl" class="jump" data-jump-status="withdrawn">Show
+      ${unresolved.length === 1 ? "it" : "them"} in the table</a></div>`);
 }
 
 const agedOut = D.incidents.filter(i => i.status === AGED_OUT).length;

@@ -518,3 +518,20 @@ def test_the_ok_token_clears_contrast_in_both_themes():
         for surface in ("surface-0", "surface-1", "surface-2"):
             ratio = contrast(ok, token(block, surface))
             assert ratio >= 4.5, f"{label} --ok {ok} on {surface} is only {ratio:.2f}:1"
+
+
+def test_an_unconfirmed_withdrawal_is_not_published_as_a_finding():
+    """The finding banner must exclude rows flagged `possible_duplicate_identity`.
+
+    On 2026-11-11 all six rows the banner was asserting as "removed from a sheet Rowan is
+    still publishing" turned out to be amendments, three of them sex offenses. Four were
+    linked once the matching rules were fixed; the remaining three carry a plausible
+    replacement no rule will confirm, and a Clery compliance finding is not the right
+    register for a question.
+    """
+    source = "\n".join(p.read_text(encoding="utf-8") for p in JS_FILES)
+    banner = source.split('const pulled = D.incidents.filter(', 1)[1].split(";", 1)[0]
+    assert "possible_duplicate_identity" in banner or "UNRESOLVED" in banner, (
+        "the withdrawn-record banner no longer excludes unconfirmed rows"
+    )
+    assert "const unresolved" in source, "unconfirmed absences are not surfaced anywhere"

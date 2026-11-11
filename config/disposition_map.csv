@@ -361,3 +361,11 @@ subject issued one citation and notified a guardian,outcome,summons_issued|guard
 # the fourth route to referred_university after that one, "addressed by university
 # dept" and "closed referred to dean of students".
 subject referred to dean of students,outcome,referred_university,
+#
+# Added 2026-11-11. One token, from an October row (RUPD 26-036073, logged "Reporting
+# parties provided with citizens complaint info.").
+#
+# The third wording of one outcome, after "reporting party provided citizen's complaint
+# info" and its plural. fold_token drops the trailing period but cannot insert "with" or
+# restore an apostrophe, so the variant needs its own row.
+reporting parties provided with citizens complaint info,outcome,rp_referred_to_complaint,Third wording of the citizen's-complaint outcome

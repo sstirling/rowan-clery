@@ -117,7 +117,15 @@ def _utc_today() -> str:
 # Every numeric reference in a case-number cell: an agency case core ("26-032705") or a
 # bare report id ("87668"). Order is discarded because the log writes the same pair both
 # ways round ("RUPD 26-012345/ CSA 12345" and "CSA 12345/ RUPD 26-012345").
-CASE_REFERENCE = re.compile(r"\b(?:\d{2}-\d{5,6}|\d{4,6})\b")
+#
+# The core allows SEVEN digits, which is a typo rather than a real shape. Rowan typed
+# "RUPD 26-0345653" for "RUPD 26-034653" (2026-11-11) and "RUPD 25-0405757" for a 2025
+# row. At six digits the alternation matched neither branch -- a seven-digit run has no
+# word boundary after six -- so those cells yielded NO references at all, and
+# `_match_identity_forks` bails on an empty set. A number the regex cannot read is worse
+# than one it reads oddly: the row goes invisible to every identity rule at once. Over
+# the whole archive this widening changes exactly those two cells and nothing else.
+CASE_REFERENCE = re.compile(r"\b(?:\d{2}-\d{5,7}|\d{4,6})\b")
 
 # Fields that must agree before two rows are called one incident. Date/Time Reported is
 # handled separately, as the bucket key. Narrative and Disposition are deliberately NOT
@@ -126,9 +134,61 @@ CASE_REFERENCE = re.compile(r"\b(?:\d{2}-\d{5,6}|\d{4,6})\b")
 IDENTITY_CORROBORANTS = ("date_occurred_raw", "nature_raw", "campus_raw", "location_raw")
 
 
+#: Statuses from which a row can still be recognised as the OLD half of a renumbering.
+#: `withdrawn` is included deliberately. A withdrawal is a claim this pipeline made, not
+#: an observation, and it has to stay revisable: the matcher only landed on 2026-10-25,
+#: so two October 2026 records -- a sex offense and a domestic violence case -- completed
+#: the ladder before it existed and could never heal. Excluding them left the site
+#: asserting a Clery compliance finding that the live sheet contradicted.
+MATCHABLE_AS_OLD = ("active", "missing", "withdrawn")
+
+#: Rowan records a reclassification inside the cell rather than by editing it.
+AMENDMENT_MARKER = re.compile(r"\b(?:nature|disposition)\s+updated\b", re.IGNORECASE)
+
+
 def case_references(case_number: str) -> set[str]:
     """The set of numeric references a case-number cell names."""
     return set(CASE_REFERENCE.findall(case_number or ""))
+
+
+def _amends_inline(old: str, new: str) -> bool:
+    """Does `new` amend `old` in place rather than contradict it?
+
+    The live log writes a reclassification into the cell itself:
+    "Simple Assault, Nature updated, Burglary". Everything before the marker is what the
+    row used to say, so that is what the archived value should be compared against.
+    Reading the whole string as one opaque value made Rowan's own word for "I amended
+    this" count as evidence that the two rows are different incidents, which is backwards
+    -- it blocked CSA 88641 -> CSA 88641/ RUPD 26-035871 and published the original as a
+    record pulled from a live sheet.
+    """
+    match = AMENDMENT_MARKER.search(new or "")
+    if not match:
+        return False
+    return (new or "")[: match.start()].strip().strip(",;").strip() == (old or "").strip()
+
+
+def _corroborates(old: dict[str, str], cand: dict[str, str], *, ignore_occurred: bool) -> bool:
+    """Do the fields that must agree before two rows are called one incident, agree?
+
+    `ignore_occurred` is only ever passed for an APPENDED case number, where the nesting
+    is independent evidence of identity. Rowan corrects the occurred date in the same
+    edit that extends the number -- it depends on what a reporting party recalls, and for
+    a delayed sex-offense report it is the least stable field in the row. Measured across
+    the whole archive, ignoring it for appends links exactly one extra pair; ignoring it
+    for swaps as well links 76 more, nearly all Glassboro PD citations entered in batches
+    under a single transcription timestamp. Hence the asymmetry.
+    """
+    for field in IDENTITY_CORROBORANTS:
+        if field == "date_occurred_raw" and ignore_occurred:
+            continue
+        mine, theirs = old.get(field, ""), cand.get(field, "")
+        if mine == theirs:
+            continue
+        if field == "nature_raw" and _amends_inline(mine, theirs):
+            continue
+        return False
+    return True
 
 
 def _is_renumbering(mine: set[str], theirs: set[str]) -> bool:
@@ -327,7 +387,9 @@ class Archive:
         # has to happen first: these rows would otherwise be counted as unexplained drops,
         # and three at once is enough to quarantine the file, which then blocks the very
         # merge a post-hoc reconciliation would need in order to see them.
-        forks, ambiguous = self._match_identity_forks(existing, observed, fetched_ok)
+        forks, ambiguous, near_misses = self._match_identity_forks(
+            existing, observed, fetched_ok
+        )
 
         # Rows belonging to a month their own file no longer holds. Rowan reuses a Drive
         # container rather than publishing a new sheet: on 2026-11-02 the July file was
@@ -368,16 +430,46 @@ class Archive:
         # are never destructive; only inferred absence is.
         quarantined_files = self._check_shrink(
             existing, observed_by_file, fetched_ok, report,
-            explained=set(forks) | stale_uids,
+            explained=set(forks) | set(near_misses) | stale_uids,
         )
         trusted = fetched_ok - quarantined_files
+        # A supersession is an inference FROM absence: the old row is gone and something
+        # in the sheet looks like what replaced it. A quarantined file's absences are
+        # exactly what this archive refuses to read anything into, so both the confirmed
+        # and the unconfirmed matches are dropped for it. `test_mass_removal_is_
+        # quarantined_not_applied` pins the rule as "quarantine applies no mutations",
+        # and it caught this: with the looser 2026-11-11 matching, a truncated September
+        # offered two Glassboro PD batch rows as each other's replacements.
+        forks = {u: m for u, m in forks.items() if existing[u].get("source_file_id") in trusted}
+        near_misses = {
+            u: m for u, m in near_misses.items()
+            if existing[u].get("source_file_id") in trusted
+        }
+        ambiguous = {u for u in ambiguous if existing[u].get("source_file_id") in trusted}
 
         new_rows: dict[str, dict[str, str]] = {}
 
         for uid, row in existing.items():
             row = dict(row)
-            if uid in ambiguous:
+            if uid in ambiguous or uid in near_misses:
+                already_flagged = "possible_duplicate_identity" in (row.get("flags") or "")
                 row = self._mark_for_review(row)
+                # Logged once, on the run that first raises the question. These rows stay
+                # absent and flagged indefinitely, so emitting every run would bury the
+                # changelog. The pair is recorded because without it the reviewer has to
+                # re-derive which live case number the row might have become.
+                if uid in near_misses and not already_flagged:
+                    other = near_misses[uid]
+                    events.append({
+                        "observed_date": today,
+                        "incident_uid": uid,
+                        "change_type": "possible_renumbering",
+                        "case_number": row.get("case_number_raw", ""),
+                        "possible_replacement": (
+                            other.get("Case Number") or other.get("case_number_raw", "")
+                        ),
+                        "source_month": row.get("source_month", ""),
+                    })
             if uid in observed:
                 row, row_events = self._apply_seen(row, observed[uid], file_meta, today, report)
                 events.extend(row_events)
@@ -395,6 +487,12 @@ class Archive:
                 # this row either way, so it is left exactly as it stands — not verified,
                 # not absent. Deliberately NOT `last_verified = today`: nothing observed
                 # this row today, and the archive may not claim otherwise.
+                pass
+            elif uid in near_misses:
+                # Flagged just above, and deliberately kept OFF the absence ladder. The
+                # row is absent and there is a plausible replacement the rules cannot
+                # confirm; advancing it anyway would publish a withdrawal this pipeline
+                # does not believe. Left exactly as it stands, for a human.
                 pass
             elif confirm_withdrawals:
                 row, row_events = self._apply_absent(row, trusted, today, report)
@@ -743,13 +841,16 @@ class Archive:
     ) -> tuple[dict[str, dict[str, str]], set[str]]:
         """Link rows that are one incident published under an amended case number.
 
-        Returns ({old_uid: the matched replacement row}, {ambiguous old_uids}).
+        Returns ({old_uid: matched replacement}, {ambiguous old_uids},
+        {old_uid: a plausible replacement the rules will not confirm}). The third group
+        is neither merged nor laddered: it is flagged for review and left alone.
 
         A row qualifies as the OLD half if it is absent from this run's observations and
         its file was fetched successfully — absence from a failed fetch means nothing.
         A candidate qualifies as the NEW half when it sits in the same source file,
-        carries the same raw Date/Time Reported, agrees on every field in
-        IDENTITY_CORROBORANTS, and names a strict SUPERSET of the old row's references.
+        carries the same raw Date/Time Reported, agrees on IDENTITY_CORROBORANTS (see
+        `_corroborates` for the two documented exceptions), and names a reference set
+        that could be the old one after an edit (see `_is_renumbering`).
 
         Matching on the reference SET rather than a string prefix is deliberate. The
         pre-2026 reconciliation in backfill.py tests whether one case number starts with
@@ -812,7 +913,7 @@ class Archive:
         gone_per_bucket: dict[tuple, int] = {}
         fresh_per_bucket: dict[tuple, int] = {}
         for uid, row in existing.items():
-            if uid in observed or row.get("status") not in ("active", "missing"):
+            if uid in observed or row.get("status") not in MATCHABLE_AS_OLD:
                 continue
             if row.get("source_file_id") not in fetched_ok:
                 continue
@@ -832,9 +933,10 @@ class Archive:
 
         forks: dict[str, dict[str, str]] = {}
         ambiguous: set[str] = set()
+        near_misses: dict[str, dict[str, str]] = {}
 
         for uid, row in existing.items():
-            if uid in observed or row.get("status") not in ("active", "missing"):
+            if uid in observed or row.get("status") not in MATCHABLE_AS_OLD:
                 continue
             if row.get("source_file_id") not in fetched_ok:
                 continue
@@ -844,38 +946,46 @@ class Archive:
                 continue
 
             key = bucket(row.get("source_file_id", ""), row.get("date_reported_raw", ""))
-            matches = [
+            pool = [
                 other
                 for other in candidates.get(key, {}).values()
                 if other["incident_uid"] != uid
                 and _is_renumbering(mine, case_references(other.get("case_number_raw", "")))
-                and all(row.get(f, "") == other.get(f, "") for f in IDENTITY_CORROBORANTS)
             ]
-
-            # An APPENDED reference nests, and nesting is evidence in itself: the new
-            # number still contains the old one. A SWAPPED reference carries no such
-            # evidence, and before this rule existed nesting was the only thing telling a
-            # renumbering apart from a distinct case that happens to share a timestamp --
-            # which Rowan produces in bulk, entering Glassboro PD batches of up to 15
-            # incidents under one transcription time.
+            # Sort the plausible candidates by how much evidence backs them.
             #
-            # So a swap has to be a one-for-one exchange in its bucket: exactly one row
-            # gone, exactly one row that was not in the archive before. A batch is
-            # many-for-many and links nothing, which is the behaviour
-            # test_a_gpd_batch_sharing_one_timestamp_is_never_linked pins.
-            nesting = [
-                m for m in matches
-                if mine < case_references(m.get("case_number_raw", ""))
-            ]
-            if not nesting and matches and not one_for_one.get(key, False):
-                continue
+            # An APPENDED number nests, and nesting is evidence in itself: the new number
+            # still contains the old one. That carries a corrected occurred date with it.
+            # A SWAPPED number carries no such evidence, so it is only merged on a clean
+            # one-for-one exchange in its bucket AND full agreement -- Rowan enters
+            # Glassboro PD batches of up to 15 incidents under one transcription
+            # timestamp, and those are many-for-many.
+            #
+            # Everything plausible but unproven goes to `reviewable`. That is not a
+            # merge: it flags the row for a human and takes it off the absence ladder, so
+            # the site stops asserting a withdrawal this pipeline does not believe.
+            linkable, reviewable = [], []
+            for other in pool:
+                full = _corroborates(row, other, ignore_occurred=False)
+                if not full and not _corroborates(row, other, ignore_occurred=True):
+                    continue
+                appended = mine < case_references(other.get("case_number_raw", ""))
+                if appended or (full and one_for_one.get(key, False)):
+                    linkable.append(other)
+                else:
+                    reviewable.append(other)
 
-            if len(matches) == 1:
-                forks[uid] = matches[0]
-            elif len(matches) > 1:
+            # Two candidates at the same tier is not a tie to be broken by sort order.
+            if len(linkable) == 1:
+                forks[uid] = linkable[0]
+            elif len(linkable) > 1:
+                ambiguous.add(uid)
+            elif len(reviewable) == 1:
+                near_misses[uid] = reviewable[0]
+            elif len(reviewable) > 1:
                 ambiguous.add(uid)
 
-        return forks, ambiguous
+        return forks, ambiguous, near_misses
 
     def _mark_for_review(self, row: dict[str, str]) -> dict[str, str]:
         """Flag a row a human needs to look at, reusing the existing duplicate flag.

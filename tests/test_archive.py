@@ -870,3 +870,165 @@ def test_a_swapped_number_inside_a_batch_links_nothing(archive, parsed):
     assert report.superseded == 0, "a batch must never be linked by a swapped number"
     for r in pair:
         assert rows[r["incident_uid"]]["status"] != "superseded"
+
+
+def amend(record: dict, new_case: str, **fields) -> dict:
+    """`fork`, but Rowan also edited other cells in the same pass.
+
+    Which is what it actually does: the case number is extended in the same edit that
+    corrects an occurred date or appends a reclassification.
+    """
+    amended = fork(record, new_case)
+    amended.update(fields)
+    amended["content_hash"] = parse.content_hash(amended)
+    return amended
+
+
+def test_an_appended_number_links_even_when_the_occurred_date_was_corrected(archive, parsed):
+    """Found 2026-11-11 on GEN 88955, a rape report, two runs from a false finding.
+
+    Rowan appended an RUPD number AND corrected the occurred date in one edit:
+    `GEN 88955` -> `GEN 88955/ RUPD 26-036491`, occurred `10/31/26- 11/1/26 Unknown` ->
+    `10/30/26 Unk.`. The reference set nests, the reported minute, nature, campus and
+    location all agree, and the only disagreement is the field a delayed sex-offense
+    report is most likely to have corrected.
+
+    The relaxation is scoped to APPENDS on purpose. Measured over the whole archive,
+    dropping the occurred date for appends links exactly this one extra pair; dropping it
+    for swaps as well links 76 more, nearly all Glassboro PD citations batched under a
+    single transcription timestamp.
+    """
+    commit(archive, parsed, set(parsed), "2026-10-01")
+    original = parsed[SEPT][0]
+    old_uid = original["incident_uid"]
+
+    corrected = amend(
+        original,
+        original["Case Number"] + "/ RUPD 26-036491",
+        **{"Date/Time Occurred": "10/30/26 Unk."},
+    )
+    observed = dict(parsed) | {SEPT: parsed[SEPT][1:] + [corrected]}
+    rows, events, report = commit(archive, observed, set(parsed), "2026-10-02")
+
+    assert report.superseded == 1
+    assert rows[old_uid]["status"] == "superseded"
+    assert rows[old_uid]["superseded_by"] == corrected["incident_uid"]
+    assert report.withdrawn == 0 and report.missing == 0
+
+
+def test_a_swapped_number_with_a_corrected_occurred_date_goes_to_review(archive, parsed):
+    """The same near miss without the nesting evidence is NOT linked.
+
+    GEN 88642 -> GEN 88694/ RUPD 26-035988 (a rape report) and RUPD 26-036700 ->
+    RUPD 26-036553 both look like this. A swap plus an edited occurred date is
+    indistinguishable by rule from two distinct incidents sharing a transcription
+    timestamp, so nothing is merged. But the row is not published as a withdrawal
+    either: it is flagged for a human and taken off the absence ladder.
+    """
+    commit(archive, parsed, set(parsed), "2026-10-01")
+    original = parsed[SEPT][0]
+    old_uid = original["incident_uid"]
+
+    swapped = amend(original, "GEN 99911", **{"Date/Time Occurred": "10/30/26 Unk."})
+    observed = dict(parsed) | {SEPT: parsed[SEPT][1:] + [swapped]}
+    rows, events, report = commit(archive, observed, set(parsed), "2026-10-02")
+
+    assert report.superseded == 0, "a swap with no nesting must never auto-merge"
+    assert "possible_duplicate_identity" in rows[old_uid]["flags"]
+    # Crucially NOT on the ladder: otherwise it still reaches `withdrawn` in three runs
+    # and still publishes as a record pulled from a live sheet.
+    assert rows[old_uid]["status"] == "active"
+    assert report.withdrawn == 0 and report.missing == 0
+
+
+def test_an_amendment_marker_in_the_new_nature_does_not_block_the_match(archive, parsed):
+    """CSA 88641 -> CSA 88641/ RUPD 26-035871, blocked by its own amendment marker.
+
+    The new Nature read `Simple Assault, Nature updated, Burglary`. Comparing that
+    against the old row's `Simple Assault` as opaque strings fails, but the marker is
+    Rowan saying in its own words that this row was amended — the one thing that should
+    never count as evidence against identity.
+    """
+    commit(archive, parsed, set(parsed), "2026-10-01")
+    original = parsed[SEPT][0]
+    old_uid = original["incident_uid"]
+
+    reclassified = amend(
+        original,
+        original["Case Number"] + "/ RUPD 26-035871",
+        Nature=f"{original['Nature']}, Nature updated, Burglary",
+    )
+    observed = dict(parsed) | {SEPT: parsed[SEPT][1:] + [reclassified]}
+    rows, events, report = commit(archive, observed, set(parsed), "2026-10-02")
+
+    assert report.superseded == 1
+    assert rows[old_uid]["superseded_by"] == reclassified["incident_uid"]
+    assert report.withdrawn == 0
+
+
+def test_a_withdrawn_row_is_rescued_when_its_replacement_turns_up(archive, parsed):
+    """A withdrawal is a claim the pipeline made, and it has to be revisable.
+
+    The matcher used to consider only `active` and `missing` rows as the old half, so
+    once a row completed the three-run ladder it could never be re-tested. Two October
+    2026 records went withdrawn before the matcher existed at all (it landed 2026-10-25)
+    and could never heal, and both were sex offenses or domestic violence.
+    """
+    commit(archive, parsed, set(parsed), "2026-10-01")
+    original = parsed[SEPT][0]
+    old_uid = original["incident_uid"]
+
+    # Three runs with the row absent and no replacement in sight: it withdraws.
+    without = dict(parsed) | {SEPT: parsed[SEPT][1:]}
+    for day in ("2026-10-02", "2026-10-03", "2026-10-04"):
+        commit(archive, without, set(parsed), day)
+    assert archive.load()[old_uid]["status"] == "withdrawn"
+
+    # Now the replacement appears, long after the ladder finished.
+    replacement = fork(original, original["Case Number"] + "/ CSA 87974")
+    observed = dict(parsed) | {SEPT: parsed[SEPT][1:] + [replacement]}
+    rows, events, report = commit(archive, observed, set(parsed), "2026-10-05")
+
+    assert rows[old_uid]["status"] == "superseded"
+    assert rows[old_uid]["superseded_by"] == replacement["incident_uid"]
+    assert [e for e in events if e["change_type"] == "superseded_identity"]
+
+
+def test_a_seven_digit_case_core_still_yields_a_reference():
+    """`RUPD 26-0345653` yielded NO references, so it could never match anything.
+
+    The archive holds it beside a live `RUPD 26-034653` — the same incident with one
+    digit too many — and `_match_identity_forks` bails on `if not mine`. A case number
+    the regex cannot read is worse than one it reads wrongly: the row becomes invisible
+    to every identity rule at once.
+    """
+    assert arch.case_references("RUPD 26-0345653") == {"26-0345653"}
+    assert arch.case_references("RUPD 26-034653") == {"26-034653"}
+    # Still reads the ordinary shapes, and still finds both halves of a pair.
+    assert arch.case_references("RUPD 26-034005/ CSA 88071") == {"26-034005", "88071"}
+    assert arch.case_references("GEN 88955") == {"88955"}
+
+
+def test_an_unconfirmed_renumbering_names_the_candidate_once(archive, parsed):
+    """The review entry has to say which live case number the row might have become.
+
+    Otherwise whoever reviews it repeats the whole comparison by hand. Logged on the run
+    that first raises the question and not again: these rows stay absent and flagged
+    indefinitely, so a daily event would bury the changelog.
+    """
+    commit(archive, parsed, set(parsed), "2026-10-01")
+    original = parsed[SEPT][0]
+    old_uid = original["incident_uid"]
+
+    swapped = amend(original, "GEN 99911", **{"Date/Time Occurred": "10/30/26 Unk."})
+    observed = dict(parsed) | {SEPT: parsed[SEPT][1:] + [swapped]}
+    _, events, _ = commit(archive, observed, set(parsed), "2026-10-02")
+
+    asked = [e for e in events if e["change_type"] == "possible_renumbering"]
+    assert len(asked) == 1
+    assert asked[0]["incident_uid"] == old_uid
+    assert asked[0]["possible_replacement"] == "GEN 99911"
+
+    # Same observation the next day: the question is already on the record.
+    _, events2, _ = commit(archive, observed, set(parsed), "2026-10-03")
+    assert not [e for e in events2 if e["change_type"] == "possible_renumbering"]

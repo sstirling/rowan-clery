@@ -1071,3 +1071,31 @@ def test_the_six_tokens_that_broke_the_2026_11_09_run(category_map, disposition_
     # behaviour, not endorsing it: see the note in METHODOLOGY.md.
     assert set(fondling["flags"]) == {"closed", "unfounded"}
     assert set(fondling["superseded_flags"]) == {"not_reported_to_rupd", "referred_university"}
+
+
+def test_the_two_tokens_that_broke_the_2026_11_11_run(category_map, disposition_map):
+    """One Nature token and one Disposition token, both from October rows.
+
+    Both are wording variants of entries already in the maps, and neither needed a new
+    editorial call.
+    """
+    # GEN 88817 -- "Domestic Violence, Harassment, Stalking", comma-fused. The same three
+    # offenses already arrive together inside a five-offense token on RUPD 26-035474/
+    # CSA 88642, and "Harassment, Stalking" is mapped as a pair, so the only new thing
+    # here is the combination.
+    assert set(
+        normalize.categorize(
+            "Domestic Violence, Harassment, Stalking", category_map, strict=True
+        )["categories"]
+    ) == {"Domestic violence", "Harassment", "Stalking"}
+    # Stalking stays its own category rather than folding into Harassment: it is a
+    # separate VAWA offense that Clery requires be counted separately.
+    assert normalize.categorize("Stalking", category_map, strict=True)["categories"] == ["Stalking"]
+
+    # RUPD 26-036073 -- "Reporting parties provided with citizens complaint info." The
+    # third wording of one outcome, after the singular and plural forms with the
+    # apostrophe. fold_token drops the trailing period but cannot add "with" or remove an
+    # apostrophe, so the variant needs its own row.
+    assert normalize.disposition_flags(
+        "Reporting parties provided with citizens complaint info.", disposition_map, strict=True
+    )["flags"] == ["rp_referred_to_complaint"]
