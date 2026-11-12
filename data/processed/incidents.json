@@ -16,7 +16,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 375,
+   "incidents": 378,
    "months_covered": 4,
    "months": [
     "2026-08",
@@ -46,7 +46,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 361,
+   "incidents": 364,
    "months_covered": 4,
    "months": [
     "2026-08",
@@ -64,8 +64,8 @@
   "default": "occurred",
   "window_start": "2026-06",
   "window_start_label": "June 2026",
-  "total": 412,
-  "shown": 395,
+  "total": 415,
+  "shown": 398,
   "excluded_no_date": 8,
   "excluded_before_window": 9,
   "lag_median_days": {
@@ -74,21 +74,21 @@
    "RUPD": 0.0
   }
  },
- "generated_utc": "2026-11-12T02:19:02+00:00",
+ "generated_utc": "2026-11-12T17:38:52+00:00",
  "archive_started": "2026-10-01",
  "source_folder": "https://drive.google.com/drive/folders/1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
  "published_era": {
   "id": "drive-2026",
   "label": "Google Sheets on Drive",
-  "count": 424,
+  "count": 427,
   "since": "June 2026"
  },
  "counts": {
-  "total_archived": 424,
-  "currently_published": 372,
+  "total_archived": 427,
+  "currently_published": 375,
   "no_longer_published": 40,
   "superseded": 12,
-  "distinct_incidents": 412,
+  "distinct_incidents": 415,
   "withdrawn": 3,
   "source_removed": 37
  },
@@ -107,8 +107,8 @@
   "window_days": 7,
   "since": "2026-11-05",
   "until": "2026-11-12",
-  "added": 34,
-  "amended": 5,
+  "added": 37,
+  "amended": 7,
   "withdrawn": 3,
   "aged_out": 23,
   "runs_in_window": 8,
@@ -900,10 +900,10 @@
    "campus_raw": "Glassboro",
    "era": "drive-2026",
    "location": "Campus",
-   "disposition_raw": "Open/Active; Trespassing warning issued",
+   "disposition_raw": "Closed; Reporting party declined police involvement",
    "disposition_flags": [
-    "open_active",
-    "trespass_notice"
+    "closed",
+    "rp_declined"
    ],
    "disposition_amended": false,
    "month": "November 2026",
@@ -914,7 +914,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-11-11",
    "last_verified": "2026-11-12",
    "missing_since": "",
@@ -9546,6 +9546,59 @@
    "flags": []
   },
   {
+   "uid": "66736b64cdb71618",
+   "case_number": "RUPD 26-036793",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-11-05T21:59:00",
+    "precision": "minute",
+    "raw": "11/5/26 21:59",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-11-05T19:00:00",
+    "precision": "minute",
+    "raw": "11/5/26 19:00",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 2.98,
+   "nature_raw": "Motor Vehicle Theft (Electric Scooter), Theft",
+   "categories": [
+    "Motor vehicle theft",
+    "Theft"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to RUPD that their E-scooter was stolen.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Outside of Campbell Library",
+   "disposition_raw": "Open/Active",
+   "disposition_flags": [
+    "open_active"
+   ],
+   "disposition_amended": false,
+   "month": "November 2026",
+   "month_key": "2026-11",
+   "school_year": "2026-27",
+   "occurred_month": "November 2026",
+   "occurred_month_key": "2026-11",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-11-12",
+   "last_verified": "2026-11-12",
+   "missing_since": "",
+   "flags": []
+  },
+  {
    "uid": "667dd5a76992fe65",
    "case_number": "RUPD 26-029039",
    "agencies": [
@@ -10611,6 +10664,61 @@
    "flags": []
   },
   {
+   "uid": "73247022eb4e824c",
+   "case_number": "RUPD 26-037314/ CSA 89416",
+   "agencies": [
+    "RUPD",
+    "CSA"
+   ],
+   "reported": {
+    "value": "2026-11-10T13:31:00",
+    "precision": "minute",
+    "raw": "11/10/26 13:31",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-11-09",
+    "precision": "day",
+    "raw": "11/9/26 Unk.",
+    "ongoing": false
+   },
+   "reporting_lag_hours": null,
+   "nature_raw": "Harassment; Domestic Violence (roommates)",
+   "categories": [
+    "Harassment",
+    "Domestic violence"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Students reported to RUPD that a roommate made threats during an argument.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "114 Victoria St. Apts.",
+   "disposition_raw": "Closed; Reporting parties declined police involvement; Addressed by University Department",
+   "disposition_flags": [
+    "closed",
+    "rp_declined",
+    "referred_university"
+   ],
+   "disposition_amended": false,
+   "month": "November 2026",
+   "month_key": "2026-11",
+   "school_year": "2026-27",
+   "occurred_month": "November 2026",
+   "occurred_month_key": "2026-11",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-11-12",
+   "last_verified": "2026-11-12",
+   "missing_since": "",
+   "flags": []
+  },
+  {
    "uid": "737b6335ff6480d7",
    "case_number": "RUPD 26-029714/ CSA 86578",
    "agencies": [
@@ -10705,7 +10813,7 @@
    "campus_raw": "Glassboro",
    "era": "drive-2026",
    "location": "Outside of 114 Victoria St. Apts.",
-   "disposition_raw": "Closed; Subject issued building trespass warning; Addresses by University Department",
+   "disposition_raw": "Closed; Subject issued building trespass warning; Addressed by University Department",
    "disposition_flags": [
     "closed",
     "trespass_notice",
@@ -10720,7 +10828,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-11-06",
    "last_verified": "2026-11-12",
    "missing_since": "",
@@ -17705,6 +17813,58 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-09",
+   "last_verified": "2026-11-12",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "c45ab5e2a55b4943",
+   "case_number": "RUPD 26-037236",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-11-09T23:03:00",
+    "precision": "minute",
+    "raw": "11/9/26 23:03",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-11-09T23:03:00",
+    "precision": "minute",
+    "raw": "11/9/26 23:03",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 0.0,
+   "nature_raw": "Motor Vehicle Theft (Electric Scooter)",
+   "categories": [
+    "Motor vehicle theft"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to RUPD that their E-scooter was stolen.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Mimosa Hall",
+   "disposition_raw": "Open/Active",
+   "disposition_flags": [
+    "open_active"
+   ],
+   "disposition_amended": false,
+   "month": "November 2026",
+   "month_key": "2026-11",
+   "school_year": "2026-27",
+   "occurred_month": "November 2026",
+   "occurred_month_key": "2026-11",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-11-12",
    "last_verified": "2026-11-12",
    "missing_since": "",
    "flags": []
@@ -27609,6 +27769,50 @@
    "incident_uid": "9bbb0b58e2bc5f02",
    "nature": "Disorderly conduct",
    "observed_date": "2026-11-11"
+  },
+  {
+   "case_number": "RUPD 26-037197/ CSA 89297",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "disposition_raw",
+   "incident_uid": "081bb25d4f0014c6",
+   "new": "Closed; Reporting party declined police involvement",
+   "observed_date": "2026-11-12",
+   "old": "Open/Active; Trespassing warning issued"
+  },
+  {
+   "case_number": "RUPD 26-036423/ GEN 88993/ CSA 88994, 89155",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "disposition_raw",
+   "incident_uid": "73c1f88b19ac3329",
+   "new": "Closed; Subject issued building trespass warning; Addressed by University Department",
+   "observed_date": "2026-11-12",
+   "old": "Closed; Subject issued building trespass warning; Addresses by University Department"
+  },
+  {
+   "case_number": "RUPD 26-036793",
+   "change_type": "added",
+   "date_reported": "11/5/26 21:59",
+   "incident_uid": "66736b64cdb71618",
+   "nature": "Motor Vehicle Theft (Electric Scooter), Theft",
+   "observed_date": "2026-11-12"
+  },
+  {
+   "case_number": "RUPD 26-037236",
+   "change_type": "added",
+   "date_reported": "11/9/26 23:03",
+   "incident_uid": "c45ab5e2a55b4943",
+   "nature": "Motor Vehicle Theft (Electric Scooter)",
+   "observed_date": "2026-11-12"
+  },
+  {
+   "case_number": "RUPD 26-037314/ CSA 89416",
+   "change_type": "added",
+   "date_reported": "11/10/26 13:31",
+   "incident_uid": "73247022eb4e824c",
+   "nature": "Harassment; Domestic Violence (roommates)",
+   "observed_date": "2026-11-12"
   }
  ],
  "quality": {
@@ -27707,6 +27911,12 @@
     "uid": "58acd5e07b5fbfc7",
     "case_number": "CSA 87818",
     "raw": "10/8/26 Unk.",
+    "precision": "day"
+   },
+   {
+    "uid": "73247022eb4e824c",
+    "case_number": "RUPD 26-037314/ CSA 89416",
+    "raw": "11/9/26 Unk.",
     "precision": "day"
    },
    {
@@ -27921,10 +28131,14 @@
    },
    {
     "value": "Theft",
-    "count": 43
+    "count": 44
    },
    {
     "value": "Trespassing",
+    "count": 31
+   },
+   {
+    "value": "Motor vehicle theft",
     "count": 31
    },
    {
@@ -27932,12 +28146,8 @@
     "count": 30
    },
    {
-    "value": "Motor vehicle theft",
-    "count": 29
-   },
-   {
     "value": "Harassment",
-    "count": 27
+    "count": 28
    },
    {
     "value": "Simple assault",
@@ -27953,7 +28163,7 @@
    },
    {
     "value": "Domestic violence",
-    "count": 22
+    "count": 23
    },
    {
     "value": "Littering",
@@ -28059,7 +28269,7 @@
   "school_years": [
    {
     "value": "2026-27",
-    "count": 375
+    "count": 378
    },
    {
     "value": "2025-26",
@@ -28069,7 +28279,7 @@
   "campuses": [
    {
     "value": "Glassboro",
-    "count": 403
+    "count": 406
    },
    {
     "value": "Rowan-Virtua SOM (Stratford)",
@@ -28095,7 +28305,7 @@
    },
    {
     "value": "November 2026",
-    "count": 32
+    "count": 35
    },
    {
     "value": "July 2026",
@@ -28148,15 +28358,15 @@
     "count": 7
    },
    {
+    "value": "114 Victoria St. Apts.",
+    "count": 6
+   },
+   {
     "value": "Rowan Blvd./ Victoria St.",
     "count": 5
    },
    {
     "value": "Normal Blvd./ Carpenter St.",
-    "count": 5
-   },
-   {
-    "value": "114 Victoria St. Apts.",
     "count": 5
    },
    {
@@ -28261,6 +28471,10 @@
    },
    {
     "value": "Redmond Ave.",
+    "count": 2
+   },
+   {
+    "value": "Mimosa Hall",
     "count": 2
    },
    {
@@ -28472,10 +28686,6 @@
     "count": 1
    },
    {
-    "value": "Mimosa Hall",
-    "count": 1
-   },
-   {
     "value": "57 N. Main St. Apts./ Mick Dr. parking garage",
     "count": 1
    },
@@ -28573,6 +28783,10 @@
    },
    {
     "value": "Outside of Wilson Hall",
+    "count": 1
+   },
+   {
+    "value": "Outside of Campbell Library",
     "count": 1
    },
    {
@@ -28911,7 +29125,7 @@
   "disposition_flags": [
    {
     "value": "closed",
-    "count": 190
+    "count": 192
    },
    {
     "value": "summons_issued",
@@ -28927,15 +29141,15 @@
    },
    {
     "value": "open_active",
-    "count": 41
+    "count": 42
    },
    {
     "value": "trespass_notice",
-    "count": 37
+    "count": 36
    },
    {
     "value": "referred_university",
-    "count": 35
+    "count": 36
    },
    {
     "value": "inactive",
@@ -28943,7 +29157,7 @@
    },
    {
     "value": "rp_declined",
-    "count": 23
+    "count": 25
    },
    {
     "value": "not_reported_to_rupd",
@@ -29025,7 +29239,7 @@
   "agencies": [
    {
     "value": "RUPD",
-    "count": 253
+    "count": 256
    },
    {
     "value": "GPD",
@@ -29033,7 +29247,7 @@
    },
    {
     "value": "CSA",
-    "count": 66
+    "count": 67
    },
    {
     "value": "GEN",
@@ -29043,7 +29257,7 @@
   "statuses": [
    {
     "value": "active",
-    "count": 372
+    "count": 375
    },
    {
     "value": "source_removed",
@@ -29242,7 +29456,7 @@
   },
   {
    "date": "2026-11-12",
-   "summary": "+0 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
+   "summary": "+3 added, 2 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
    "alarms": 1
   }
  ]
