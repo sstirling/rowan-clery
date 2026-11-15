@@ -10,7 +10,7 @@
       "name": "November 2026 Daily Crime Log",
       "rows": 38,
       "sha256": "0a84ac7832cf31898ab04baf0b787800a598d7bc09bc1d19e0b3792595740ea7",
-      "snapshot_written": true,
+      "snapshot_written": false,
       "status": "ok"
     },
     "1HULCgv9mk7XMkfC2DKkBaOUm5rA00aVfO83lU9489p0": {
@@ -49,21 +49,21 @@
     "status": "ok"
   },
   "merge": {
-    "added": 4,
+    "added": 0,
     "amended": 0,
-    "changed": true,
+    "changed": false,
     "missing": 0,
     "quarantined": [],
     "reappeared": 0,
     "relocated": 0,
     "source_removed": 0,
     "superseded": 0,
-    "unchanged": 375,
+    "unchanged": 379,
     "unfetched": [],
     "warnings": [],
     "withdrawn": 0
   },
-  "summary": "+4 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
+  "summary": "+0 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
   "warnings": [
     "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']"
   ]
