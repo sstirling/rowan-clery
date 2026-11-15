@@ -1099,3 +1099,43 @@ def test_the_two_tokens_that_broke_the_2026_11_11_run(category_map, disposition_
     assert normalize.disposition_flags(
         "Reporting parties provided with citizens complaint info.", disposition_map, strict=True
     )["flags"] == ["rp_referred_to_complaint"]
+
+
+def test_the_two_tokens_that_broke_the_2026_11_14_run(category_map, disposition_map):
+    """Both tokens come from one row: RUPD 26-037406/ CSA 89543, a domestic
+    violence arrest at an off-campus apartment on 11/11/26.
+
+    Neither needed a new editorial call. Both are settled by entries already in
+    the maps -- one by a shortened statutory label, one by an "and" fusion.
+    """
+    # The Nature cell is a clean semicolon triple, so the two mapped offenses tokenize
+    # fine and only "Weapons Law" was absent. Asserting the whole cell keeps the other
+    # two pinned: a weapon charge must not swallow the false imprisonment count.
+    assert set(
+        normalize.categorize(
+            "Domestic Violence; False Imprisonment; Weapons Law", category_map, strict=True
+        )["categories"]
+    ) == {"Domestic violence", "False imprisonment", "Weapons offense"}
+    # "Weapons Law Violation" is already mapped. This is the same statutory label with
+    # the last word dropped, and fold_token only normalizes case, whitespace and a
+    # trailing period -- it cannot remove a word -- so the shorter form needs its own row.
+    assert normalize.categorize("Weapons Law", category_map, strict=True)["categories"] == [
+        "Weapons offense"
+    ]
+
+    # "Closed; Non-student arrested and trespass notice issued" -- two outcomes fused
+    # with "and", like "subject issued citation and trespass warning" before it. Both
+    # halves are already mapped standalone ("non-student arrested", "trespass notice
+    # issued"), so the fusion is the only new thing.
+    assert normalize.disposition_flags(
+        "Closed; Non-student arrested and trespass notice issued", disposition_map, strict=True
+    )["flags"] == ["closed", "arrested", "trespass_notice"]
+    # The affiliation is deliberately absent from the flags. student_flag is derived
+    # separately, and a non_student_arrested flag would split one outcome across two
+    # series and undercount arrests in both -- the same reasoning recorded at
+    # "non-student arrested" and "student arrested" in the map.
+    assert normalize.disposition_flags(
+        "Non-student arrested and trespass notice issued", disposition_map, strict=True
+    )["flags"] == normalize.disposition_flags(
+        "Subject arrested; Trespass notice issued", disposition_map, strict=True
+    )["flags"]

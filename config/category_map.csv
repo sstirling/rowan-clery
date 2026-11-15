@@ -531,3 +531,11 @@ Possession of open alcohol container,offense,Alcohol violation,"Same offense as 
 # it as a VAWA offense separately from Harassment, so folding the two would undercount
 # one series and inflate the other.
 "Domestic Violence, Harassment, Stalking",offense,Domestic violence|Harassment|Stalking,Single token naming three offenses
+#
+# Added 2026-11-14. One token, from a November row (RUPD 26-037406/ CSA 89543, logged
+# "Domestic Violence; False Imprisonment; Weapons Law").
+#
+# "Weapons Law Violation" is already mapped above. This is the same statutory label with
+# the last word dropped; fold_token normalizes case, whitespace and a trailing period but
+# cannot remove a word, so the shorter form needs its own row.
+Weapons Law,offense,Weapons offense,Shortened form of "Weapons Law Violation" above

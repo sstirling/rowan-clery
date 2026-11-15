@@ -369,3 +369,13 @@ subject referred to dean of students,outcome,referred_university,
 # info" and its plural. fold_token drops the trailing period but cannot insert "with" or
 # restore an apostrophe, so the variant needs its own row.
 reporting parties provided with citizens complaint info,outcome,rp_referred_to_complaint,Third wording of the citizen's-complaint outcome
+#
+# Added 2026-11-14. One token, from the same November row (RUPD 26-037406/ CSA 89543,
+# logged "Closed; Non-student arrested and trespass notice issued").
+#
+# Two outcomes fused with "and", like "subject issued citation and trespass warning" and
+# "subject issued summons and trespass notice" above. Both halves are already mapped
+# standalone. The affiliation stays out of the flags for the reason recorded at
+# "non-student arrested" and "student arrested": student_flag is derived separately, and
+# splitting arrests by affiliation would undercount the series on both sides.
+non-student arrested and trespass notice issued,outcome,arrested|trespass_notice,Single token naming two outcomes

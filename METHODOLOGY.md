@@ -378,12 +378,12 @@ The archive's integrity rests on never mistaking a fetch failure for a deletion.
 Regenerated from the archive every run; delete `data/processed/` and it rebuilds
 identically.
 
-- **Offenses** are mapped token-by-token via `config/category_map.csv` — 289 distinct
+- **Offenses** are mapped token-by-token via `config/category_map.csv` — 290 distinct
   tokens across both publication eras, resolving to 44 canonical categories as of
-  2026-11-11. Expect both figures to climb: Rowan types these cells by hand, so new
+  2026-11-14. Expect both figures to climb: Rowan types these cells by hand, so new
   wordings arrive about monthly. An unmapped token **fails the build** rather than
   falling into a silent "Other" bucket. Dispositions work the same way through
-  `config/disposition_map.csv` (125 tokens → 31 outcome flags).
+  `config/disposition_map.csv` (126 tokens → 31 outcome flags).
 - **Token lookup ignores capitalisation and spacing.** Rowan types these cells by hand,
   so the same offense arrives as `Improper Behavior` one month and `Improper behavior`
   the next. Tokens are folded (whitespace collapsed, lowercased, trailing period
