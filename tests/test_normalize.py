@@ -1139,3 +1139,49 @@ def test_the_two_tokens_that_broke_the_2026_11_14_run(category_map, disposition_
     )["flags"] == normalize.disposition_flags(
         "Subject arrested; Trespass notice issued", disposition_map, strict=True
     )["flags"]
+
+
+def test_the_three_tokens_that_broke_the_2026_11_17_run(category_map, disposition_map):
+    """One Nature token and two dispositions, from three different rows across
+    two months. The traceback named one.
+
+    All three are settled by entries already in the maps: a weapons offense
+    written as a sentence, a missing semicolon, and a fourth spelling of the
+    citizen's-complaint outcome.
+    """
+    # RUPD 26-037722 -- "Possession of an illegal weapon". Narrative: RUPD arrested a
+    # non-student carrying metal knuckles, which New Jersey prohibits outright
+    # (N.J.S.A. 2C:39-3e). Same offense as "Weapons Law Violation" and its
+    # spring-loaded-knife variant above, written as a sentence instead of a statute name.
+    assert normalize.categorize(
+        "Possession of an illegal weapon", category_map, strict=True
+    )["categories"] == ["Weapons offense"]
+
+    # RUPD 26-031375 -- "Open/Active; Updated; Closed Three non-student juveniles
+    # charged". The semicolon after "Closed" is missing, exactly as in "closed two
+    # non-student juveniles charged" from 2026-10-14, so the count word is the only
+    # difference. juvenile_involved comes from the token's own wording; the affiliation
+    # does not become a flag, for the reason recorded at "non-student arrested".
+    assert normalize.disposition_flags(
+        "Closed Three non-student juveniles charged", disposition_map, strict=True
+    )["flags"] == ["closed", "charged", "juvenile_involved"]
+    # "Updated" is an audit marker, so the whole cell splits there: Open/Active is
+    # superseded and the charge is the standing outcome. Pinned because a positional
+    # split is easy to break.
+    whole = normalize.disposition_flags(
+        "Open/Active; Updated; Closed Three non-student juveniles charged",
+        disposition_map,
+        strict=True,
+    )
+    assert whole["flags"] == ["closed", "charged", "juvenile_involved"]
+    assert "open_active" not in whole["flags"]
+
+    # RUPD 26-037996/ CSA 89741, 89747 -- "Reporting parties provided with citizen's
+    # complaint info." The fourth spelling of one outcome. The apostrophe-less form of
+    # this exact phrasing was mapped on 2026-11-11; fold_token cannot add or remove an
+    # apostrophe, so each spelling needs its own row.
+    assert normalize.disposition_flags(
+        "Reporting parties provided with citizen's complaint info.",
+        disposition_map,
+        strict=True,
+    )["flags"] == ["rp_referred_to_complaint"]

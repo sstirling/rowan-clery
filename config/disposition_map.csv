@@ -379,3 +379,19 @@ reporting parties provided with citizens complaint info,outcome,rp_referred_to_c
 # "non-student arrested" and "student arrested": student_flag is derived separately, and
 # splitting arrests by affiliation would undercount the series on both sides.
 non-student arrested and trespass notice issued,outcome,arrested|trespass_notice,Single token naming two outcomes
+#
+# Added 2026-11-17. Two tokens, from a September row (RUPD 26-031375) and a November one
+# (RUPD 26-037996/ CSA 89741, 89747).
+#
+# "Open/Active; Updated; Closed Three non-student juveniles charged" -- the semicolon
+# after "Closed" is missing, exactly as in "closed two non-student juveniles charged"
+# above, so the count word is the only difference. `juvenile_involved` comes from the
+# token's own wording. The affiliation does not become a flag, for the reason recorded at
+# "non-student arrested" and "student arrested".
+closed three non-student juveniles charged,outcome,closed|charged|juvenile_involved,Missing semicolon in the source
+#
+# "Closed; Reporting parties provided with citizen's complaint info.; Addressed by
+# University Department" -- the fourth spelling of one outcome, and the apostrophe form
+# of the "provided with" phrasing mapped on 2026-11-11. fold_token drops a trailing
+# period but cannot add or remove an apostrophe, so each spelling needs its own row.
+reporting parties provided with citizen's complaint info,outcome,rp_referred_to_complaint,Fourth wording of the citizen's-complaint outcome
