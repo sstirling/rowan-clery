@@ -2,15 +2,15 @@
   "alarms": [
     "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 41 runs — treating the source file as removed. Its rows are preserved in full."
   ],
-  "archive_rows": 2608,
+  "archive_rows": 2610,
   "date": "2026-11-18",
   "files": {
     "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o": {
       "month": "November 2026",
       "name": "November 2026 Daily Crime Log",
-      "rows": 47,
-      "sha256": "2817db81b7c9e7a2cde599217af993835f2ce4b6039b11835f1cb40bfbd25119",
-      "snapshot_written": false,
+      "rows": 49,
+      "sha256": "e37147ad9d538905ce66cc78066afe49d4873b01cb9f8b4eb11f3227c5587e8a",
+      "snapshot_written": true,
       "status": "ok"
     },
     "1HULCgv9mk7XMkfC2DKkBaOUm5rA00aVfO83lU9489p0": {
@@ -49,9 +49,9 @@
     "status": "ok"
   },
   "merge": {
-    "added": 0,
+    "added": 2,
     "amended": 0,
-    "changed": false,
+    "changed": true,
     "missing": 0,
     "quarantined": [],
     "reappeared": 0,
@@ -63,7 +63,7 @@
     "warnings": [],
     "withdrawn": 0
   },
-  "summary": "+0 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
+  "summary": "+2 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
   "warnings": [
     "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']"
   ]

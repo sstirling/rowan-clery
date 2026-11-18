@@ -16,7 +16,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 391,
+   "incidents": 393,
    "months_covered": 4,
    "months": [
     "2026-08",
@@ -46,7 +46,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 376,
+   "incidents": 378,
    "months_covered": 4,
    "months": [
     "2026-08",
@@ -64,8 +64,8 @@
   "default": "occurred",
   "window_start": "2026-06",
   "window_start_label": "June 2026",
-  "total": 428,
-  "shown": 410,
+  "total": 430,
+  "shown": 412,
   "excluded_no_date": 9,
   "excluded_before_window": 9,
   "lag_median_days": {
@@ -74,21 +74,21 @@
    "RUPD": 0.0
   }
  },
- "generated_utc": "2026-11-18T02:57:33+00:00",
+ "generated_utc": "2026-11-18T18:07:54+00:00",
  "archive_started": "2026-10-01",
  "source_folder": "https://drive.google.com/drive/folders/1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
  "published_era": {
   "id": "drive-2026",
   "label": "Google Sheets on Drive",
-  "count": 441,
+  "count": 443,
   "since": "June 2026"
  },
  "counts": {
-  "total_archived": 441,
-  "currently_published": 388,
+  "total_archived": 443,
+  "currently_published": 390,
   "no_longer_published": 40,
   "superseded": 13,
-  "distinct_incidents": 428,
+  "distinct_incidents": 430,
   "withdrawn": 3,
   "source_removed": 37
  },
@@ -107,7 +107,7 @@
   "window_days": 7,
   "since": "2026-11-11",
   "until": "2026-11-18",
-  "added": 21,
+  "added": 23,
   "amended": 6,
   "withdrawn": 0,
   "aged_out": 0,
@@ -6535,6 +6535,58 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-01",
+   "last_verified": "2026-11-18",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "489750a8a383af62",
+   "case_number": "RUPD 26-038115/ CSA 89754, 89765",
+   "agencies": [
+    "RUPD",
+    "CSA"
+   ],
+   "reported": {
+    "value": "2026-11-17T12:41:00",
+    "precision": "minute",
+    "raw": "11/17/26 12:41",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-11-17",
+    "precision": "day",
+    "raw": "11/17/26 Unk.",
+    "ongoing": false
+   },
+   "reporting_lag_hours": null,
+   "nature_raw": "Criminal Mischief",
+   "categories": [
+    "Criminal mischief"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Students reported to RUPD that someone entered their room and urinated on carpet.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Chestnut Hall",
+   "disposition_raw": "Open/Active",
+   "disposition_flags": [
+    "open_active"
+   ],
+   "disposition_amended": false,
+   "month": "November 2026",
+   "month_key": "2026-11",
+   "school_year": "2026-27",
+   "occurred_month": "November 2026",
+   "occurred_month_key": "2026-11",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-11-18",
    "last_verified": "2026-11-18",
    "missing_since": "",
    "flags": []
@@ -18988,6 +19040,58 @@
    "flags": []
   },
   {
+   "uid": "cccf27340618fa2f",
+   "case_number": "RUPD 26-038127",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-11-17T14:58:00",
+    "precision": "minute",
+    "raw": "11/17/26 14:58",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-11-11T14:30:00",
+    "precision": "minute",
+    "raw": "11/11/26 14:30",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 144.47,
+   "nature_raw": "Fraud",
+   "categories": [
+    "Fraud"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "Student reported to RUPD that an unknown individual used a fraudulent check to have them transfer money.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Rowan Blvd. Apts./ Online",
+   "disposition_raw": "Open/Active",
+   "disposition_flags": [
+    "open_active"
+   ],
+   "disposition_amended": false,
+   "month": "November 2026",
+   "month_key": "2026-11",
+   "school_year": "2026-27",
+   "occurred_month": "November 2026",
+   "occurred_month_key": "2026-11",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-11-18",
+   "last_verified": "2026-11-18",
+   "missing_since": "",
+   "flags": []
+  },
+  {
    "uid": "ce88d6e7f03c4811",
    "case_number": "RUPD 26-031400",
    "agencies": [
@@ -28711,6 +28815,22 @@
    "incident_uid": "495da8820c54b655",
    "nature": "Sexual Assault-Rape; Nature Updated; Domestic violence",
    "observed_date": "2026-11-17"
+  },
+  {
+   "case_number": "RUPD 26-038115/ CSA 89754, 89765",
+   "change_type": "added",
+   "date_reported": "11/17/26 12:41",
+   "incident_uid": "489750a8a383af62",
+   "nature": "Criminal Mischief",
+   "observed_date": "2026-11-18"
+  },
+  {
+   "case_number": "RUPD 26-038127",
+   "change_type": "added",
+   "date_reported": "11/17/26 14:58",
+   "incident_uid": "cccf27340618fa2f",
+   "nature": "Fraud",
+   "observed_date": "2026-11-18"
   }
  ],
  "quality": {
@@ -28797,6 +28917,12 @@
     "uid": "476df2f0291b9231",
     "case_number": "CSA 86737, 86779",
     "raw": "9/17/26 Unk.",
+    "precision": "day"
+   },
+   {
+    "uid": "489750a8a383af62",
+    "case_number": "RUPD 26-038115/ CSA 89754, 89765",
+    "raw": "11/17/26 Unk.",
     "precision": "day"
    },
    {
@@ -29064,15 +29190,15 @@
     "count": 28
    },
    {
+    "value": "Criminal mischief",
+    "count": 28
+   },
+   {
     "value": "Domestic violence",
     "count": 27
    },
    {
     "value": "Simple assault",
-    "count": 27
-   },
-   {
-    "value": "Criminal mischief",
     "count": 27
    },
    {
@@ -29124,12 +29250,12 @@
     "count": 5
    },
    {
-    "value": "Sextortion",
+    "value": "Fraud",
     "count": 4
    },
    {
-    "value": "Fraud",
-    "count": 3
+    "value": "Sextortion",
+    "count": 4
    },
    {
     "value": "Providing false identification",
@@ -29187,7 +29313,7 @@
   "school_years": [
    {
     "value": "2026-27",
-    "count": 391
+    "count": 393
    },
    {
     "value": "2025-26",
@@ -29197,7 +29323,7 @@
   "campuses": [
    {
     "value": "Glassboro",
-    "count": 419
+    "count": 421
    },
    {
     "value": "Rowan-Virtua SOM (Stratford)",
@@ -29219,7 +29345,7 @@
    },
    {
     "value": "November 2026",
-    "count": 48
+    "count": 50
    },
    {
     "value": "August 2026",
@@ -29288,6 +29414,10 @@
     "count": 5
    },
    {
+    "value": "Chestnut Hall",
+    "count": 5
+   },
+   {
     "value": "Outside of Whitney Center",
     "count": 5
    },
@@ -29321,10 +29451,6 @@
    },
    {
     "value": "N. Main St./ West St.",
-    "count": 4
-   },
-   {
-    "value": "Chestnut Hall",
     "count": 4
    },
    {
@@ -29932,6 +30058,10 @@
     "count": 1
    },
    {
+    "value": "Rowan Blvd. Apts./ Online",
+    "count": 1
+   },
+   {
     "value": "Online; Holly Pointe Commons",
     "count": 1
    },
@@ -30067,7 +30197,7 @@
    },
    {
     "value": "open_active",
-    "count": 46
+    "count": 48
    },
    {
     "value": "trespass_notice",
@@ -30165,7 +30295,7 @@
   "agencies": [
    {
     "value": "RUPD",
-    "count": 269
+    "count": 271
    },
    {
     "value": "GPD",
@@ -30173,7 +30303,7 @@
    },
    {
     "value": "CSA",
-    "count": 71
+    "count": 72
    },
    {
     "value": "GEN",
@@ -30183,7 +30313,7 @@
   "statuses": [
    {
     "value": "active",
-    "count": 388
+    "count": 390
    },
    {
     "value": "source_removed",
@@ -30402,7 +30532,7 @@
   },
   {
    "date": "2026-11-18",
-   "summary": "+0 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
+   "summary": "+2 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
    "alarms": 1
   }
  ]
