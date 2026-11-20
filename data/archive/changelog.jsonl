@@ -2900,3 +2900,4 @@
 {"case_number": "GPD 26-037028", "change_type": "missing", "confirmations": 1, "incident_uid": "5fce23f54365a012", "missing_since": "2026-11-19", "observed_date": "2026-11-19"}
 {"case_number": "GPD 26-037028", "change_type": "amended", "cosmetic": false, "field": "narrative_raw", "incident_uid": "dced3b2e6b4c9665", "new": "GPD issued a summons to two non-student for public urination.", "observed_date": "2026-11-19", "old": "GPD issued a summons to a non-student for public urination."}
 {"case_number": "GPD 26-037028", "change_type": "amended", "cosmetic": false, "field": "disposition_raw", "incident_uid": "dced3b2e6b4c9665", "new": "Glassboro Police Case; Subjects issued summons", "observed_date": "2026-11-19", "old": "Glassboro Police Case; Subject issued summons"}
+{"case_number": "GPD 26-037028", "change_type": "missing", "confirmations": 2, "incident_uid": "5fce23f54365a012", "missing_since": "2026-11-19", "observed_date": "2026-11-20"}
