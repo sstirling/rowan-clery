@@ -9,8 +9,8 @@
       "month": "November 2026",
       "name": "November 2026 Daily Crime Log",
       "rows": 49,
-      "sha256": "e37147ad9d538905ce66cc78066afe49d4873b01cb9f8b4eb11f3227c5587e8a",
-      "snapshot_written": false,
+      "sha256": "bd8242a0fc590f2f92821fe42140b257ee021e5c1021f9667369b1697cd6b8ce",
+      "snapshot_written": true,
       "status": "ok"
     },
     "1HULCgv9mk7XMkfC2DKkBaOUm5rA00aVfO83lU9489p0": {
@@ -38,8 +38,8 @@
       "month": "October 2026",
       "name": "October 2026 Daily Crime Log",
       "rows": 188,
-      "sha256": "e8b516f1a72f29c2fba51102a4219787772e5303c593e5f99ac0ede9bfba848f",
-      "snapshot_written": false,
+      "sha256": "e371f5aa597567a5c0dabff618bf3161d6d54d3e0c202f5e755846a8d61ea4d1",
+      "snapshot_written": true,
       "status": "ok"
     }
   },
@@ -50,22 +50,22 @@
   },
   "merge": {
     "added": 0,
-    "amended": 0,
-    "changed": false,
-    "missing": 1,
+    "amended": 3,
+    "changed": true,
+    "missing": 0,
     "quarantined": [],
     "reappeared": 0,
     "relocated": 0,
     "source_removed": 0,
     "superseded": 0,
-    "unchanged": 389,
+    "unchanged": 386,
     "unfetched": [],
     "warnings": [
       "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: 1 row(s) absent — advancing confirmation ladder"
     ],
     "withdrawn": 0
   },
-  "summary": "+0 added, 0 amended, 1 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
+  "summary": "+0 added, 3 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
   "warnings": [
     "1 pinned file(s) absent from the listing: ['1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE']",
     "1vVeupKAr-Wj6BYogmaOTPjmWvF1zR_I5u9lJsD73p3I: 1 row(s) absent — advancing confirmation ladder"

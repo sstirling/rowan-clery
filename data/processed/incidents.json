@@ -74,7 +74,7 @@
    "RUPD": 0.0
   }
  },
- "generated_utc": "2026-11-20T02:22:12+00:00",
+ "generated_utc": "2026-11-20T17:51:45+00:00",
  "archive_started": "2026-10-01",
  "source_folder": "https://drive.google.com/drive/folders/1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
  "published_era": {
@@ -109,7 +109,7 @@
   "since": "2026-11-13",
   "until": "2026-11-20",
   "added": 16,
-  "amended": 4,
+  "amended": 7,
   "withdrawn": 0,
   "aged_out": 0,
   "runs_in_window": 6,
@@ -6555,12 +6555,13 @@
     "range_end": null
    },
    "occurred": {
-    "value": "2026-11-17",
-    "precision": "day",
-    "raw": "11/17/26 Unk.",
-    "ongoing": false
+    "value": "2026-11-17T01:00:00",
+    "precision": "minute",
+    "raw": "11/17/26 1:00",
+    "ongoing": false,
+    "range_end": null
    },
-   "reporting_lag_hours": null,
+   "reporting_lag_hours": 11.68,
    "nature_raw": "Criminal Mischief",
    "categories": [
     "Criminal mischief"
@@ -6586,7 +6587,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-11-18",
    "last_verified": "2026-11-20",
    "missing_since": "",
@@ -10908,9 +10909,10 @@
    "campus_raw": "Glassboro",
    "era": "drive-2026",
    "location": "Outside of Willow Hall",
-   "disposition_raw": "Open/Active; Disposition updated; Property recovered",
+   "disposition_raw": "Open/Active; Disposition updated; Property recovered; Reporting party declined to pursue",
    "disposition_flags": [
-    "property_recovered"
+    "property_recovered",
+    "rp_declined"
    ],
    "disposition_amended": true,
    "month": "October 2026",
@@ -10921,7 +10923,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 2,
+   "revision": 3,
    "first_seen_by_archive": "2026-10-29",
    "last_verified": "2026-11-20",
    "missing_since": "",
@@ -13687,11 +13689,12 @@
    "campus_raw": "Glassboro",
    "era": "drive-2026",
    "location": "Outside of Holly Pointe Commons",
-   "disposition_raw": "Open/Active",
+   "disposition_raw": "Open/Active; Disposition updated; Closed; Inactive",
    "disposition_flags": [
-    "open_active"
+    "closed",
+    "inactive"
    ],
-   "disposition_amended": false,
+   "disposition_amended": true,
    "month": "October 2026",
    "month_key": "2026-10",
    "school_year": "2026-27",
@@ -13700,7 +13703,7 @@
    "occurred_school_year": "2026-27",
    "occurred_excluded": null,
    "status": "active",
-   "revision": 1,
+   "revision": 2,
    "first_seen_by_archive": "2026-11-02",
    "last_verified": "2026-11-20",
    "missing_since": "",
@@ -28868,6 +28871,36 @@
    "incident_uid": "5fce23f54365a012",
    "missing_since": "2026-11-19",
    "observed_date": "2026-11-20"
+  },
+  {
+   "case_number": "RUPD 26-038115/ CSA 89754, 89765",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "date_occurred_raw",
+   "incident_uid": "489750a8a383af62",
+   "new": "11/17/26 1:00",
+   "observed_date": "2026-11-20",
+   "old": "11/17/26 Unk."
+  },
+  {
+   "case_number": "RUPD 26-034875",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "disposition_raw",
+   "incident_uid": "71f5956961323b06",
+   "new": "Open/Active; Disposition updated; Property recovered; Reporting party declined to pursue",
+   "observed_date": "2026-11-20",
+   "old": "Open/Active; Disposition updated; Property recovered"
+  },
+  {
+   "case_number": "RUPD 26-034768",
+   "change_type": "amended",
+   "cosmetic": false,
+   "field": "disposition_raw",
+   "incident_uid": "8ac36e92dd64696e",
+   "new": "Open/Active; Disposition updated; Closed; Inactive",
+   "observed_date": "2026-11-20",
+   "old": "Open/Active"
   }
  ],
  "quality": {
@@ -28954,12 +28987,6 @@
     "uid": "476df2f0291b9231",
     "case_number": "CSA 86737, 86779",
     "raw": "9/17/26 Unk.",
-    "precision": "day"
-   },
-   {
-    "uid": "489750a8a383af62",
-    "case_number": "RUPD 26-038115/ CSA 89754, 89765",
-    "raw": "11/17/26 Unk.",
     "precision": "day"
    },
    {
@@ -30218,7 +30245,7 @@
   "disposition_flags": [
    {
     "value": "closed",
-    "count": 197
+    "count": 198
    },
    {
     "value": "summons_issued",
@@ -30234,7 +30261,7 @@
    },
    {
     "value": "open_active",
-    "count": 48
+    "count": 47
    },
    {
     "value": "trespass_notice",
@@ -30246,11 +30273,11 @@
    },
    {
     "value": "inactive",
-    "count": 29
+    "count": 30
    },
    {
     "value": "rp_declined",
-    "count": 26
+    "count": 27
    },
    {
     "value": "not_reported_to_rupd",
@@ -30583,7 +30610,7 @@
   },
   {
    "date": "2026-11-20",
-   "summary": "+0 added, 0 amended, 1 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
+   "summary": "+0 added, 3 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
    "alarms": 1
   }
  ]
