@@ -549,3 +549,13 @@ Weapons Law,offense,Weapons offense,Shortened form of "Weapons Law Violation" ab
 # `offense`, not `object` like "Knife" above: the possession IS the charge here, where
 # "Knife" appears in rows where a knife was stolen or found.
 Possession of an illegal weapon,offense,Weapons offense,"Sentence form of ""Weapons Law Violation"" above; metal knuckles"
+#
+# Added 2026-11-24. One token, on two November rows (RUPD 26-038127 and RUPD 26-038492,
+# both logged "Fraud, Theft").
+#
+# Comma-fused, like the other comma-fused multi-offense tokens above. Both halves are
+# already mapped standalone. Two categories rather than one: the deception and the loss
+# are separate Clery counts, not one offense described twice. Both rows are the same
+# scam -- a student induced to transfer money against a fraudulent check -- reported
+# three days apart.
+"Fraud, Theft",offense,Fraud|Theft,Single token naming two offenses

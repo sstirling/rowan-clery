@@ -378,12 +378,12 @@ The archive's integrity rests on never mistaking a fetch failure for a deletion.
 Regenerated from the archive every run; delete `data/processed/` and it rebuilds
 identically.
 
-- **Offenses** are mapped token-by-token via `config/category_map.csv` — 291 distinct
+- **Offenses** are mapped token-by-token via `config/category_map.csv` — 292 distinct
   tokens across both publication eras, resolving to 44 canonical categories as of
-  2026-11-17. Expect both figures to climb: Rowan types these cells by hand, so new
+  2026-11-24. Expect both figures to climb: Rowan types these cells by hand, so new
   wordings arrive about monthly. An unmapped token **fails the build** rather than
   falling into a silent "Other" bucket. Dispositions work the same way through
-  `config/disposition_map.csv` (128 tokens → 31 outcome flags).
+  `config/disposition_map.csv` (130 tokens → 31 outcome flags).
 - **Token lookup ignores capitalisation and spacing.** Rowan types these cells by hand,
   so the same offense arrives as `Improper Behavior` one month and `Improper behavior`
   the next. Tokens are folded (whitespace collapsed, lowercased, trailing period
@@ -463,6 +463,25 @@ listed under "Possible duplicate identities" on the Data & changes page, and **e
 from the finding banner**. A `possible_renumbering` changelog event records the pair once,
 on the run that first raises it, so a reviewer does not have to re-derive which live case
 number the row might have become. Three records sit in that state as of 2026-11-11.
+
+**A fifth cause, found 2026-11-24: the source deleting its own duplicate.** From
+2026-10-31 the October sheet carried `GPD 26-037028` twice, byte-identical but for the
+reported minute (10:25 and 11:15). On 2026-11-19 Rowan deleted the 11:15 copy and, in the
+same edit, widened the survivor from "a non-student" to "two non-student" and from
+`Subject issued summons` to `Subjects issued summons` — one row now accounting for both
+people. The deletion was real; the removal was not, and the absent row had already
+completed the withdrawal ladder and was being published as a compliance finding.
+
+None of the four rules above can catch it, because this is not an identity fork at all:
+the case number is *identical*, only the reported minute differs, so the two rows sit in
+different `(file, reported-time)` buckets and the matcher never compares them. The test is
+simpler. A withdrawn row whose case number still appears on a **live row in the same
+source file** is not a confirmed removal: the incident is still in the log. Such a row is
+flagged `number_still_published`, excluded from the finding banner, and listed under
+"Absent, but the case number is still published" on the Data & changes page. The flag is
+derived at build time, not stored, because it is an inference about the row that has to
+change the moment its twin's status changes. Measured over the whole archive the rule
+catches two rows, and only one of them was being published as a finding.
 
 Quarantine still overrides all of it. A supersession is an inference from absence, and a
 quarantined file's absences are what this archive refuses to read anything into, so

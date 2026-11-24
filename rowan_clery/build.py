@@ -16,6 +16,7 @@ import re
 
 from . import normalize
 from .archive import Archive
+from .parse import normalize_case_number
 
 # The page presents only what Rowan publishes in its current format. The pre-2026 record
 # recovered from the Internet Archive stays in the archive, in data/raw/ and in
@@ -131,6 +132,7 @@ def build(data_dir: pathlib.Path, config_dir: pathlib.Path, today: str | None = 
         "imprecise_occurred": [],
         "reclassified": [],
         "near_duplicates": [],
+        "number_still_published": [],
         "unclassified_offenses": [],
         "unclassified_dispositions": [],
         "duplicate_candidates": [],
@@ -139,6 +141,18 @@ def build(data_dir: pathlib.Path, config_dir: pathlib.Path, today: str | None = 
     }
 
     current_year = int(today[:4])
+
+    # Case numbers that are still live, per source file. A row can go absent because
+    # Rowan deleted a duplicate of it rather than because the record was pulled: in
+    # October the sheet carried GPD 26-037028 twice, byte-identical, and on 2026-11-19
+    # Rowan deleted one copy and in the same edit widened the survivor from one subject
+    # to two. The absence is real; the removal is not. Keyed per file because the same
+    # number legitimately recurs across months.
+    live_numbers = {
+        (row.get("source_file_id"), normalize_case_number(row.get("case_number_raw", "")))
+        for row in rows.values()
+        if row["status"] in LIVE_STATUSES
+    }
 
     for uid in sorted(rows):
         row = rows[uid]
@@ -195,6 +209,13 @@ def build(data_dir: pathlib.Path, config_dir: pathlib.Path, today: str | None = 
             "missing_since": row["missing_since"],
             "flags": [f for f in (row["flags"] or "").split(";") if f],
         }
+        # Derived at build time rather than stored: it is an inference about the row,
+        # and it has to change the moment a twin's status changes.
+        if row["status"] == "withdrawn" and (
+            row.get("source_file_id"),
+            normalize_case_number(row.get("case_number_raw", "")),
+        ) in live_numbers:
+            incident["flags"].append("number_still_published")
         incidents.append(incident)
 
         case = row["case_number_raw"]
@@ -215,6 +236,10 @@ def build(data_dir: pathlib.Path, config_dir: pathlib.Path, today: str | None = 
             )
         if "near_duplicate" in incident["flags"]:
             quality["near_duplicates"].append({"uid": uid, "case_number": case})
+        if "number_still_published" in incident["flags"]:
+            quality["number_still_published"].append(
+                {"uid": uid, "case_number": case, "month": row["source_month"]}
+            )
         if "possible_duplicate_identity" in incident["flags"]:
             quality["duplicate_candidates"].append(
                 {"uid": uid, "case_number": case, "month": row["source_month"]}

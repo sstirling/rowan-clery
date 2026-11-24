@@ -530,8 +530,76 @@ def test_an_unconfirmed_withdrawal_is_not_published_as_a_finding():
     register for a question.
     """
     source = "\n".join(p.read_text(encoding="utf-8") for p in JS_FILES)
-    banner = source.split('const pulled = D.incidents.filter(', 1)[1].split(";", 1)[0]
-    assert "possible_duplicate_identity" in banner or "UNRESOLVED" in banner, (
+    banner = source.split("const pulled = withdrawnRows.filter(", 1)[1].split(";", 1)[0]
+    assert "UNRESOLVED" in banner, (
         "the withdrawn-record banner no longer excludes unconfirmed rows"
     )
+    assert "possible_duplicate_identity" in source.split("const UNRESOLVED", 1)[1], (
+        "possible_duplicate_identity no longer disqualifies a withdrawal from the banner"
+    )
     assert "const unresolved" in source, "unconfirmed absences are not surfaced anywhere"
+
+
+def test_a_withdrawal_is_not_a_finding_when_the_number_is_still_published(tmp_path):
+    """A duplicate row being deleted is not a record being pulled.
+
+    From 2026-10-31 the October sheet carried GPD 26-037028 twice, byte-identical but
+    for the reported minute. On 2026-11-19 Rowan deleted one copy and in the same edit
+    widened the survivor from "a non-student" to "two non-student". The deletion was
+    real, the removal was not -- but the absent row completed the withdrawal ladder and
+    the site asserted a Clery compliance finding about it.
+
+    Built by hand rather than through the merge, because the shape under test is a
+    withdrawn row sitting beside a live twin, not how it got there.
+    """
+    shutil.copytree(ROOT / "data" / "archive", tmp_path / "archive")
+    rows = build.Archive(tmp_path).load()
+
+    live = next(
+        r for r in rows.values()
+        if r["status"] == "active" and r.get("source_era", "drive-2026") == "drive-2026"
+    )
+    twin = dict(live)
+    # Same number, same file, a different reported minute -- so a different uid, which is
+    # exactly why the identity matcher never considers the pair.
+    twin["date_reported_raw"] = "1/1/26 3:33"
+    twin["incident_uid"] = "deadbeefdeadbeef"
+    twin["status"] = "withdrawn"
+    rows[twin["incident_uid"]] = twin
+    build.Archive(tmp_path).write(rows)
+
+    payload = build.build(tmp_path, ROOT / "config", today="2026-11-24")
+    flagged = [i for i in payload["incidents"] if i["uid"] == twin["incident_uid"]]
+    assert len(flagged) == 1, "the withdrawn twin must still be published"
+    assert "number_still_published" in flagged[0]["flags"], (
+        "a withdrawn row whose case number is still live was not flagged"
+    )
+    assert any(
+        q["case_number"] == twin["case_number_raw"]
+        for q in payload["quality"]["number_still_published"]
+    ), "the explained absence is not listed on the Data & changes page"
+
+    # The live twin itself must not pick up the flag: it was never absent.
+    partner = [i for i in payload["incidents"] if i["uid"] == live["incident_uid"]]
+    assert "number_still_published" not in partner[0]["flags"]
+
+
+def test_the_finding_banner_excludes_explained_absences():
+    """Both explanations have to disqualify a row from the yellow banner.
+
+    `possible_duplicate_identity` is a renumbering the rules cannot confirm;
+    `number_still_published` is a duplicate the source deleted. Neither is a record
+    being pulled from a live sheet, and the banner is a Clery compliance finding.
+    """
+    source = "\n".join(p.read_text(encoding="utf-8") for p in JS_FILES)
+    assert "const UNRESOLVED = [" in source, "the disqualifying flags are no longer a list"
+    unresolved = source.split("const UNRESOLVED = [", 1)[1].split("]", 1)[0]
+    for flag in ("possible_duplicate_identity", "number_still_published"):
+        assert flag in unresolved, f"{flag} no longer disqualifies a withdrawal from the banner"
+    banner = source.split("const pulled = withdrawnRows.filter(", 1)[1].split(";", 1)[0]
+    assert "UNRESOLVED" in banner, "the banner no longer filters on the disqualifying flags"
+    # Each explanation needs its own wording: telling a reader a deleted duplicate has
+    # "a possible replacement under a different case number" would be false.
+    assert "const deduped" in source and "const renumbered" in source, (
+        "the two kinds of explained absence are no longer surfaced separately"
+    )

@@ -395,3 +395,18 @@ closed three non-student juveniles charged,outcome,closed|charged|juvenile_invol
 # of the "provided with" phrasing mapped on 2026-11-11. fold_token drops a trailing
 # period but cannot add or remove an apostrophe, so each spelling needs its own row.
 reporting parties provided with citizen's complaint info,outcome,rp_referred_to_complaint,Fourth wording of the citizen's-complaint outcome
+#
+# Added 2026-11-24. Two tokens, both from November rows (RUPD 26-038915 and
+# RUPD 26-038783), and both the same outcome as the trespass cluster above.
+#
+# "Trespass notices issued" is the plural-notice corner of the grid described at that
+# cluster (trespass/trespassing x notice/warning x singular/plural) -- the one
+# combination still missing, with "trespass notice issued" and "trespass warnings
+# issued" both already mapped.
+trespass notices issued,outcome,trespass_notice,Plural-notice form of "trespass notice issued"
+#
+# "Non-student issued trespass notice" puts the affiliation in front instead. The
+# affiliation does not become a flag, for the reason recorded at "non-student arrested"
+# and "student arrested": student_flag is derived separately, and splitting an outcome by
+# affiliation would undercount the series on both sides.
+non-student issued trespass notice,outcome,trespass_notice,Affiliation belongs in student_flag rather than a flag

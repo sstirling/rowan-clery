@@ -74,7 +74,7 @@
    "RUPD": 0.0
   }
  },
- "generated_utc": "2026-11-23T01:47:29+00:00",
+ "generated_utc": "2026-11-24T20:41:57+00:00",
  "archive_started": "2026-10-01",
  "source_folder": "https://drive.google.com/drive/folders/1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
  "published_era": {
@@ -95,7 +95,7 @@
  "status": {
   "last_run": "2026-11-23",
   "last_successful_run": "2026-11-23",
-  "staleness_days": 0,
+  "staleness_days": 1,
   "alarms": [
    "1TLdzJn6iUkTi7KIUYR7A1uH-_c6NLy8yqCn3Wc16mAE (June 2026 Daily Crime Log): absent for 46 runs — treating the source file as removed. Its rows are preserved in full."
   ],
@@ -105,15 +105,15 @@
  },
  "activity": {
   "window_days": 7,
-  "since": "2026-11-16",
-  "until": "2026-11-23",
+  "since": "2026-11-17",
+  "until": "2026-11-24",
   "added": 15,
   "amended": 7,
   "withdrawn": 1,
   "aged_out": 0,
-  "runs_in_window": 8,
+  "runs_in_window": 7,
   "checked_total": 46,
-  "staleness_days": 0
+  "staleness_days": 1
  },
  "incidents": [
   {
@@ -4129,7 +4129,8 @@
    "last_verified": "2026-11-05",
    "missing_since": "2026-11-07",
    "flags": [
-    "possible_duplicate_identity"
+    "possible_duplicate_identity",
+    "number_still_published"
    ]
   },
   {
@@ -9112,7 +9113,8 @@
    "last_verified": "2026-11-18",
    "missing_since": "2026-11-19",
    "flags": [
-    "near_duplicate"
+    "near_duplicate",
+    "number_still_published"
    ]
   },
   {
@@ -29401,6 +29403,18 @@
    {
     "uid": "fb68dbd077c52277",
     "case_number": "RUPD 26-026280"
+   }
+  ],
+  "number_still_published": [
+   {
+    "uid": "311c5a786451120c",
+    "case_number": "RUPD 26-036700",
+    "month": "November 2026"
+   },
+   {
+    "uid": "5fce23f54365a012",
+    "case_number": "GPD 26-037028",
+    "month": "October 2026"
    }
   ],
   "unclassified_offenses": [],

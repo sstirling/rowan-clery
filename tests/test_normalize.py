@@ -1185,3 +1185,42 @@ def test_the_three_tokens_that_broke_the_2026_11_17_run(category_map, dispositio
         disposition_map,
         strict=True,
     )["flags"] == ["rp_referred_to_complaint"]
+
+
+def test_the_three_tokens_that_broke_the_2026_11_24_run(category_map, disposition_map):
+    """One Nature token on two rows and two dispositions, all from November.
+    The traceback named one.
+
+    All three are settled by entries already in the maps: a comma fusion of two
+    mapped offenses, and the last two gaps in the trespass-notice grid.
+    """
+    # RUPD 26-038127 and RUPD 26-038492 -- "Fraud, Theft", comma-fused. Both halves are
+    # mapped standalone, and both rows are the same check-fraud scam: a student was
+    # induced to transfer money. Two categories, because the fraud and the loss are
+    # separate Clery counts, not one offense described twice.
+    assert set(
+        normalize.categorize("Fraud, Theft", category_map, strict=True)["categories"]
+    ) == {"Fraud", "Theft"}
+
+    # RUPD 26-038915 -- "Closed; Trespass notices issued". The plural-notice corner of
+    # the trespass grid (trespass/trespassing x notice/warning x singular/plural), which
+    # was the one combination still missing: "trespass notice issued" and "trespass
+    # warnings issued" were both already mapped.
+    assert normalize.disposition_flags(
+        "Trespass notices issued", disposition_map, strict=True
+    )["flags"] == ["trespass_notice"]
+
+    # RUPD 26-038783 -- "Open/Active; Disposition updated; Closed; Non-student issued
+    # trespass notice". Another wording of the same outcome, with the affiliation in
+    # front. The affiliation does not become a flag, for the reason recorded at
+    # "non-student arrested" and "student arrested".
+    assert normalize.disposition_flags(
+        "Non-student issued trespass notice", disposition_map, strict=True
+    )["flags"] == ["trespass_notice"]
+    # The audit marker splits the whole cell, so the standing outcome is the closure and
+    # the notice, with Open/Active superseded.
+    assert normalize.disposition_flags(
+        "Open/Active; Disposition updated; Closed; Non-student issued trespass notice",
+        disposition_map,
+        strict=True,
+    )["flags"] == ["closed", "trespass_notice"]

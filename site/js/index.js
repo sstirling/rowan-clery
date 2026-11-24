@@ -91,11 +91,18 @@ banners.push(`<details class="runstatus">
 // `possible_duplicate_identity` means a plausible replacement exists in the live sheet
 // and no rule can confirm it. Those are listed under "Possible duplicate identities" on
 // the Data & changes page instead of being asserted here.
-const UNRESOLVED = "possible_duplicate_identity";
-const pulled = D.incidents.filter(
-  i => i.status === "withdrawn" && !(i.flags || []).includes(UNRESOLVED));
-const unresolved = D.incidents.filter(
-  i => i.status === "withdrawn" && (i.flags || []).includes(UNRESOLVED));
+// `number_still_published` is the second way an absence can be explained: Rowan
+// deleted a duplicate of the row rather than the record. In October the sheet carried
+// GPD 26-037028 twice, byte-identical, and on 2026-11-19 one copy went while the
+// survivor was widened from one subject to two. Also not a finding.
+const UNRESOLVED = ["possible_duplicate_identity", "number_still_published"];
+const flagged = (i, f) => (i.flags || []).includes(f);
+const withdrawnRows = D.incidents.filter(i => i.status === "withdrawn");
+const pulled = withdrawnRows.filter(i => !UNRESOLVED.some(f => flagged(i, f)));
+const renumbered = withdrawnRows.filter(i => flagged(i, "possible_duplicate_identity"));
+const deduped = withdrawnRows.filter(
+  i => flagged(i, "number_still_published") && !flagged(i, "possible_duplicate_identity"));
+const unresolved = renumbered.concat(deduped);
 if (pulled.length) {
   const months = [...new Set(pulled.map(i => i.month))].map(esc).join(", ");
   banners.push(`<div class="banner finding">
@@ -108,16 +115,26 @@ if (pulled.length) {
       ? "the record" : `all ${pulled.length}`} in the table</a></div>`);
 }
 
-if (unresolved.length) {
+if (renumbered.length) {
   banners.push(`<div class="callout">
-    <strong>${unresolved.length} record${unresolved.length === 1 ? " is" : "s are"} absent from
+    <strong>${renumbered.length} record${renumbered.length === 1 ? " is" : "s are"} absent from
     the source with an unconfirmed explanation.</strong> Each has a possible replacement in the
     live sheet under a different case number that the matching rules will not confirm, so
-    ${unresolved.length === 1 ? "it is" : "they are"} neither merged nor reported as removed.
+    ${renumbered.length === 1 ? "it is" : "they are"} neither merged nor reported as removed.
     Listed on the <a href="changes.html">Data &amp; changes</a> page under possible duplicate
     identities.
     <a href="#tbl" class="jump" data-jump-status="withdrawn">Show
-      ${unresolved.length === 1 ? "it" : "them"} in the table</a></div>`);
+      ${renumbered.length === 1 ? "it" : "them"} in the table</a></div>`);
+}
+
+if (deduped.length) {
+  banners.push(`<div class="callout">
+    <strong>${deduped.length} absent record${deduped.length === 1 ? "" : "s"} shared a case number
+    with a row the source still publishes.</strong> The sheet carried the number twice and one
+    copy was deleted, so the incident is still in the log and this is not a record being pulled.
+    Both versions are kept here.
+    <a href="#tbl" class="jump" data-jump-status="withdrawn">Show
+      ${deduped.length === 1 ? "it" : "them"} in the table</a></div>`);
 }
 
 const agedOut = D.incidents.filter(i => i.status === AGED_OUT).length;
@@ -567,6 +584,7 @@ function render() {
           ${i.revision > 1 ? `<span class="tag amend">amended ×${i.revision - 1}</span>` : ""}
           ${i.flags.includes("near_duplicate") ? `<span class="tag bad">possible duplicate</span>` : ""}
           ${i.flags.includes("possible_duplicate_identity") ? `<span class="tag bad">possible duplicate identity</span>` : ""}
+          ${i.flags.includes("number_still_published") ? `<span class="tag">number still published</span>` : ""}
 </td>
       <td>${esc(i.campus)}</td>
       <td>${esc(i.location)}</td>
