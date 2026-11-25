@@ -9,7 +9,7 @@
         "date": "2026-11-03",
         "reason": "14LFgZwIAeQLjWSJBDkk2QNf1UI9vA0dsCB3ITSVtV2o: only 2 lines, below floor of 3"
       },
-      "last_tab_census": "2026-11-24",
+      "last_tab_census": "2026-11-25",
       "last_verified": "2026-11-25",
       "month": "November 2026",
       "month_change_count": 0,
@@ -79,6 +79,11 @@
           "bytes": 18674,
           "date": "2026-11-24",
           "sha256": "737dd80465f2f5dd32700a2d29deacb169f242dae99cac91579a8b90c89d7dc6"
+        },
+        {
+          "bytes": 19012,
+          "date": "2026-11-25",
+          "sha256": "3526760cd457154fdb5a346bdbae8c56d8a3c317fa50bf9546b01e6b4bbf47b5"
         }
       ],
       "status": "present",

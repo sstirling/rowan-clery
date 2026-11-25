@@ -16,7 +16,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 425,
+   "incidents": 427,
    "months_covered": 4,
    "months": [
     "2026-08",
@@ -46,7 +46,7 @@
   },
   {
    "year": "2026-27",
-   "incidents": 408,
+   "incidents": 410,
    "months_covered": 4,
    "months": [
     "2026-08",
@@ -64,8 +64,8 @@
   "default": "occurred",
   "window_start": "2026-06",
   "window_start_label": "June 2026",
-  "total": 462,
-  "shown": 442,
+  "total": 464,
+  "shown": 444,
   "excluded_no_date": 11,
   "excluded_before_window": 9,
   "lag_median_days": {
@@ -74,21 +74,21 @@
    "RUPD": 0.0
   }
  },
- "generated_utc": "2026-11-25T04:15:16+00:00",
+ "generated_utc": "2026-11-25T19:19:28+00:00",
  "archive_started": "2026-10-01",
  "source_folder": "https://drive.google.com/drive/folders/1nYFW4qkOa-r9tCHyB5-lI1qin7giAD4p",
  "published_era": {
   "id": "drive-2026",
   "label": "Google Sheets on Drive",
-  "count": 475,
+  "count": 477,
   "since": "June 2026"
  },
  "counts": {
-  "total_archived": 475,
-  "currently_published": 421,
+  "total_archived": 477,
+  "currently_published": 423,
   "no_longer_published": 41,
   "superseded": 13,
-  "distinct_incidents": 462,
+  "distinct_incidents": 464,
   "withdrawn": 4,
   "source_removed": 37
  },
@@ -107,7 +107,7 @@
   "window_days": 7,
   "since": "2026-11-18",
   "until": "2026-11-25",
-  "added": 34,
+  "added": 36,
   "amended": 6,
   "withdrawn": 1,
   "aged_out": 0,
@@ -12161,6 +12161,59 @@
    "flags": []
   },
   {
+   "uid": "74c44a7870cc1246",
+   "case_number": "RUPD 26-039026",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-11-24T20:06:00",
+    "precision": "minute",
+    "raw": "11/24/26 20:06",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-11-24T20:06:00",
+    "precision": "minute",
+    "raw": "11/24/26 20:06",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 0.0,
+   "nature_raw": "Defiant Trespassing",
+   "categories": [
+    "Trespassing"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "A previously banned non-student was found on campus.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Campbell Library",
+   "disposition_raw": "Closed; Subject arrested",
+   "disposition_flags": [
+    "closed",
+    "arrested"
+   ],
+   "disposition_amended": false,
+   "month": "November 2026",
+   "month_key": "2026-11",
+   "school_year": "2026-27",
+   "occurred_month": "November 2026",
+   "occurred_month_key": "2026-11",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-11-25",
+   "last_verified": "2026-11-25",
+   "missing_since": "",
+   "flags": []
+  },
+  {
    "uid": "7567b5c14dbad78c",
    "case_number": "RUPD 26-028592",
    "agencies": [
@@ -18978,6 +19031,58 @@
    "status": "active",
    "revision": 1,
    "first_seen_by_archive": "2026-10-21",
+   "last_verified": "2026-11-25",
+   "missing_since": "",
+   "flags": []
+  },
+  {
+   "uid": "b984adfbf312bfdf",
+   "case_number": "RUPD 26-039013",
+   "agencies": [
+    "RUPD"
+   ],
+   "reported": {
+    "value": "2026-11-24T16:19:00",
+    "precision": "minute",
+    "raw": "11/24/26 16:19",
+    "ongoing": false,
+    "range_end": null
+   },
+   "occurred": {
+    "value": "2026-11-24T16:19:00",
+    "precision": "minute",
+    "raw": "11/24/26 16:19",
+    "ongoing": false,
+    "range_end": null
+   },
+   "reporting_lag_hours": 0.0,
+   "nature_raw": "Criminal Mischief",
+   "categories": [
+    "Criminal mischief"
+   ],
+   "reclassified_from": [],
+   "unclassified": [],
+   "unclassified_disposition": [],
+   "narrative": "A non-student damaged a handrail while skateboarding.",
+   "campus": "Glassboro",
+   "campus_raw": "Glassboro",
+   "era": "drive-2026",
+   "location": "Outside of Student Center",
+   "disposition_raw": "Open/Active",
+   "disposition_flags": [
+    "open_active"
+   ],
+   "disposition_amended": false,
+   "month": "November 2026",
+   "month_key": "2026-11",
+   "school_year": "2026-27",
+   "occurred_month": "November 2026",
+   "occurred_month_key": "2026-11",
+   "occurred_school_year": "2026-27",
+   "occurred_excluded": null,
+   "status": "active",
+   "revision": 1,
+   "first_seen_by_archive": "2026-11-25",
    "last_verified": "2026-11-25",
    "missing_since": "",
    "flags": []
@@ -30907,6 +31012,22 @@
    "incident_uid": "14e666a69ce464b7",
    "nature": "DWI",
    "observed_date": "2026-11-24"
+  },
+  {
+   "case_number": "RUPD 26-039013",
+   "change_type": "added",
+   "date_reported": "11/24/26 16:19",
+   "incident_uid": "b984adfbf312bfdf",
+   "nature": "Criminal Mischief",
+   "observed_date": "2026-11-25"
+  },
+  {
+   "case_number": "RUPD 26-039026",
+   "change_type": "added",
+   "date_reported": "11/24/26 20:06",
+   "incident_uid": "74c44a7870cc1246",
+   "nature": "Defiant Trespassing",
+   "observed_date": "2026-11-25"
   }
  ],
  "quality": {
@@ -31275,7 +31396,7 @@
    },
    {
     "value": "Trespassing",
-    "count": 33
+    "count": 34
    },
    {
     "value": "Motor vehicle theft",
@@ -31291,7 +31412,7 @@
    },
    {
     "value": "Criminal mischief",
-    "count": 29
+    "count": 30
    },
    {
     "value": "Disorderly conduct",
@@ -31413,7 +31534,7 @@
   "school_years": [
    {
     "value": "2026-27",
-    "count": 425
+    "count": 427
    },
    {
     "value": "2025-26",
@@ -31423,7 +31544,7 @@
   "campuses": [
    {
     "value": "Glassboro",
-    "count": 453
+    "count": 455
    },
    {
     "value": "Rowan-Virtua SOM (Stratford)",
@@ -31445,7 +31566,7 @@
    },
    {
     "value": "November 2026",
-    "count": 81
+    "count": 83
    },
    {
     "value": "August 2026",
@@ -31586,6 +31707,10 @@
     "count": 3
    },
    {
+    "value": "Outside of Student Center",
+    "count": 3
+   },
+   {
     "value": "Outside of Rowan Blvd. Apts.",
     "count": 3
    },
@@ -31687,10 +31812,6 @@
    },
    {
     "value": "Outside of Willow Hall",
-    "count": 2
-   },
-   {
-    "value": "Outside of Student Center",
     "count": 2
    },
    {
@@ -31987,6 +32108,10 @@
    },
    {
     "value": "Edgewood Park Apts. Lot",
+    "count": 1
+   },
+   {
+    "value": "Campbell Library",
     "count": 1
    },
    {
@@ -32313,7 +32438,7 @@
   "disposition_flags": [
    {
     "value": "closed",
-    "count": 202
+    "count": 203
    },
    {
     "value": "summons_issued",
@@ -32325,11 +32450,11 @@
    },
    {
     "value": "arrested",
-    "count": 88
+    "count": 89
    },
    {
     "value": "open_active",
-    "count": 50
+    "count": 51
    },
    {
     "value": "referred_university",
@@ -32427,7 +32552,7 @@
   "agencies": [
    {
     "value": "RUPD",
-    "count": 278
+    "count": 280
    },
    {
     "value": "GPD",
@@ -32445,7 +32570,7 @@
   "statuses": [
    {
     "value": "active",
-    "count": 421
+    "count": 423
    },
    {
     "value": "source_removed",
@@ -32699,7 +32824,7 @@
   },
   {
    "date": "2026-11-25",
-   "summary": "+0 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
+   "summary": "+2 added, 0 amended, 0 missing, 0 withdrawn, 0 source-removed, 0 reappeared, 0 superseded",
    "alarms": 1
   }
  ]
